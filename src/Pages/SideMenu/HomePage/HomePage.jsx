@@ -11,6 +11,7 @@ const HomePage = () => {
             <h3 className="text-4xl text-gray-400 md:text-5xl font-bold text-center mt-4">
                 <span className="text-purple-600 text-6xl md:text-8xl">P</span>ixel Editor
             </h3>
+            <p>To Do </p>
             <div className="flex flex-col md:flex-row justify-center gap-2 md:gap-4 my-4">
                 <button className="btn btn-outline btn-info flex items-center">
                     <SiGooglesheets className="mr-2" /> New Project
@@ -48,6 +49,7 @@ const HomePage = () => {
                     <img className="w-12 mr-2" src={img4} alt="" />
                     <h3 className="text-center text-gray-400">RAW</h3>
                 </div>
+
             </div>
         </div>
     );
