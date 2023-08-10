@@ -3,7 +3,7 @@ import SideMenu from "../Pages/SideMenu/SideMenu";
 
 const Main = () => {
   return (
-    <div className="h-screen overflow-hidden">
+    <div className="h-screen overflow-hidden ">
       <NavBar></NavBar>
       <div className="bg-black">
         
