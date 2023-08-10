@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const NavBar = () => {
   const navMenuLeft = (
     <>
-      <ul className="flex justify-center items-center gap-2 md:gap-4 px-2 font-semibold">
+      <ul className="lg:flex  justify-center items-center gap-2 md:gap-4 px-2 font-semibold">
         <li>
           <Link to="/">File</Link>
         </li>
@@ -60,8 +60,9 @@ const NavBar = () => {
     </>
   );
   return (
+    <>
     <div className="navbar bg-gray-800 md:px-4 text-black md:text-white">
-    <div className="dropdown navbar-start">
+    <div className="dropdown navbar-start lg:hidden">
       <label tabIndex={0} className="btn btn-ghost text-white lg:hidden">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -90,7 +91,17 @@ const NavBar = () => {
     </div>
     <div className="md:navbar-end navbar-center text-white">{navMenuRight}</div>
   </div>
+
+
+
+
+
+</>
+
   );
 };
 
 export default NavBar;
+
+
+
