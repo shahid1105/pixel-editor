@@ -7,6 +7,7 @@ const Main = () => {
       <NavBar></NavBar>
       <div className="bg-black">
       <SideMenu></SideMenu>
+      <p>Hello</p>
       </div>
     </div>
   );
