@@ -1,11 +1,5 @@
-import React from "react";
 import { Link, Outlet } from "react-router-dom";
-import {
-  FaDesktop,
-  FaDropbox,
-  FaGoogleDrive,
-  FaHome,
-} from "react-icons/fa";
+import { FaDesktop, FaDropbox, FaGoogleDrive, FaHome } from "react-icons/fa";
 import { GrOnedrive } from "react-icons/Gr";
 
 const SideMenu = () => {
@@ -17,8 +11,7 @@ const SideMenu = () => {
         <Outlet></Outlet>
         <label
           htmlFor="my-drawer-2"
-          className="btn btn-primary drawer-button lg:hidden"
-        >
+          className="btn btn-sm btn-primary drawer-button lg:hidden">
           Open drawer
         </label>
       </div>
