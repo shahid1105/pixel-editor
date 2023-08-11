@@ -12,28 +12,31 @@ const router = createBrowserRouter([
     element: <Main></Main>,
     children: [
       {
+        path: "/",
+        element: <HomePage></HomePage>,
+      },
+      {
         path: "/home",
-        element: <HomePage></HomePage>
+        element: <HomePage></HomePage>,
       },
       {
         path: "/device",
-        element: <ThisDevice></ThisDevice>
+        element: <ThisDevice></ThisDevice>,
       },
       {
         path: "/dropbox",
-        element: <DropBox></DropBox>
+        element: <DropBox></DropBox>,
       },
       {
         path: "/oneDrive",
-        element: <OneDrive></OneDrive>
+        element: <OneDrive></OneDrive>,
       },
       {
         path: "/googleDrive",
-        element: <GoogleDrive></GoogleDrive>
+        element: <GoogleDrive></GoogleDrive>,
       },
-    ]
+    ],
   },
-  
 ]);
 
 export default router;
