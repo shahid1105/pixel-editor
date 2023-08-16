@@ -6,44 +6,28 @@ const NavBar = () => {
     <>
       <ul className="lg:flex  justify-center items-center gap-2 md:gap-4 px-2 font-semibold">
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            File
-          </Link>
+          <Link to="/">File</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            Edit
-          </Link>
+          <Link to="/">Edit</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            Layer
-          </Link>
+          <Link to="/">Layer</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            Filter
-          </Link>
+          <Link to="/">Filter</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            View
-          </Link>
+          <Link to="/">View</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            More
-          </Link>
+          <Link to="/">More</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            Image
-          </Link>
+          <Link to="/">Image</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            Select
-          </Link>
+          <Link to="/">Select</Link>
         </li>
         <li>
           <Link className="hover:text-purple-600" to="/">
@@ -57,32 +41,24 @@ const NavBar = () => {
     <>
       <ul className="flex justify-center items-center gap-2 md:gap-4 font-semibold">
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            About
-          </Link>
+          <Link to="/">About</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            Learn
-          </Link>
+          <Link to="/">Learn</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            Blog
-          </Link>
+          <Link to="/">Blog</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            Api
-          </Link>
+          <Link to="/">Api</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
+          <Link to="/">
             <FaTwitter></FaTwitter>
           </Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
+          <Link to="/">
             <FaFacebookF></FaFacebookF>
           </Link>
         </li>
