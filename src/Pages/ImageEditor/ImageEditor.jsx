@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
+import storeData from '../LinkList.js'
 
 const ImageEditor = () => {
   const [details, setDetails] = useState("");
@@ -40,11 +41,23 @@ const ImageEditor = () => {
           ...state,
           image: reader.result,
         });
+        const stateData = {
+          image: reader.result,
+          brightness: 100,
+          grayscale: 0,
+          sepia: 0,
+          saturate: 100,
+          contrast: 100,
+          hueRotate: 0,
+          rotate: 0,
+          vertical: 1,
+          horizontal: 1,
+        };
+        storeData.insert(stateData)
       };
       reader.readAsDataURL(e.target.files[0]);
     }
   };
-  
 
   const handleInput = (e) => {
     setState({
@@ -58,6 +71,9 @@ const ImageEditor = () => {
       ...state,
       rotate: state.rotate - 90,
     });
+    const stateData = state
+    stateData.rotate = state.rotate -90
+    storeData.insert(stateData)
   };
 
   const rightRotate = () => {
@@ -65,6 +81,9 @@ const ImageEditor = () => {
       ...state,
       rotate: state.rotate + 90,
     });
+    const stateData = state
+    stateData.rotate = state.rotate +90
+    storeData.insert(stateData)
   };
 
   const verticalFlip = () => {
@@ -72,6 +91,9 @@ const ImageEditor = () => {
       ...state,
       vertical: state.vertical === 1 ? -1 : 1,
     });
+    const stateData = state
+    stateData.vertical = state.vertical === 1 ? -1 : 1
+    storeData.insert(stateData)
   };
 
   const horizontalFlip = () => {
@@ -79,7 +101,23 @@ const ImageEditor = () => {
       ...state,
       horizontal: state.horizontal === 1 ? -1 : 1,
     });
+    const stateData = state
+    stateData.horizontal = state.horizontal === 1 ? -1 : 1
+    storeData.insert(stateData)
   };
+
+  const redo = () =>{
+    const data = storeData.redoEdit()
+    if(data){
+        setState(data)
+    }
+  }
+  const undo = () =>{
+    const data = storeData.undoEdit()
+    if(data){
+        setState(data)
+    }
+  }
 
   const cropImage = () => {
     const canvas = document.createElement("canvas");
@@ -109,27 +147,27 @@ const ImageEditor = () => {
 
   const saveImage = () => {
     const canvas = document.createElement("canvas");
-    canvas.width = details.naturalWidth
-    canvas.height = details.naturalHeight
-    const ctx = canvas.getContext('2d')
+    canvas.width = details.naturalWidth;
+    canvas.height = details.naturalHeight;
+    const ctx = canvas.getContext("2d");
 
-    ctx.filter = `brightness(${state.brightness}%) grayscale(${state.grayscale}%) sepia(${state.sepia}%) saturate(${state.saturate}%) contrast(${state.contrast}%) hue-rotate(${state.hueRotate}deg)`
+    ctx.filter = `brightness(${state.brightness}%) grayscale(${state.grayscale}%) sepia(${state.sepia}%) saturate(${state.saturate}%) contrast(${state.contrast}%) hue-rotate(${state.hueRotate}deg)`;
 
-    ctx.translate(canvas.width / 2, canvas.height / 2)
-    ctx.rotate(state.rotate * Math.PI / 180)
-    ctx.scale(state.vertical, state.horizontal)
+    ctx.translate(canvas.width / 2, canvas.height / 2);
+    ctx.rotate((state.rotate * Math.PI) / 180);
+    ctx.scale(state.vertical, state.horizontal);
 
     ctx.drawImage(
-        details,
-        -canvas.width / 2,
-        -canvas.height / 2,
-        canvas.width,
-        canvas.height,
-    )
-    const link = document.createElement('a')
-    link.download = 'image_edit.jpg'
-    link.href = canvas.toDataURL()
-    link.click()
+      details,
+      -canvas.width / 2,
+      -canvas.height / 2,
+      canvas.width,
+      canvas.height
+    );
+    const link = document.createElement("a");
+    link.download = "image_edit.jpg";
+    link.href = canvas.toDataURL();
+    link.click();
   };
 
   const filterElement = [
@@ -157,7 +195,6 @@ const ImageEditor = () => {
       name: "hueRotate",
     },
   ];
-  
 
   return (
     <div className="bg-slate-300 p-6 text-black w-full h-full">
@@ -259,10 +296,10 @@ const ImageEditor = () => {
               )}
             </div>
             <div className="md:mb-0 image_select md:flex gap-1 justify-center items-center mt-5 px-6 mb-10">
-              <div className="text-xl btn btn-outline btn-primary btn-sm">
+              <div onClick={undo} className="text-xl btn btn-outline btn-primary btn-sm">
                 <LuUndo2></LuUndo2>
               </div>
-              <div className="text-xl btn btn-outline btn-primary btn-sm">
+              <div onClick={redo} className="text-xl btn btn-outline btn-primary btn-sm">
                 <LuRedo2></LuRedo2>
               </div>
               {crop && (
