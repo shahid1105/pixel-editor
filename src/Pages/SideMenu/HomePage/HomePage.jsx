@@ -4,6 +4,7 @@ import img1 from "../../../../public/ps.png";
 import img2 from "../../../../public/ai.png";
 import img3 from "../../../../public/pdf.png";
 import img4 from "../../../../public/raw.png";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   return (
@@ -14,7 +15,7 @@ const HomePage = () => {
       </h3>
       <div className="flex flex-col md:flex-row justify-center gap-2 md:gap-4 my-4">
         <button className="btn btn-outline btn-info flex items-center">
-          <SiGooglesheets className="mr-2" /> New Project
+          <SiGooglesheets className="mr-2" /> <Link to='/imageEditor'>New Project</Link>
         </button>
         <button className="btn btn-outline btn-info flex items-center">
           <FaDesktop className="mr-2" /> Open From Computer
