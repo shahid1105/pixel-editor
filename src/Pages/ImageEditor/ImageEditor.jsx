@@ -10,7 +10,7 @@ import {
 import { useState } from "react";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
-import storeData from '../LinkList.js'
+import storeData from "../LinkList.js";
 
 const ImageEditor = () => {
   const [details, setDetails] = useState("");
@@ -53,7 +53,7 @@ const ImageEditor = () => {
           vertical: 1,
           horizontal: 1,
         };
-        storeData.insert(stateData)
+        storeData.insert(stateData);
       };
       reader.readAsDataURL(e.target.files[0]);
     }
@@ -71,9 +71,9 @@ const ImageEditor = () => {
       ...state,
       rotate: state.rotate - 90,
     });
-    const stateData = state
-    stateData.rotate = state.rotate -90
-    storeData.insert(stateData)
+    const stateData = state;
+    stateData.rotate = state.rotate - 90;
+    storeData.insert(stateData);
   };
 
   const rightRotate = () => {
@@ -81,9 +81,9 @@ const ImageEditor = () => {
       ...state,
       rotate: state.rotate + 90,
     });
-    const stateData = state
-    stateData.rotate = state.rotate +90
-    storeData.insert(stateData)
+    const stateData = state;
+    stateData.rotate = state.rotate + 90;
+    storeData.insert(stateData);
   };
 
   const verticalFlip = () => {
@@ -91,9 +91,9 @@ const ImageEditor = () => {
       ...state,
       vertical: state.vertical === 1 ? -1 : 1,
     });
-    const stateData = state
-    stateData.vertical = state.vertical === 1 ? -1 : 1
-    storeData.insert(stateData)
+    const stateData = state;
+    stateData.vertical = state.vertical === 1 ? -1 : 1;
+    storeData.insert(stateData);
   };
 
   const horizontalFlip = () => {
@@ -101,23 +101,23 @@ const ImageEditor = () => {
       ...state,
       horizontal: state.horizontal === 1 ? -1 : 1,
     });
-    const stateData = state
-    stateData.horizontal = state.horizontal === 1 ? -1 : 1
-    storeData.insert(stateData)
+    const stateData = state;
+    stateData.horizontal = state.horizontal === 1 ? -1 : 1;
+    storeData.insert(stateData);
   };
 
-  const redo = () =>{
-    const data = storeData.redoEdit()
-    if(data){
-        setState(data)
+  const redo = () => {
+    const data = storeData.redoEdit();
+    if (data) {
+      setState(data);
     }
-  }
-  const undo = () =>{
-    const data = storeData.undoEdit()
-    if(data){
-        setState(data)
+  };
+  const undo = () => {
+    const data = storeData.undoEdit();
+    if (data) {
+      setState(data);
     }
-  }
+  };
 
   const cropImage = () => {
     const canvas = document.createElement("canvas");
@@ -213,15 +213,14 @@ const ImageEditor = () => {
                     className={`btn btn-outline btn-primary ${
                       property.name === v.name ? "active bg-violet-500" : ""
                     }`}
-                    key={i}
-                  >
+                    key={i}>
                     {v.name}
                   </button>
                 ))}
               </div>
               <div className="mt-4">
                 <div className="flex justify-between">
-                  <span>Rotate</span>
+                  <span>Range</span>
                   <span>100%</span>
                 </div>
                 <div>
@@ -239,26 +238,22 @@ const ImageEditor = () => {
                   <div className="flex gap-3 mt-1 justify-between">
                     <div
                       onClick={leftRotate}
-                      className="flex gap-3 mt-2 border-solid border-purple-600 border-2 py-2 px-2 text-2xl"
-                    >
+                      className="flex gap-3 mt-2 border-solid border-purple-600 border-2 py-2 px-2 text-2xl">
                       <LuRotateCcw></LuRotateCcw>
                     </div>
                     <div
                       onClick={rightRotate}
-                      className="flex gap-3 mt-2 border-solid border-purple-600 border-2 py-2 px-2 text-2xl"
-                    >
+                      className="flex gap-3 mt-2 border-solid border-purple-600 border-2 py-2 px-2 text-2xl">
                       <LuRotateCw></LuRotateCw>
                     </div>
                     <div
                       onClick={verticalFlip}
-                      className="flex gap-3 mt-2 border-solid border-purple-600 border-2 py-2 px-2 text-2xl"
-                    >
+                      className="flex gap-3 mt-2 border-solid border-purple-600 border-2 py-2 px-2 text-2xl">
                       <LuFlipHorizontal2></LuFlipHorizontal2>
                     </div>
                     <div
                       onClick={horizontalFlip}
-                      className="flex gap-3 mt-2 border-solid border-purple-600 border-2 py-2 px-2 text-2xl"
-                    >
+                      className="flex gap-3 mt-2 border-solid border-purple-600 border-2 py-2 px-2 text-2xl">
                       <LuFlipVertical2></LuFlipVertical2>
                     </div>
                   </div>
@@ -296,17 +291,20 @@ const ImageEditor = () => {
               )}
             </div>
             <div className="md:mb-0 image_select md:flex gap-1 justify-center items-center mt-5 px-6 mb-10">
-              <div onClick={undo} className="text-xl btn btn-outline btn-primary btn-sm">
+              <div
+                onClick={undo}
+                className="text-xl btn btn-outline btn-primary btn-sm">
                 <LuUndo2></LuUndo2>
               </div>
-              <div onClick={redo} className="text-xl btn btn-outline btn-primary btn-sm">
+              <div
+                onClick={redo}
+                className="text-xl btn btn-outline btn-primary btn-sm">
                 <LuRedo2></LuRedo2>
               </div>
               {crop && (
                 <h3
                   onClick={cropImage}
-                  className="btn btn-outline btn-secondary btn-sm"
-                >
+                  className="btn btn-outline btn-secondary btn-sm">
                   Crop Image
                 </h3>
               )}
