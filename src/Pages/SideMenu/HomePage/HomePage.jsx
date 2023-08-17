@@ -23,6 +23,23 @@ const HomePage = () => {
     }
   };
 
+  const handleDrop = (event) => {
+    event.preventDefault();
+
+    // Get the dropped files
+    const files = event.dataTransfer.files;
+
+    if (files.length > 0) {
+      const imageUrl = URL.createObjectURL(files[0]);
+      dispatch(setSelectedImage(imageUrl));
+      navigate("/imageEditor"); // Navigate to ImageEditor component
+    }
+  };
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <div className="md:mx-auto md:max-w-screen-md lg:max-w-screen-lg fixe ">
       <h3 className="text-4xl text-gray-400 md:text-5xl font-bold text-center uppercase">
@@ -54,7 +71,10 @@ const HomePage = () => {
           <FaImages className="mr-2" /> Templates
         </button>
       </div>
-      <div className="text-center">
+      <div
+        className="text-center"
+        onDrop={handleDrop}
+        onDragOver={handleDragOver}>
         <input
           type="text"
           placeholder="Drop any file here"
