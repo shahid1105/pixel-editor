@@ -6,6 +6,7 @@ import DropBox from "../Pages/SideMenu/DropBox/DropBox";
 import OneDrive from "../Pages/SideMenu/OneDrive/OneDrive";
 import GoogleDrive from "../Pages/SideMenu/GoogleDrive/GoogleDrive";
 import ImageEditor from "../Pages/ImageEditor/ImageEditor";
+import Templates from "../Pages/Templates/Templates";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "/imageEditor",
         element: <ImageEditor></ImageEditor>,
+      },
+      {
+        path: "/templates",
+        element: <Templates></Templates>,
       },
     ],
   },

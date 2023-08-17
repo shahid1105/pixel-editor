@@ -11,8 +11,11 @@ import { useState } from "react";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import storeData from "../LinkList.js";
+import { useSelector } from "react-redux";
 
 const ImageEditor = () => {
+  const selectedImage = useSelector((state) => state.selectedImage);
+
   const [details, setDetails] = useState("");
   const [crop, setCrop] = useState("");
   const [state, setState] = useState({
@@ -202,6 +205,7 @@ const ImageEditor = () => {
         <h3 className="text-center uppercase font-bold text-purple-600 text-md md:text-3xl">
           ~~~~~~~Image Editor~~~~~~~
         </h3>
+
         <div className="grid grid-cols-1 md:grid-cols-2 rounded-md mt-5 w-auto md:w-[500px]">
           <div>
             <div className="border-solid border-black border-2 p-2">
@@ -270,7 +274,7 @@ const ImageEditor = () => {
 
           <div className="w-auto mt-3 md:mt-0 md:w-[480px] h-auto md:h-[355px] ml-2">
             <div className="w-full h-full flex flex-col justify-center items-center bg-slate-100 mb-3 border-dotted border-blue-500 border-2 cursor-pointer overflow-hidden ">
-              {state.image ? (
+              {state.image || selectedImage ? (
                 <ReactCrop crop={crop} onChange={(c) => setCrop(c)}>
                   <img
                     onLoad={(e) => setDetails(e.currentTarget)}
@@ -279,7 +283,7 @@ const ImageEditor = () => {
                       transform: `rotate(${state.rotate}deg) scale(${state.vertical}, ${state.horizontal})`,
                     }}
                     className="w-[100%] h-[100%] transition-all"
-                    src={state.image}
+                    src={state.image || selectedImage}
                     alt=""
                   />
                 </ReactCrop>
