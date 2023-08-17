@@ -18,6 +18,7 @@ const HomePage = () => {
       const imageUrl = URL.createObjectURL(file);
       dispatch(setSelectedImage(imageUrl));
       // ... Redirect or navigate to the editor page
+      // ... Redirect or navigate to the editor page
       navigate("/imageEditor");
     }
   };
