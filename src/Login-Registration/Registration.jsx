@@ -25,7 +25,7 @@ const Registration = () => {
             photo: data.photo,
           };
 
-          fetch("", {
+          fetch("https://language-center-server-nu.vercel.app/users", {
             method: "POST",
             headers: {
               "content-type": "application/json",
