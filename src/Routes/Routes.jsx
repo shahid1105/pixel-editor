@@ -6,9 +6,7 @@ import DropBox from "../Pages/SideMenu/DropBox/DropBox";
 import OneDrive from "../Pages/SideMenu/OneDrive/OneDrive";
 import GoogleDrive from "../Pages/SideMenu/GoogleDrive/GoogleDrive";
 import ImageEditor from "../Pages/ImageEditor/ImageEditor";
-import Registration from "../Login-Registration/Registration";
-import Login from "../Login-Registration/Login";
-
+import Templates from "../Pages/Templates/Templates";
 
 const router = createBrowserRouter([
   {
@@ -17,44 +15,38 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <HomePage></HomePage>
+        element: <HomePage></HomePage>,
       },
       {
         path: "/home",
-        element: <HomePage></HomePage>
+        element: <HomePage></HomePage>,
       },
       {
         path: "/device",
-        element: <ThisDevice></ThisDevice>
+        element: <ThisDevice></ThisDevice>,
       },
       {
         path: "/dropbox",
-        element: <DropBox></DropBox>
+        element: <DropBox></DropBox>,
       },
       {
         path: "/oneDrive",
-        element: <OneDrive></OneDrive>
+        element: <OneDrive></OneDrive>,
       },
       {
         path: "/googleDrive",
-        element: <GoogleDrive></GoogleDrive>
+        element: <GoogleDrive></GoogleDrive>,
       },
       {
         path: "/imageEditor",
-        element: <ImageEditor></ImageEditor>
+        element: <ImageEditor></ImageEditor>,
       },
       {
-        path:"/registration",
-        element:<Registration></Registration>
+        path: "/templates",
+        element: <Templates></Templates>,
       },
-      {
-        path:"/login",
-        element:<Login></Login>
-      }
-      
-    ]
+    ],
   },
-  
 ]);
 
 export default router;

@@ -4,29 +4,77 @@ import img1 from "../../../../public/ps.png";
 import img2 from "../../../../public/ai.png";
 import img3 from "../../../../public/pdf.png";
 import img4 from "../../../../public/raw.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setSelectedImage } from "../../../Redux/Store";
 
 const HomePage = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      dispatch(setSelectedImage(imageUrl));
+      // ... Redirect or navigate to the editor page
+      // ... Redirect or navigate to the editor page
+      navigate("/imageEditor");
+    }
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+
+    // Get the dropped files
+    const files = event.dataTransfer.files;
+
+    if (files.length > 0) {
+      const imageUrl = URL.createObjectURL(files[0]);
+      dispatch(setSelectedImage(imageUrl));
+      navigate("/imageEditor"); // Navigate to ImageEditor component
+    }
+  };
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
+
   return (
-    <div className="md:mx-auto md:max-w-screen-md lg:max-w-screen-lg fixe " >
+    <div className="md:mx-auto md:max-w-screen-md lg:max-w-screen-lg fixe ">
       <h3 className="text-4xl text-gray-400 md:text-5xl font-bold text-center uppercase">
         <span className="text-purple-600 text-6xl md:text-8xl">P</span>!xel
         Editor
       </h3>
       <div className="flex flex-col md:flex-row justify-center gap-2 md:gap-4 my-4">
         <button className="btn btn-outline btn-info flex items-center">
-          <SiGooglesheets className="mr-2" /> <Link to='/imageEditor'>New Project</Link>
+          <SiGooglesheets className="mr-2" />{" "}
+          <Link to="/imageEditor">New Project</Link>
         </button>
-        <button className="btn btn-outline btn-info flex items-center">
+
+        <label
+          htmlFor="fileInput"
+          className="btn btn-outline btn-info flex items-center">
           <FaDesktop className="mr-2" /> Open From Computer
-        </button>
+        </label>
+        <input
+          type="file"
+          id="fileInput"
+          accept="image/*"
+          style={{ display: "none" }}
+          onChange={handleImageUpload}
+        />
       </div>
+
       <div className="text-center">
         <button className="btn btn-outline btn-info">
           <FaImages className="mr-2" /> Templates
         </button>
       </div>
-      <div className="text-center">
+      <div
+        className="text-center"
+        onDrop={handleDrop}
+        onDragOver={handleDragOver}>
         <input
           type="text"
           placeholder="Drop any file here"
