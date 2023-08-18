@@ -1,4 +1,13 @@
 import { FaDesktop, FaImages } from "react-icons/fa";
+import {
+  // LuFlipHorizontal2,
+  // LuFlipVertical2,
+  LuImagePlus,
+  // LuRedo2,
+  // LuRotateCcw,
+  // LuRotateCw,
+  // LuUndo2,
+} from "react-icons/Lu";
 import { SiGooglesheets } from "react-icons/Si";
 import img1 from "../../../../public/ps.png";
 import img2 from "../../../../public/ai.png";
@@ -7,6 +16,8 @@ import img4 from "../../../../public/raw.png";
 import { Link } from "react-router-dom";
 
 const HomePage = () => {
+
+  
   return (
     <div className="md:mx-auto md:max-w-screen-md lg:max-w-screen-lg fixe " >
       <h3 className="text-4xl text-gray-400 md:text-5xl font-bold text-center uppercase">
@@ -18,8 +29,21 @@ const HomePage = () => {
           <SiGooglesheets className="mr-2" /> <Link to='/imageEditor'>New Project</Link>
         </button>
         <button className="btn btn-outline btn-info flex items-center">
-          <FaDesktop className="mr-2" /> Open From Computer
-        </button>
+          {/* <FaDesktop className="mr-2" /> Open From Computer */}
+          {/* <LuImagePlus className="text-4xl mx-auto">Open From Computer</LuImagePlus> */}
+          <label htmlFor="choose">
+                  <LuImagePlus className="text-4xl mx-auto"></LuImagePlus>
+                  <LuImagePlus className="text-4xl mx-auto"></LuImagePlus>
+
+                  <span>Choose Image</span>
+          </label>
+          <input
+                // onChange={handleImage}
+                className="w-[80%] md:w-[50%] btn btn-outline btn-primary btn-sm"
+                type="file"
+                id="choose"
+              />
+      </button>
       </div>
       <div className="text-center">
         <button className="btn btn-outline btn-info">
