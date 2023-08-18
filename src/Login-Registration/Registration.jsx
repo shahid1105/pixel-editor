@@ -1,12 +1,13 @@
 import { useForm } from "react-hook-form";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useContext } from "react";
 import Swal from "sweetalert2";
 import GoogleLogin from "./GoogleLogin";
 import { AuthContext } from "../Pages/Providers/AuthProvider";
 
 const Registration = () => {
-  const { createUser, userProfile, userProfileUpdate } =useContext(AuthContext)
+  const { createUser, userProfile, userProfileUpdate } =
+    useContext(AuthContext);
   const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = (data) => {
@@ -60,7 +61,6 @@ const Registration = () => {
   return (
     <div className="hero min-h-screen   rounded-xl">
       <div className="hero-content flex-col lg:flex-row">
-        
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-gray-200">
           <div className="card-body">
             <h1 className="text-3xl text-black font-bold text-center uppercase">
@@ -104,9 +104,8 @@ const Registration = () => {
                   className="input input-bordered border-purple-600 border-2 text-black"
                   name="password"
                 />
-               
               </div>
-              
+
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Photo URL</span>
@@ -123,7 +122,7 @@ const Registration = () => {
                 <input
                   className="btn bg-purple-600 text-white hover:bg-violet-500 transition duration-700 ease-in-out"
                   type="submit"
-                  value="login"
+                  value="Sign Up"
                 />
               </div>
             </form>

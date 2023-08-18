@@ -19,16 +19,13 @@
     "react-hook-form": "^7.45.4",
     "react-icons": "^4.10.1",
     "react-image-crop": "^10.1.5",
-<<<<<<< HEAD
     "react-redux": "^8.1.2",
     "react-router-dom": "^6.15.0",
     "redux": "^4.2.1",
-    "sort-by": "^1.2.0"
-=======
+    "sort-by": "^1.2.0",
     "react-router-dom": "^6.14.2",
     "sort-by": "^1.2.0",
     "sweetalert2": "^11.7.23"
->>>>>>> d80b25f2e4a9bb5f7225712206f6e9ea7237c50d
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
