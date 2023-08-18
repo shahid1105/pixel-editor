@@ -6,7 +6,13 @@ import DropBox from "../Pages/SideMenu/DropBox/DropBox";
 import OneDrive from "../Pages/SideMenu/OneDrive/OneDrive";
 import GoogleDrive from "../Pages/SideMenu/GoogleDrive/GoogleDrive";
 import ImageEditor from "../Pages/ImageEditor/ImageEditor";
+<<<<<<< HEAD
 import Templates from "../Pages/Templates/Templates";
+=======
+import Registration from "../Login-Registration/Registration";
+import Login from "../Login-Registration/Login";
+
+>>>>>>> d80b25f2e4a9bb5f7225712206f6e9ea7237c50d
 
 const router = createBrowserRouter([
   {
@@ -42,10 +48,22 @@ const router = createBrowserRouter([
         element: <ImageEditor></ImageEditor>,
       },
       {
+<<<<<<< HEAD
         path: "/templates",
         element: <Templates></Templates>,
       },
     ],
+=======
+        path:"/registration",
+        element:<Registration></Registration>
+      },
+      {
+        path:"/login",
+        element:<Login></Login>
+      }
+      
+    ]
+>>>>>>> d80b25f2e4a9bb5f7225712206f6e9ea7237c50d
   },
 ]);
 
