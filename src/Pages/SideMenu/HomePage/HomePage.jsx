@@ -18,8 +18,26 @@ const HomePage = () => {
       const imageUrl = URL.createObjectURL(file);
       dispatch(setSelectedImage(imageUrl));
       // ... Redirect or navigate to the editor page
+      // ... Redirect or navigate to the editor page
       navigate("/imageEditor");
     }
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+
+    // Get the dropped files
+    const files = event.dataTransfer.files;
+
+    if (files.length > 0) {
+      const imageUrl = URL.createObjectURL(files[0]);
+      dispatch(setSelectedImage(imageUrl));
+      navigate("/imageEditor"); // Navigate to ImageEditor component
+    }
+  };
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
   };
 
   return (
@@ -53,7 +71,10 @@ const HomePage = () => {
           <FaImages className="mr-2" /> Templates
         </button>
       </div>
-      <div className="text-center">
+      <div
+        className="text-center"
+        onDrop={handleDrop}
+        onDragOver={handleDragOver}>
         <input
           type="text"
           placeholder="Drop any file here"
