@@ -46,11 +46,7 @@ const NavBar = () => {
           </Link>
         </li>
         <li>
-<<<<<<< HEAD
-          <Link className="hover:text-purple-600" to="/">
-=======
           <Link className="hover:text-purple-500" to="/">
->>>>>>> a7f4cb99eb2529324f8769217bcf3b11ed84d47f
             <FaSearch></FaSearch>
           </Link>
         </li>
@@ -81,20 +77,12 @@ const NavBar = () => {
           </Link>
         </li>
         <li>
-<<<<<<< HEAD
-          <Link to="/">
-=======
           <Link className="hover:text-purple-500" to="/">
->>>>>>> a7f4cb99eb2529324f8769217bcf3b11ed84d47f
             <FaTwitter></FaTwitter>
           </Link>
         </li>
         <li>
-<<<<<<< HEAD
-          <Link to="/">
-=======
           <Link className="hover:text-purple-500" to="/">
->>>>>>> a7f4cb99eb2529324f8769217bcf3b11ed84d47f
             <FaFacebookF></FaFacebookF>
           </Link>
         </li>
