@@ -6,9 +6,18 @@ const NavBar = () => {
     <>
       <ul className="lg:flex  justify-center items-center gap-2 md:gap-4 px-2 font-semibold">
         <li>
-          <Link className="hover:text-purple-500" to="/file">
+          {/* <Link className="hover:text-purple-500" to="/file">
             File
-          </Link>
+          </Link> */}
+          <details className="dropdown">
+            <summary className="m-1 btn hover:text-purple-500">File</summary>
+            <ul className="p-2 shadow dropdown-content z-[1] bg-black w-36 rounded-box">
+              <li><Link className="hover:text-purple-500" /*to="/file"*/>New Project</Link></li>
+              <li><Link className="hover:text-purple-500" /*to="/file"*/>Open From Computer</Link></li>
+              <li><Link className="hover:text-purple-500" /*to="/file"*/>Save</Link></li>
+              
+            </ul>
+          </details>
         </li>
         <li>
           <Link className="hover:text-purple-500" to="/">
