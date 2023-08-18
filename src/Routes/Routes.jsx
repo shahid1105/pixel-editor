@@ -7,6 +7,7 @@ import OneDrive from "../Pages/SideMenu/OneDrive/OneDrive";
 import GoogleDrive from "../Pages/SideMenu/GoogleDrive/GoogleDrive";
 import ImageEditor from "../Pages/ImageEditor/ImageEditor";
 import Templates from "../Pages/Templates/Templates";
+import About from "../Pages/Component/About/About";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,8 @@ const router = createBrowserRouter([
       {
         path: "/templates",
         element: <Templates></Templates>,
+        path: "/about",
+        element: <About></About>
       },
     ],
   },
