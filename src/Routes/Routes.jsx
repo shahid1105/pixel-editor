@@ -7,6 +7,8 @@ import OneDrive from "../Pages/SideMenu/OneDrive/OneDrive";
 import GoogleDrive from "../Pages/SideMenu/GoogleDrive/GoogleDrive";
 import ImageEditor from "../Pages/ImageEditor/ImageEditor";
 import Templates from "../Pages/Templates/Templates";
+import Registration from "../Login-Registration/Registration";
+import Login from "../Login-Registration/Login";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +46,14 @@ const router = createBrowserRouter([
       {
         path: "/templates",
         element: <Templates></Templates>,
+      },
+      {
+        path: "/registration",
+        element: <Registration></Registration>,
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
       },
     ],
   },
