@@ -5,16 +5,20 @@ const NavBar = () => {
   const navMenuLeft = (
     <>
       <ul className="lg:flex  justify-center items-center gap-2 md:gap-4 px-2 font-semibold">
+        <li>
+          <Link className="hover:text-purple-500" to="/home">
+            Home
+          </Link>
+        </li>
         <div className="dropdown">
           <label tabIndex={0} className="hover:text-purple-500 m-1">
             File
           </label>
           <ul
             tabIndex={0}
-            className="dropdown-content z-[1] menu p-2 text-black shadow bg-base-100 rounded-box w-40"
-          >
+            className="dropdown-content z-[1] menu p-2 text-black shadow bg-base-100 rounded-box w-40">
             <li>
-              <Link  to='/iconMenu'>
+              <Link to="/iconMenu">
                 <a>New Project</a>
               </Link>
             </li>
@@ -126,8 +130,7 @@ const NavBar = () => {
               className="h-5 w-5"
               fill="none"
               viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+              stroke="currentColor">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -138,8 +141,7 @@ const NavBar = () => {
           </label>
           <ul
             tabIndex={0}
-            className="dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-fit"
-          >
+            className="dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-fit">
             {navMenuLeft}
           </ul>
         </div>

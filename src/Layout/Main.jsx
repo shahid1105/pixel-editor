@@ -1,14 +1,16 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import NavBar from "../Pages/Shared/NavBar/NavBar";
 import SideMenu from "../Pages/SideMenu/SideMenu";
+import IconMenu from "../Pages/MainPage/IconMenu/IconMenu";
 
 const Main = () => {
+  const location = useLocation();
+  const isHomeRoute = location.pathname === "/home";
+
   return (
-    <div className="">
-      <NavBar></NavBar>
-      <div className="bg-black">
-      <SideMenu></SideMenu>
-      </div>
+    <div>
+      <NavBar />
+      {isHomeRoute ? <SideMenu /> : <IconMenu></IconMenu>}
     </div>
   );
 };
