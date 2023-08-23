@@ -8,6 +8,7 @@ import GoogleDrive from "../Pages/SideMenu/GoogleDrive/GoogleDrive";
 import ImageEditor from "../Pages/ImageEditor/ImageEditor";
 import Templates from "../Pages/Templates/Templates";
 import About from "../Pages/Component/About/About";
+import IconMenu from "../Pages/MainPage/IconMenu/IconMenu";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: "/imageEditor",
         element: <ImageEditor></ImageEditor>,
+      },
+      {
+        path: "/iconMenu",
+        element: <IconMenu></IconMenu>
       },
       {
         path: "/templates",

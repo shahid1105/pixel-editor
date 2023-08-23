@@ -14,7 +14,7 @@ const NavBar = () => {
             className="dropdown-content z-[1] menu p-2 text-black shadow bg-base-100 rounded-box w-40"
           >
             <li>
-              <Link to="/imageEditor">
+              <Link  to='/iconMenu'>
                 <a>New Project</a>
               </Link>
             </li>

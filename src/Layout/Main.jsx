@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom";
 import NavBar from "../Pages/Shared/NavBar/NavBar";
 import SideMenu from "../Pages/SideMenu/SideMenu";
 
