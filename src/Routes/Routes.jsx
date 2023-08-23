@@ -9,6 +9,8 @@ import ImageEditor from "../Pages/ImageEditor/ImageEditor";
 import Templates from "../Pages/Templates/Templates";
 import Registration from "../Login-Registration/Registration";
 import Login from "../Login-Registration/Login";
+import About from "../Pages/Component/About/About";
+import IconMenu from "../Pages/MainPage/IconMenu/IconMenu";
 
 const router = createBrowserRouter([
   {
@@ -44,8 +46,14 @@ const router = createBrowserRouter([
         element: <ImageEditor></ImageEditor>,
       },
       {
+        path: "/iconMenu",
+        element: <IconMenu></IconMenu>,
+      },
+      {
         path: "/templates",
         element: <Templates></Templates>,
+        path: "/about",
+        element: <About></About>,
       },
       {
         path: "/registration",

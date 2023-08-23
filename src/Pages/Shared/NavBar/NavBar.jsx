@@ -6,10 +6,37 @@ const NavBar = () => {
     <>
       <ul className="lg:flex  justify-center items-center gap-2 md:gap-4 px-2 font-semibold">
         <li>
-          <Link className="hover:text-purple-500" to="/file">
-            File
+          <Link className="hover:text-purple-500" to="/home">
+            Home
           </Link>
         </li>
+        <div className="dropdown">
+          <label tabIndex={0} className="hover:text-purple-500 m-1">
+            File
+          </label>
+          <ul
+            tabIndex={0}
+            className="dropdown-content z-[1] menu p-2 text-black shadow bg-base-100 rounded-box w-40">
+            <li>
+              <Link to="/iconMenu">
+                <a>New Project</a>
+              </Link>
+            </li>
+            <li>
+              <a>Open File</a>
+            </li>
+            <li>
+              <a>Save</a>
+            </li>
+            <li>
+              <a>Share</a>
+            </li>
+            <li>
+              <a>Open File</a>
+            </li>
+          </ul>
+        </div>
+
         <li>
           <Link className="hover:text-purple-500" to="/">
             Edit
@@ -57,7 +84,7 @@ const NavBar = () => {
     <>
       <ul className="flex justify-center items-center gap-2 md:gap-4 font-semibold">
         <li>
-          <Link className="hover:text-purple-500" to="/">
+          <Link className="hover:text-purple-500" to="/about">
             About
           </Link>
         </li>
@@ -77,13 +104,17 @@ const NavBar = () => {
           </Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            <FaTwitter></FaTwitter>
+          <Link className="hover:text-purple-500">
+            <a href="https://twitter.com">
+              <FaTwitter></FaTwitter>
+            </a>
           </Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            <FaFacebookF></FaFacebookF>
+          <Link className="hover:text-purple-500">
+            <a href="https://www.facebook.com">
+              <FaFacebookF></FaFacebookF>
+            </a>
           </Link>
         </li>
       </ul>
