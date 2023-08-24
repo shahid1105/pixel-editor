@@ -6,7 +6,7 @@ const NavBar = () => {
     <>
       <ul className="lg:flex  justify-center items-center gap-2 md:gap-4 px-2 font-semibold">
         <li>
-          <Link className="hover:text-purple-500" to="/home">
+          <Link className="hover:text-purple-500" to="/">
             Home
           </Link>
         </li>

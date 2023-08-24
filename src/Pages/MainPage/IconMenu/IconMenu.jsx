@@ -7,6 +7,8 @@ import { FaPaintBrush } from "react-icons/fa";
 import { BsChevronDoubleLeft, BsChevronDoubleRight } from "react-icons/bs";
 import { MdLensBlur } from "react-icons/md";
 import { Link } from "react-router-dom";
+import SideMenu from "../../SideMenu/SideMenu";
+import ImageEditor from "../../ImageEditor/ImageEditor";
 
 const IconMenu = () => {
   const [currentColor, setCurrentColor] = useState();
@@ -80,19 +82,19 @@ const IconMenu = () => {
           <ul className="menu menu-horizontal px-1">{naveItem}</ul>
         </div>
       </div>
-      <div className="icone grid grid-cols-1 md:grid-cols-12 gap-0 md:gap-1">
+      <div className="icone h-[600px] grid grid-cols-1 md:grid-cols-12 gap-0 md:gap-1">
         <div className={`bg-slate-600 text-white`}>
         <button onClick={toggleColumns} className="text-sm ml-3">
         {columns === 1 ? <BsChevronDoubleLeft /> : <BsChevronDoubleRight />}
       </button>
         <div
-          className={`p-4 grid grid-cols-10 md:grid-cols-${columns} gap-2  md:col-span-1 bg-slate-700 text-white`}
+          className={`p-4 grid grid-cols-10 md:grid-cols-${columns} gap-2 bg-slate-700 text-white`}
         >
           <Icon></Icon>
         </div>
         </div>
         <div className="col-span-8 bg-purple-400">
-          <h3 className="text-center">Canvas</h3>
+          <ImageEditor></ImageEditor>
         </div>
         <div style={{ backgroundColor: currentColor }} className="p-5 col-span-3 ">
           <SketchPicker

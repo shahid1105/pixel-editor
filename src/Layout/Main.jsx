@@ -10,7 +10,9 @@ const Main = () => {
   return (
     <div>
       <NavBar />
-      {isHomeRoute ? <SideMenu /> : <IconMenu></IconMenu>}
+      <Outlet></Outlet>
+      {/* {isHomeRoute ? <SideMenu /> : <IconMenu></IconMenu>} */}
+      {/* <SideMenu></SideMenu> */}
     </div>
   );
 };
