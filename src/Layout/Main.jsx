@@ -11,8 +11,9 @@ const Main = () => {
   return (
     <div>
       <NavBar />
+      <Outlet></Outlet>
       {/* {isHomeRoute ? <SideMenu /> : <IconMenu></IconMenu>} */}
-      {/* <ImageEditor></ImageEditor> */}
+      {/* <SideMenu></SideMenu> */}
     </div>
   );
 };
