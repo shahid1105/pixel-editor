@@ -8,6 +8,12 @@ const initialState = {
     // Other initial state properties...
 };
 
+// Actions
+export const setSelectedImage = (imageUrl) => ({
+    type: 'SET_SELECTED_IMAGE',
+    payload: imageUrl,
+});
+
 // Reducer
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -22,11 +28,6 @@ const rootReducer = (state = initialState, action) => {
 // Store
 const store = createStore(rootReducer);
 
-// Actions
-export const setSelectedImage = (imageUrl) => ({
-    type: 'SET_SELECTED_IMAGE',
-    payload: imageUrl,
-});
 
 // Custom useDispatch hook
 export const useDispatch = () => useReduxDispatch();
