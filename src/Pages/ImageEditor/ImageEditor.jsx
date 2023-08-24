@@ -175,7 +175,7 @@ const ImageEditor = () => {
 
   const filterElement = [
     {
-      name:"brightness",
+      name: "brightness",
       maxValue: 200,
     },
     {
@@ -202,10 +202,6 @@ const ImageEditor = () => {
   return (
     <div className="bg-slate-300 p-6 text-black w-full h-full">
       <div className="max-w-screen-md mx-auto">
-        <h3 className="text-center uppercase font-bold text-purple-600 text-md md:text-3xl">
-          ~~~~~~~Image Editor~~~~~~~
-        </h3>
-
         <div className="grid grid-cols-1 md:grid-cols-2 rounded-md mt-5 w-auto md:w-[500px]">
           <div>
             <div className="border-solid border-black border-2 p-2">

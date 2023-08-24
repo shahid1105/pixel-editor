@@ -122,7 +122,7 @@ const NavBar = () => {
   );
   return (
     <>
-      <div className="navbar bg-gray-800 md:px-4 text-black md:text-white">
+      <div className="navbar bg-gray-800 md:px-4 h-[50px] text-black md:text-white">
         <div className="dropdown navbar-start lg:hidden">
           <label tabIndex={0} className="btn btn-ghost text-white lg:hidden">
             <svg
