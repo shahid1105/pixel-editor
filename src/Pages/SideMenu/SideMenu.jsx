@@ -22,7 +22,7 @@ const SideMenu = () => {
   return (
     <div className="drawer lg:drawer-open text-gray-200">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content flex flex-col items-center mt-5">
+      <div className="drawer-content flex flex-col items-start">
         {/* Page content here */}
         <Outlet></Outlet>
         <label

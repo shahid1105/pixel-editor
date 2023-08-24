@@ -77,7 +77,8 @@ const HomePage = () => {
 
       <div className="text-center">
         <button className="btn btn-outline btn-info">
-          <FaImages className="mr-2" /> Templates
+          <FaImages className="mr-2" />
+          <Link to="/iconMenu"> Templates</Link>
         </button>
       </div>
       <div

@@ -175,7 +175,7 @@ const ImageEditor = () => {
 
   const filterElement = [
     {
-      name: "brightness",
+      name:"brightness",
       maxValue: 200,
     },
     {
