@@ -1,54 +1,109 @@
-import { LuFrame, LuLasso, LuStamp } from 'react-icons/Lu';
-import { BsArrowsMove, BsCrop, BsEraserFill, BsEyedropper } from 'react-icons/bs';
-import { GiHealthCapsule } from 'react-icons/gi';
-import {  TbMarquee2, TbZoomReplace } from 'react-icons/tb';
-import {  PiPenNibBold, PiSelectionAllFill } from 'react-icons/pi';
-import {  IoMdColorWand } from 'react-icons/io';
-import { MdGradient, MdHistoryEdu } from 'react-icons/md';
-import {  RiBlurOffLine } from 'react-icons/ri';
-import { SlMagnifier } from 'react-icons/sl';
-import { BiDotsHorizontalRounded, BiSolidPointer, BiText } from 'react-icons/bi';
-import { FaRegCircle, FaRegHandPaper } from 'react-icons/fa';
+import { SketchPicker } from "react-color";
+import { useState } from "react";
 
+import Icon from "./Icon";
+import { FaHome } from "react-icons/fa";
+import { FaPaintBrush } from "react-icons/fa";
+import { BsChevronDoubleLeft, BsChevronDoubleRight } from "react-icons/bs";
+import { MdLensBlur } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const IconMenu = () => {
-    return (
-        <div>
-            <div className='icone grid grid-cols-3'>
-            <div className='p-2 col-span-1 gap-2 font-semibold text-black w-[40px] bg-slate-300'>
-                <BsArrowsMove></BsArrowsMove>
-                <TbMarquee2></TbMarquee2>
-                <LuLasso></LuLasso>
-                <PiSelectionAllFill></PiSelectionAllFill>
-                <BsCrop></BsCrop>
-                <LuFrame></LuFrame>
-                <BsEyedropper></BsEyedropper>
-                <GiHealthCapsule></GiHealthCapsule>
-                <IoMdColorWand></IoMdColorWand>
-                <LuStamp></LuStamp>
-                <MdHistoryEdu></MdHistoryEdu>
-                <BsEraserFill></BsEraserFill>
-                <MdGradient></MdGradient>
-                <RiBlurOffLine></RiBlurOffLine>
-                <SlMagnifier></SlMagnifier>
-                <PiPenNibBold></PiPenNibBold>
-                <BiText></BiText>
-                <BiSolidPointer></BiSolidPointer>
-                <FaRegCircle></FaRegCircle>
-                <FaRegHandPaper></FaRegHandPaper>
-                <TbZoomReplace></TbZoomReplace>
-                <BiDotsHorizontalRounded></BiDotsHorizontalRounded>
+  const [currentColor, setCurrentColor] = useState();
+  const [columns, setColumns] = useState(1);
 
-            </div>
-            <div className='col-span-7 bg-purple-400'>
+  const handleOnchange = (color) => {
+    setCurrentColor(color.hex);
+  };
 
-            </div>
-            <div className='col-span-4 bg-yellow-200'>
+  const toggleColumns = () => {
+    setColumns(columns === 1 ? 2 : 1);
+  };
 
-            </div>
-            </div>
+  const naveItem = (
+    <>
+      
+    </>
+  );
+
+  return (
+    <div className="">
+      <div className="navbar bg-gray-600 text-white">
+        <div className="navbar-start">
+          <div className="dropdown">
+            <label tabIndex={0} className="btn btn-ghost lg:hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />
+              </svg>
+            </label>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              {naveItem}
+            </ul>
+          </div>
+          <div className="ml-5">
+            <FaHome></FaHome>
+          </div>
+          <div className="divider divider-horizontal "></div>
+          <div>
+            <FaPaintBrush></FaPaintBrush>
+          </div>
+          <div className="divider divider-horizontal"></div>
+          <div>
+            <MdLensBlur></MdLensBlur>
+          </div>
+          <div className="divider divider-horizontal "></div>
+          <div className="flex">
+            <h3>Mode:</h3>
+            <input
+              type="text"
+              placeholder="Normal"
+              className="border-solid px-2 rounded-md ml-1 w-full max-w-xs"
+            />
+          </div>
         </div>
-    );
+
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal px-1">{naveItem}</ul>
+        </div>
+      </div>
+      <div className="icone grid grid-cols-1 md:grid-cols-12 gap-0 md:gap-1">
+        <div className={`bg-slate-600 text-white`}>
+        <button onClick={toggleColumns} className="text-sm ml-3">
+        {columns === 1 ? <BsChevronDoubleLeft /> : <BsChevronDoubleRight />}
+      </button>
+        <div
+          className={`p-4 grid grid-cols-10 md:grid-cols-${columns} gap-2  md:col-span-1 bg-slate-700 text-white`}
+        >
+          <Icon></Icon>
+        </div>
+        </div>
+        <div className="col-span-8 bg-purple-400">
+          <h3 className="text-center">Canvas</h3>
+        </div>
+        <div style={{ backgroundColor: currentColor }} className="p-5 col-span-3 ">
+          <SketchPicker
+            className="mx-auto"
+            color={currentColor}
+            onChangeComplete={handleOnchange}
+          />
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default IconMenu;
