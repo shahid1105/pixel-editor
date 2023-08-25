@@ -23,6 +23,9 @@ const NavBar = () => {
               </Link>
             </li>
             <li>
+              <Link to="/canvas">Canvas</Link>
+            </li>
+            <li>
               <a>Open File</a>
             </li>
             <li>
