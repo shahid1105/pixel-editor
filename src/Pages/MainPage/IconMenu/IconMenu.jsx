@@ -7,10 +7,7 @@ import { FaPaintBrush } from "react-icons/fa";
 import { BsChevronDoubleLeft, BsChevronDoubleRight } from "react-icons/bs";
 import { MdLensBlur } from "react-icons/md";
 import { Link } from "react-router-dom";
-import SideMenu from "../../SideMenu/SideMenu";
-import ImageEditor from "../../ImageEditor/ImageEditor";
 import { useSelector } from "../../../Redux/Store";
-import SideMenu from "../../SideMenu/SideMenu";
 import ImageEditor from "../../ImageEditor/ImageEditor";
 
 const IconMenu = () => {

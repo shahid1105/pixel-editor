@@ -1,11 +1,12 @@
 import { Link, Outlet } from "react-router-dom";
 import { FaDesktop, FaDropbox, FaGoogleDrive, FaHome } from "react-icons/fa";
 import { GrOnedrive } from "react-icons/Gr";
-import { BiLogIn } from "react-icons/bi";
+import { BiLogIn, BiMessage } from "react-icons/bi";
 import { PiSignOutBold } from "react-icons/pi";
 import { AuthContext } from "../Providers/AuthProvider";
 import { useContext } from "react";
 import HomePage from "./HomePage/HomePage";
+import Chat from "../chat";
 
 const SideMenu = () => {
   const { logOut, user } = useContext(AuthContext);
@@ -45,49 +46,54 @@ const SideMenu = () => {
           )}
         </div>
         <ul className="menu p-4 w-60 text-md h-full text-white">
-        <li className="text-center ">
-          <Link to="/home" className="sidebar-link">
-            <FaHome className="sidebar-icon" /> Home
-          </Link>
-        </li>
-        <li className="text-center">
-          <Link to="/device" className="sidebar-link">
-            <FaDesktop className="sidebar-icon" /> This Device
-          </Link>
-        </li>
-        <li className="text-center">
-          <Link to="/dropbox" className="sidebar-link">
-            <FaDropbox className="sidebar-icon" /> Dropbox
-          </Link>
-        </li>
-        <li className="text-center">
-          <Link to="/oneDrive" className="sidebar-link">
-            <GrOnedrive className="sidebar-icon" /> OneDrive
-          </Link>
-        </li>
-        <li className="text-center">
-          <Link to="/googleDrive" className="sidebar-link">
-            <FaGoogleDrive className="sidebar-icon" /> Google Drive
-          </Link>
-        </li>
-        <li className="text-center">
-          {/* <Link to="/registration" className="sidebar-link">
+          <li className="text-center ">
+            <Link to="/home" className="sidebar-link">
+              <FaHome className="sidebar-icon" /> Home
+            </Link>
+          </li>
+          <li className="text-center">
+            <Link to="/device" className="sidebar-link">
+              <FaDesktop className="sidebar-icon" /> This Device
+            </Link>
+          </li>
+          <li className="text-center">
+            <Link to="/dropbox" className="sidebar-link">
+              <FaDropbox className="sidebar-icon" /> Dropbox
+            </Link>
+          </li>
+          <li className="text-center">
+            <Link to="/oneDrive" className="sidebar-link">
+              <GrOnedrive className="sidebar-icon" /> OneDrive
+            </Link>
+          </li>
+          <li className="text-center">
+            <Link to="/googleDrive" className="sidebar-link">
+              <FaGoogleDrive className="sidebar-icon" /> Google Drive
+            </Link>
+          </li>
+          <li className="text-center">
+            {/* <Link to="/registration" className="sidebar-link">
       {" "}
       <BiLogIn className="sidebar-icon"></BiLogIn>Registration
     </Link> */}
 
-          {user ? (
-            <button onClick={handleLogout}>
-              {" "}
-              <PiSignOutBold></PiSignOutBold> LogOut
-            </button>
-          ) : (
-            <Link to="/login" className="sidebar-link">
-              {" "}
-              <BiLogIn className="sidebar-icon"></BiLogIn> Login
+            {user ? (
+              <button onClick={handleLogout}>
+                {" "}
+                <PiSignOutBold></PiSignOutBold> LogOut
+              </button>
+            ) : (
+              <Link to="/login" className="sidebar-link">
+                {" "}
+                <BiLogIn className="sidebar-icon"></BiLogIn> Login
+              </Link>
+            )}
+          </li>
+          <li className="text-center">
+            <Link to="/chat" className="sidebar-link">
+              <BiMessage className="sidebar-icon" /> Chat
             </Link>
-          )}
-        </li>
+          </li>
         </ul>
       </div>
       <div className="col-span-10">

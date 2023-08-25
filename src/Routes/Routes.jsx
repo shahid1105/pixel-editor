@@ -12,6 +12,8 @@ import Login from "../Login-Registration/Login";
 import IconMenu from "../Pages/MainPage/IconMenu/IconMenu";
 import About from "../Pages/Component/About/About";
 import SideMenu from "../Pages/SideMenu/SideMenu";
+import Chat from "../Pages/chat";
+import App from "../App";
 
 const router = createBrowserRouter([
   {
@@ -20,11 +22,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <SideMenu></SideMenu>
+        element: <SideMenu></SideMenu>,
       },
       {
         path: "/home",
-        element: <SideMenu></SideMenu>
+        element: <SideMenu></SideMenu>,
       },
       {
         path: "/device",
@@ -56,7 +58,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/about",
-        element: <About></About>
+        element: <About></About>,
       },
       {
         path: "/registration",
@@ -65,6 +67,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login></Login>,
+      },
+      {
+        path: "/chat",
+        element: <App></App>,
       },
     ],
   },
