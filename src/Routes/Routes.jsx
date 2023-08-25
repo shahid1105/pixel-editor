@@ -9,8 +9,9 @@ import ImageEditor from "../Pages/ImageEditor/ImageEditor";
 import Templates from "../Pages/Templates/Templates";
 import Registration from "../Login-Registration/Registration";
 import Login from "../Login-Registration/Login";
-import About from "../Pages/Component/About/About";
 import IconMenu from "../Pages/MainPage/IconMenu/IconMenu";
+import About from "../Pages/Component/About/About";
+import SideMenu from "../Pages/SideMenu/SideMenu";
 import Canvas from "../Pages/Component/About/Canvas/Canvas";
 // import { Canvas } from "fabric/fabric-impl";
 
@@ -21,11 +22,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <HomePage></HomePage>,
+        element: <SideMenu></SideMenu>
       },
       {
         path: "/home",
-        element: <HomePage></HomePage>,
+        element: <SideMenu></SideMenu>
       },
       {
         path: "/device",
@@ -58,8 +59,10 @@ const router = createBrowserRouter([
       {
         path: "/templates",
         element: <Templates></Templates>,
+      },
+      {
         path: "/about",
-        element: <About></About>,
+        element: <About></About>
       },
       {
         path: "/registration",
