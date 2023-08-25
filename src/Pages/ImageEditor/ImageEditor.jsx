@@ -200,7 +200,7 @@ const ImageEditor = () => {
   ];
 
   return (
-    <div className="bg-slate-300 p-6 text-black w-full h-full">
+    <div className="bg-slate-300 p-6 text-black w-full h-full bg-black">
       <div className="max-w-screen-md mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 rounded-md mt-5 w-auto md:w-[500px]">
           <div>
@@ -285,7 +285,9 @@ const ImageEditor = () => {
                 </ReactCrop>
               ) : (
                 <label htmlFor="choose">
-                  <LuImagePlus className="text-4xl mx-auto"></LuImagePlus>
+                  <LuImagePlus className="text-4xl mx-auto">choose image</LuImagePlus>
+                  {/* <LuImagePlus className="text-4xl mx-auto"></LuImagePlus> */}
+
                   <span>Choose Image</span>
                 </label>
               )}

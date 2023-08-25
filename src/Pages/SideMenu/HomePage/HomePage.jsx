@@ -1,4 +1,13 @@
 import { FaDesktop, FaImages } from "react-icons/fa";
+import {
+  // LuFlipHorizontal2,
+  // LuFlipVertical2,
+  LuImagePlus,
+  // LuRedo2,
+  // LuRotateCcw,
+  // LuRotateCw,
+  // LuUndo2,
+} from "react-icons/Lu";
 import { SiGooglesheets } from "react-icons/Si";
 import img1 from "../../../../public/ps.png";
 import img2 from "../../../../public/ai.png";
