@@ -11,6 +11,8 @@ import Registration from "../Login-Registration/Registration";
 import Login from "../Login-Registration/Login";
 import About from "../Pages/Component/About/About";
 import IconMenu from "../Pages/MainPage/IconMenu/IconMenu";
+import Canvas from "../Pages/Component/About/Canvas/Canvas";
+// import { Canvas } from "fabric/fabric-impl";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/device",
         element: <ThisDevice></ThisDevice>,
+      },
+      {
+        path: "/canvas",
+        element: <Canvas/>,
       },
       {
         path: "/dropbox",
