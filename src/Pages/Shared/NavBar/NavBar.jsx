@@ -6,7 +6,7 @@ const NavBar = () => {
     <>
       <ul className="lg:flex  justify-center items-center gap-2 md:gap-4 px-2 font-semibold">
         <li>
-          <Link className="hover:text-purple-500" to="/home">
+          <Link className="hover:text-purple-500" to="/">
             Home
           </Link>
         </li>
@@ -38,42 +38,28 @@ const NavBar = () => {
         </div>
 
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            Edit
-          </Link>
+          <Link className="hover:text-purple-500">Edit</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            Layer
-          </Link>
+          <Link className="hover:text-purple-500">Layer</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            Filter
-          </Link>
+          <Link className="hover:text-purple-500">Filter</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            View
-          </Link>
+          <Link className="hover:text-purple-500">View</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            More
-          </Link>
+          <Link className="hover:text-purple-500">More</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            Image
-          </Link>
+          <Link className="hover:text-purple-500">Image</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            Select
-          </Link>
+          <Link className="hover:text-purple-500">Select</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
+          <Link className="hover:text-purple-500">
             <FaSearch></FaSearch>
           </Link>
         </li>
@@ -89,19 +75,13 @@ const NavBar = () => {
           </Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            Learn
-          </Link>
+          <Link className="hover:text-purple-500">Learn</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            Blog
-          </Link>
+          <Link className="hover:text-purple-500">Blog</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            Api
-          </Link>
+          <Link className="hover:text-purple-500">Api</Link>
         </li>
         <li>
           <Link className="hover:text-purple-500">
@@ -122,7 +102,7 @@ const NavBar = () => {
   );
   return (
     <>
-      <div className="navbar bg-gray-800 md:px-4 text-black md:text-white">
+      <div className="navbar bg-gray-800 md:px-4 h-[50px] text-black md:text-white">
         <div className="dropdown navbar-start lg:hidden">
           <label tabIndex={0} className="btn btn-ghost text-white lg:hidden">
             <svg
