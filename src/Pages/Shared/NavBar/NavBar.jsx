@@ -38,42 +38,28 @@ const NavBar = () => {
         </div>
 
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            Edit
-          </Link>
+          <Link className="hover:text-purple-500">Edit</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            Layer
-          </Link>
+          <Link className="hover:text-purple-500">Layer</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            Filter
-          </Link>
+          <Link className="hover:text-purple-500">Filter</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            View
-          </Link>
+          <Link className="hover:text-purple-500">View</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            More
-          </Link>
+          <Link className="hover:text-purple-500">More</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            Image
-          </Link>
+          <Link className="hover:text-purple-500">Image</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            Select
-          </Link>
+          <Link className="hover:text-purple-500">Select</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
+          <Link className="hover:text-purple-500">
             <FaSearch></FaSearch>
           </Link>
         </li>
@@ -89,19 +75,13 @@ const NavBar = () => {
           </Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            Learn
-          </Link>
+          <Link className="hover:text-purple-500">Learn</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            Blog
-          </Link>
+          <Link className="hover:text-purple-500">Blog</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500" to="/">
-            Api
-          </Link>
+          <Link className="hover:text-purple-500">Api</Link>
         </li>
         <li>
           <Link className="hover:text-purple-500">
