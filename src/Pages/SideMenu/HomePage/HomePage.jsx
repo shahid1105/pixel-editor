@@ -1,4 +1,13 @@
 import { FaDesktop, FaImages } from "react-icons/fa";
+import {
+  // LuFlipHorizontal2,
+  // LuFlipVertical2,
+  LuImagePlus,
+  // LuRedo2,
+  // LuRotateCcw,
+  // LuRotateCw,
+  // LuUndo2,
+} from "react-icons/Lu";
 import { SiGooglesheets } from "react-icons/Si";
 import img1 from "../../../../public/ps.png";
 import img2 from "../../../../public/ai.png";
@@ -19,7 +28,7 @@ const HomePage = () => {
       dispatch(setSelectedImage(imageUrl));
       // ... Redirect or navigate to the editor page
       // ... Redirect or navigate to the editor page
-      navigate("/imageEditor");
+      navigate("/iconMenu");
     }
   };
 
@@ -32,7 +41,7 @@ const HomePage = () => {
     if (files.length > 0) {
       const imageUrl = URL.createObjectURL(files[0]);
       dispatch(setSelectedImage(imageUrl));
-      navigate("/imageEditor"); // Navigate to ImageEditor component
+      navigate("/iconMenu"); // Navigate to ImageEditor component
     }
   };
 
@@ -69,7 +78,8 @@ const HomePage = () => {
 
       <div className="text-center">
         <button className="btn btn-outline btn-info">
-          <FaImages className="mr-2" /> Templates
+          <FaImages className="mr-2" />
+          <Link to="/iconMenu"> Templates</Link>
         </button>
       </div>
       <div

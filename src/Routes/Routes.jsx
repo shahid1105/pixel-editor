@@ -9,6 +9,11 @@ import ImageEditor from "../Pages/ImageEditor/ImageEditor";
 import Templates from "../Pages/Templates/Templates";
 import Registration from "../Login-Registration/Registration";
 import Login from "../Login-Registration/Login";
+import IconMenu from "../Pages/MainPage/IconMenu/IconMenu";
+import About from "../Pages/Component/About/About";
+import SideMenu from "../Pages/SideMenu/SideMenu";
+import Canvas from "../Pages/Component/About/Canvas/Canvas";
+// import { Canvas } from "fabric/fabric-impl";
 
 const router = createBrowserRouter([
   {
@@ -17,15 +22,19 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <HomePage></HomePage>,
+        element: <SideMenu></SideMenu>,
       },
       {
         path: "/home",
-        element: <HomePage></HomePage>,
+        element: <SideMenu></SideMenu>,
       },
       {
         path: "/device",
         element: <ThisDevice></ThisDevice>,
+      },
+      {
+        path: "/canvas",
+        element: <Canvas/>,
       },
       {
         path: "/dropbox",
@@ -44,8 +53,16 @@ const router = createBrowserRouter([
         element: <ImageEditor></ImageEditor>,
       },
       {
+        path: "/iconMenu",
+        element: <IconMenu></IconMenu>,
+      },
+      {
         path: "/templates",
         element: <Templates></Templates>,
+      },
+      {
+        path: "/about",
+        element: <About></About>,
       },
       {
         path: "/registration",
@@ -54,7 +71,7 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login></Login>,
-      },
+      }
     ],
   },
 ]);
