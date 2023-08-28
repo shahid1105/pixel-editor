@@ -46,6 +46,7 @@ const HomePage = () => {
         <span className="text-purple-600 text-6xl md:text-8xl">P</span>!xel
         Editor
       </h3>
+      {/* <p>to do</p> */}
       <div className="flex flex-col md:flex-row justify-center gap-2 md:gap-4 my-4">
         <button className="btn btn-outline btn-info flex items-center">
           <SiGooglesheets className="mr-2" />{" "}
