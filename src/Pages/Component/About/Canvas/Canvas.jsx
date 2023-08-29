@@ -1,12 +1,17 @@
 // import React from 'react';
 import { fabric } from "fabric";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Modal from "./Modal";
+import { CanvasContext } from "../NewProject/NewProjectForm";
 
 const Canvas = () => {
 
+    // const [canvasData , setCanvasData] = useState({});
 
+    const canvasAllInfo = useContext(CanvasContext);
 
+    console.log(canvasAllInfo);
+    
     const defaultBackgroundColor = 'white';
     const [dataFromModal,setDataFromModal] = useState();
     const [penWidth , setPenWidth] = useState(3);
@@ -94,7 +99,7 @@ const Canvas = () => {
     return (
         <div className='container mx-auto bg-black h-screen text-purple-700'>
            
-            <Modal sendDataToCanvas={handleModalData}></Modal>
+            {/* <Modal sendDataToCanvas={handleModalData}></Modal> */}
 
             {dataFromModal && <div>
                 <div>
