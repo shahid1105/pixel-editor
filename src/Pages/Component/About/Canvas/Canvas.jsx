@@ -1,6 +1,7 @@
 import { fabric } from "fabric";
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
+// import Modal from "./Modal";
 
 const Canvas = () => {
   const location = useLocation();
@@ -39,22 +40,27 @@ const Canvas = () => {
       height: `${height}`,
 
       isDrawingMode: true,
-      // selection:true,
+    //   selection:true,
       // selectionColor: 'yellow',
       // selectionLineWidth:3,
     });
 
     setFabricCanvas(canvas);
 
-    const circle = new fabric.Circle({
-      radius: 50,
-      fill: "red",
-      top: 50,
-      left: 50,
-    });
-    // circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
-    canvas.add(circle);
+    
   }, []);
+
+  const addACircle = () =>{
+    const circle = new fabric.Circle({
+        radius: 50,
+        fill: "yellow",
+        top: 50,
+        left: 50,
+        
+      });
+      // circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
+      fabricCanvas.add(circle);
+  }
 
   const changePenWidth = (width) => {
     if (fabricCanvas) {
@@ -119,12 +125,17 @@ const Canvas = () => {
             onChange={(e) => changePenColor(e.target.value)}
             value={penColor}
           />
+        
+            <button className="btn" onClick={addACircle}>
+                Add Circle
+            </button>
 
           <button className="btn btn-success" onClick={() => downloadHandler()}>
             {" "}
             Download
           </button>
           {/* <button onClick={()=>clearHandler()}> Clear</button> */}
+          {/* <Modal></Modal> */}
         </div>
       </div>
     </div>

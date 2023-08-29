@@ -1,8 +1,10 @@
 import { FaFacebookF, FaSearch, FaTwitter } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import NewProjectForm from "../../Component/About/NewProject/NewProjectForm";
+// import Modal from "../../Component/About/Canvas/Modal";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import Modal from "../../Component/About/Canvas/Modal";
 
 const NavBar = () => {
   const [showModal, setShowModal] = useState(false);
@@ -167,9 +169,12 @@ const NavBar = () => {
           {navMenuRight}
         </div>
 
-        <NewProjectForm showModal={showModal} setShowModal={setShowModal}>
+        {/* <NewProjectForm showModal={showModal} setShowModal={setShowModal}>
           {" "}
-        </NewProjectForm>
+        </NewProjectForm> */}
+        <Modal showModal={showModal} setShowModal={setShowModal}>
+          {" "}
+        </Modal>
       </div>
     </>
   );
