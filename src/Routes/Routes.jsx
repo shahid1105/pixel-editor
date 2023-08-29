@@ -14,6 +14,7 @@ import About from "../Pages/Component/About/About";
 import SideMenu from "../Pages/SideMenu/SideMenu";
 import Canvas from "../Pages/Component/About/Canvas/Canvas";
 import App from "../App";
+
 // import { Canvas } from "fabric/fabric-impl";
 
 const router = createBrowserRouter([
@@ -74,7 +75,7 @@ const router = createBrowserRouter([
         element: <Login></Login>,
       },
       {
-        path: "chat",
+        path: "/chat",
         element: <App></App>,
       },
     ],

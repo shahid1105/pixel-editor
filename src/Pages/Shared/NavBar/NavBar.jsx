@@ -1,7 +1,6 @@
 import { FaFacebookF, FaSearch, FaTwitter } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import NewProjectForm from "../../Component/About/NewProject/NewProjectForm";
-import Modal from "../../Component/About/Canvas/Modal";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 

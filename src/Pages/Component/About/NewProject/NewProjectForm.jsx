@@ -96,7 +96,6 @@ const NewProjectForm = ({ showModal, setShowModal }) => {
 
                       <div className="form-control mt-6">
                         <button className="btn btn-primary">
-                          {" "}
                           Create Project
                         </button>
                       </div>
