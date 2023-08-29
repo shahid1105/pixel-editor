@@ -9,6 +9,7 @@ import { MdLensBlur } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useSelector } from "../../../Redux/Store";
 import ImageEditor from "../../ImageEditor/ImageEditor";
+import Canvas from "../../Component/About/Canvas/Canvas";
 
 const IconMenu = () => {
   const selectedImage = useSelector((state) => state.selectedImage);
@@ -130,7 +131,8 @@ const IconMenu = () => {
           </div>
         </div>
         <div className="col-span-8 bg-purple-400">
-          <ImageEditor></ImageEditor>
+          {/* <ImageEditor></ImageEditor> */}
+          <Canvas></Canvas>
         </div>
         <div
           style={{ backgroundColor: currentColor }}
