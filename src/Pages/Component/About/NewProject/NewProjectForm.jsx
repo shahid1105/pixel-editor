@@ -5,7 +5,7 @@ import { AuthContext } from "../../../Providers/AuthProvider";
 const NewProjectForm = ({ showModal, setShowModal }) => {
   const [canvasInfo, setCanvasInfo] = useState(null);
 
-  // console.log('canvasinfo ' +canvasInfo);
+  console.log(canvasInfo);
   const {
     register,
     handleSubmit,
@@ -16,11 +16,9 @@ const NewProjectForm = ({ showModal, setShowModal }) => {
   const onSubmit = (data) => {
     console.log(data);
 
-    setCanvasInfo(data);
-
-    console.log("canvasInfo : " + canvasInfo);
     // sendDataToCanvas(data);
     setShowModal(false);
+    return setCanvasInfo(data);
   };
 
   return (
