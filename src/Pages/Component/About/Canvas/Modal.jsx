@@ -24,7 +24,7 @@ const Modal = ({ showModal, setShowModal }) => {
     setShowModal(false);
 
     navigate(
-      `/canvas?name=${data.name}&height=${data.height}&width=${data.width}`
+      `/iconMenu?name=${data.name}&height=${data.height}&width=${data.width}`
     );
   };
   // const [showModal, setShowModal] = React.useState(false);
@@ -50,11 +50,9 @@ const Modal = ({ showModal, setShowModal }) => {
                     New Document
                   </h3>
                   <button
-                    className="avatar my-auto"
+                    className="avatar my-auto text-black font-bold border-4 rounded-full border-red-500 p-1"
                     onClick={() => setShowModal(false)}>
-                    <span className="h-4 w-4 pb-2">
-                      <RxCross2></RxCross2>
-                    </span>
+                    <span className="h-4 w-4 pb-2">X</span>
                   </button>
                 </div>
                 {/* header 2  */}
