@@ -1,11 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../../Providers/AuthProvider";
+import Canvas from "../Canvas/Canvas";
+
+export const CanvasContext = createContext("default");
 
 const NewProjectForm = ({ showModal, setShowModal }) => {
-  const [canvasInfo, setCanvasInfo] = useState(null);
+  const [canvasInfo, setCanvasInfo] = useState({});
 
-  console.log(canvasInfo);
+  // console.log('canvasinfo ' +canvasInfo);
   const {
     register,
     handleSubmit,
@@ -16,9 +19,19 @@ const NewProjectForm = ({ showModal, setShowModal }) => {
   const onSubmit = (data) => {
     console.log(data);
 
+    // setCanvasInfo(JSON.stringify(data, null, 2));
+    // setCanvasInfo(JSON.stringify(data));
+    setCanvasInfo(data);
+
+    // console.log('canvasInfo : '+JSON.stringify(canvasInfo, null, 2));
+    console.log(canvasInfo);
     // sendDataToCanvas(data);
     setShowModal(false);
     return setCanvasInfo(data);
+  };
+
+  const canvasAllInfo = {
+    canvasInfo,
   };
 
   return (
@@ -105,6 +118,10 @@ const NewProjectForm = ({ showModal, setShowModal }) => {
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
+
+      <CanvasContext.Provider value={canvasAllInfo}>
+        <Canvas></Canvas>
+      </CanvasContext.Provider>
     </>
   );
 };

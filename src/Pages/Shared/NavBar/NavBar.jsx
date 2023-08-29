@@ -14,20 +14,21 @@ const NavBar = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    console.log("hello");
-    console.log(data);
-    setCanvasInfo(data);
-    console.log("canvasInfo : " + canvasInfo);
+  //   const onSubmit = (data) => {
+  //     console.log("hello");
+  //     console.log(data);
+  //     setCanvasInfo(data);
+  //     console.log('canvasInfo : '+canvasInfo);
 
-    // sendDataToCanvas(data);
-    setShowModal(false);
-    // setShowModal(true)
-  };
-  const openModal = () => {
-    window.new_project_modal.showModal();
-    setShowModal(true);
-  };
+  //     // sendDataToCanvas(data);
+  //     setShowModal(false);
+  //     // setShowModal(true)
+
+  // }
+  // const openModal = () =>{
+  //   window.new_project_modal.showModal();
+  //    setShowModal(true)
+  // }
 
   const navMenuLeft = (
     <>
@@ -50,13 +51,12 @@ const NavBar = () => {
             tabIndex={0}
             className="dropdown-content z-[1] menu p-2 text-black shadow bg-base-100 rounded-box w-40 hidden">
             <li>
-              <button className="" onClick={() => setShowModal(true)}>
-                {" "}
-                New Project{" "}
-              </button>
-            </li>
-            <li>
-              <Link to="/canvas">Canvas</Link>
+              <>
+                <button className="" onClick={() => setShowModal(true)}>
+                  {" "}
+                  New Project{" "}
+                </button>
+              </>
             </li>
             <li>
               <a>Open File</a>
