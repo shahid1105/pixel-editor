@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 export default function Modal({ sendDataToCanvas }) {
+  // console.log(value);
   const [showModal, setShowModal] = React.useState(false);
   const {
     register,
@@ -11,6 +12,7 @@ export default function Modal({ sendDataToCanvas }) {
   } = useForm();
   const onSubmit = (data) => {
     console.log(data);
+
     sendDataToCanvas(data);
     setShowModal(false);
   };
@@ -20,8 +22,8 @@ export default function Modal({ sendDataToCanvas }) {
       <button
         className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         type="button"
-        onClick={() => setShowModal(true)}>
-        Open regular modal
+        onClick={setShowModal(true)}>
+        New Project
       </button>
       {showModal ? (
         <>
@@ -31,7 +33,7 @@ export default function Modal({ sendDataToCanvas }) {
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                  <h3 className="text-3xl font-semibold">Modal Title</h3>
+                  <h3 className="text-3xl font-semibold">Project Info</h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => setShowModal(false)}>
@@ -91,7 +93,10 @@ export default function Modal({ sendDataToCanvas }) {
                       </div>
 
                       <div className="form-control mt-6">
-                        <button className="btn btn-primary"> Submit</button>
+                        <button className="btn btn-primary">
+                          {" "}
+                          Create Project
+                        </button>
                       </div>
                     </div>
                   </form>

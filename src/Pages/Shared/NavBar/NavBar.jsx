@@ -1,8 +1,41 @@
 import { FaFacebookF, FaSearch, FaTwitter } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Modal from "../../Component/About/Canvas/Modal";
+<<<<<<< HEAD
+=======
+import { useForm } from 'react-hook-form';
+import NewProjectForm from "../../Component/About/NewProject/NewProjectForm";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
+
+
+>>>>>>> d104db15246d78669483514e8c2ce02b7590f852
 
 const NavBar = () => {
+
+
+  const [showModal, setShowModal] = useState(false);
+  const {canvasInfo, setCanvasInfo} = useContext(AuthContext);
+
+
+
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const onSubmit = (data) => {
+    console.log("hello");
+    console.log(data);
+    setCanvasInfo(data);
+    console.log('canvasInfo : '+canvasInfo);
+
+    // sendDataToCanvas(data);
+    setShowModal(false);
+    // setShowModal(true)
+    
+}
+const openModal = () =>{
+  window.new_project_modal.showModal();
+   setShowModal(true)
+}
+
   const navMenuLeft = (
     <>
       <ul className="lg:flex  justify-center items-center gap-2 md:gap-4 px-2 font-semibold">
@@ -24,9 +57,22 @@ const NavBar = () => {
             tabIndex={0}
             className="dropdown-content z-[1] menu p-2 text-black shadow bg-base-100 rounded-box w-40 hidden">
             <li>
+<<<<<<< HEAD
               <Link to="/iconMenu">
                 <a>New Projects</a>
               </Link>
+=======
+              {/* <Modal data={true}></Modal> */}
+              {/* <Link to="">
+                <Modal></Modal>
+              </Link> */}
+              <>
+              {/* <Modal></Modal> */}
+              {/* Open the modal using ID.showModal() method */}
+              <button className="" onClick={()=>setShowModal(true)}> New Project </button>
+              
+              </>
+>>>>>>> d104db15246d78669483514e8c2ce02b7590f852
             </li>
             <li>
               <Link to="/canvas">Canvas</Link>
@@ -140,6 +186,9 @@ const NavBar = () => {
         <div className="md:navbar-end navbar-center text-white">
           {navMenuRight}
         </div>
+        
+        <NewProjectForm showModal = {showModal} setShowModal = {setShowModal}> </NewProjectForm>
+        
       </div>
     </>
   );
