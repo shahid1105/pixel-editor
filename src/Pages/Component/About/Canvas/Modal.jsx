@@ -47,7 +47,7 @@ const Modal = ({ showModal, setShowModal }) => {
                     New Document
                   </h3>
                   <button
-                    className="avatar my-auto"
+                    className="avatar my-auto text-black font-bold border-4 rounded-full border-red-500 p-1"
                     onClick={() => setShowModal(false)}>
                     <span className="h-4 w-4 pb-2">
                       <RxCross2></RxCross2>
