@@ -1,37 +1,34 @@
 import { FaFacebookF, FaSearch, FaTwitter } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import Modal from "../../Component/About/Canvas/Modal";
-import { useForm } from 'react-hook-form';
 import NewProjectForm from "../../Component/About/NewProject/NewProjectForm";
-import { useContext, useState } from "react";
-import { AuthContext } from "../../Providers/AuthProvider";
-
-
+import Modal from "../../Component/About/Canvas/Modal";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 const NavBar = () => {
-
-
   const [showModal, setShowModal] = useState(false);
-  const {canvasInfo, setCanvasInfo} = useContext(AuthContext);
 
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  //   const onSubmit = (data) => {
+  //     console.log("hello");
+  //     console.log(data);
+  //     setCanvasInfo(data);
+  //     console.log('canvasInfo : '+canvasInfo);
 
+  //     // sendDataToCanvas(data);
+  //     setShowModal(false);
+  //     // setShowModal(true)
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
-//   const onSubmit = (data) => {
-//     console.log("hello");
-//     console.log(data);
-//     setCanvasInfo(data);
-//     console.log('canvasInfo : '+canvasInfo);
-
-//     // sendDataToCanvas(data);
-//     setShowModal(false);
-//     // setShowModal(true)
-    
-// }
-// const openModal = () =>{
-//   window.new_project_modal.showModal();
-//    setShowModal(true)
-// }
+  // }
+  // const openModal = () =>{
+  //   window.new_project_modal.showModal();
+  //    setShowModal(true)
+  // }
 
   const navMenuLeft = (
     <>
@@ -42,18 +39,23 @@ const NavBar = () => {
           </Link>
         </li>
         <div className="dropdown">
-          <label tabIndex={0} className="hover:text-purple-500 m-1">
+          <label
+            tabIndex={0}
+            className="hover:text-purple-500 m-1 cursor-pointer"
+            onClick={(e) =>
+              e.currentTarget.nextSibling.classList.toggle("hidden", false)
+            }>
             File
           </label>
           <ul
             tabIndex={0}
-            className="dropdown-content z-[1] menu p-2 text-black shadow bg-base-100 rounded-box w-40">
+            className="dropdown-content z-[1] menu p-2 text-black shadow bg-base-100 rounded-box w-40 hidden">
             <li>
-              
               <>
-              
-              <button className="" onClick={()=>setShowModal(true)}> New Project </button>
-              
+                <button className="" onClick={() => setShowModal(true)}>
+                  {" "}
+                  New Project{" "}
+                </button>
               </>
             </li>
             <li>
@@ -165,9 +167,10 @@ const NavBar = () => {
         <div className="md:navbar-end navbar-center text-white">
           {navMenuRight}
         </div>
-        
-        <NewProjectForm showModal = {showModal} setShowModal = {setShowModal}> </NewProjectForm>
-        
+
+        <NewProjectForm showModal={showModal} setShowModal={setShowModal}>
+          {" "}
+        </NewProjectForm>
       </div>
     </>
   );
