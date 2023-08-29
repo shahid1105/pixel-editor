@@ -13,21 +13,14 @@ const NewProjectForm = ({showModal, setShowModal}) => {
 
 
     
-    // console.log('canvasinfo ' +canvasInfo);
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     
     const onSubmit = (data) => {
     console.log(data);
-  
-    // setCanvasInfo(JSON.stringify(data, null, 2));
-    // setCanvasInfo(JSON.stringify(data));
     setCanvasInfo(data);
 
 
-
-    // console.log('canvasInfo : '+JSON.stringify(canvasInfo, null, 2));
     console.log(canvasInfo);
-    // sendDataToCanvas(data);
     setShowModal(false);
 }
 
