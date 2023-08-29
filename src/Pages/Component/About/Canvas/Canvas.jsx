@@ -1,30 +1,43 @@
-// import React from 'react';
 import { fabric } from "fabric";
-import { useContext, useEffect, useRef, useState } from "react";
-import Modal from "./Modal";
-import { CanvasContext } from "../NewProject/NewProjectForm";
+import { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const Canvas = () => {
-  const defaultBackgroundColor = "white";
-  const [dataFromModal, setDataFromModal] = useState();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+
+  const name = queryParams.get("name");
+  const height = queryParams.get("height");
+  const width = queryParams.get("width");
+  console.log(name, height, width);
+
+  // const canvasAllInfo = useContext(CanvasContext);
+
+  // console.log(canvasAllInfo.canvasInfo?.height);
+  // const height = parseInt(canvasAllInfo.canvasInfo?.height);
+  // const width = parseInt(canvasAllInfo.canvasInfo?.width);
+
+  console.log(typeof height, typeof width);
+  console.log(height, width);
+
+  const defaultBackgroundColor = "red";
   const [penWidth, setPenWidth] = useState(3);
   const [penColor, setPenColor] = useState(3);
 
-  // const [canvasData , setCanvasData] = useState({});
+  const [fabricCanvas, setFabricCanvas] = useState();
 
-  const canvasAllInfo = useContext(CanvasContext);
+  const height1 = 500;
+  const width2 = 800;
 
-  console.log(canvasAllInfo);
+  const canvasRef = useRef(null);
 
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
       backgroundColor: defaultBackgroundColor,
-      width: `${dataFromModal?.width}`,
 
-      height: `${dataFromModal?.height}`,
+      width: `${width}`,
+      height: `${height}`,
 
-      // width: `${canvasArea.width}`,
-      // height: `${canvasArea.height}`,
       isDrawingMode: true,
       // selection:true,
       // selectionColor: 'yellow',
@@ -41,7 +54,7 @@ const Canvas = () => {
     });
     // circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
     canvas.add(circle);
-  }, [dataFromModal]);
+  }, []);
 
   const changePenWidth = (width) => {
     if (fabricCanvas) {
@@ -79,52 +92,41 @@ const Canvas = () => {
   // }
 
   return (
-    <div className="container mx-auto bg-black h-screen text-purple-700">
-      {/* <Modal sendDataToCanvas={handleModalData}></Modal> */}
-
-      {dataFromModal && (
-        <div>
-          <div>
-            <h3
-              className="font-bold text-3xl text-center py-5
-                    ">
-              This is Canvas
-            </h3>
-            {/* <canvas ></canvas> */}
-            <canvas className=" " ref={canvasRef}></canvas>
-          </div>
-          <div className="pt-2">
-            <label className="mx-2 py-1" htmlFor="">
-              Pen WIdth - {penWidth}
-            </label>
-            <input
-              className="mx-2 py-1"
-              type="range"
-              onChange={(e) => changePenWidth(e.target.value)}
-              value={penWidth}
-              min={1}
-              max={30}
-            />
-            <label className="mx-2 py-1" htmlFor="">
-              Pen Color - {penColor}
-            </label>
-            <input
-              className="mr-5"
-              type="color"
-              onChange={(e) => changePenColor(e.target.value)}
-              value={penColor}
-            />
-
-            <button
-              className="btn btn-success"
-              onClick={() => downloadHandler()}>
-              {" "}
-              Download
-            </button>
-            {/* <button onClick={()=>clearHandler()}> Clear</button> */}
-          </div>
+    <div className="container mx-auto bg-gray-400 h-screen text-purple-700">
+      <div>
+        <div className=" text-center align-middle">
+          <h1></h1>
+          <canvas className=" " ref={canvasRef}></canvas>
         </div>
-      )}
+        <div className="pt-2">
+          <label className="mx-2 py-1" htmlFor="">
+            Pen WIdth - {penWidth}
+          </label>
+          <input
+            className="mx-2 py-1"
+            type="range"
+            onChange={(e) => changePenWidth(e.target.value)}
+            value={penWidth}
+            min={1}
+            max={30}
+          />
+          <label className="mx-2 py-1" htmlFor="">
+            Pen Color - {penColor}
+          </label>
+          <input
+            className="mr-5"
+            type="color"
+            onChange={(e) => changePenColor(e.target.value)}
+            value={penColor}
+          />
+
+          <button className="btn btn-success" onClick={() => downloadHandler()}>
+            {" "}
+            Download
+          </button>
+          {/* <button onClick={()=>clearHandler()}> Clear</button> */}
+        </div>
+      </div>
     </div>
   );
 };
