@@ -16,7 +16,7 @@ const NavBar = () => {
           </label>
           <ul
             tabIndex={0}
-            className="dropdown-content z-[1] menu p-2 text-black shadow bg-base-100 rounded-box w-40">
+            className="dropdown md:dropdown-content z-[1] menu p-2 text-black shadow bg-base-100 rounded-box w-40">
             <li>
               <Link to="/iconMenu">
                 <a>New Project</a>
