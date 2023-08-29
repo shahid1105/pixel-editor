@@ -1,7 +1,32 @@
 import { FaFacebookF, FaSearch, FaTwitter } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Modal from "../../Component/About/Canvas/Modal";
+import { useForm } from 'react-hook-form';
+import NewProjectForm from "../../Component/About/NewProject/NewProjectForm";
+import { useState } from "react";
+
+
 
 const NavBar = () => {
+
+
+  const [showModal, setShowModal] = useState(false);
+
+
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const onSubmit = (data) => {
+    console.log("hello");
+    console.log(data);
+    // sendDataToCanvas(data);
+    setShowModal(false);
+    // setShowModal(true)
+    
+}
+const openModal = () =>{
+  window.new_project_modal.showModal();
+   setShowModal(true)
+}
+
   const navMenuLeft = (
     <>
       <ul className="lg:flex  justify-center items-center gap-2 md:gap-4 px-2 font-semibold">
@@ -18,9 +43,16 @@ const NavBar = () => {
             tabIndex={0}
             className="dropdown-content z-[1] menu p-2 text-black shadow bg-base-100 rounded-box w-40">
             <li>
-              <Link to="/iconMenu">
-                <a>New Project</a>
-              </Link>
+              {/* <Modal data={true}></Modal> */}
+              {/* <Link to="">
+                <Modal></Modal>
+              </Link> */}
+              <>
+              {/* <Modal></Modal> */}
+              {/* Open the modal using ID.showModal() method */}
+              <button className="" onClick={()=>setShowModal(true)}> New Project </button>
+              
+              </>
             </li>
             <li>
               <a>Open File</a>
@@ -131,6 +163,9 @@ const NavBar = () => {
         <div className="md:navbar-end navbar-center text-white">
           {navMenuRight}
         </div>
+        
+        <NewProjectForm showModal = {showModal} setShowModal = {setShowModal}> </NewProjectForm>
+        
       </div>
     </>
   );
