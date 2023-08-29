@@ -1,5 +1,6 @@
 import { FaFacebookF, FaSearch, FaTwitter } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Modal from "../../Component/About/Canvas/Modal";
 
 const NavBar = () => {
   const navMenuLeft = (
@@ -11,15 +12,20 @@ const NavBar = () => {
           </Link>
         </li>
         <div className="dropdown">
-          <label tabIndex={0} className="hover:text-purple-500 m-1">
+          <label
+            tabIndex={0}
+            className="hover:text-purple-500 m-1 cursor-pointer"
+            onClick={(e) =>
+              e.currentTarget.nextSibling.classList.toggle("hidden", false)
+            }>
             File
           </label>
           <ul
             tabIndex={0}
-            className="dropdown-content z-[1] menu p-2 text-black shadow bg-base-100 rounded-box w-40">
+            className="dropdown-content z-[1] menu p-2 text-black shadow bg-base-100 rounded-box w-40 hidden">
             <li>
               <Link to="/iconMenu">
-                <a>New Project</a>
+                <a>New Projects</a>
               </Link>
             </li>
             <li>

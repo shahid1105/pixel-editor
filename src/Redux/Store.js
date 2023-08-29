@@ -2,6 +2,8 @@
 import { createStore } from 'redux';
 import { useSelector as useReduxSelector, useDispatch as useReduxDispatch } from 'react-redux';
 
+
+
 // Initial state
 const initialState = {
     selectedImage: '',

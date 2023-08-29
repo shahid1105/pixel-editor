@@ -19,7 +19,7 @@ class App extends Component {
       message: "",
       messages: ["Hello!", "Welcome to the chat!"],
     };
-    this.socket = io.connect("http://localhost:5000");
+    this.socket = io.connect("/");
 
     this.sendMessage = this.sendMessage.bind(this);
   }
