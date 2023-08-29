@@ -6,38 +6,35 @@ import { CanvasContext } from "../NewProject/NewProjectForm";
 
 const Canvas = () => {
 
-    // const [canvasData , setCanvasData] = useState({});
-
     const canvasAllInfo = useContext(CanvasContext);
 
-    console.log(canvasAllInfo);
+    console.log(canvasAllInfo.canvasInfo?.height);
+    const height = parseInt(canvasAllInfo.canvasInfo?.height);
+    const width = parseInt(canvasAllInfo.canvasInfo?.width);
+
+
+    console.log(typeof(height) , typeof(width));
+    console.log(height , width);
     
-    const defaultBackgroundColor = 'white';
-    const [dataFromModal,setDataFromModal] = useState();
+    const defaultBackgroundColor = 'red';
     const [penWidth , setPenWidth] = useState(3);
     const [penColor , setPenColor] = useState(3);
 
     const [fabricCanvas , setFabricCanvas] = useState();
 
-    const handleModalData = (data) => {
-        setDataFromModal(data);
-        console.log(data);
-        console.log(dataFromModal);
 
-      };
-
+    const height1 = 500;
+    const width2 = 800;
+    
     const canvasRef = useRef(null);
 
     useEffect(()=>{
         const canvas = new fabric.Canvas(canvasRef.current,{
             backgroundColor: defaultBackgroundColor,
-            width: `${dataFromModal?.width}`,
             
-
-            height: `${dataFromModal?.height}`,
-        
-            // width: `${canvasArea.width}`,
-            // height: `${canvasArea.height}`,
+            width: `${width}`,
+            height: `${height}`,
+            
             isDrawingMode: true,
             // selection:true,
             // selectionColor: 'yellow',
@@ -59,7 +56,7 @@ const Canvas = () => {
         canvas.add(circle);
 
 
-    },[dataFromModal])
+    },[canvasAllInfo])
 
     const changePenWidth = (width) =>{
         if(fabricCanvas){
@@ -97,15 +94,14 @@ const Canvas = () => {
     
 
     return (
-        <div className='container mx-auto bg-black h-screen text-purple-700'>
+        <div className='container mx-auto bg-gray-400 h-screen text-purple-700'>
            
             {/* <Modal sendDataToCanvas={handleModalData}></Modal> */}
 
-            {dataFromModal && <div>
-                <div>
-                    <h3 className="font-bold text-3xl text-center py-5
-                    ">This is Canvas</h3>
-                    {/* <canvas ></canvas> */}
+            
+            <div>
+                <div className=" text-center align-middle">
+                    <h1></h1>
                     <canvas className=" " ref={canvasRef}></canvas>
                 </div>
                 <div className="pt-2">
@@ -118,19 +114,8 @@ const Canvas = () => {
                     {/* <button onClick={()=>clearHandler()}> Clear</button> */}
 
                 </div>
-            </div>}
-            
-            <button className="" onClick={()=>window.new_project_modal2.showModal()}>open modal</button>
-              <dialog id="new_project_modal2" className="modal">
-                <form method="dialog" className="modal-box">
-                  <h3 className="font-bold text-lg">Hello!</h3>
-                  <p className="py-4">Press ESC key or click the button below to close</p>
-                  <div className="modal-action">
-                    {/* if there is a button in form, it will close the modal */}
-                    <button className="btn">Close</button>
-                  </div>
-                </form>
-              </dialog>
+            </div>
+           
             
         </div>
     );

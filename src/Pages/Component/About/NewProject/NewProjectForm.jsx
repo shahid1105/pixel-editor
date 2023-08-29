@@ -9,7 +9,7 @@ export const CanvasContext = createContext('default');
 
 const NewProjectForm = ({showModal, setShowModal}) => {
     
-    const [canvasInfo, setCanvasInfo] = useState({});
+    const [canvasInfo, setCanvasInfo] = useState(null);
 
 
     
@@ -107,7 +107,7 @@ const canvasAllInfo = {
         </>
       ) : null}
 
-{/* <pre>{JSON.stringify(canvasInfo, null, 2)}</pre> */}
+    {/* <pre>{JSON.stringify(canvasInfo, null, 2)}</pre> */}
 
     <CanvasContext.Provider value={canvasAllInfo}>
         <Canvas></Canvas>
