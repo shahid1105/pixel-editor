@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import Modal from "../../Component/About/Canvas/Modal";
 import { useForm } from 'react-hook-form';
 import NewProjectForm from "../../Component/About/NewProject/NewProjectForm";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 
 
@@ -11,12 +12,17 @@ const NavBar = () => {
 
 
   const [showModal, setShowModal] = useState(false);
+  const {canvasInfo, setCanvasInfo} = useContext(AuthContext);
+
 
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const onSubmit = (data) => {
     console.log("hello");
     console.log(data);
+    setCanvasInfo(data);
+    console.log('canvasInfo : '+canvasInfo);
+
     // sendDataToCanvas(data);
     setShowModal(false);
     // setShowModal(true)

@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { AuthContext } from '../../../Providers/AuthProvider';
 
 
 const NewProjectForm = ({showModal, setShowModal}) => {
     
+    const [canvasInfo, setCanvasInfo] = useState(null);
+
+    // console.log('canvasinfo ' +canvasInfo);
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    
     const onSubmit = (data) => {
     console.log(data);
   
+    setCanvasInfo(data);
+
+    console.log('canvasInfo : '+canvasInfo.name);
     // sendDataToCanvas(data);
     setShowModal(false);
 }
@@ -38,7 +46,7 @@ const NewProjectForm = ({showModal, setShowModal}) => {
                   </button>
                 </div>
                 {/*body*/}
-                <div className="relative p-6 flex-auto">
+                <div className="relative p-6 flex-auto text-black">
                 <form onSubmit={handleSubmit(onSubmit) }>
                         
                         <div className="card-body">
