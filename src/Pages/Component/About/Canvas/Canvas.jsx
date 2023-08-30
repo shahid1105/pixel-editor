@@ -1,9 +1,27 @@
 import { fabric } from "fabric";
 import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import storeData from "../../../LinkList";
+
 import { useLocation } from "react-router-dom";
 // import Modal from "./Modal";
 
 const Canvas = () => {
+  const selectedImage = useSelector((state) => state.selectedImage);
+
+  const [state, setState] = useState({
+    image: "",
+    brightness: 100,
+    grayscale: 0,
+    sepia: 0,
+    saturate: 100,
+    contrast: 100,
+    hueRotate: 0,
+    rotate: 0,
+    vertical: 1,
+    horizontal: 1,
+  });
+
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
 
@@ -21,32 +39,50 @@ const Canvas = () => {
   console.log(typeof height, typeof width);
   console.log(height, width);
 
+  const height1 = 1500;
+  const width2 = 1200;
+
+  
+
+  const canvasRef = useRef(null);
+
   const defaultBackgroundColor = "red";
   const [penWidth, setPenWidth] = useState(3);
   const [penColor, setPenColor] = useState(3);
 
   const [fabricCanvas, setFabricCanvas] = useState();
 
-  const height1 = 500;
-  const width2 = 800;
-
-  const canvasRef = useRef(null);
-
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
       backgroundColor: defaultBackgroundColor,
 
-      width: `${width}`,
-      height: `${height}`,
+      width: `${width2}`,
+      height: `${height1}`,
 
       isDrawingMode: true,
-    //   selection:true,
+      // selection:true,
       // selectionColor: 'yellow',
       // selectionLineWidth:3,
     });
 
     setFabricCanvas(canvas);
 
+    const circle = new fabric.Circle({
+      radius: 50,
+      fill: "yellow",
+      top: 50,
+      left: 50,
+      
+    });
+    // circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
+    canvas.add(circle);
+
+    // const ImgSrc={state.image || selectedImage};
+    fabric.Image.fromURL(selectedImage, function(oImg) {
+      canvas.add(oImg);
+
+      fabric.CircleBrush
+    });
     
   }, []);
 
@@ -67,6 +103,7 @@ const Canvas = () => {
       fabricCanvas.freeDrawingBrush.width = width;
       setPenWidth(width);
       fabricCanvas.renderAll.bind(fabricCanvas);
+      console.log("Change Pen WIdth");
     }
   };
   const changePenColor = (color) => {
@@ -74,6 +111,8 @@ const Canvas = () => {
       fabricCanvas.freeDrawingBrush.color = color;
       setPenColor(color);
       fabricCanvas.renderAll.bind(fabricCanvas);
+      console.log("Change Pen Color");
+
     }
   };
 
@@ -87,6 +126,8 @@ const Canvas = () => {
     downloadLink.href = pngData;
     downloadLink.download = fileName;
     downloadLink.click();
+    console.log("Download Button");
+
   };
 
   // const clearHandler = () =>{
@@ -134,6 +175,8 @@ const Canvas = () => {
             {" "}
             Download
           </button>
+
+          {/* <img src={state.image || selectedImage} alt="" /> */}
           {/* <button onClick={()=>clearHandler()}> Clear</button> */}
           {/* <Modal></Modal> */}
         </div>
