@@ -14,6 +14,8 @@ import About from "../Pages/Component/About/About";
 import SideMenu from "../Pages/SideMenu/SideMenu";
 import Canvas from "../Pages/Component/About/Canvas/Canvas";
 import App from "../App";
+import Dashboard from "../Layout/Dashboard";
+import ManageUsers from "../Pages/Dashboard/ManageUsers";
 // import { Canvas } from "fabric/fabric-impl";
 
 const router = createBrowserRouter([
@@ -79,6 +81,16 @@ const router = createBrowserRouter([
       },
     ],
   },
+{
+  path:"dashboard",
+  element:<Dashboard></Dashboard>,
+  children:[
+    {
+      path:"manageUsers",
+      element:<ManageUsers></ManageUsers>
+    }
+  ]
+}
 ]);
 
 export default router;
