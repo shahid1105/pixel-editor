@@ -1,12 +1,12 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaDesktop, FaDropbox, FaGoogleDrive, FaHome } from "react-icons/fa";
-import { GrOnedrive } from "react-icons/Gr";
 import { BiLogIn, BiMessage } from "react-icons/bi";
 import { PiSignOutBold } from "react-icons/pi";
 import { AuthContext } from "../Providers/AuthProvider";
 import { useContext } from "react";
 import HomePage from "./HomePage/HomePage";
 import Chat from "../chat";
+import { GrOnedrive } from "react-icons/gr";
 
 const SideMenu = () => {
   const { logOut, user } = useContext(AuthContext);
@@ -23,7 +23,7 @@ const SideMenu = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-12">
-      <div className="col-span-2 bg-gray-600">
+      <div className="col-span-2 h-[100vh] bg-gray-600">
         <div className="bg-white text-black rounded-full mx-2 my-5">
           {user ? (
             <div className="flex items-center">
