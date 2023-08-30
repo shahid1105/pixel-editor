@@ -16,10 +16,14 @@ import img4 from "../../../../public/raw.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setSelectedImage } from "../../../Redux/Store";
+import Modal from "../../Component/About/Canvas/Modal";
+import { useState } from "react";
 
 const HomePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -58,7 +62,8 @@ const HomePage = () => {
       <div className="flex flex-col md:flex-row justify-center gap-2 md:gap-4 my-4">
         <button className="btn btn-outline btn-info flex items-center">
           <SiGooglesheets className="mr-2" />{" "}
-          <Link to="/imageEditor">New Project</Link>
+          <Link to="" onClick={() => setShowModal(true)}>New Project</Link>
+          
         </button>
 
         <label
@@ -108,6 +113,9 @@ const HomePage = () => {
           <img className="w-12 mr-2" src={img4} alt="" />
           <h3 className="text-center text-gray-400">RAW</h3>
         </div>
+        <Modal showModal={showModal} setShowModal={setShowModal}>
+          {" "}
+        </Modal>
       </div>
     </div>
   );
