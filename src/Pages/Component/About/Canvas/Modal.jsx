@@ -1,31 +1,44 @@
-import React from "react";
+import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
+import { RxCross2 } from "react-icons/rx";
+// import { GrDownload } from "react-icons/gr";
+import { Link, useNavigate } from "react-router-dom";
+import WebItem from '../DefaultPage/WebItem';
 
-export default function Modal({ sendDataToCanvas }) {
-  const [showModal, setShowModal] = React.useState(false);
+
+const Modal = ({ showModal, setShowModal }) => {
+
+  const [canvasInfo, setCanvasInfo] = useState(null);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
-    sendDataToCanvas(data);
-    setShowModal(false);
-  };
 
-  
+  const onSubmit = (data) => {
+    // console.log(data);
+
+    setCanvasInfo(data);
+
+    setShowModal(false);
+
+    navigate(
+      `/iconMenu?name=${data.name}&height=${data.height}&width=${data.width}`
+    );
+  };
+  // const [showModal, setShowModal] = React.useState(false);
+ 
 
   return (
     <>
-      <button
+      {/* <button
         className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         type="button"
-        onClick={() => setShowModal(true)}
-      >
+        onClick={() => setShowModal(true)}>
         Open regular modal
-      </button>
+      </button> */}
       {showModal ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -38,12 +51,9 @@ export default function Modal({ sendDataToCanvas }) {
                     New Document
                   </h3>
                   <button
-                    className="avatar my-auto"
-                    onClick={() => setShowModal(false)}
-                  >
-                    <span className="h-4 w-4 pb-2">
-                      <RxCross2></RxCross2>
-                    </span>
+                    className="avatar my-auto text-black font-bold p-1"
+                    onClick={() => setShowModal(false)}>
+                    <span className="h-4 w-4 pb-2"><RxCross2></RxCross2></span>
                   </button>
                 </div>
                 {/* header 2  */}
@@ -73,7 +83,7 @@ export default function Modal({ sendDataToCanvas }) {
                 <div className="grid grid-cols-1 md:grid-cols-12 bg-black text-white">
                   {/* part1 */}
                   <div className="col-span-8 border border-solid border-slate-600">
-                    <h3>First part</h3>
+                    <WebItem></WebItem>
                   </div>
                   {/* part2 */}
                   <div className="col-span-4 bg-gray-900 relative  flex-auto">
@@ -92,7 +102,8 @@ export default function Modal({ sendDataToCanvas }) {
                               className=" border-solid border-b bg-gray-900 border-purple-600 w-full max-w-xs"
                             />
                             <div className="">
-                            <GrDownload className="text-white"></GrDownload>
+                              <h2>|_</h2>
+                              {/* <GrDownload className="text-white"></GrDownload> */}
                             </div>
                           </div>
                           <label className="label">
@@ -123,23 +134,23 @@ export default function Modal({ sendDataToCanvas }) {
                                   placeholder="width"
                                   className="px-2 w-[40%] rounded-sm"
                                 />
-                                  <select {...register("selector")}>
-                                    <option value="female">Pixels</option>
-                                    <option value="male">Inches</option>
-                                    <option value="other">Millimeters</option>
-                                  </select>
+                                <select {...register("selector")}>
+                                  <option value="female">Pixels</option>
+                                  <option value="male">Inches</option>
+                                  <option value="other">Millimeters</option>
+                                </select>
                               </div>
                               {errors.exampleRequired && (
                                 <span>This field is required</span>
                               )}
                             </div>
                           </div>
-                                {/* height  */}
-                                <div>
+                          {/* height  */}
+                          <div>
                             <div className="form-control">
                               <label className="label">
                                 <span className="label-text text-white">
-                                Height
+                                  Height
                                 </span>
                               </label>
                               <div className="flex gap-2 text-black">
@@ -149,11 +160,11 @@ export default function Modal({ sendDataToCanvas }) {
                                   placeholder="height"
                                   className="px-2 w-[40%] rounded-sm"
                                 />
-                                  <select {...register("selector")}>
-                                    <option value="female">Pixels</option>
-                                    <option value="male">Inches</option>
-                                    <option value="other">Millimeters</option>
-                                  </select>
+                                <select {...register("selector")}>
+                                  <option value="female">Pixels</option>
+                                  <option value="male">Inches</option>
+                                  <option value="other">Millimeters</option>
+                                </select>
                               </div>
                               {errors.exampleRequired && (
                                 <span>This field is required</span>
@@ -226,12 +237,12 @@ export default function Modal({ sendDataToCanvas }) {
                                 <option value="color">Custom</option>
                               </select>
                               <div className="">
-                              <input
-                                {...register("color")}
-                                type="color"
-                                placeholder="Resolution"
-                                className="px-2 w-[40%] rounded-sm"
-                              />
+                                <input
+                                  {...register("color")}
+                                  type="color"
+                                  placeholder="Resolution"
+                                  className="px-2 w-[40%] rounded-sm"
+                                />
                               </div>
                             </div>
                             {errors.exampleRequired && (
@@ -240,7 +251,10 @@ export default function Modal({ sendDataToCanvas }) {
                           </div>
                         </div>
                         <div className="form-control mt-6">
-                          <button className="btn btn-outline btn-primary btn-sm mx-4"> Create</button>
+                          <button className="btn btn-outline btn-primary btn-sm mx-4">
+                            {" "}
+                            Create
+                          </button>
                         </div>
                       </div>
                     </form>
@@ -254,4 +268,6 @@ export default function Modal({ sendDataToCanvas }) {
       ) : null}
     </>
   );
-}
+};
+
+export default Modal;
