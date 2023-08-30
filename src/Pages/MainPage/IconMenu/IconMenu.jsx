@@ -111,6 +111,7 @@ const IconMenu = () => {
           </div>
         </div>
         <div className="col-span-8 bg-purple-400">
+          {/* <ImageEditor></ImageEditor> */}
           <Canvas></Canvas>
         </div>
         <div

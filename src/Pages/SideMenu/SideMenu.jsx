@@ -6,6 +6,7 @@ import { AuthContext } from "../Providers/AuthProvider";
 import { useContext } from "react";
 import HomePage from "./HomePage/HomePage";
 import Chat from "../chat";
+import { GrOnedrive } from "react-icons/gr";
 
 const SideMenu = () => {
   const { logOut, user } = useContext(AuthContext);

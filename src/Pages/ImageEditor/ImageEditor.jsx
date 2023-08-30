@@ -285,7 +285,9 @@ const ImageEditor = () => {
                 </ReactCrop>
               ) : (
                 <label htmlFor="choose">
-                  <LuImagePlus className="text-4xl mx-auto">choose image</LuImagePlus>
+                  <LuImagePlus className="text-4xl mx-auto">
+                    choose image
+                  </LuImagePlus>
                   {/* <LuImagePlus className="text-4xl mx-auto"></LuImagePlus> */}
 
                   <span>Choose Image</span>
