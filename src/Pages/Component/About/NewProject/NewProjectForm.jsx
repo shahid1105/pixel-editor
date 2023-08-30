@@ -1,30 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
-export default function Modal({ sendDataToCanvas }) {
-  // console.log(value);
-  const [showModal, setShowModal] = React.useState(false);
+const NewProjectForm = ({ showModal, setShowModal }) => {
+  const [canvasInfo, setCanvasInfo] = useState(null);
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
 
-    sendDataToCanvas(data);
+  const onSubmit = (data) => {
+    // console.log(data);
+
+    setCanvasInfo(data);
+
     setShowModal(false);
+
+    navigate(
+      `/canvas?name=${data.name}&height=${data.height}&width=${data.width}`
+    );
   };
 
   return (
     <>
-      <button
-        className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-        type="button"
-        onClick={setShowModal(true)}>
-        New Project
-      </button>
       {showModal ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -37,13 +39,13 @@ export default function Modal({ sendDataToCanvas }) {
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => setShowModal(false)}>
-                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                      ×
+                    <span className="bg-transparent  text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                      x
                     </span>
                   </button>
                 </div>
                 {/*body*/}
-                <div className="relative p-6 flex-auto">
+                <div className="relative p-6 flex-auto text-black">
                   <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="card-body">
                       <div className="form-control">
@@ -109,4 +111,6 @@ export default function Modal({ sendDataToCanvas }) {
       ) : null}
     </>
   );
-}
+};
+
+export default NewProjectForm;
