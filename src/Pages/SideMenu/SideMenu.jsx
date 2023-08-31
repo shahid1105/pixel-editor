@@ -5,7 +5,7 @@ import { PiSignOutBold } from "react-icons/pi";
 import { AuthContext } from "../Providers/AuthProvider";
 import { useContext } from "react";
 import HomePage from "./HomePage/HomePage";
-import Chat from "../chat";
+// import Chat from "../chat";
 import { GrOnedrive } from "react-icons/gr";
 
 const SideMenu = () => {

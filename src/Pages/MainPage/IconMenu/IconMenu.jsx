@@ -13,6 +13,8 @@ import Canvas from "../../Component/About/Canvas/Canvas";
 
 const IconMenu = () => {
   const selectedImage = useSelector((state) => state.selectedImage);
+  // const [isDragging, setIsDragging] = useState(false);
+  // const [offset, setOffset] = useState({ x: 0, y: 0 });
 
   const [details, setDetails] = useState("");
   const [crop, setCrop] = useState("");
@@ -67,14 +69,15 @@ const IconMenu = () => {
   };
 
   const naveItem = <></>;
+  /* ------------------------------------------- */
 
   return (
     <div className="">
       <div className="navbar bg-gray-600 text-white">
         <div className="navbar-start">
           <div className="ml-5">
-            <Link to='/home'>
-            <FaHome></FaHome>
+            <Link to="/home">
+              <FaHome></FaHome>
             </Link>
           </div>
           <div className="divider divider-horizontal "></div>
@@ -105,6 +108,12 @@ const IconMenu = () => {
           <button onClick={toggleColumns} className="text-sm ml-3">
             {columns === 1 ? <BsChevronDoubleLeft /> : <BsChevronDoubleRight />}
           </button>
+          {/* <div
+            id="draggable-div"
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            className={`p-4 grid grid-cols-10 md:grid-cols-${columns} gap-2  md:col-span-1 bg-slate-700 text-white cursor-move`}> */}
           <div
             className={`p-4 grid grid-cols-10 md:grid-cols-${columns} gap-2  md:col-span-1 bg-slate-700 text-white`}>
             <Icon></Icon>
