@@ -2,7 +2,7 @@
 import { Link, Outlet } from "react-router-dom";
 import { FaDesktop, FaDropbox, FaGoogleDrive, FaHome } from "react-icons/fa";
 import { GrOnedrive } from "react-icons/Gr";
-import { BiLogIn, BiMessage } from "react-icons/bi";
+import { BiLogIn, BiMessage, BiSolidDashboard } from "react-icons/bi";
 import { PiSignOutBold } from "react-icons/pi";
 import { AuthContext } from "../Providers/AuthProvider";
 import { useContext } from "react";
@@ -56,7 +56,7 @@ const SideMenu = () => {
           </li>
           <li className="text-center ">
             <Link to="/dashboard" className="sidebar-link">
-              <FaHome className="sidebar-icon" /> Dashboard
+              <BiSolidDashboard className="sidebar-icon" /> Dashboard
             </Link>
           </li>
           <li className="text-center">
