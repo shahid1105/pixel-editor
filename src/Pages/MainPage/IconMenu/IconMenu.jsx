@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "../../../Redux/Store";
 import ImageEditor from "../../ImageEditor/ImageEditor";
 import Canvas from "../../Component/About/Canvas/Canvas";
+import { useRef } from "react";
 
 const IconMenu = () => {
   const selectedImage = useSelector((state) => state.selectedImage);
@@ -56,7 +57,7 @@ const IconMenu = () => {
   };
 
   const [currentColor, setCurrentColor] = useState();
-  const [columns, setColumns] = useState(1);
+  // const [columns, setColumns] = useState(1);
 
   const handleOnchange = (color) => {
     setCurrentColor(color.hex);
@@ -66,15 +67,42 @@ const IconMenu = () => {
     setColumns(columns === 1 ? 2 : 1);
   };
 
-  const naveItem = <></>;
+  const [columns, setColumns] = useState(1);
+  const [isDragging, setIsDragging] = useState(false);
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    const rect = e.target.getBoundingClientRect();
+    setOffset({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    const newX = e.clientX - offset.x;
+    const newY = e.clientY - offset.y;
+    const maxX = window.innerWidth - e.target.offsetWidth;
+    const maxY = window.innerHeight - e.target.offsetHeight;
+    const clampedX = Math.max(0, Math.min(newX, maxX));
+    const clampedY = Math.max(0, Math.min(newY, maxY));
+    e.target.style.left = clampedX + "px";
+    e.target.style.top = clampedY + "px";
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
 
   return (
     <div className="">
-      <div className="navbar bg-gray-600 text-white">
+      <div className="navbar bg-gray-600 text-white border-b-2">
         <div className="navbar-start">
           <div className="ml-5">
-            <Link to='/home'>
-            <FaHome></FaHome>
+            <Link to="/home">
+              <FaHome></FaHome>
             </Link>
           </div>
           <div className="divider divider-horizontal "></div>
@@ -97,26 +125,38 @@ const IconMenu = () => {
         </div>
 
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{naveItem}</ul>
+          <ul className="menu menu-horizontal px-1"></ul>
         </div>
       </div>
-      <div className="icone grid grid-cols-1 md:grid-cols-12 gap-0 md:gap-1">
-        <div className={`bg-slate-600 text-white`}>
-          <button onClick={toggleColumns} className="text-sm ml-3">
+      {/* Icon  */}
+      <div className="grid grid-cols-1 z-50 md:grid-cols-12 gap-0 md:gap-1">
+        <div className="bg-slate-600 text-white">
+          <div
+            className={`p-4 grid grid-cols-10 md:grid-cols-${columns} gap-2  md:col-span-1 bg-slate-700 text-white`}
+            style={{
+              position: "absolute",
+              cursor: isDragging ? "grabbing" : "grab",
+            }}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+          >
+            <button onClick={toggleColumns} className="text-sm ml-1 border-2 border-gray-300 px-1">
             {columns === 1 ? <BsChevronDoubleLeft /> : <BsChevronDoubleRight />}
           </button>
-          <div
-            className={`p-4 grid grid-cols-10 md:grid-cols-${columns} gap-2  md:col-span-1 bg-slate-700 text-white`}>
+          <br />
             <Icon></Icon>
           </div>
         </div>
+
         <div className="col-span-8 bg-purple-400">
           {/* <ImageEditor></ImageEditor> */}
           <Canvas></Canvas>
         </div>
         <div
           style={{ backgroundColor: currentColor }}
-          className="p-5 col-span-3 ">
+          className="p-5 col-span-3 "
+        >
           <SketchPicker
             className="mx-auto"
             color={currentColor}

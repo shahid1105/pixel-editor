@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main";
-import HomePage from "../Pages/SideMenu/HomePage/HomePage";
 import ThisDevice from "../Pages/SideMenu/ThisDevice/ThisDevice";
 import DropBox from "../Pages/SideMenu/DropBox/DropBox";
 import OneDrive from "../Pages/SideMenu/OneDrive/OneDrive";
