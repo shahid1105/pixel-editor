@@ -45,7 +45,7 @@ const Canvas = () => {
 
   const canvasRef = useRef(null);
 
-  const defaultBackgroundColor = "red";
+  const defaultBackgroundColor = "white";
   const [penWidth, setPenWidth] = useState(3);
   const [penColor, setPenColor] = useState(3);
 
@@ -154,7 +154,7 @@ const Canvas = () => {
   /* ------------------------------------------------------------------ */
 
   return (
-    <div className="container mx-auto bg-gray-400 h-screen text-purple-700">
+    <div className="container z-0 mx-auto bg-gray-400 h-screen text-purple-700">
       <div>
         <div className=" text-center align-middle">
           <h1></h1>

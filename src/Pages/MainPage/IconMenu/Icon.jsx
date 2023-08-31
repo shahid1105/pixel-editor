@@ -20,7 +20,7 @@ import {
 } from "react-icons/bi";
 import { FaRegCircle, FaRegHandPaper } from "react-icons/fa";
 
-const Icon = ({ onTextToolClick }) => {
+const Icon = () => {
   return (
     <>
       <BsArrowsMove title="Move Tool"></BsArrowsMove>
@@ -39,7 +39,7 @@ const Icon = ({ onTextToolClick }) => {
       <RiBlurOffLine title="Blur Tool"></RiBlurOffLine>
       <SlMagnifier title="Dodge Tool"></SlMagnifier>
       <PiPenNibBold title="Curvature Pen Tool"></PiPenNibBold>
-      <BiText onClick={onTextToolClick} title="Horizontal Type Tool"></BiText>
+      <BiText title="Horizontal Type Tool"></BiText>
       <BiSolidPointer title="Path Selection Tool"></BiSolidPointer>
       <FaRegCircle title="Ellipse Tool"></FaRegCircle>
       <FaRegHandPaper title="Hand Tool"></FaRegHandPaper>
