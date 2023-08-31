@@ -14,7 +14,7 @@ import { FaRegCircle, FaRegHandPaper } from 'react-icons/fa';
 const Icon = () => {
     return (
         <>
-           <BsArrowsMove title='Move Tool'></BsArrowsMove>
+                <BsArrowsMove title='Move Tool'></BsArrowsMove>
                 <TbMarquee2 title='Rectangular Marquee Tool'></TbMarquee2>
                 <LuLasso title='Magnetic Lasso Tool'></LuLasso>
                 <PiSelectionAllFill title='Object Selection Tools'></PiSelectionAllFill>
