@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { RxCross2 } from "react-icons/rx";
 // import { GrDownload } from "react-icons/gr";
 import { Link, useNavigate } from "react-router-dom";
-import WebItem from '../DefaultPage/WebItem';
-
+import WebItem from "../DefaultPage/WebItem";
 
 const Modal = ({ showModal, setShowModal }) => {
-
   const [canvasInfo, setCanvasInfo] = useState(null);
+
+  const [isDragging, setIsDragging] = useState(false);
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+
   const navigate = useNavigate();
   const {
     register,
@@ -29,7 +31,34 @@ const Modal = ({ showModal, setShowModal }) => {
     );
   };
   // const [showModal, setShowModal] = React.useState(false);
- 
+
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    setOffset({
+      x: e.clientX,
+      y: e.clientY,
+    });
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+
+    const deltaX = e.clientX - offset.x;
+    const deltaY = e.clientY - offset.y;
+
+    const modal = document.getElementById("modal-container");
+    modal.style.left = `${modal.offsetLeft + deltaX}px`;
+    modal.style.top = `${modal.offsetTop + deltaY}px`;
+
+    setOffset({
+      x: e.clientX,
+      y: e.clientY,
+    });
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
 
   return (
     <>
@@ -41,7 +70,14 @@ const Modal = ({ showModal, setShowModal }) => {
       </button> */}
       {showModal ? (
         <>
-          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+          <div
+            id="modal-container"
+            className={`justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none${
+              isDragging ? " cursor-move" : ""
+            }`}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}>
             <div className="relative w-[100%] my-6 mx-auto max-w-3xl">
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
@@ -53,7 +89,9 @@ const Modal = ({ showModal, setShowModal }) => {
                   <button
                     className="avatar my-auto text-black font-bold p-1"
                     onClick={() => setShowModal(false)}>
-                    <span className="h-4 w-4 pb-2"><RxCross2></RxCross2></span>
+                    <span className="h-4 w-4 pb-2">
+                      <RxCross2></RxCross2>
+                    </span>
                   </button>
                 </div>
                 {/* header 2  */}

@@ -15,6 +15,7 @@ import SideMenu from "../Pages/SideMenu/SideMenu";
 import Canvas from "../Pages/Component/About/Canvas/Canvas";
 import App from "../App";
 import Modal from "../Pages/Component/About/Canvas/Modal";
+import Scale from "../Pages/Scale/Scale";
 
 const router = createBrowserRouter([
   {
@@ -75,11 +76,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/modal",
-        element: <Modal></Modal>
+        element: <Modal></Modal>,
       },
       {
         path: "chat",
         element: <App></App>,
+      },
+      {
+        path: "scale",
+        element: <Scale></Scale>,
       },
     ],
   },
