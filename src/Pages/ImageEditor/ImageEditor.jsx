@@ -200,7 +200,7 @@ const ImageEditor = () => {
   ];
 
   return (
-    <div className="bg-slate-300 p-6 text-black w-full h-full bg-black">
+    <div className="bg-slate-300 p-6 text-black w-full h-full ">
       <div className="max-w-screen-md mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 rounded-md mt-5 w-auto md:w-[500px]">
           <div>
@@ -229,7 +229,7 @@ const ImageEditor = () => {
                     onChange={handleInput}
                     type="range"
                     value={state[property.name]}
-                    max={property.maxValue}
+                   f max={property.maxValue}
                     className="range range-xs range-primary"
                   />
                 </div>

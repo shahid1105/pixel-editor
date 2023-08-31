@@ -45,6 +45,14 @@ const HomePage = () => {
     }
   };
 
+
+  //open new tab
+  const openNewTab = (url) => {
+    
+     window.open(url)
+    
+  };
+
   const handleDragOver = (event) => {
     event.preventDefault();
   };
@@ -57,9 +65,9 @@ const HomePage = () => {
       </h3>
       {/* <p>to do</p> */}
       <div className="flex flex-col md:flex-row justify-center gap-2 md:gap-4 my-4">
-        <button className="btn btn-outline btn-info flex items-center">
+        <button onClick={()=> openNewTab("imageEditor")} className="btn btn-outline btn-info flex items-center">
           <SiGooglesheets className="mr-2" />{" "}
-          <Link to="/imageEditor">New Project</Link>
+          New Project
         </button>
 
         <label
