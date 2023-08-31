@@ -14,28 +14,28 @@ import { FaRegCircle, FaRegHandPaper } from 'react-icons/fa';
 const Icon = () => {
     return (
         <>
-           <BsArrowsMove></BsArrowsMove>
-                <TbMarquee2></TbMarquee2>
-                <LuLasso></LuLasso>
-                <PiSelectionAllFill></PiSelectionAllFill>
-                <BsCrop></BsCrop>
-                <LuFrame></LuFrame>
-                <BsEyedropper></BsEyedropper>
-                <GiHealthCapsule></GiHealthCapsule>
-                <IoMdColorWand></IoMdColorWand>
-                <LuStamp></LuStamp>
-                <MdHistoryEdu></MdHistoryEdu>
-                <BsEraserFill></BsEraserFill>
-                <MdGradient></MdGradient>
-                <RiBlurOffLine></RiBlurOffLine>
-                <SlMagnifier></SlMagnifier>
-                <PiPenNibBold></PiPenNibBold>
-                <BiText></BiText>
-                <BiSolidPointer></BiSolidPointer>
-                <FaRegCircle></FaRegCircle>
-                <FaRegHandPaper></FaRegHandPaper>
-                <TbZoomReplace></TbZoomReplace>
-                <BiDotsHorizontalRounded></BiDotsHorizontalRounded> 
+           <BsArrowsMove title='Move Tool'></BsArrowsMove>
+                <TbMarquee2 title='Rectangular Marquee Tool'></TbMarquee2>
+                <LuLasso title='Magnetic Lasso Tool'></LuLasso>
+                <PiSelectionAllFill title='Object Selection Tools'></PiSelectionAllFill>
+                <BsCrop title='Crop Tool'></BsCrop>
+                <LuFrame title='Frame Tool'></LuFrame>
+                <BsEyedropper title='Eyedropper Tool'></BsEyedropper>
+                <GiHealthCapsule title='Healing Brush Tool'></GiHealthCapsule>
+                <IoMdColorWand title='Color Replacement Tool'></IoMdColorWand>
+                <LuStamp title='Clone Stamp Tool'></LuStamp>
+                <MdHistoryEdu title='History Brush Tool'></MdHistoryEdu>
+                <BsEraserFill title='Magic Eraser Tool'></BsEraserFill>
+                <MdGradient title='Gradient Tool'></MdGradient>
+                <RiBlurOffLine title='Blur Tool'></RiBlurOffLine>
+                <SlMagnifier title='Dodge Tool'></SlMagnifier>
+                <PiPenNibBold title='Curvature Pen Tool'></PiPenNibBold>
+                <BiText title='Horizontal Type Tool'></BiText>
+                <BiSolidPointer title='Path Selection Tool'></BiSolidPointer>
+                <FaRegCircle title='Ellipse Tool'></FaRegCircle>
+                <FaRegHandPaper title='Hand Tool'></FaRegHandPaper>
+                <TbZoomReplace title='Zoom Tool'></TbZoomReplace>
+                <BiDotsHorizontalRounded title='Edit Toolbar'></BiDotsHorizontalRounded> 
         </>
     );
 };

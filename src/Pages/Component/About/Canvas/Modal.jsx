@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { RxCross2 } from "react-icons/rx";
 // import { GrDownload } from "react-icons/gr";
 import { Link, useNavigate } from "react-router-dom";
+import WebItem from "../DefaultPage/WebItem";
 
 const Modal = ({ showModal, setShowModal }) => {
   const [canvasInfo, setCanvasInfo] = useState(null);
@@ -26,7 +27,7 @@ const Modal = ({ showModal, setShowModal }) => {
     setShowModal(false);
 
     navigate(
-      `/canvas?name=${data.name}&height=${data.height}&width=${data.width}`
+      `/iconMenu?name=${data.name}&height=${data.height}&width=${data.width}`
     );
   };
   // const [showModal, setShowModal] = React.useState(false);
@@ -120,7 +121,7 @@ const Modal = ({ showModal, setShowModal }) => {
                 <div className="grid grid-cols-1 md:grid-cols-12 bg-black text-white">
                   {/* part1 */}
                   <div className="col-span-8 border border-solid border-slate-600">
-                    <h3>First part</h3>
+                    <WebItem></WebItem>
                   </div>
                   {/* part2 */}
                   <div className="col-span-4 bg-gray-900 relative  flex-auto">
