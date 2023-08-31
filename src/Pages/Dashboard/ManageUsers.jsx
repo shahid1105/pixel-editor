@@ -77,6 +77,7 @@ const ManageUsers = () => {
       <h2 className="text-center mb-6 text-4xl text-[#635a71] font-bold uppercase">
         manage users
       </h2>
+      <div className='uppercase'>Total User:{users.length}</div>
       <div className="overflow-x-auto w-full">
         <table className="table table-zebra w-full sm:w-auto">
           {/* head */}
