@@ -16,10 +16,14 @@ import img4 from "../../../../public/raw.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setSelectedImage } from "../../../Redux/Store";
+import Modal from "../../Component/About/Canvas/Modal";
+import { useState } from "react";
 
 const HomePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -117,6 +121,9 @@ const HomePage = () => {
           <img className="w-12 mr-2" src={img4} alt="" />
           <h3 className="text-center text-gray-400">RAW</h3>
         </div>
+        <Modal showModal={showModal} setShowModal={setShowModal}>
+          {" "}
+        </Modal>
       </div>
     </div>
   );
