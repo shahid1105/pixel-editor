@@ -46,8 +46,8 @@ const Canvas = () => {
 
   const canvasRef = useRef(null);
 
-  const defaultBackgroundColor = "red";
-  const [penWidth, setPenWidth] = useState(3);
+  const defaultBackgroundColor = "white";
+  const [penWidth, setPenWidth] = useState(10);
   const [penColor, setPenColor] = useState(3);
 
   const [fabricCanvas, setFabricCanvas] = useState();
@@ -59,13 +59,20 @@ const Canvas = () => {
       width: `${width2}`,
       height: `${height1}`,
 
-      isDrawingMode: true,
+      // isDrawingMode: true,
       // selection:true,
       // selectionColor: 'yellow',
       // selectionLineWidth:3,
     });
 
     setFabricCanvas(canvas);
+
+
+    
+
+    // canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
+
+    // canvas.freeDrawingBrush.width = 5;
 
     const circle = new fabric.Circle({
       radius: 50,
@@ -75,7 +82,7 @@ const Canvas = () => {
       
     });
     // circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
-    canvas.add(circle);
+    // canvas.add(circle);
 
     // const ImgSrc={state.image || selectedImage};
     fabric.Image.fromURL(selectedImage, function(oImg) {
@@ -117,9 +124,11 @@ const Canvas = () => {
   };
 
   const downloadHandler = () => {
+    console.log("Download Button");
+
     const pngData = fabricCanvas.toDataURL("png");
     const downloadLink = document.createElement("a");
-    const fileName = `${dataFromModal.name}-${Math.random()
+    const fileName = `${name}-${Math.random()
       .toString()
       .replace("", "")}.png`;
 
@@ -130,6 +139,19 @@ const Canvas = () => {
 
   };
 
+  const handleDrawing = () =>{
+    if (fabricCanvas) {
+      fabricCanvas.freeDrawingBrush = true;
+      // fabricCanvas.freeDrawingBrush = new fabric.PencilBrush('canvas');
+
+      // fabricCanvas.freeDrawingBrush.width = 5;
+      // fabricCanvas.freeDrawingBrush.color = color;
+      // setPenColor(color);
+      // fabricCanvas.renderAll.bind(fabricCanvas);
+      console.log("Change Pen Color");
+
+    }
+  }
   // const clearHandler = () =>{
   //     if(fabricCanvas){
   //         fabricCanvas.clear();
@@ -169,6 +191,10 @@ const Canvas = () => {
         
             <button className="btn" onClick={addACircle}>
                 Add Circle
+            </button>
+
+            <button className="btn" onClick={handleDrawing}>
+                Drawing
             </button>
 
           <button className="btn btn-success" onClick={() => downloadHandler()}>
