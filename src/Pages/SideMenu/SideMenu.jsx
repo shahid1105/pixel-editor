@@ -94,6 +94,11 @@ const SideMenu = () => {
               <BiMessage className="sidebar-icon" /> Chat
             </Link>
           </li>
+          <li className="text-center">
+            <Link to="/scale" className="sidebar-link">
+              <BiMessage className="sidebar-icon" /> Scale
+            </Link>
+          </li>
         </ul>
       </div>
       <div className="col-span-10">
