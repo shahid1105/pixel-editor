@@ -1,0 +1,22 @@
+/* ScaleBar.css */
+
+.scale-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+}
+
+.tick {
+  width: 1px;
+  height: 10px;
+  background-color: #000;
+}
+
+.label {
+  font-size: 12px;
+  margin-top: 5px;
+}

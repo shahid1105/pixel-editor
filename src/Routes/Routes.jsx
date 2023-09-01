@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main";
-import HomePage from "../Pages/SideMenu/HomePage/HomePage";
 import ThisDevice from "../Pages/SideMenu/ThisDevice/ThisDevice";
 import DropBox from "../Pages/SideMenu/DropBox/DropBox";
 import OneDrive from "../Pages/SideMenu/OneDrive/OneDrive";
@@ -14,7 +13,9 @@ import About from "../Pages/Component/About/About";
 import SideMenu from "../Pages/SideMenu/SideMenu";
 import Canvas from "../Pages/Component/About/Canvas/Canvas";
 import App from "../App";
-import Modal from "../Pages/Component/About/Canvas/Modal";
+import Dashboard from "../Layout/Dashboard";
+import ManageUsers from "../Pages/Dashboard/ManageUsers";
+// import { Canvas } from "fabric/fabric-impl";
 
 const router = createBrowserRouter([
   {
@@ -74,15 +75,21 @@ const router = createBrowserRouter([
         element: <Login></Login>,
       },
       {
-        path: "/modal",
-        element: <Modal></Modal>
-      },
-      {
         path: "chat",
         element: <App></App>,
       },
     ],
   },
+{
+  path:"dashboard",
+  element:<Dashboard></Dashboard>,
+  children:[
+    {
+      path:"manageUsers",
+      element:<ManageUsers></ManageUsers>
+    }
+  ]
+}
 ]);
 
 export default router;

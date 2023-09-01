@@ -1,6 +1,5 @@
 import { SketchPicker } from "react-color";
 import { useState } from "react";
-
 import Icon from "./Icon";
 import { FaHome } from "react-icons/fa";
 import { FaPaintBrush } from "react-icons/fa";
@@ -10,9 +9,12 @@ import { Link } from "react-router-dom";
 import { useSelector } from "../../../Redux/Store";
 import ImageEditor from "../../ImageEditor/ImageEditor";
 import Canvas from "../../Component/About/Canvas/Canvas";
+import { useRef } from "react";
 
 const IconMenu = () => {
   const selectedImage = useSelector((state) => state.selectedImage);
+  // const [isDragging, setIsDragging] = useState(false);
+  // const [offset, setOffset] = useState({ x: 0, y: 0 });
 
   const [details, setDetails] = useState("");
   const [crop, setCrop] = useState("");
@@ -56,7 +58,7 @@ const IconMenu = () => {
   };
 
   const [currentColor, setCurrentColor] = useState();
-  const [columns, setColumns] = useState(1);
+  // const [columns, setColumns] = useState(1);
 
   const handleOnchange = (color) => {
     setCurrentColor(color.hex);
@@ -66,36 +68,43 @@ const IconMenu = () => {
     setColumns(columns === 1 ? 2 : 1);
   };
 
-  const naveItem = <></>;
+  const [columns, setColumns] = useState(1);
+  const [isDragging, setIsDragging] = useState(false);
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    const rect = e.target.getBoundingClientRect();
+    setOffset({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    const newX = e.clientX - offset.x;
+    const newY = e.clientY - offset.y;
+    const maxX = window.innerWidth - e.target.offsetWidth;
+    const maxY = window.innerHeight - e.target.offsetHeight;
+    const clampedX = Math.max(0, Math.min(newX, maxX));
+    const clampedY = Math.max(0, Math.min(newY, maxY));
+    e.target.style.left = clampedX + "px";
+    e.target.style.top = clampedY + "px";
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
 
   return (
     <div className="">
-      <div className="navbar bg-gray-600 text-white">
+      <div className="navbar bg-gray-600 text-white border-b-2">
         <div className="navbar-start">
-          <div className="dropdown">
-            <label tabIndex={0} className="btn btn-ghost lg:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />
-              </svg>
-            </label>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-              {naveItem}
-            </ul>
-          </div>
           <div className="ml-5">
-            <FaHome></FaHome>
+            <Link to="/home">
+              <FaHome></FaHome>
+            </Link>
           </div>
           <div className="divider divider-horizontal "></div>
           <div>
@@ -117,20 +126,30 @@ const IconMenu = () => {
         </div>
 
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{naveItem}</ul>
+          <ul className="menu menu-horizontal px-1"></ul>
         </div>
       </div>
-      <div className="icone grid grid-cols-1 md:grid-cols-12 gap-0 md:gap-1">
-        <div className={`bg-slate-600 text-white`}>
-          <button onClick={toggleColumns} className="text-sm ml-3">
+      {/* Icon  */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-0 md:gap-1">
+        <div
+          className={`p-4 grid grid-cols-10 md:grid-cols-${columns} gap-2  md:col-span-1 bg-slate-700 text-white z-50`}
+          style={{
+            position: "absolute",
+            cursor: isDragging ? "grabbing" : "grab",
+          }}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}>
+          <button
+            onClick={toggleColumns}
+            className="text-sm ml-1 border-2 border-gray-300 px-1">
             {columns === 1 ? <BsChevronDoubleLeft /> : <BsChevronDoubleRight />}
           </button>
-          <div
-            className={`p-4 grid grid-cols-10 md:grid-cols-${columns} gap-2  md:col-span-1 bg-slate-700 text-white`}>
-            <Icon></Icon>
-          </div>
+          <br />
+          <Icon></Icon>
         </div>
-        <div className="col-span-8 bg-purple-400">
+
+        <div className="col-span-9 bg-purple-400">
           {/* <ImageEditor></ImageEditor> */}
           <Canvas></Canvas>
         </div>
