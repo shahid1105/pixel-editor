@@ -23,8 +23,8 @@ const SideMenu = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-12">
-      <div className="col-span-2 h-[100vh] bg-gray-600">
-        <div className="bg-white text-black rounded-full mx-2 my-5">
+      <div className="col-span-2 h-[100vh] bg-gray-600 hidden md:block">
+        <div className="bg-white text-black rounded-full mx-2 my-5 ">
           {user ? (
             <div className="flex items-center">
               <div className="avatar">
@@ -45,7 +45,7 @@ const SideMenu = () => {
             </div>
           )}
         </div>
-        <ul className="menu p-4 w-60 text-md h-full text-white">
+        <ul className="menu p-4 w-60 text-md h-full text-white ">
           <li className="text-center ">
             <Link to="/home" className="sidebar-link">
               <FaHome className="sidebar-icon" /> Home

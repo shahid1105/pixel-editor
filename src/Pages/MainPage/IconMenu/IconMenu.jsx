@@ -131,32 +131,26 @@ const IconMenu = () => {
         </div>
       </div>
       {/* Icon  */}
-      <div className="grid grid-cols-1 z-50 md:grid-cols-12 gap-0 md:gap-1">
-        <div className="bg-slate-600 text-white">
-          <div
-            className={`p-4 grid grid-cols-10 md:grid-cols-${columns} gap-2  md:col-span-1 bg-slate-700 text-white`}
-            style={{
-              position: "absolute",
-              cursor: isDragging ? "grabbing" : "grab",
-            }}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}>
-            <button
-              onClick={toggleColumns}
-              className="text-sm ml-1 border-2 border-gray-300 px-1">
-              {columns === 1 ? (
-                <BsChevronDoubleLeft />
-              ) : (
-                <BsChevronDoubleRight />
-              )}
-            </button>
-            <br />
-            <Icon></Icon>
-          </div>
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-0 md:gap-1">
+        <div
+          className={`p-4 grid grid-cols-10 md:grid-cols-${columns} gap-2  md:col-span-1 bg-slate-700 text-white z-50`}
+          style={{
+            position: "absolute",
+            cursor: isDragging ? "grabbing" : "grab",
+          }}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}>
+          <button
+            onClick={toggleColumns}
+            className="text-sm ml-1 border-2 border-gray-300 px-1">
+            {columns === 1 ? <BsChevronDoubleLeft /> : <BsChevronDoubleRight />}
+          </button>
+          <br />
+          <Icon></Icon>
         </div>
 
-        <div className="col-span-8 bg-purple-400">
+        <div className="col-span-9 bg-purple-400">
           {/* <ImageEditor></ImageEditor> */}
           <Canvas></Canvas>
         </div>

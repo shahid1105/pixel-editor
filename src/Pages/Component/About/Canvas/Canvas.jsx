@@ -40,8 +40,8 @@ const Canvas = () => {
   console.log(typeof height, typeof width);
   console.log(height, width);
 
-  const height1 = 1500;
-  const width2 = 1200;
+  const height1 = 500;
+  const width2 = 800;
 
   const canvasRef = useRef(null);
 
@@ -55,8 +55,8 @@ const Canvas = () => {
     const canvas = new fabric.Canvas(canvasRef.current, {
       backgroundColor: defaultBackgroundColor,
 
-      width: `${width2}`,
-      height: `${height1}`,
+      width: `${width || width2}`,
+      height: `${height || height1}`,
 
       isDrawingMode: true,
       // selection:true,
@@ -154,7 +154,7 @@ const Canvas = () => {
   /* ------------------------------------------------------------------ */
 
   return (
-    <div className="container z-0 mx-auto bg-gray-400 h-screen text-purple-700">
+    <div className="container  mx-auto bg-purple-400 h-[100%] text-purple-700">
       <div>
         <div className=" text-center align-middle">
           <h1></h1>
