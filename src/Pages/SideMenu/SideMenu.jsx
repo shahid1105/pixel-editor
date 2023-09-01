@@ -1,4 +1,3 @@
-
 import { Link, Outlet } from "react-router-dom";
 import { FaDesktop, FaDropbox, FaGoogleDrive, FaHome } from "react-icons/fa";
 import { GrOnedrive } from "react-icons/Gr";
@@ -7,7 +6,7 @@ import { PiSignOutBold } from "react-icons/pi";
 import { AuthContext } from "../Providers/AuthProvider";
 import { useContext } from "react";
 import HomePage from "./HomePage/HomePage";
-import Chat from "../chat";
+// import Chat from "../chat";
 
 const SideMenu = () => {
   const { logOut, user } = useContext(AuthContext);
@@ -31,8 +30,6 @@ const SideMenu = () => {
               <div className="avatar">
                 <div className="w-12 h-12 rounded-full">
                   <img src={user.photoURL} />
-                  
-              
                 </div>
               </div>
               <p className="px-6 text-lg">{user.displayName}</p>
@@ -48,7 +45,7 @@ const SideMenu = () => {
             </div>
           )}
         </div>
-        <ul className="menu p-4 w-60 text-md h-full text-white">
+        <ul className="menu p-4 w-60 text-md h-full text-white ">
           <li className="text-center ">
             <Link to="/home" className="sidebar-link">
               <FaHome className="sidebar-icon" /> Home
@@ -108,9 +105,7 @@ const SideMenu = () => {
         <HomePage></HomePage>
       </div>
     </div>
-    
   );
 };
-
 
 export default SideMenu;
