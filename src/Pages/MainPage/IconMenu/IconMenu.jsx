@@ -1,6 +1,5 @@
 import { SketchPicker } from "react-color";
 import { useState } from "react";
-
 import Icon from "./Icon";
 import { FaHome } from "react-icons/fa";
 import { FaPaintBrush } from "react-icons/fa";
