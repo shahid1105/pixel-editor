@@ -7,6 +7,7 @@ import { AuthContext } from "../Providers/AuthProvider";
 import { useContext } from "react";
 import HomePage from "./HomePage/HomePage";
 // import Chat from "../chat";
+import {MdOutlineFeedback} from "react-icons/md"
 
 const SideMenu = () => {
   const { logOut, user } = useContext(AuthContext);
