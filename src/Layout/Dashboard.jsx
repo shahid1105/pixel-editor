@@ -1,6 +1,7 @@
 import React from "react";
 import { FaHome } from "react-icons/fa";
 import {AiOutlineUsergroupAdd} from "react-icons/ai"
+import {MdOutlineFeedback} from "react-icons/md"
 import { Link, NavLink, Outlet } from "react-router-dom";
 
 const Dashboard = () => {
@@ -33,6 +34,11 @@ const Dashboard = () => {
           <li className="text-center ">
             <Link to="/dashboard/manageUsers" className="sidebar-link">
               <AiOutlineUsergroupAdd className="sidebar-icon" /> Users
+            </Link>
+          </li>
+          <li className="text-center ">
+            <Link to="/dashboard/report" className="sidebar-link">
+              <MdOutlineFeedback className="sidebar-icon" /> Report & Feedback
             </Link>
           </li>
 
