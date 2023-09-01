@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import storeData from "../../../LinkList";
 
 import { useLocation } from "react-router-dom";
+import Icon from "../../../MainPage/IconMenu/Icon";
 // import Modal from "./Modal";
 
 const Canvas = () => {
@@ -39,10 +40,8 @@ const Canvas = () => {
   console.log(typeof height, typeof width);
   console.log(height, width);
 
-  const height1 = 1500;
-  const width2 = 1200;
-
-  
+  const height1 = 500;
+  const width2 = 800;
 
   const canvasRef = useRef(null);
 
@@ -56,8 +55,8 @@ const Canvas = () => {
     const canvas = new fabric.Canvas(canvasRef.current, {
       backgroundColor: defaultBackgroundColor,
 
-      width: `${width2}`,
-      height: `${height1}`,
+      width: `${width || width2}`,
+      height: `${height || height1}`,
 
       isDrawingMode: true,
       // selection:true,
@@ -72,31 +71,28 @@ const Canvas = () => {
       fill: "yellow",
       top: 50,
       left: 50,
-      
     });
     // circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
     canvas.add(circle);
 
     // const ImgSrc={state.image || selectedImage};
-    fabric.Image.fromURL(selectedImage, function(oImg) {
+    fabric.Image.fromURL(selectedImage, function (oImg) {
       canvas.add(oImg);
 
-      fabric.CircleBrush
+      fabric.CircleBrush;
     });
-    
   }, []);
 
-  const addACircle = () =>{
+  const addACircle = () => {
     const circle = new fabric.Circle({
-        radius: 50,
-        fill: "yellow",
-        top: 50,
-        left: 50,
-        
-      });
-      // circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
-      fabricCanvas.add(circle);
-  }
+      radius: 50,
+      fill: "yellow",
+      top: 50,
+      left: 50,
+    });
+    // circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
+    fabricCanvas.add(circle);
+  };
 
   const changePenWidth = (width) => {
     if (fabricCanvas) {
@@ -112,7 +108,6 @@ const Canvas = () => {
       setPenColor(color);
       fabricCanvas.renderAll.bind(fabricCanvas);
       console.log("Change Pen Color");
-
     }
   };
 
@@ -127,7 +122,6 @@ const Canvas = () => {
     downloadLink.download = fileName;
     downloadLink.click();
     console.log("Download Button");
-
   };
 
   // const clearHandler = () =>{
@@ -138,13 +132,55 @@ const Canvas = () => {
   //     }
   // }
 
+  /* -------------------------------------------------------------------- */
+
+  // const [showTextEdit, setShowTextEdit] = useState(false);
+  // const [text, setText] = useState("");
+
+  // const handleTextToolClick = () => {
+  //   setShowTextEdit(true);
+  // };
+
+  // const handleTextChange = (event) => {
+  //   setText(event.target.value);
+  // };
+
+  // const handleTextSubmit = (event) => {
+  //   event.preventDefault();
+  //   // Do something with the entered text
+  //   setShowTextEdit(false);
+  // };
+
+  /* ------------------------------------------------------------------ */
+
   return (
-    <div className="container z-0 mx-auto bg-gray-400 h-screen text-purple-700">
+    <div className="container  mx-auto bg-purple-400 h-[100%] text-purple-700">
       <div>
         <div className=" text-center align-middle">
           <h1></h1>
           <canvas className=" " ref={canvasRef}></canvas>
         </div>
+        {/* ----------------------------- */}
+
+        {/* <div>
+          <div className={`bg-slate-600 text-white`}>
+            <Icon onTextToolClick={handleTextToolClick} />
+          </div>
+          {showTextEdit && (
+            <div className="text-tool-edit">
+              <form onSubmit={handleTextSubmit}>
+                <textarea
+                  value={text}
+                  onChange={handleTextChange}
+                  placeholder="Enter your text..."
+                />
+                <button type="submit">Apply</button>
+              </form>
+            </div>
+          )}
+        </div> */}
+
+        {/* ----------------------------- */}
         <div className="pt-2">
           <label className="mx-2 py-1" htmlFor="">
             Pen WIdth - {penWidth}
@@ -166,10 +202,10 @@ const Canvas = () => {
             onChange={(e) => changePenColor(e.target.value)}
             value={penColor}
           />
-        
-            <button className="btn" onClick={addACircle}>
-                Add Circle
-            </button>
+
+          <button className="btn" onClick={addACircle}>
+            Add Circle
+          </button>
 
           <button className="btn btn-success" onClick={() => downloadHandler()}>
             {" "}
