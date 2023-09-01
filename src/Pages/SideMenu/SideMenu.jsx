@@ -1,11 +1,12 @@
 import { Link, Outlet } from "react-router-dom";
 import { FaDesktop, FaDropbox, FaGoogleDrive, FaHome } from "react-icons/fa";
 import { GrOnedrive } from "react-icons/Gr";
-import { BiLogIn, BiMessage ,BiSolidDashboard} from "react-icons/bi";
+import { BiLogIn, BiMessage, BiSolidDashboard } from "react-icons/bi";
 import { PiSignOutBold } from "react-icons/pi";
 import { AuthContext } from "../Providers/AuthProvider";
 import { useContext } from "react";
 import HomePage from "./HomePage/HomePage";
+import { MdOutlineFeedback } from "react-icons/md";
 // import Chat from "../chat";
 
 const SideMenu = () => {
@@ -104,7 +105,6 @@ const SideMenu = () => {
               </Link>
             )}
           </li>
-          
         </ul>
       </div>
       <div className="col-span-10">
