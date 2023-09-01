@@ -1,6 +1,5 @@
 import { SketchPicker } from "react-color";
 import { useState } from "react";
-
 import Icon from "./Icon";
 import { FaHome } from "react-icons/fa";
 import { FaPaintBrush } from "react-icons/fa";
@@ -73,8 +72,8 @@ const IconMenu = () => {
       <div className="navbar bg-gray-600 text-white">
         <div className="navbar-start">
           <div className="ml-5">
-            <Link to='/home'>
-            <FaHome></FaHome>
+            <Link to="/home">
+              <FaHome></FaHome>
             </Link>
           </div>
           <div className="divider divider-horizontal "></div>
@@ -100,13 +99,15 @@ const IconMenu = () => {
           <ul className="menu menu-horizontal px-1">{naveItem}</ul>
         </div>
       </div>
+
       <div className="icone grid grid-cols-1 md:grid-cols-12 gap-0 md:gap-1">
         <div className={`bg-slate-600 text-white`}>
           <button onClick={toggleColumns} className="text-sm ml-3">
             {columns === 1 ? <BsChevronDoubleLeft /> : <BsChevronDoubleRight />}
           </button>
           <div
-            className={`p-4 grid grid-cols-10 md:grid-cols-${columns} gap-2  md:col-span-1 bg-slate-700 text-white`}>
+            className={`p-4 grid grid-cols-10 md:grid-cols-${columns} gap-2  md:col-span-1 bg-slate-700 text-white`}
+          >
             <Icon></Icon>
           </div>
         </div>
@@ -116,7 +117,8 @@ const IconMenu = () => {
         </div>
         <div
           style={{ backgroundColor: currentColor }}
-          className="p-5 col-span-3 ">
+          className="p-5 col-span-3 "
+        >
           <SketchPicker
             className="mx-auto"
             color={currentColor}
