@@ -8,6 +8,7 @@ import { useContext } from "react";
 import HomePage from "./HomePage/HomePage";
 import { MdOutlineFeedback } from "react-icons/md";
 // import Chat from "../chat";
+import {MdOutlineFeedback} from "react-icons/md"
 
 const SideMenu = () => {
   const { logOut, user } = useContext(AuthContext);
