@@ -10,9 +10,14 @@ import { useSelector } from "../../../Redux/Store";
 import ImageEditor from "../../ImageEditor/ImageEditor";
 import Canvas from "../../Component/About/Canvas/Canvas";
 import { useRef } from "react";
+// import LightRuler from "light-ruler";
+
 
 const IconMenu = () => {
   const selectedImage = useSelector((state) => state.selectedImage);
+
+  const rulerRef = useRef(null);
+
   // const [isDragging, setIsDragging] = useState(false);
   // const [offset, setOffset] = useState({ x: 0, y: 0 });
 
@@ -97,9 +102,26 @@ const IconMenu = () => {
     setIsDragging(false);
   };
 
+
+
+//   const ruler = new LightRuler({
+//     mode: "infinite",
+//     mountRef: rulerRef.current,
+//     scrollElement: document.getElementById("wrap"),
+//     rulerId: "ruler",
+//     width: 30000,
+//     height: 30000,
+//     onScroll: (x, y) => {
+//         console.log(x, y);
+//     },
+// });
+
   return (
     <div className="">
       <div className="navbar bg-gray-600 text-white border-b-2">
+
+
+
         <div className="navbar-start">
           <div className="ml-5">
             <Link to="/home">
@@ -151,7 +173,19 @@ const IconMenu = () => {
 
         <div className="col-span-9 bg-purple-400">
           {/* <ImageEditor></ImageEditor> */}
+          {/* <div id="root">
+            <div id="box">
+                <div id="wrap">
+
+                </div>
+                <div id="ruler" ref={rulerRef}>
+
+                </div>
+            </div>
+          </div>  */}
           <Canvas></Canvas>
+
+
         </div>
         <div
           style={{ backgroundColor: currentColor }}
