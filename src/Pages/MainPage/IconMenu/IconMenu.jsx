@@ -15,15 +15,10 @@ import { useSelector } from "react-redux";
 
 
 const IconMenu = () => {
-
   const [selectedCanvasColor, setSelectedCanvasColor] = useState("white");
   const handleOnchange = (color) => {
     setSelectedCanvasColor(color.hex);
   };
-
-  const selectedImage = useSelector((state) => state.selectedImage);
-
-  const rulerRef = useRef(null);
 
   // const [isDragging, setIsDragging] = useState(false);
   // const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -177,19 +172,6 @@ const IconMenu = () => {
         <div className="col-span-9 bg-purple-400">
           {/* <ImageEditor></ImageEditor> */}
           <Canvas selectedCanvasColor={selectedCanvasColor}></Canvas>
-          {/* <div id="root">
-            <div id="box">
-                <div id="wrap">
-
-                </div>
-                <div id="ruler" ref={rulerRef}>
-
-                </div>
-            </div>
-          </div>  */}
-          <Canvas></Canvas>
-
-
         </div>
         <div className="p-5 col-span-3 ">
           <SketchPicker

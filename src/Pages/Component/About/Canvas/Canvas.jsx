@@ -7,13 +7,25 @@ import storeData from "../../../LinkList";
 import { useLocation } from "react-router-dom";
 import Icon from "../../../MainPage/IconMenu/Icon";
 import TextTool from "./textTool";
-import LightRuler from "light-ruler";
+// import Modal from "./Modal";
+
+/* ------------------------------- */
+
+// import { useDispatch } from "react-redux";
 import { setSelectedImage } from "../../../../Redux/SelectedImage";
+import getCroppedImg from "./getCroppedImg";
+// import React from "react";
+import { setCropping } from "../../../../Redux/Crop";
 
+/* ------------------------------- */
 
-
-const Canvas = () => {
-  const selectedImage = useSelector((state) => state.selectedImage);
+const Canvas = ({ selectedCanvasColor }) => {
+  const selectedImage = useSelector(
+    (state) => state.selectedImage.selectedImage
+  );
+  console.log(selectedImage);
+  const imgCropping = useSelector((state) => state.cropReducer.isCropping);
+  console.log(imgCropping);
 
   const [state, setState] = useState({
     image: "",
@@ -65,26 +77,19 @@ const Canvas = () => {
       selection:true,
 
       // isDrawingMode: true,
-      // allowTouchScrolling:true,
+      // selection:true,
       // selectionColor: 'yellow',
       // selectionLineWidth:3,
     });
 
     setFabricCanvas(canvas);
-
-
-    
-
-    // canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
-
-    // canvas.freeDrawingBrush.width = 5;
-
-    const circle = new fabric.Circle({
-      radius: 50,
-      fill: "yellow",
-      top: 50,
-      left: 50,
-    });
+    /* 
+    // const circle = new fabric.Circle({
+    //   radius: 50,
+    //   fill: "yellow",
+    //   top: 50,
+    //   left: 50,
+    // });
     // circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
     // canvas.add(circle); */
 
@@ -96,33 +101,41 @@ const Canvas = () => {
 
       fabric.CircleBrush;
     });
-  }, []);
-
-  const rulerHandeler = () =>{
-    // fabricCanvas.selection = false,
-    // fabricCanvas.freeDrawingBrush = true;
-
-    // ruler.hide();
-    // if(ruler){
-    //   ruler.hide();
+    // if (typeof selectedImage === "string" && selectedImage.trim() !== "") {
+    //   fabric.Image.fromURL(
+    //     selectedImage,
+    //     (oImg) => {
+    //       // Image loaded successfully
+    //       canvas.add(oImg);
+    //     },
+    //     (error) => {
+    //       // Handle the error here
+    //       console.error("Error loading image:", error);
+    //     }
+    //   );
     // }
-    // else{
-    //   ruler.show();
-    // }
-  }
+  }, [selectedCanvasColor]);
 
-  const addACircle = () => {
-    const circle = new fabric.Circle({
-      radius: 50,
-      fill: "yellow",
-      top: 50,
-      left: 50,
-    });
-    fabricCanvas.renderAll.bind(fabricCanvas);
+  /* ----------------------------------------------- */
+  useEffect(() => {
+    if (fabricCanvas) {
+      // Set the background color again when selectedCanvasColor changes
+      fabricCanvas.setBackgroundColor(selectedCanvasColor);
+      fabricCanvas.renderAll();
+    }
+  }, [selectedCanvasColor, fabricCanvas]);
+  /* ----------------------------------------------- */
 
-    // circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
-    fabricCanvas.add(circle);
-  };
+  // const addACircle = () => {
+  //   const circle = new fabric.Circle({
+  //     radius: 50,
+  //     fill: "yellow",
+  //     top: 50,
+  //     left: 50,
+  //   });
+  //   // circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
+  //   fabricCanvas.add(circle);
+  // };
 
   // const text = new fabric.Text("I'm text ", {
   //   fontSize: 40,
@@ -263,6 +276,17 @@ const Canvas = () => {
         <div className="flex justify-end text-center align-middle">
           <h1></h1>
           <canvas className=" " ref={canvasRef}></canvas>
+          {/* ------------------------------------- */}
+          <TextTool fabricCanvas={fabricCanvas} />{" "}
+          {/* Render the TextTool component */}
+          {/* Display the selected image */}
+          {/* <img
+            ref={imageRef}
+            src={selectedImage}
+            alt="Selected Image"
+            style={{ maxWidth: "100%", maxHeight: "400px" }}
+          /> */}
+          {/* ------------------------------------- */}
         </div>
         {/* ----------------------------- */}
 
@@ -309,11 +333,11 @@ const Canvas = () => {
 
           {/* <button className="btn" onClick={addACircle}>
             Add Circle
-          </button>
+          </button> */}
 
-            <button className="btn" onClick={handleDrawing}>
+            {/* <button className="btn" onClick={handleDrawing}>
                 Drawing
-            </button>
+            </button> */}
 
           <button className="btn btn-success" onClick={() => downloadHandler()}>
             {" "}
