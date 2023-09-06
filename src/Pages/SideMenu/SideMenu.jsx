@@ -1,11 +1,12 @@
 import { Link, Outlet } from "react-router-dom";
 import { FaDesktop, FaDropbox, FaGoogleDrive, FaHome } from "react-icons/fa";
 import { GrOnedrive } from "react-icons/Gr";
-import { BiLogIn, BiMessage } from "react-icons/bi";
+import { BiLogIn, BiMessage, BiSolidDashboard } from "react-icons/bi";
 import { PiSignOutBold } from "react-icons/pi";
 import { AuthContext } from "../Providers/AuthProvider";
 import { useContext } from "react";
 import HomePage from "./HomePage/HomePage";
+import { MdOutlineFeedback } from "react-icons/md";
 // import Chat from "../chat";
 
 const SideMenu = () => {
@@ -53,7 +54,7 @@ const SideMenu = () => {
           </li>
           <li className="text-center ">
             <Link to="/dashboard" className="sidebar-link">
-              <FaHome className="sidebar-icon" /> Dashboard
+              <BiSolidDashboard className="sidebar-icon" /> Dashboard
             </Link>
           </li>
           <li className="text-center">
@@ -77,6 +78,16 @@ const SideMenu = () => {
             </Link>
           </li>
           <li className="text-center">
+            <Link to="/chat" className="sidebar-link">
+              <BiMessage className="sidebar-icon" /> Chat
+            </Link>
+          </li>
+          <li className="text-center">
+            <Link to="/feedback" className="sidebar-link">
+              <MdOutlineFeedback className="sidebar-icon" /> Report & Feedback
+            </Link>
+          </li>
+          <li className="text-center">
             {/* <Link to="/registration" className="sidebar-link">
       {" "}
       <BiLogIn className="sidebar-icon"></BiLogIn>Registration
@@ -93,11 +104,6 @@ const SideMenu = () => {
                 <BiLogIn className="sidebar-icon"></BiLogIn> Login
               </Link>
             )}
-          </li>
-          <li className="text-center">
-            <Link to="/chat" className="sidebar-link">
-              <BiMessage className="sidebar-icon" /> Chat
-            </Link>
           </li>
         </ul>
       </div>

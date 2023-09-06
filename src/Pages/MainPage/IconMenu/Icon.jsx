@@ -20,14 +20,33 @@ import {
 } from "react-icons/bi";
 import { FaRegCircle, FaRegHandPaper } from "react-icons/fa";
 
+/* ------------------------------ */
+
+import { useDispatch, useSelector } from "react-redux";
+import { setCropping } from "../../../Redux/Crop";
+
+/* ------------------------------ */
+
 const Icon = () => {
+  /* -------------------------------------------- */
+  const isCropping = useSelector((state) => state.cropReducer.isCropping); // Assuming you store the cropping state in Redux
+
+  const dispatch = useDispatch();
+  const handleCropToolClick = () => {
+    // Dispatch the setCropping action to enable cropping mode
+    dispatch(setCropping(true));
+  };
+
+  /* -------------------------------------------- */
   return (
     <>
       <BsArrowsMove title="Move Tool"></BsArrowsMove>
       <TbMarquee2 title="Rectangular Marquee Tool"></TbMarquee2>
       <LuLasso title="Magnetic Lasso Tool"></LuLasso>
       <PiSelectionAllFill title="Object Selection Tools"></PiSelectionAllFill>
-      <BsCrop title="Crop Tool"></BsCrop>
+      <BsCrop
+        onClick={handleCropToolClick}
+        title={isCropping ? "Disable Crop Tool" : "Enable Crop Tool"}></BsCrop>
       <LuFrame title="Frame Tool"></LuFrame>
       <BsEyedropper title="Eyedropper Tool"></BsEyedropper>
       <GiHealthCapsule title="Healing Brush Tool"></GiHealthCapsule>

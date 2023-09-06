@@ -5,13 +5,26 @@ import storeData from "../../../LinkList";
 
 import { useLocation } from "react-router-dom";
 import Icon from "../../../MainPage/IconMenu/Icon";
-import LightRuler from "light-ruler";
+import TextTool from "./textTool";
+// import Modal from "./Modal";
 
+/* ------------------------------- */
 
+import { useDispatch } from "react-redux";
+import { setSelectedImage } from "../../../../Redux/SelectedImage";
+import getCroppedImg from "./getCroppedImg";
+import React from "react";
+import { setCropping } from "../../../../Redux/Crop";
 
-const Canvas = () => {
-  const selectedImage = useSelector((state) => state.selectedImage);
-  const rulerRef = useRef(null);
+/* ------------------------------- */
+
+const Canvas = ({ selectedCanvasColor }) => {
+  const selectedImage = useSelector(
+    (state) => state.selectedImage.selectedImage
+  );
+  console.log(selectedImage);
+  const imgCropping = useSelector((state) => state.cropReducer.isCropping);
+  console.log(imgCropping);
 
   const [state, setState] = useState({
     image: "",
@@ -32,7 +45,7 @@ const Canvas = () => {
   const name = queryParams.get("name");
   const height = queryParams.get("height");
   const width = queryParams.get("width");
-  console.log(name, height, width);
+  // console.log(name, height, width);
 
   // const canvasAllInfo = useContext(CanvasContext);
 
@@ -40,30 +53,30 @@ const Canvas = () => {
   // const height = parseInt(canvasAllInfo.canvasInfo?.height);
   // const width = parseInt(canvasAllInfo.canvasInfo?.width);
 
-  console.log(typeof height, typeof width);
-  console.log(height, width);
+  // console.log(typeof height, typeof width);
+  // console.log(height, width);
 
   const height1 = 500;
   const width2 = 800;
 
   const canvasRef = useRef(null);
 
-  const defaultBackgroundColor = "white";
-  const [penWidth, setPenWidth] = useState(10);
+  // const defaultBackgroundColor = "white";
+  const [penWidth, setPenWidth] = useState(3);
   const [penColor, setPenColor] = useState(3);
 
   const [fabricCanvas, setFabricCanvas] = useState();
 
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
-      backgroundColor: defaultBackgroundColor,
+      backgroundColor: selectedCanvasColor,
 
       width: `${width || width2}`,
       height: `${height || height1}`,
       selection:true,
 
       // isDrawingMode: true,
-      // allowTouchScrolling:true,
+      // selection:true,
       // selectionColor: 'yellow',
       // selectionLineWidth:3,
     });
@@ -81,23 +94,15 @@ const Canvas = () => {
   });
 
     setFabricCanvas(canvas);
-
-
-    
-
-    // canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
-
-    // canvas.freeDrawingBrush.width = 5;
-
+    /* 
     // const circle = new fabric.Circle({
     //   radius: 50,
     //   fill: "yellow",
     //   top: 50,
     //   left: 50,
-      
     // });
     // circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
-    // canvas.add(circle);
+    // canvas.add(circle); */
 
     // const ImgSrc={state.image || selectedImage};
     fabric.Image.fromURL(selectedImage, function (oImg) {
@@ -136,6 +141,41 @@ const Canvas = () => {
 
 
   };
+    // if (typeof selectedImage === "string" && selectedImage.trim() !== "") {
+    //   fabric.Image.fromURL(
+    //     selectedImage,
+    //     (oImg) => {
+    //       // Image loaded successfully
+    //       canvas.add(oImg);
+    //     },
+    //     (error) => {
+    //       // Handle the error here
+    //       console.error("Error loading image:", error);
+    //     }
+    //   );
+    // }
+  // }, [selectedCanvasColor]);
+
+  /* ----------------------------------------------- */
+  useEffect(() => {
+    if (fabricCanvas) {
+      // Set the background color again when selectedCanvasColor changes
+      fabricCanvas.setBackgroundColor(selectedCanvasColor);
+      fabricCanvas.renderAll();
+    }
+  }, [selectedCanvasColor, fabricCanvas]);
+  /* ----------------------------------------------- */
+
+  // const addACircle = () => {
+  //   const circle = new fabric.Circle({
+  //     radius: 50,
+  //     fill: "yellow",
+  //     top: 50,
+  //     left: 50,
+  //   });
+  //   // circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
+  //   fabricCanvas.add(circle);
+  // };
 
   const addAText = () => {
     const text = new fabric.Text("I'm text ", {
@@ -162,7 +202,7 @@ const Canvas = () => {
       fabricCanvas.freeDrawingBrush.width = width;
       setPenWidth(width);
       fabricCanvas.renderAll.bind(fabricCanvas);
-      console.log("Change Pen WIdth");
+      // console.log("Change Pen WIdth");
     }
   };
   const changePenColor = (color) => {
@@ -170,7 +210,7 @@ const Canvas = () => {
       fabricCanvas.freeDrawingBrush.color = color;
       setPenColor(color);
       fabricCanvas.renderAll.bind(fabricCanvas);
-      console.log("Change Pen Color");
+      // console.log("Change Pen Color");
     }
   };
 
@@ -186,7 +226,7 @@ const Canvas = () => {
     downloadLink.href = pngData;
     downloadLink.download = fileName;
     downloadLink.click();
-    console.log("Download Button");
+    // console.log("Download Button");
   };
 
 
@@ -234,10 +274,60 @@ const Canvas = () => {
 
   /* ------------------------------------------------------------------ */
 
+  /* ---------------------------------------------- */
+
+  const dispatch = useDispatch();
+
+  dispatch(setSelectedImage(selectedImage));
+
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+
+  // Reference to the image element for cropping
+  const imageRef = React.createRef();
+
+  const onCropChange = (newCrop) => {
+    setCrop(newCrop);
+  };
+
+  const onZoomChange = (newZoom) => {
+    setZoom(newZoom);
+  };
+
+  const cropImage = (imgCropping) => {
+    if (imgCropping) {
+      // Get the image element
+      const imageElement = imageRef.current;
+
+      // Calculate cropping dimensions based on the original image size
+      const scaleX = imageElement.naturalWidth / imageElement.width;
+      const scaleY = imageElement.naturalHeight / imageElement.height;
+
+      const croppedAreaPixels = {
+        x: crop.x * scaleX,
+        y: crop.y * scaleY,
+        width: crop.width * scaleX,
+        height: crop.height * scaleY,
+      };
+
+      // Use the getCroppedImg function to get the cropped image
+      getCroppedImg(selectedImage, croppedAreaPixels).then((croppedImage) => {
+        // Dispatch setCropping(false) to exit cropping mode
+        dispatch(setCropping(false));
+
+        // You can now update the Redux state with the cropped image
+        // For example, you can dispatch an action like setCropImage(croppedImage)
+        // to store the cropped image in your Redux store.
+      });
+    }
+  };
+
+  /* ---------------------------------------------- */
+
   return (
     <div className="container  mx-auto bg-purple-400 h-[100%] text-purple-700">
       <div>
-        <div className=" text-center align-middle">
+        <div className="flex justify-end text-center align-middle">
           <h1></h1>
           <div id="root">
             <div id="box">
@@ -306,16 +396,9 @@ const Canvas = () => {
             value={penColor}
           />
 
-          <button className="btn" onClick={addACircle}>
+          {/* <button className="btn" onClick={addACircle}>
             Add Circle
-          </button>
-          <button className="btn" onClick={addAText}>
-            Add Text
-          </button>
-
-            {/* <button className="btn" onClick={handleDrawing}>
-                Drawing
-            </button> */}
+          </button> */}
 
           <button className="btn btn-success" onClick={() => downloadHandler()}>
             {" "}
@@ -327,6 +410,29 @@ const Canvas = () => {
           {/* <img src={state.image || selectedImage} alt="" /> */}
           {/* <button onClick={()=>clearHandler()}> Clear</button> */}
           {/* <Modal></Modal> */}
+          {/* ------------------------------------------------- */}
+          {imgCropping ? (
+            <>
+              <button
+                className="btn btn-danger"
+                onClick={() => dispatch(setCropping(false))}>
+                Cancel Crop
+              </button>
+              <button className="btn btn-success" onClick={cropImage}>
+                Apply Crop
+              </button>
+            </>
+          ) : (
+            <button
+              className="btn btn-primary"
+              onClick={() => dispatch(setCropping(true))}>
+              Start Crop
+            </button>
+          )}
+          <button className="btn btn-success" onClick={cropImage}>
+            Crop Image
+          </button>
+          {/* ------------------------------------------------- */}
         </div>
       </div>
     </div>

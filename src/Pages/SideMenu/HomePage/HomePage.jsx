@@ -15,7 +15,8 @@ import img3 from "../../../../public/pdf.png";
 import img4 from "../../../../public/raw.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setSelectedImage } from "../../../Redux/Store";
+import { setSelectedImage } from "../../../Redux/SelectedImage";
+// import { setSelectedImage } from "../../../Redux/Store";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -41,7 +42,7 @@ const HomePage = () => {
     if (files.length > 0) {
       const imageUrl = URL.createObjectURL(files[0]);
       dispatch(setSelectedImage(imageUrl));
-      navigate("/iconMenu"); // Navigate to ImageEditor component
+      navigate("/iconMenu");
     }
   };
 
