@@ -1,12 +1,14 @@
+import React, { Component } from "react";
 import { fabric } from "fabric";
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import storeData from "../../../LinkList";
 
 import { useLocation } from "react-router-dom";
 import Icon from "../../../MainPage/IconMenu/Icon";
 import TextTool from "./textTool";
 import LightRuler from "light-ruler";
+import { setSelectedImage } from "../../../../Redux/SelectedImage";
 
 
 
