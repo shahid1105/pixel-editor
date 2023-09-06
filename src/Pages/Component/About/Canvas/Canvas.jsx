@@ -81,17 +81,17 @@ const Canvas = ({ selectedCanvasColor }) => {
       // selectionLineWidth:3,
     });
 
-    const ruler = new LightRuler({
-      mode: "infinite",
-      mountRef: rulerRef.current,
-      scrollElement: document.getElementById("canvasId"),
-      rulerId: "ruler",
-      width: 30000,
-      height: 30000,
-      onScroll: (x, y) => {
-          console.log(x, y);
-      },
-  });
+  //   const ruler = new LightRuler({
+  //     mode: "infinite",
+  //     mountRef: rulerRef.current,
+  //     scrollElement: document.getElementById("canvasId"),
+  //     rulerId: "ruler",
+  //     width: 30000,
+  //     height: 30000,
+  //     onScroll: (x, y) => {
+  //         console.log(x, y);
+  //     },
+  // });
 
     setFabricCanvas(canvas);
     /* 
@@ -334,14 +334,15 @@ const Canvas = ({ selectedCanvasColor }) => {
                 <div id="wrap">
 
                 </div>
-                <div id="ruler" ref={rulerRef}>
+                {/* <div id="ruler" ref={rulerRef}>
 
-                  <canvas id="canvasId" className="ml-6 mt-1 rounded-lg canvas custom-scrollbar " ref={canvasRef}>
+                  
+
+                </div> */}
+            </div>
+            <canvas id="canvasId" className="ml-6 mt-1 rounded-lg canvas custom-scrollbar " ref={canvasRef}>
               
                   </canvas>
-
-                </div>
-            </div>
           </div> 
 
           {/* <canvas id="canvasId" className="canvas custom-scrollbar " ref={canvasRef}>

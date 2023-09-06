@@ -10,10 +10,17 @@ import { Link } from "react-router-dom";
 import ImageEditor from "../../ImageEditor/ImageEditor";
 import Canvas from "../../Component/About/Canvas/Canvas";
 import { useRef } from "react";
+import { useSelector } from "react-redux";
 // import LightRuler from "light-ruler";
 
 
 const IconMenu = () => {
+
+  const [selectedCanvasColor, setSelectedCanvasColor] = useState("white");
+  const handleOnchange = (color) => {
+    setSelectedCanvasColor(color.hex);
+  };
+
   const selectedImage = useSelector((state) => state.selectedImage);
 
   const rulerRef = useRef(null);
