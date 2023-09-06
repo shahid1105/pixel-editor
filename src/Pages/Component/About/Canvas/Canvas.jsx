@@ -6,25 +6,12 @@ import storeData from "../../../LinkList";
 import { useLocation } from "react-router-dom";
 import Icon from "../../../MainPage/IconMenu/Icon";
 import TextTool from "./textTool";
-// import Modal from "./Modal";
+import LightRuler from "light-ruler";
 
-/* ------------------------------- */
 
-import { useDispatch } from "react-redux";
-import { setSelectedImage } from "../../../../Redux/SelectedImage";
-import getCroppedImg from "./getCroppedImg";
-import React from "react";
-import { setCropping } from "../../../../Redux/Crop";
 
-/* ------------------------------- */
-
-const Canvas = ({ selectedCanvasColor }) => {
-  const selectedImage = useSelector(
-    (state) => state.selectedImage.selectedImage
-  );
-  console.log(selectedImage);
-  const imgCropping = useSelector((state) => state.cropReducer.isCropping);
-  console.log(imgCropping);
+const Canvas = () => {
+  const selectedImage = useSelector((state) => state.selectedImage);
 
   const [state, setState] = useState({
     image: "",
@@ -76,31 +63,26 @@ const Canvas = ({ selectedCanvasColor }) => {
       selection:true,
 
       // isDrawingMode: true,
-      // selection:true,
+      // allowTouchScrolling:true,
       // selectionColor: 'yellow',
       // selectionLineWidth:3,
     });
 
-  //   const ruler = new LightRuler({
-  //     mode: "infinite",
-  //     mountRef: rulerRef.current,
-  //     scrollElement: document.getElementById("canvasId"),
-  //     rulerId: "ruler",
-  //     width: 30000,
-  //     height: 30000,
-  //     onScroll: (x, y) => {
-  //         console.log(x, y);
-  //     },
-  // });
-
     setFabricCanvas(canvas);
-    /* 
-    // const circle = new fabric.Circle({
-    //   radius: 50,
-    //   fill: "yellow",
-    //   top: 50,
-    //   left: 50,
-    // });
+
+
+    
+
+    // canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
+
+    // canvas.freeDrawingBrush.width = 5;
+
+    const circle = new fabric.Circle({
+      radius: 50,
+      fill: "yellow",
+      top: 50,
+      left: 50,
+    });
     // circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
     // canvas.add(circle); */
 
@@ -138,57 +120,6 @@ const Canvas = ({ selectedCanvasColor }) => {
 
     // circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
     fabricCanvas.add(circle);
-
-
-  };
-    // if (typeof selectedImage === "string" && selectedImage.trim() !== "") {
-    //   fabric.Image.fromURL(
-    //     selectedImage,
-    //     (oImg) => {
-    //       // Image loaded successfully
-    //       canvas.add(oImg);
-    //     },
-    //     (error) => {
-    //       // Handle the error here
-    //       console.error("Error loading image:", error);
-    //     }
-    //   );
-    // }
-  // }, [selectedCanvasColor]);
-
-  /* ----------------------------------------------- */
-  useEffect(() => {
-    if (fabricCanvas) {
-      // Set the background color again when selectedCanvasColor changes
-      fabricCanvas.setBackgroundColor(selectedCanvasColor);
-      fabricCanvas.renderAll();
-    }
-  }, [selectedCanvasColor, fabricCanvas]);
-  /* ----------------------------------------------- */
-
-  // const addACircle = () => {
-  //   const circle = new fabric.Circle({
-  //     radius: 50,
-  //     fill: "yellow",
-  //     top: 50,
-  //     left: 50,
-  //   });
-  //   // circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
-  //   fabricCanvas.add(circle);
-  // };
-
-  const addAText = () => {
-    const text = new fabric.Text("I'm text ", {
-      fontSize: 40,
-      
-    });
-    fabricCanvas.renderAll.bind(fabricCanvas);
-
-
-    // circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
-    fabricCanvas.add(text);
-
-
   };
 
   // const text = new fabric.Text("I'm text ", {
@@ -329,30 +260,7 @@ const Canvas = ({ selectedCanvasColor }) => {
       <div>
         <div className="flex justify-end text-center align-middle">
           <h1></h1>
-          <div id="root">
-            <div id="box">
-                <div id="wrap">
-
-                </div>
-                {/* <div id="ruler" ref={rulerRef}>
-
-                  
-
-                </div> */}
-            </div>
-            <canvas id="canvasId" className="ml-6 mt-1 rounded-lg canvas custom-scrollbar " ref={canvasRef}>
-              
-                  </canvas>
-          </div> 
-
-          {/* <canvas id="canvasId" className="canvas custom-scrollbar " ref={canvasRef}>
-            
-          </canvas> */}
-
-          {/* <div id="ruler" ref={rulerRef}>
-
-          </div> */}
-
+          <canvas className=" " ref={canvasRef}></canvas>
         </div>
         {/* ----------------------------- */}
 
@@ -399,7 +307,11 @@ const Canvas = ({ selectedCanvasColor }) => {
 
           {/* <button className="btn" onClick={addACircle}>
             Add Circle
-          </button> */}
+          </button>
+
+            <button className="btn" onClick={handleDrawing}>
+                Drawing
+            </button>
 
           <button className="btn btn-success" onClick={() => downloadHandler()}>
             {" "}

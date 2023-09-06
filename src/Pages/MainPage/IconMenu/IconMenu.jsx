@@ -177,6 +177,19 @@ const IconMenu = () => {
         <div className="col-span-9 bg-purple-400">
           {/* <ImageEditor></ImageEditor> */}
           <Canvas selectedCanvasColor={selectedCanvasColor}></Canvas>
+          {/* <div id="root">
+            <div id="box">
+                <div id="wrap">
+
+                </div>
+                <div id="ruler" ref={rulerRef}>
+
+                </div>
+            </div>
+          </div>  */}
+          <Canvas></Canvas>
+
+
         </div>
         <div className="p-5 col-span-3 ">
           <SketchPicker
