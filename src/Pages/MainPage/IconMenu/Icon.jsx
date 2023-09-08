@@ -44,7 +44,7 @@ const Icon = () => {
 
 
   const handleRectangleToolClick = () =>{
-    dispatch(setRectangleMarqueTool(true));
+    dispatch(setRectangleMarqueTool(!isRectangleMarqueToolClick));
   }
 
   /* -------------------------------------------- */
