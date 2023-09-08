@@ -15,7 +15,8 @@ import img3 from "../../../../public/pdf.png";
 import img4 from "../../../../public/raw.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setSelectedImage } from "../../../Redux/Store";
+import { setSelectedImage } from "../../../Redux/SelectedImage";
+// import { setSelectedImage } from "../../../Redux/Store";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -41,7 +42,7 @@ const HomePage = () => {
     if (files.length > 0) {
       const imageUrl = URL.createObjectURL(files[0]);
       dispatch(setSelectedImage(imageUrl));
-      navigate("/iconMenu"); // Navigate to ImageEditor component
+      navigate("/iconMenu");
     }
   };
 
@@ -56,7 +57,7 @@ const HomePage = () => {
         Editor
       </h3>
       {/* <p>to do</p> */}
-      <div className="flex flex-col md:flex-row justify-center gap-2 md:gap-4 my-4">
+      <div className="flex flex-col px-4 md:p-0 md:flex-row justify-center gap-2 md:gap-4 my-4">
         <button className="btn btn-outline btn-info flex items-center">
           <SiGooglesheets className="mr-2" />{" "}
           <Link to="/imageEditor">New Project</Link>

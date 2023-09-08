@@ -6,6 +6,7 @@ import {
   LuRotateCcw,
   LuRotateCw,
   LuUndo2,
+  LuLasso
 } from "react-icons/Lu";
 import { useState } from "react";
 import ReactCrop from "react-image-crop";

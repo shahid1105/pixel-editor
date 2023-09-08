@@ -17,6 +17,7 @@ import Dashboard from "../Layout/Dashboard";
 import ManageUsers from "../Pages/Dashboard/ManageUsers";
 import Feedback from "../Pages/SideMenu/Feedback/Feedback";
 import Report from "../Pages/Dashboard/report";
+
 // import { Canvas } from "fabric/fabric-impl";
 
 const router = createBrowserRouter([
@@ -80,26 +81,27 @@ const router = createBrowserRouter([
         path: "chat",
         element: <App></App>,
       },
+
       {
-        path:"feedback",
-        element:<Feedback></Feedback>
-      }
+        path: "feedback",
+        element: <Feedback></Feedback>,
+      },
     ],
   },
-{
-  path:"dashboard",
-  element:<Dashboard></Dashboard>,
-  children:[
-    {
-      path:"manageUsers",
-      element:<ManageUsers></ManageUsers>
-    },
-    {
-      path:"report",
-      element:<Report></Report>
-    }
-  ]
-}
+  {
+    path: "dashboard",
+    element: <Dashboard></Dashboard>,
+    children: [
+      {
+        path: "manageUsers",
+        element: <ManageUsers></ManageUsers>,
+      },
+      {
+        path: "report",
+        element: <Report></Report>,
+      },
+    ],
+  },
 ]);
 
 export default router;
