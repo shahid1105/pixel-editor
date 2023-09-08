@@ -84,8 +84,13 @@ const Canvas = ({ selectedCanvasColor }) => {
   // const defaultBackgroundColor = "white";
   const [penWidth, setPenWidth] = useState(3);
   const [penColor, setPenColor] = useState(3);
-
   const [fabricCanvas, setFabricCanvas] = useState();
+
+  // const freeDrawing = () => {
+  //   if(fabricCanvas){
+
+  //   }
+  // };
 
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
@@ -94,7 +99,7 @@ const Canvas = ({ selectedCanvasColor }) => {
       width: width || width2,
       height: height || height1,
 
-      // isDrawingMode: true,
+      isDrawingMode: true,
       // selection: true,
       // selectionColor: "yellow",
       // selectionLineWidth: 3,

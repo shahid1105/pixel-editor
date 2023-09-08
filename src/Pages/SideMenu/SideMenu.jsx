@@ -150,62 +150,6 @@ const SideMenu = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{sideMenuOption}</ul>
         </div>
-        <ul className="menu p-4 w-60 text-md h-full text-white ">
-          <li className="text-center ">
-            <Link to="/home" className="sidebar-link">
-              <FaHome className="sidebar-icon" /> Home
-            </Link>
-          </li>
-          <li className="text-center ">
-            <Link to="/dashboard" className="sidebar-link">
-              <BiSolidDashboard className="sidebar-icon" /> Dashboard
-            </Link>
-          </li>
-          <li className="text-center">
-            <Link to="/device" className="sidebar-link">
-              <FaDesktop className="sidebar-icon" /> This Device
-            </Link>
-          </li>
-          <li className="text-center">
-            <Link to="/dropbox" className="sidebar-link">
-              <FaDropbox className="sidebar-icon" /> Dropbox
-            </Link>
-          </li>
-          <li className="text-center">
-            <Link to="/oneDrive" className="sidebar-link">
-              <GrOnedrive className="sidebar-icon" /> OneDrive
-            </Link>
-          </li>
-          <li className="text-center">
-            <Link to="/googleDrive" className="sidebar-link">
-              <FaGoogleDrive className="sidebar-icon" /> Google Drive
-            </Link>
-          </li>
-
-          <li className="text-center">
-            <Link to="/feedback" className="sidebar-link">
-              <MdOutlineFeedback className="sidebar-icon" /> Report & Feedback
-            </Link>
-          </li>
-          <li className="text-center">
-            {/* <Link to="/registration" className="sidebar-link">
-      {" "}
-      <BiLogIn className="sidebar-icon"></BiLogIn>Registration
-    </Link> */}
-
-            {user ? (
-              <button onClick={handleLogout}>
-                {" "}
-                <PiSignOutBold></PiSignOutBold> LogOut
-              </button>
-            ) : (
-              <Link to="/login" className="sidebar-link">
-                {" "}
-                <BiLogIn className="sidebar-icon"></BiLogIn> Login
-              </Link>
-            )}
-          </li>
-        </ul>
       </div>
       <div className="col-span-10">
         <HomePage></HomePage>
