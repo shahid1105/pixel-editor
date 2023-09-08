@@ -57,7 +57,7 @@ const HomePage = () => {
         Editor
       </h3>
       {/* <p>to do</p> */}
-      <div className="flex flex-col md:flex-row justify-center gap-2 md:gap-4 my-4">
+      <div className="flex flex-col px-4 md:p-0 md:flex-row justify-center gap-2 md:gap-4 my-4">
         <button className="btn btn-outline btn-info flex items-center">
           <SiGooglesheets className="mr-2" />{" "}
           <Link to="/imageEditor">New Project</Link>
