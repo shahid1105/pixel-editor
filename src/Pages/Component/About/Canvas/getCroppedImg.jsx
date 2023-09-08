@@ -4,25 +4,19 @@ const getCroppedImg = (imageSrc, crop) => {
     image.src = imageSrc;
 
     image.onload = () => {
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
-
       const { x, y, width, height } = crop;
 
+      const canvas = document.createElement("canvas");
       canvas.width = width;
       canvas.height = height;
 
+      const ctx = canvas.getContext("2d");
       ctx.drawImage(image, x, y, width, height, 0, 0, width, height);
 
-      canvas.toBlob(
-        (blob) => {
-          // You can resolve with the cropped image blob or data URL
-          // depending on your requirements
-          resolve(blob);
-        },
-        "image/jpeg", // Adjust the MIME type as needed
-        1.0 // Adjust the image quality (1.0 is maximum quality)
-      );
+      // Convert the cropped image to a data URL
+      const croppedImageUrl = canvas.toDataURL("image/jpeg", 1.0); // Adjust the MIME type and image quality as needed
+
+      resolve(croppedImageUrl);
     };
 
     image.onerror = (error) => {

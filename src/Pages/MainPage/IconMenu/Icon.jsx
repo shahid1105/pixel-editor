@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { LuFrame, LuLasso, LuStamp } from "react-icons/Lu";
 import {
   BsArrowsMove,
@@ -21,20 +21,48 @@ import {
 import { FaRegCircle, FaRegHandPaper } from "react-icons/fa";
 
 /* ------------------------------ */
+import { fabric } from "fabric";
 
 import { useDispatch, useSelector } from "react-redux";
 import { setCropping } from "../../../Redux/Crop";
+import { addTextBox, removeTextBox } from "../../../Redux/TextBox";
 
 /* ------------------------------ */
 
 const Icon = () => {
   /* -------------------------------------------- */
-  const isCropping = useSelector((state) => state.cropReducer.isCropping); // Assuming you store the cropping state in Redux
+  const isCropping = useSelector((state) => state.cropReducer.isCropping);
+  const [isTextboxActive, setIsTextboxActive] = useState(false);
 
   const dispatch = useDispatch();
   const handleCropToolClick = () => {
     // Dispatch the setCropping action to enable cropping mode
-    dispatch(setCropping(true));
+    dispatch(setCropping(!isCropping));
+  };
+
+  /* --------------------textbox-------------------- */
+  const handleTextToolClick = () => {
+    // Toggle Textbox activation
+    if (isTextboxActive) {
+      // If Textbox is active, remove it
+      dispatch(removeTextBox());
+    } else {
+      // If Textbox is not active, create and add it
+      const newTextbox = new fabric.Textbox("Enter your text here", {
+        left: 100,
+        top: 50,
+        width: 200,
+        fontSize: 20,
+        fill: "black",
+        editable: true,
+        selectable: true,
+        placeholder: true,
+      });
+      dispatch(addTextBox(newTextbox));
+    }
+
+    // Toggle the Textbox state
+    setIsTextboxActive(!isTextboxActive);
   };
 
   /* -------------------------------------------- */
@@ -58,7 +86,9 @@ const Icon = () => {
       <RiBlurOffLine title="Blur Tool"></RiBlurOffLine>
       <SlMagnifier title="Dodge Tool"></SlMagnifier>
       <PiPenNibBold title="Curvature Pen Tool"></PiPenNibBold>
-      <BiText title="Horizontal Type Tool"></BiText>
+      <BiText
+        title={isTextboxActive ? "Disable Text Tool" : "Enable Text Tool"}
+        onClick={handleTextToolClick}></BiText>
       <BiSolidPointer title="Path Selection Tool"></BiSolidPointer>
       <FaRegCircle title="Ellipse Tool"></FaRegCircle>
       <FaRegHandPaper title="Hand Tool"></FaRegHandPaper>

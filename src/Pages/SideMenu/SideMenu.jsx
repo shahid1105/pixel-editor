@@ -77,11 +77,7 @@ const SideMenu = () => {
               <FaGoogleDrive className="sidebar-icon" /> Google Drive
             </Link>
           </li>
-          <li className="text-center">
-            <Link to="/chat" className="sidebar-link">
-              <BiMessage className="sidebar-icon" /> Chat
-            </Link>
-          </li>
+
           <li className="text-center">
             <Link to="/feedback" className="sidebar-link">
               <MdOutlineFeedback className="sidebar-icon" /> Report & Feedback
