@@ -23,6 +23,13 @@ const Canvas = ({ selectedCanvasColor }) => {
   const selectedImage = useSelector(
     (state) => state.selectedImage.selectedImage
   );
+
+  //RectangleMarqueToolClick Selector
+  const isRectangleMarqueToolClick = useSelector((state) =>state.rectangleMarqueToolReducer.isRectangleMarqueToolClick);
+  console.log(isRectangleMarqueToolClick);
+
+
+
   console.log(selectedImage);
   const imgCropping = useSelector((state) => state.cropReducer.isCropping);
   console.log(imgCropping);
@@ -84,14 +91,17 @@ const Canvas = ({ selectedCanvasColor }) => {
 
     setFabricCanvas(canvas);
     /* 
-    // const circle = new fabric.Circle({
-    //   radius: 50,
-    //   fill: "yellow",
-    //   top: 50,
-    //   left: 50,
-    // });
-    // circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
-    // canvas.add(circle); */
+    const circle = new fabric.Circle({
+      radius: 50,
+      fill: "yellow",
+      top: 50,
+      left: 50,
+    });
+    circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
+    canvas.add(circle); 
+    */
+    
+    console.log(isRectangleMarqueToolClick)
 
     // const ImgSrc={state.image || selectedImage};
     fabric.Image.fromURL(selectedImage, function (oImg) {
@@ -101,6 +111,36 @@ const Canvas = ({ selectedCanvasColor }) => {
 
       fabric.CircleBrush;
     });
+
+
+    // -----------------Rectangle---------------
+
+    // var rect = new fabric.Rect({
+    //   height:20,
+    //   width: 10,
+    //   fill: '#f0f',
+    // });
+    // canvas.renderAll.bind(canvas);
+
+    // canvas.add(rect);
+    if(isRectangleMarqueToolClick){
+      console.log('hello rect----')
+      const rect = new fabric.Rect({
+        height:200,
+        width: 100,
+        fill: '#f0f',
+        top: 50,
+        left: 50,
+      });
+      // canvas.renderAll.bind(canvas);
+  
+      canvas.add(rect);
+      
+    }
+
+
+    // --------------Rectangle End---------------
+
     // if (typeof selectedImage === "string" && selectedImage.trim() !== "") {
     //   fabric.Image.fromURL(
     //     selectedImage,
@@ -114,7 +154,9 @@ const Canvas = ({ selectedCanvasColor }) => {
     //     }
     //   );
     // }
-  }, [selectedCanvasColor]);
+  // }, [selectedCanvasColor]);
+}, []);
+
 
   /* ----------------------------------------------- */
   useEffect(() => {

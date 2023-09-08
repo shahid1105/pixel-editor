@@ -24,6 +24,7 @@ import { FaRegCircle, FaRegHandPaper } from "react-icons/fa";
 
 import { useDispatch, useSelector } from "react-redux";
 import { setCropping } from "../../../Redux/Crop";
+import { setRectangleMarqueTool } from "../../../Redux/RectangleMarqueToolReducer";
 
 /* ------------------------------ */
 
@@ -31,17 +32,36 @@ const Icon = () => {
   /* -------------------------------------------- */
   const isCropping = useSelector((state) => state.cropReducer.isCropping); // Assuming you store the cropping state in Redux
 
+  const isRectangleMarqueToolClick = useSelector((state) =>state.rectangleMarqueToolReducer.isRectangleMarqueToolClick);
+
+
   const dispatch = useDispatch();
+
   const handleCropToolClick = () => {
     // Dispatch the setCropping action to enable cropping mode
     dispatch(setCropping(true));
   };
 
+
+  const handleRectangleToolClick = () =>{
+    dispatch(setRectangleMarqueTool(true));
+  }
+
   /* -------------------------------------------- */
   return (
     <>
       <BsArrowsMove title="Move Tool"></BsArrowsMove>
-      <TbMarquee2 title="Rectangular Marquee Tool"></TbMarquee2>
+      
+      <div className="dropdown dropdown-right">
+        <label tabIndex={0} className="">
+          <TbMarquee2 title="Rectangular Marquee Tool"></TbMarquee2>
+        </label>
+        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-gray-900 text-white  rounded-box w-52 text-xs">
+          
+          <li onClick={handleRectangleToolClick}><a> Rectangular Marque Tools{isRectangleMarqueToolClick?'ok':'no'}</a></li>
+          <li ><a> Elliptical Marque Tools</a></li>
+        </ul>
+      </div>
       <LuLasso title="Magnetic Lasso Tool"></LuLasso>
       <PiSelectionAllFill title="Object Selection Tools"></PiSelectionAllFill>
       <BsCrop

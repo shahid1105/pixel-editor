@@ -14,7 +14,9 @@ function TextTool({ fabricCanvas }) {
       fill: "black",
     });
 
-    fabricCanvas.add(text); // Add text to the fabricCanvas
+    fabricCanvas.add(text); 
+    fabricCanvas.renderAll.bind(fabricCanvas);
+    // Add text to the fabricCanvas
   };
 
   return (
