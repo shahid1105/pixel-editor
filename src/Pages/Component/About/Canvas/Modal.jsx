@@ -78,7 +78,7 @@ const Modal = ({ showModal, setShowModal }) => {
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}>
-            <div className="relative w-[60%] my-6 mx-auto max-w-3xl">
+            <div className="relative w-[60%] md:w-[40%] my-6 mx-auto max-w-3xl">
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
@@ -118,15 +118,15 @@ const Modal = ({ showModal, setShowModal }) => {
                   </ul>
                 </div>
                 {/*body*/}
-                <div className="grid grid-cols-1 md:grid-cols-12 bg-black text-white">
+                <div className="grid grid-cols-1 md:grid-cols-12 bg-black text-white overflow-y-scroll">
                   {/* part1 */}
-                  <div className="col-span-8 border border-solid border-slate-600">
+                  <div className="col-span-6 border border-solid border-slate-600 hidden md:block lg:block">
                     <WebItem></WebItem>
                   </div>
                   {/* part2 */}
-                  <div className="col-span-4 bg-gray-900 relative  flex-auto">
+                  <div className="col-span-6 bg-gray-900 relative  flex-auto">
                     <form onSubmit={handleSubmit(onSubmit)}>
-                      <div className="card-body">
+                      <div className="p-2 md:px-4">
                         <div className="form-control">
                           <label className="label">
                             <span className="label-text text-white">
@@ -165,12 +165,12 @@ const Modal = ({ showModal, setShowModal }) => {
                                   Width
                                 </span>
                               </label>
-                              <div className="flex gap-2 text-black">
+                              <div className="flex md:flex-row flex-col gap-2 text-black">
                                 <input
                                   {...register("width")}
                                   type="number"
                                   placeholder="width"
-                                  className="px-2 w-[40%] rounded-sm"
+                                  className="px-2 w-full md:w-[40%] rounded-sm"
                                 />
                                 <select {...register("selector")}>
                                   <option value="female">Pixels</option>
@@ -191,12 +191,12 @@ const Modal = ({ showModal, setShowModal }) => {
                                   Height
                                 </span>
                               </label>
-                              <div className="flex gap-2 text-black">
+                              <div className="flex md:flex-row flex-col gap-2 text-black">
                                 <input
                                   {...register("height")}
                                   type="number"
                                   placeholder="height"
-                                  className="px-2 w-[40%] rounded-sm"
+                                  className="px-2 w-full md:w-[40%] rounded-sm"
                                 />
                                 <select {...register("selector")}>
                                   <option value="female">Pixels</option>
@@ -217,15 +217,15 @@ const Modal = ({ showModal, setShowModal }) => {
                                 Resolution
                               </span>
                             </label>
-                            <div className="flex gap-2 text-black">
+                            <div className="flex md:flex-row flex-col gap-2 text-black">
                               <input
                                 {...register("resolution")}
                                 type="number"
                                 placeholder="Resolution"
-                                className="px-2 w-[40%] rounded-sm"
+                                className="px-2 w-full md:w-[40%] rounded-sm"
                               />
                               <div className="">
-                                <select {...register("resolution")}>
+                                <select className="w-full md:w-auto" {...register("resolution")}>
                                   <option value="inch">Inch</option>
                                   <option value="centimeter">Centimeter</option>
                                 </select>
@@ -242,12 +242,12 @@ const Modal = ({ showModal, setShowModal }) => {
                                 Color Mode
                               </span>
                             </label>
-                            <div className="flex gap-2 text-black">
+                            <div className="flex md:flex-row flex-col gap-2 text-black">
                               <select {...register("color")}>
                                 <option value="color">RGB color</option>
                               </select>
-                              <div className="">
-                                <select {...register("bit")}>
+                              <div>
+                                <select className="w-full md:w-auto" {...register("bit")}>
                                   <option value="bit">8 bit</option>
                                   <option value="bit">16 bit</option>
                                   <option value="bit">32 bit</option>
@@ -266,7 +266,7 @@ const Modal = ({ showModal, setShowModal }) => {
                                 Color Mode
                               </span>
                             </label>
-                            <div className="flex gap-2 text-black">
+                            <div className="flex md:flex-row flex-col gap-2 text-black">
                               <select {...register("backgroundColor")}>
                                 <option value="color">White</option>
                                 <option value="color">Black</option>
@@ -279,7 +279,7 @@ const Modal = ({ showModal, setShowModal }) => {
                                   {...register("color")}
                                   type="color"
                                   placeholder="Resolution"
-                                  className="px-2 w-[40%] rounded-sm"
+                                  className="px-2 w-full md:w-[30px] rounded-sm"
                                 />
                               </div>
                             </div>
@@ -289,7 +289,7 @@ const Modal = ({ showModal, setShowModal }) => {
                           </div>
                         </div>
                         <div className="form-control mt-6">
-                          <button className="btn btn-outline btn-primary btn-sm mx-4">
+                          <button className="btn btn-primary mb-2 btn-sm mx-4">
                             {" "}
                             Create
                           </button>

@@ -6,13 +6,17 @@ import { FaPaintBrush } from "react-icons/fa";
 import { BsChevronDoubleLeft, BsChevronDoubleRight } from "react-icons/bs";
 import { MdLensBlur } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { useSelector } from "../../../Redux/Store";
+
 import ImageEditor from "../../ImageEditor/ImageEditor";
 import Canvas from "../../Component/About/Canvas/Canvas";
 import { useRef } from "react";
 
 const IconMenu = () => {
-  const selectedImage = useSelector((state) => state.selectedImage);
+  const [selectedCanvasColor, setSelectedCanvasColor] = useState("white");
+  const handleOnchange = (color) => {
+    setSelectedCanvasColor(color.hex);
+  };
+
   // const [isDragging, setIsDragging] = useState(false);
   // const [offset, setOffset] = useState({ x: 0, y: 0 });
 
@@ -57,12 +61,8 @@ const IconMenu = () => {
     }
   };
 
-  const [currentColor, setCurrentColor] = useState();
+  // const [currentColor, setCurrentColor] = useState();
   // const [columns, setColumns] = useState(1);
-
-  const handleOnchange = (color) => {
-    setCurrentColor(color.hex);
-  };
 
   const toggleColumns = () => {
     setColumns(columns === 1 ? 2 : 1);
@@ -149,16 +149,14 @@ const IconMenu = () => {
           <Icon></Icon>
         </div>
 
-        <div className="col-span-9 bg-purple-400">
+        <div className="md:col-span-9 bg-purple-400 border-4 border-black ">
           {/* <ImageEditor></ImageEditor> */}
-          <Canvas></Canvas>
+          <Canvas selectedCanvasColor={selectedCanvasColor}></Canvas>
         </div>
-        <div
-          style={{ backgroundColor: currentColor }}
-          className="p-5 col-span-3 ">
+        <div className="p-5 col-span-3 ">
           <SketchPicker
             className="mx-auto"
-            color={currentColor}
+            color={selectedCanvasColor}
             onChangeComplete={handleOnchange}
           />
         </div>
