@@ -305,7 +305,7 @@ const Canvas = ({ selectedCanvasColor }) => {
             Apply Crop
           </button>
 
-          <button>to do</button>
+          <button>to do for conflict </button>
         </div>
       </div>
     </div>
