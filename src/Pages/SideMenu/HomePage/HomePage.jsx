@@ -1,4 +1,13 @@
 import { FaDesktop, FaImages } from "react-icons/fa";
+import {
+  // LuFlipHorizontal2,
+  // LuFlipVertical2,
+  LuImagePlus,
+  // LuRedo2,
+  // LuRotateCcw,
+  // LuRotateCw,
+  // LuUndo2,
+} from "react-icons/Lu";
 import { SiGooglesheets } from "react-icons/Si";
 import img1 from "../../../../public/ps.png";
 import img2 from "../../../../public/ai.png";
@@ -6,7 +15,8 @@ import img3 from "../../../../public/pdf.png";
 import img4 from "../../../../public/raw.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setSelectedImage } from "../../../Redux/Store";
+import { setSelectedImage } from "../../../Redux/SelectedImage";
+// import { setSelectedImage } from "../../../Redux/Store";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -19,7 +29,7 @@ const HomePage = () => {
       dispatch(setSelectedImage(imageUrl));
       // ... Redirect or navigate to the editor page
       // ... Redirect or navigate to the editor page
-      navigate("/imageEditor");
+      navigate("/iconMenu");
     }
   };
 
@@ -32,7 +42,7 @@ const HomePage = () => {
     if (files.length > 0) {
       const imageUrl = URL.createObjectURL(files[0]);
       dispatch(setSelectedImage(imageUrl));
-      navigate("/imageEditor"); // Navigate to ImageEditor component
+      navigate("/iconMenu");
     }
   };
 
@@ -46,7 +56,8 @@ const HomePage = () => {
         <span className="text-purple-600 text-6xl md:text-8xl">P</span>!xel
         Editor
       </h3>
-      <div className="flex flex-col md:flex-row justify-center gap-2 md:gap-4 my-4">
+      {/* <p>to do</p> */}
+      <div className="flex flex-col px-4 md:p-0 md:flex-row justify-center gap-2 md:gap-4 my-4">
         <button className="btn btn-outline btn-info flex items-center">
           <SiGooglesheets className="mr-2" />{" "}
           <Link to="/imageEditor">New Project</Link>
@@ -68,7 +79,8 @@ const HomePage = () => {
 
       <div className="text-center">
         <button className="btn btn-outline btn-info">
-          <FaImages className="mr-2" /> Templates
+          <FaImages className="mr-2" />
+          <Link to="/iconMenu"> Templates</Link>
         </button>
       </div>
       <div

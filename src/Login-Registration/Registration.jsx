@@ -24,9 +24,10 @@ const Registration = () => {
             name: data.name,
             email: data.email,
             photo: data.photo,
+            role: "user",
           };
 
-          fetch("https://language-center-server-nu.vercel.app/users", {
+          fetch(" https://pixel-editor-server-shahid1105.vercel.app/users", {
             method: "POST",
             headers: {
               "content-type": "application/json",

@@ -15,8 +15,9 @@ const GoogleLogin = () => {
           name: loggedInUser.displayName,
           email: loggedInUser.email,
           photo: loggedInUser.photoURL,
+          role: "user",
         };
-        fetch("", {
+        fetch(" https://pixel-editor-server-shahid1105.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",
