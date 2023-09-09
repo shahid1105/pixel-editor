@@ -99,8 +99,8 @@ const Canvas = ({ selectedCanvasColor }) => {
       width: width || width2,
       height: height || height1,
 
-      isDrawingMode: true,
-      // selection: true,
+      // isDrawingMode: true,
+      selection: true,
       // selectionColor: "yellow",
       // selectionLineWidth: 3,
       preserveObjectStacking: true,
@@ -265,12 +265,12 @@ const Canvas = ({ selectedCanvasColor }) => {
           {/* ------------------------------------- */}
         </div>
 
-        <div className="pt-2">
+        <div className="pt-2 grid-cols-2 items-center justify-center">
           <label className="mx-2 py-1" htmlFor="">
             Pen WIdth - {penWidth}
           </label>
           <input
-            className="mx-2 py-1"
+            className="mx-2 py-1 "
             type="range"
             onChange={(e) => changePenWidth(e.target.value)}
             value={penWidth}
@@ -297,7 +297,7 @@ const Canvas = ({ selectedCanvasColor }) => {
           </button>
           {/* -------------------- */}
           <button
-            className={`btn btn-${isCropping ? "danger" : "primary"}`}
+            className={`mx-2 btn btn-${isCropping ? "danger" : "primary"}`}
             onClick={isCropping ? cancelCrop : startCrop}>
             {isCropping ? "Cancel Crop" : "Start Crop"}
           </button>
