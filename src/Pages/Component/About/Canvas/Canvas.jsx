@@ -12,7 +12,7 @@ import React from "react";
 import { setCropping } from "../../../../Redux/Crop";
 import { addTextBox, removeTextBox } from "../../../../Redux/TextBox";
 
-/* ------------------------------- */
+/* -----------for commit-------------------- */
 
 const Canvas = ({ selectedCanvasColor }) => {
   const selectedImage = useSelector(
@@ -304,6 +304,8 @@ const Canvas = ({ selectedCanvasColor }) => {
           <button className="btn btn-success" onClick={cropImage}>
             Apply Crop
           </button>
+
+          <button>to do</button>
         </div>
       </div>
     </div>
