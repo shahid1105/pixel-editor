@@ -13,14 +13,10 @@ import TextTool from "./textTool";
 
 // import { useDispatch } from "react-redux";
 import { setSelectedImage } from "../../../../Redux/SelectedImage";
-<<<<<<< HEAD
 
-import React from "react";
-=======
-import getCroppedImg from "./getCroppedImg";
-// import React from "react";
->>>>>>> 29f8ddaf96a75561c7693a8b6aff90fda8da9cf5
-import { setCropping } from "../../../../Redux/Crop";
+// import getCroppedImg from "./getCroppedImg";
+// // import React from "react";
+// import { setCropping } from "../../../../Redux/Crop";
 
 /* -----------for commit-------------------- */
 
@@ -30,18 +26,17 @@ const Canvas = ({ selectedCanvasColor }) => {
   );
 
   //RectangleMarqueToolClick Selector
-  const isRectangleMarqueToolClick = useSelector((state) =>state.rectangleMarqueToolReducer.isRectangleMarqueToolClick);
+  const isRectangleMarqueToolClick = useSelector(
+    (state) => state.rectangleMarqueToolReducer.isRectangleMarqueToolClick
+  );
   //console.log(isRectangleMarqueToolClick);
-//textbox reducer
+  //textbox reducer
   const textbox = useSelector((state) => state.textBoxReducer.textBox);
   console.log("hello textbox");
-
-
 
   //console.log(selectedImage);
   const imgCropping = useSelector((state) => state.cropReducer.isCropping);
   //console.log(imgCropping);
-
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -51,44 +46,17 @@ const Canvas = ({ selectedCanvasColor }) => {
   const width = queryParams.get("width");
   // console.log(name, height, width);
 
-  // const canvasAllInfo = useContext(CanvasContext);
-
-  // console.log(canvasAllInfo.canvasInfo?.height);
-  // const height = parseInt(canvasAllInfo.canvasInfo?.height);
-  // const width = parseInt(canvasAllInfo.canvasInfo?.width);
-
-  // console.log(typeof height, typeof width);
-  // console.log(height, width);
-
   const height1 = 500;
   const width2 = 800;
-
-  
 
   // const defaultBackgroundColor = "white";
   const [penWidth, setPenWidth] = useState(3);
   const [penColor, setPenColor] = useState(3);
 
-  
   const [fabricCanvas, setFabricCanvas] = useState();
 
   const canvasRef = useRef(null);
-  // var canvas;
 
-  // const addText = () => {
-  //   if (canvas) {
-  //     const text = new fabric.IText('Edit me!', {
-  //       left: 100,
-  //       top: 100,
-  //       fontSize: 20,
-  //     });
-
-  //     canvas.add(text);
-  //     canvas.setActiveObject(text);
-  //     canvas.requestRenderAll();
-  //   }
-  // };
-  
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
       backgroundColor: selectedCanvasColor,
@@ -96,7 +64,6 @@ const Canvas = ({ selectedCanvasColor }) => {
       width: `${width || width2}`,
       height: `${height || height1}`,
       // selection:true,
-      
 
       // isDrawingMode: true,
       selection: true,
@@ -104,17 +71,12 @@ const Canvas = ({ selectedCanvasColor }) => {
       // selectionLineWidth: 3,
       preserveObjectStacking: true,
     });
-    
 
     setFabricCanvas(canvas);
-    
-    
-    
-    
+
     // console.log(isRectangleMarqueToolClick)
 
     // -----------------Image Start---------------
-
 
     // const ImgSrc={state.image || selectedImage};
     fabric.Image.fromURL(selectedImage, function (oImg) {
@@ -127,32 +89,27 @@ const Canvas = ({ selectedCanvasColor }) => {
       // canvas.renderAll.bind(canvas);
       canvas.requestRenderAll();
 
-
-
       fabric.CircleBrush;
     });
 
     // -----------------Circle Start---------------
 
-
-    if(canvas){
+    if (canvas) {
       const circle = new fabric.Circle({
         radius: 50,
         fill: "yellow",
         top: 50,
         left: 50,
-        selectable:true,
+        selectable: true,
       });
-      circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
-      canvas.add(circle); 
+      circle.set({ radius: 50, fill: "#f00", opacity: 0.7 });
+      canvas.add(circle);
       // canvas.renderAll();
       canvas.requestRenderAll();
-
     }
 
     /* --------------------text box---------------------------- */
     if (textbox) {
-
       console.log("hello textbox");
       const textBox = new fabric.Textbox(textbox?.text, {
         left: textbox?.left,
@@ -167,53 +124,45 @@ const Canvas = ({ selectedCanvasColor }) => {
       canvas.add(textBox);
       canvas.requestRenderAll();
     }
-    
-
 
     // -----------------Rectangle Start---------------
 
-    if(isRectangleMarqueToolClick){
-      console.log('hello rect----')
+    if (isRectangleMarqueToolClick) {
+      console.log("hello rect----");
       const rect = new fabric.Rect({
-        height:200,
+        height: 200,
         width: 100,
-        fill: '#f0f',
+        fill: "#f0f",
         top: 50,
         left: 50,
       });
       // canvas.renderAll.bind(canvas);
-  
+
       canvas.add(rect);
       canvas.setActiveObject(rect);
       canvas.requestRenderAll();
-      
     }
-
 
     // --------------Rectangle End---------------
 
-    
-  return () =>{
-    canvas.dispose();
-  }
+    return () => {
+      canvas.dispose();
+    };
+  }, []);
 
-}, []);
-
-const addACircle = () => {
-  const circle = new fabric.Circle({
-    radius: 50,
-    fill: "yellow",
-    top: 50,
-    left: 50,
-    selectable:true,
-  });
-  circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
-  fabricCanvas.add(circle); 
-  fabricCanvas.setActiveObject(circle);
-  fabricCanvas.requestRenderAll();
-  
-};
-
+  const addACircle = () => {
+    const circle = new fabric.Circle({
+      radius: 50,
+      fill: "yellow",
+      top: 50,
+      left: 50,
+      selectable: true,
+    });
+    circle.set({ radius: 50, fill: "#f00", opacity: 0.7 });
+    fabricCanvas.add(circle);
+    fabricCanvas.setActiveObject(circle);
+    fabricCanvas.requestRenderAll();
+  };
 
   /* ----------------------------------------------- */
   useEffect(() => {
@@ -222,18 +171,14 @@ const addACircle = () => {
       fabricCanvas.setBackgroundColor(selectedCanvasColor);
       // fabricCanvas.renderAll();
       fabricCanvas.requestRenderAll();
-
     }
   }, [selectedCanvasColor, fabricCanvas]);
   /* ----------------------------------------------- */
-
-  
 
   // const text = new fabric.Text("I'm text ", {
   //   fontSize: 40,
   // });
   // fabricCanvas.add(text);
-
 
   const changePenWidth = (width) => {
     if (fabricCanvas) {
@@ -257,9 +202,7 @@ const addACircle = () => {
 
     const pngData = fabricCanvas.toDataURL("png");
     const downloadLink = document.createElement("a");
-    const fileName = `${name}-${Math.random()
-      .toString()
-      .replace("", "")}.png`;
+    const fileName = `${name}-${Math.random().toString().replace("", "")}.png`;
 
     downloadLink.href = pngData;
     downloadLink.download = fileName;
@@ -267,8 +210,6 @@ const addACircle = () => {
     // console.log("Download Button");
   };
 
-
-  
   // const handleDrawing = () =>{
   //   if (fabricCanvas) {
   //     fabricCanvas.selection= false;
@@ -364,15 +305,13 @@ const addACircle = () => {
 
   /* ---------------------------------------------- */
 
-  
   return (
     <div className="container  mx-auto bg-purple-400">
       <div>
-        <div className="flex justify-end text-center align-middle">
+        <div className="flex justify-center text-center align-middle">
           <h1></h1>
           <canvas className=" " ref={canvasRef}></canvas>
-          {/* ------------------------------------- */}
-          <TextTool fabricCanvas={fabricCanvas} />{" "}
+
           {/* Render the TextTool component */}
           {/* Display the selected image */}
           {/* <img
@@ -385,30 +324,7 @@ const addACircle = () => {
         </div>
         {/* ----------------------------- */}
 
-<<<<<<< HEAD
         <div className="pt-2 mb-2 grid-cols-2 items-center justify-center">
-=======
-        {/* <div>
-          <div className={`bg-slate-600 text-white`}>
-            <Icon onTextToolClick={handleTextToolClick} />
-          </div>
-          {showTextEdit && (
-            <div className="text-tool-edit">
-              <form onSubmit={handleTextSubmit}>
-                <textarea
-                  value={text}
-                  onChange={handleTextChange}
-                  placeholder="Enter your text..."
-                />
-                <button type="submit">Apply</button>
-              </form>
-            </div>
-          )}
-        </div> */}
-
-        {/* ----------------------------- */}
-        <div className="pt-2">
->>>>>>> 29f8ddaf96a75561c7693a8b6aff90fda8da9cf5
           <label className="mx-2 py-1" htmlFor="">
             Pen WIdth - {penWidth}
           </label>
@@ -434,11 +350,13 @@ const addACircle = () => {
             Add Circle
           </button>
 
-            {/* <button className="btn" onClick={handleDrawing}>
+          {/* <button className="btn" onClick={handleDrawing}>
                 Drawing
             </button> */}
 
-          <button className="btn btn-success mb-2 md:mb-0" onClick={() => downloadHandler()}>
+          <button
+            className="btn btn-success mb-2 md:mb-0"
+            onClick={() => downloadHandler()}>
             {" "}
             Download
           </button>
@@ -470,7 +388,6 @@ const addACircle = () => {
           <button className="btn btn-success" onClick={cropImage}>
             Crop Image
           </button>
-          
         </div>
       </div>
     </div>
