@@ -12,10 +12,16 @@ function TextTool({ fabricCanvas }) {
       top: 100,
       fontSize: 20,
       fill: "black",
+      selectable: true,
+      selectionColor:'red'
     });
+    fabricCanvas.requestRenderAll();
 
     fabricCanvas.add(text); 
-    fabricCanvas.renderAll.bind(fabricCanvas);
+    // fabricCanvas.renderAll.bind(fabricCanvas);
+    fabricCanvas.setActiveObject(text)
+    
+    
     // Add text to the fabricCanvas
   };
 
