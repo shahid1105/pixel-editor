@@ -87,10 +87,6 @@ const router = createBrowserRouter([
         path: "feedback",
         element: <Feedback></Feedback>,
       },
-      {
-        path: "newCanvas",
-        element: <NewCanvas></NewCanvas>,
-      },
     ],
   },
   {

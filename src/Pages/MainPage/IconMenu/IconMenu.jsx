@@ -152,8 +152,7 @@ const IconMenu = () => {
 
         <div className="md:col-span-9 bg-purple-400 border-4 border-black ">
           {/* <ImageEditor></ImageEditor> */}
-          {/* <Canvas selectedCanvasColor={selectedCanvasColor}></Canvas> */}
-          <NewCanvas></NewCanvas>
+          <Canvas selectedCanvasColor={selectedCanvasColor}></Canvas>
         </div>
         <div className="p-5 col-span-3 ">
           <SketchPicker
