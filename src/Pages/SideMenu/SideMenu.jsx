@@ -16,6 +16,9 @@ const SideMenu = () => {
   const { logOut, user } = useContext(AuthContext);
   const [isOpen, setOpen] = useState(false);
 
+
+
+  
   //logout
 
   const handleLogout = () => {
