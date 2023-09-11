@@ -17,7 +17,7 @@ import getCroppedImg from "./getCroppedImg";
 // import React from "react";
 import { setCropping } from "../../../../Redux/Crop";
 
-/* ------------------------------- */
+/* -----------for commit-------------------- */
 
 const Canvas = ({ selectedCanvasColor }) => {
   const selectedImage = useSelector(
@@ -464,7 +464,7 @@ const addACircle = () => {
           <button className="btn btn-success" onClick={cropImage}>
             Crop Image
           </button>
-          {/* ------------------------------------------------- */}
+          
         </div>
       </div>
     </div>
