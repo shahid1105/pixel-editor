@@ -32,7 +32,7 @@ const SideMenu = () => {
         {user ? (
           <div className="flex items-center">
             <div className="avatar">
-              <div className="w-10 h-10 rounded-full">
+              <div className="w-10 h-10 rounded-full border-black border-2">
                 <img src={user.photoURL} />
               </div>
             </div>

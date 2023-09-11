@@ -12,7 +12,7 @@ import React from "react";
 import { setCropping } from "../../../../Redux/Crop";
 import { addTextBox, removeTextBox } from "../../../../Redux/TextBox";
 
-/* ------------------------------- */
+/* -----------for commit-------------------- */
 
 const Canvas = ({ selectedCanvasColor }) => {
   const selectedImage = useSelector(
@@ -99,8 +99,8 @@ const Canvas = ({ selectedCanvasColor }) => {
       width: width || width2,
       height: height || height1,
 
-      isDrawingMode: true,
-      // selection: true,
+      // isDrawingMode: true,
+      selection: true,
       // selectionColor: "yellow",
       // selectionLineWidth: 3,
       preserveObjectStacking: true,
@@ -257,7 +257,7 @@ const Canvas = ({ selectedCanvasColor }) => {
   /* ---------------------------------------------- */
 
   return (
-    <div className="container  mx-auto bg-purple-400 h-[100%] text-purple-700">
+    <div className="container  mx-auto bg-purple-400">
       <div>
         <div className="flex justify-center text-center align-middle">
           <h1></h1>
@@ -265,12 +265,12 @@ const Canvas = ({ selectedCanvasColor }) => {
           {/* ------------------------------------- */}
         </div>
 
-        <div className="pt-2">
+        <div className="pt-2 mb-2 grid-cols-2 items-center justify-center">
           <label className="mx-2 py-1" htmlFor="">
             Pen WIdth - {penWidth}
           </label>
           <input
-            className="mx-2 py-1"
+            className="mx-2 py-1 "
             type="range"
             onChange={(e) => changePenWidth(e.target.value)}
             value={penWidth}
@@ -291,19 +291,21 @@ const Canvas = ({ selectedCanvasColor }) => {
             Add Circle
           </button> */}
 
-          <button className="btn btn-success" onClick={() => downloadHandler()}>
+          <button className="btn btn-success mb-2 md:mb-0" onClick={() => downloadHandler()}>
             {" "}
             Download
           </button>
           {/* -------------------- */}
           <button
-            className={`btn btn-${isCropping ? "danger" : "primary"}`}
+            className={`mx-2 btn btn-${isCropping ? "danger" : "primary"}`}
             onClick={isCropping ? cancelCrop : startCrop}>
             {isCropping ? "Cancel Crop" : "Start Crop"}
           </button>
           <button className="btn btn-success" onClick={cropImage}>
             Apply Crop
           </button>
+
+          <button>to do for conflict </button>
         </div>
       </div>
     </div>

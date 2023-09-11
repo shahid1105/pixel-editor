@@ -143,7 +143,7 @@ const IconMenu = () => {
           onMouseUp={handleMouseUp}>
           <button
             onClick={toggleColumns}
-            className="text-sm ml-1 border-2 border-gray-300 px-1">
+            className="text-sm ml-1 border-2 hidden md:block border-gray-300 px-1">
             {columns === 1 ? <BsChevronDoubleLeft /> : <BsChevronDoubleRight />}
           </button>
           <br />
