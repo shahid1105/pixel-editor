@@ -257,7 +257,7 @@ const Canvas = ({ selectedCanvasColor }) => {
   /* ---------------------------------------------- */
 
   return (
-    <div className="container  mx-auto bg-purple-400 h-[100%] text-purple-700">
+    <div className="container  mx-auto bg-purple-400">
       <div>
         <div className="flex justify-center text-center align-middle">
           <h1></h1>
@@ -265,7 +265,7 @@ const Canvas = ({ selectedCanvasColor }) => {
           {/* ------------------------------------- */}
         </div>
 
-        <div className="pt-2 grid-cols-2 items-center justify-center">
+        <div className="pt-2 mb-2 grid-cols-2 items-center justify-center">
           <label className="mx-2 py-1" htmlFor="">
             Pen WIdth - {penWidth}
           </label>
@@ -291,7 +291,7 @@ const Canvas = ({ selectedCanvasColor }) => {
             Add Circle
           </button> */}
 
-          <button className="btn btn-success" onClick={() => downloadHandler()}>
+          <button className="btn btn-success mb-2 md:mb-0" onClick={() => downloadHandler()}>
             {" "}
             Download
           </button>

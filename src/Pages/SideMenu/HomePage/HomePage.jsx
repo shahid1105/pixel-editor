@@ -51,7 +51,7 @@ const HomePage = () => {
   };
 
   return (
-<div className="hero min-h-screen" style={{backgroundImage: 'url(https://images.designtrends.com/wp-content/uploads/2016/04/05050959/Water-Drop-HD-Image.jpg)'}}>
+<div className="hero min-h-screen" style={{backgroundImage: 'url(https://i.ibb.co/fk1X46W/1645.jpg)'}}>
   <div className="hero-overlay bg-opacity-60"></div>
   <div className="hero-content text-center text-neutral-content">
   <div className="md:mx-auto md:max-w-screen-md lg:max-w-screen-lg fixe ">
