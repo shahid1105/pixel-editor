@@ -17,6 +17,7 @@ import Dashboard from "../Layout/Dashboard";
 import ManageUsers from "../Pages/Dashboard/ManageUsers";
 import Feedback from "../Pages/SideMenu/Feedback/Feedback";
 import Report from "../Pages/Dashboard/report";
+import NewCanvas from "../Pages/Component/About/Canvas/NewCanvas";
 
 // import { Canvas } from "fabric/fabric-impl";
 
@@ -85,6 +86,10 @@ const router = createBrowserRouter([
       {
         path: "feedback",
         element: <Feedback></Feedback>,
+      },
+      {
+        path: "newCanvas",
+        element: <NewCanvas></NewCanvas>,
       },
     ],
   },

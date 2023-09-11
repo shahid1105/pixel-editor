@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 
 import ImageEditor from "../../ImageEditor/ImageEditor";
 import Canvas from "../../Component/About/Canvas/Canvas";
+import NewCanvas from "../../Component/About/Canvas/NewCanvas";
 import { useRef } from "react";
 
 const IconMenu = () => {
@@ -151,7 +152,8 @@ const IconMenu = () => {
 
         <div className="md:col-span-9 bg-purple-400 border-4 border-black ">
           {/* <ImageEditor></ImageEditor> */}
-          <Canvas selectedCanvasColor={selectedCanvasColor}></Canvas>
+          {/* <Canvas selectedCanvasColor={selectedCanvasColor}></Canvas> */}
+          <NewCanvas></NewCanvas>
         </div>
         <div className="p-5 col-span-3 ">
           <SketchPicker

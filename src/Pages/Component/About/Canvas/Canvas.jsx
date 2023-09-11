@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { setSelectedImage } from "../../../../Redux/SelectedImage";
-import getCroppedImg from "./getCroppedImg";
+
 import React from "react";
 import { setCropping } from "../../../../Redux/Crop";
 import { addTextBox, removeTextBox } from "../../../../Redux/TextBox";
