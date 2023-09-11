@@ -78,7 +78,7 @@ const Modal = ({ showModal, setShowModal }) => {
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}>
-            <div className="relative w-[60%] md:w-[40%] my-6 mx-auto max-w-3xl">
+            <div className="relative w-[60%] md:w-[500px] my-6 mx-auto max-w-3xl">
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
