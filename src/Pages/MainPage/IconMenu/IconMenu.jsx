@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 
 import ImageEditor from "../../ImageEditor/ImageEditor";
 import Canvas from "../../Component/About/Canvas/Canvas";
-import NewCanvas from "../../Component/About/Canvas/NewCanvas";
 import { useRef } from "react";
 
 const IconMenu = () => {
