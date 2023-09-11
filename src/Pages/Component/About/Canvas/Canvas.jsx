@@ -26,26 +26,17 @@ const Canvas = ({ selectedCanvasColor }) => {
 
   //RectangleMarqueToolClick Selector
   const isRectangleMarqueToolClick = useSelector((state) =>state.rectangleMarqueToolReducer.isRectangleMarqueToolClick);
-  console.log(isRectangleMarqueToolClick);
+  //console.log(isRectangleMarqueToolClick);
+//textbox reducer
+  const textbox = useSelector((state) => state.textBoxReducer.textBox);
+  console.log("hello textbox");
 
 
 
-  console.log(selectedImage);
+  //console.log(selectedImage);
   const imgCropping = useSelector((state) => state.cropReducer.isCropping);
-  console.log(imgCropping);
+  //console.log(imgCropping);
 
-  const [state, setState] = useState({
-    image: "",
-    brightness: 100,
-    grayscale: 0,
-    sepia: 0,
-    saturate: 100,
-    contrast: 100,
-    hueRotate: 0,
-    rotate: 0,
-    vertical: 1,
-    horizontal: 1,
-  });
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -103,9 +94,10 @@ const Canvas = ({ selectedCanvasColor }) => {
       
 
       // isDrawingMode: true,
-      // selection:true,
-      // selectionColor: 'yellow',
-      // selectionLineWidth:3,
+      selection: true,
+      // selectionColor: "yellow",
+      // selectionLineWidth: 3,
+      preserveObjectStacking: true,
     });
     
 
@@ -152,51 +144,55 @@ const Canvas = ({ selectedCanvasColor }) => {
       canvas.requestRenderAll();
 
     }
+
+    /* --------------------text box---------------------------- */
+    if (textbox) {
+
+      console.log("hello textbox");
+      const textBox = new fabric.Textbox(textbox?.text, {
+        left: textbox?.left,
+        top: textbox?.top,
+        width: textbox?.width,
+        fontSize: textbox?.fontSize,
+        fill: textbox?.fill,
+        editable: true,
+        selectable: true,
+      });
+
+      canvas.add(textBox);
+      canvas.requestRenderAll();
+    }
     
 
 
     // -----------------Rectangle Start---------------
 
-    // if(isRectangleMarqueToolClick){
-    //   console.log('hello rect----')
-    //   const rect = new fabric.Rect({
-    //     height:200,
-    //     width: 100,
-    //     fill: '#f0f',
-    //     top: 50,
-    //     left: 50,
-    //   });
-    //   // canvas.renderAll.bind(canvas);
+    if(isRectangleMarqueToolClick){
+      console.log('hello rect----')
+      const rect = new fabric.Rect({
+        height:200,
+        width: 100,
+        fill: '#f0f',
+        top: 50,
+        left: 50,
+      });
+      // canvas.renderAll.bind(canvas);
   
-    //   canvas.add(rect);
-    //   canvas.setActiveObject(rect);
-    //   canvas.requestRenderAll();
+      canvas.add(rect);
+      canvas.setActiveObject(rect);
+      canvas.requestRenderAll();
       
-    // }
+    }
 
 
     // --------------Rectangle End---------------
 
-    // if (typeof selectedImage === "string" && selectedImage.trim() !== "") {
-    //   fabric.Image.fromURL(
-    //     selectedImage,
-    //     (oImg) => {
-    //       // Image loaded successfully
-    //       canvas.add(oImg);
-    //     },
-    //     (error) => {
-    //       // Handle the error here
-    //       console.error("Error loading image:", error);
-    //     }
-    //   );
-    // }
-  // }, [selectedCanvasColor]);
-
+    
   return () =>{
     canvas.dispose();
   }
 
-}, [canvasRef]);
+}, []);
 
 const addACircle = () => {
   const circle = new fabric.Circle({
@@ -212,6 +208,7 @@ const addACircle = () => {
   fabricCanvas.requestRenderAll();
   
 };
+
 
   /* ----------------------------------------------- */
   useEffect(() => {
@@ -251,7 +248,7 @@ const addACircle = () => {
   };
 
   const downloadHandler = () => {
-    console.log("Download Button");
+    //console.log("Download Button");
 
     const pngData = fabricCanvas.toDataURL("png");
     const downloadLink = document.createElement("a");
@@ -330,7 +327,7 @@ const addACircle = () => {
     setZoom(newZoom);
   };
 
-  console.log(fabricCanvas);
+  //console.log(fabricCanvas);
 
   const cropImage = (imgCropping) => {
     if (imgCropping) {
@@ -407,7 +404,7 @@ const addACircle = () => {
             Pen WIdth - {penWidth}
           </label>
           <input
-            className="mx-2 py-1"
+            className="mx-2 py-1 "
             type="range"
             onChange={(e) => changePenWidth(e.target.value)}
             value={penWidth}
