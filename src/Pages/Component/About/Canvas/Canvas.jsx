@@ -16,6 +16,7 @@ import { setSelectedImage } from "../../../../Redux/SelectedImage";
 import getCroppedImg from "./getCroppedImg";
 // import React from "react";
 import { setCropping } from "../../../../Redux/Crop";
+import { addTextBox } from "../../../../Redux/TextBox";
 
 /* -----------for commit-------------------- */
 
@@ -29,9 +30,7 @@ const Canvas = ({ selectedCanvasColor }) => {
   //console.log(isRectangleMarqueToolClick);
 //textbox reducer
   const textbox = useSelector((state) => state.textBoxReducer.textBox);
-  console.log("hello textbox");
-
-
+  // console.log("hello textbox");
 
   //console.log(selectedImage);
   const imgCropping = useSelector((state) => state.cropReducer.isCropping);
@@ -68,24 +67,13 @@ const Canvas = ({ selectedCanvasColor }) => {
   const [fabricCanvas, setFabricCanvas] = useState();
 
   const canvasRef = useRef(null);
-  // var canvas;
+  var canvas;
+  
 
-  // const addText = () => {
-  //   if (canvas) {
-  //     const text = new fabric.IText('Edit me!', {
-  //       left: 100,
-  //       top: 100,
-  //       fontSize: 20,
-  //     });
-
-  //     canvas.add(text);
-  //     canvas.setActiveObject(text);
-  //     canvas.requestRenderAll();
-  //   }
-  // };
+  
   
   useEffect(() => {
-    const canvas = new fabric.Canvas(canvasRef.current, {
+    canvas = new fabric.Canvas(canvasRef.current, {
       backgroundColor: selectedCanvasColor,
 
       width: `${width || width2}`,
@@ -127,72 +115,61 @@ const Canvas = ({ selectedCanvasColor }) => {
       fabric.CircleBrush;
     });
 
-    // -----------------Circle Start---------------
-
-
-    if(canvas){
-      const circle = new fabric.Circle({
-        radius: 50,
-        fill: "yellow",
-        top: 50,
-        left: 50,
-        selectable:true,
-      });
-      circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
-      canvas.add(circle); 
-      // canvas.renderAll();
-      canvas.requestRenderAll();
-
-    }
-
-    /* --------------------text box---------------------------- */
-    if (textbox) {
-
-      console.log("hello textbox");
-      const textBox = new fabric.Textbox(textbox?.text, {
-        left: textbox?.left,
-        top: textbox?.top,
-        width: textbox?.width,
-        fontSize: textbox?.fontSize,
-        fill: textbox?.fill,
-        editable: true,
-        selectable: true,
-      });
-
-      canvas.add(textBox);
-      canvas.requestRenderAll();
-    }
-    
-
-
-    // -----------------Rectangle Start---------------
-
-    if(isRectangleMarqueToolClick){
-      console.log('hello rect----')
-      const rect = new fabric.Rect({
-        height:200,
-        width: 100,
-        fill: '#f0f',
-        top: 50,
-        left: 50,
-      });
-      // canvas.renderAll.bind(canvas);
-  
-      canvas.add(rect);
-      canvas.setActiveObject(rect);
-      canvas.requestRenderAll();
-      
-    }
-
-
-    // --------------Rectangle End---------------
-
     
   return () =>{
     canvas.dispose();
   }
 
-}, []);
+}, [canvasRef]);
+
+// -----------------Rectangle Start---------------
+
+useEffect(()=>{
+  if(isRectangleMarqueToolClick){
+    console.log('hello rect----')
+    const rect = new fabric.Rect({
+      height:200,
+      width: 100,
+      fill: '#f0f',
+      top: 50,
+      left: 50,
+    });
+    // canvas.renderAll.bind(canvas);
+
+    fabricCanvas.add(rect);
+    fabricCanvas.setActiveObject(rect);
+    fabricCanvas.requestRenderAll();
+    
+  }
+
+},[isRectangleMarqueToolClick]);
+
+
+    // --------------Rectangle End---------------
+
+
+    /* --------------------text box ---------------------------- */
+
+useEffect(()=>{
+  if (textbox) {
+      
+    const textBox = new fabric.Textbox(textbox?.text, {
+      left: textbox?.left,
+      top: textbox?.top,
+      width: textbox?.width,
+      fontSize: textbox?.fontSize,
+      fill: textbox?.fill,
+      editable: true,
+      selectable: true,
+    });
+    fabricCanvas.add(textBox);
+    fabricCanvas.requestRenderAll();
+  }
+},[textbox])
+
+
+    // -----------------Circle Start---------------
+
 
 const addACircle = () => {
   const circle = new fabric.Circle({
@@ -202,7 +179,7 @@ const addACircle = () => {
     left: 50,
     selectable:true,
   });
-  circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
+  // circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
   fabricCanvas.add(circle); 
   fabricCanvas.setActiveObject(circle);
   fabricCanvas.requestRenderAll();

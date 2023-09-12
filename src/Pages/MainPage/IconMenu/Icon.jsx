@@ -86,7 +86,7 @@ const Icon = () => {
         </label>
         <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-gray-900 text-white  rounded-box w-52 text-xs">
           
-          <li onClick={handleRectangleToolClick}><a> Rectangular Marque Tools{isRectangleMarqueToolClick?'ok':'no'}</a></li>
+          <li onClick={handleRectangleToolClick}><a> Rectangular Marque Tools{isRectangleMarqueToolClick?'  ok!':'  no!'}</a></li>
           <li ><a> Elliptical Marque Tools</a></li>
         </ul>
       </div>
@@ -106,7 +106,7 @@ const Icon = () => {
       <RiBlurOffLine title="Blur Tool"></RiBlurOffLine>
       <SlMagnifier title="Dodge Tool"></SlMagnifier>
       <PiPenNibBold title="Curvature Pen Tool"></PiPenNibBold>
-      <BiText
+    <BiText
         title={isTextboxActive ? "Disable Text Tool" : "Enable Text Tool"}
         onClick={handleTextToolClick}></BiText>
       <BiSolidPointer title="Path Selection Tool"></BiSolidPointer>
