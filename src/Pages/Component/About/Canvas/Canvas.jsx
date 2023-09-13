@@ -17,6 +17,7 @@ import getCroppedImg from "./getCroppedImg";
 // import React from "react";
 import { setCropping } from "../../../../Redux/Crop";
 import { addTextBox } from "../../../../Redux/TextBox";
+import { TbRuler } from "react-icons/tb";
 
 /* -----------for commit-------------------- */
 
@@ -62,9 +63,17 @@ const Canvas = ({ selectedCanvasColor }) => {
   // const defaultBackgroundColor = "white";
   const [penWidth, setPenWidth] = useState(3);
   const [penColor, setPenColor] = useState(3);
-
+  const [penTool,setPenTool] = useState(false);
   
   const [fabricCanvas, setFabricCanvas] = useState();
+
+  //
+
+  // const [isDrawing, setIsDrawing] = useState(false);
+  // const [selectedShape, setSelectedShape] = useState('path'); // 'path' or 'rectangle'
+  // const [drawingMode, setDrawingMode] = useState(false);
+
+  //
 
   const canvasRef = useRef(null);
   var canvas;
@@ -73,7 +82,12 @@ const Canvas = ({ selectedCanvasColor }) => {
   
   
   useEffect(() => {
+
+
     canvas = new fabric.Canvas(canvasRef.current, {
+      
+      
+
       backgroundColor: selectedCanvasColor,
 
       width: `${width || width2}`,
@@ -85,7 +99,7 @@ const Canvas = ({ selectedCanvasColor }) => {
       selection: true,
       // selectionColor: "yellow",
       // selectionLineWidth: 3,
-      preserveObjectStacking: true,
+      // preserveObjectStacking: true,
     });
     
 
@@ -100,9 +114,10 @@ const Canvas = ({ selectedCanvasColor }) => {
 
 
     // const ImgSrc={state.image || selectedImage};
-    fabric.Image.fromURL(selectedImage, function (oImg) {
-      canvas.renderAll.bind(canvas);
 
+
+    fabric.Image.fromURL(selectedImage, function (oImg) {
+      // canvas.renderAll.bind(canvas);
       canvas.add(oImg);
       oImg.scaleToHeight(300);
       oImg.scaleToWidth(300);
@@ -112,10 +127,47 @@ const Canvas = ({ selectedCanvasColor }) => {
 
 
 
-      fabric.CircleBrush;
+      // fabric.CircleBrush;
     });
 
-    
+//     let isDrawing = false;
+// let ellipse;
+
+// canvas.on('mouse:down', (event) => {
+//   if (!isDrawing) {
+//     const pointer = canvas.getPointer(event.e);
+//     const { x, y } = pointer;
+//     ellipse = new fabric.Ellipse({
+//       left: x,
+//       top: y,
+//       originX: 'center',
+//       originY: 'center',
+//       width: 1,
+//       height: 1,
+//       fill: 'transparent',
+//       stroke: 'black',
+//       strokeWidth: 2,
+//     });
+//     canvas.add(ellipse);
+//     isDrawing = true;
+//   }
+// });
+
+// canvas.on('mouse:move', (event) => {
+//   if (isDrawing) {
+//     const pointer = canvas.getPointer(event.e);
+//     const { x, y } = pointer;
+//     const rx = Math.abs(x - ellipse.left) / 2;
+//     const ry = Math.abs(y - ellipse.top) / 2;
+//     ellipse.set({ rx, ry });
+//     canvas.renderAll();
+//   }
+// });
+
+// canvas.on('mouse:up', () => {
+//   isDrawing = false;
+// });
+
   return () =>{
     canvas.dispose();
   }
@@ -136,9 +188,9 @@ useEffect(()=>{
     });
     // canvas.renderAll.bind(canvas);
 
-    fabricCanvas.add(rect);
-    fabricCanvas.setActiveObject(rect);
-    fabricCanvas.requestRenderAll();
+    fabricCanvas?.add(rect);
+    fabricCanvas?.setActiveObject(rect);
+    fabricCanvas?.requestRenderAll();
     
   }
 
@@ -162,10 +214,32 @@ useEffect(()=>{
       editable: true,
       selectable: true,
     });
-    fabricCanvas.add(textBox);
-    fabricCanvas.requestRenderAll();
+    fabricCanvas?.add(textBox);
+    fabricCanvas?.requestRenderAll();
   }
 },[textbox])
+
+    /* --------------------PenTool ---------------------------- */
+
+    useEffect(() => {
+      if (penTool) {
+        console.log('hello PenTool');
+        // const pencilBrush = new fabric.PencilBrush(canvas);
+        // pencilBrush.color = 'blue'; // Set brush color
+        // pencilBrush.width = 5;      // Set brush width
+    
+        // Update the isDrawingMode property correctly
+        if (fabricCanvas) {
+          fabricCanvas.isDrawingMode = true;
+        }
+        // setPenTool(false);
+      } else {
+        // Update the isDrawingMode property correctly
+        if (fabricCanvas) {
+          fabricCanvas.isDrawingMode = false;
+        }
+      }
+    }, [penTool]);
 
 
     // -----------------Circle Start---------------
@@ -179,12 +253,24 @@ const addACircle = () => {
     left: 50,
     selectable:true,
   });
-  // circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
+  circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
   fabricCanvas.add(circle); 
   fabricCanvas.setActiveObject(circle);
   fabricCanvas.requestRenderAll();
   
 };
+
+// ------------DDelete Option --------------
+
+const deleteSelectedObject = () => {
+  const activeObject = fabricCanvas.getActiveObject();
+  if (activeObject) {
+    fabricCanvas.remove(activeObject);
+    fabricCanvas.discardActiveObject();
+    fabricCanvas.requestRenderAll();
+  }
+};
+
 
 
   /* ----------------------------------------------- */
@@ -241,50 +327,6 @@ const addACircle = () => {
 
 
   
-  // const handleDrawing = () =>{
-  //   if (fabricCanvas) {
-  //     fabricCanvas.selection= false;
-  //     fabricCanvas.freeDrawingBrush = true;
-  //     // fabricCanvas.freeDrawingBrush = new fabric.PencilBrush('canvas');
-
-  //     // fabricCanvas.freeDrawingBrush.width = 5;
-  //     // fabricCanvas.freeDrawingBrush.color = color;
-  //     // setPenColor(color);
-  //     // fabricCanvas.renderAll.bind(fabricCanvas);
-  //     console.log("Change Pen Color");
-
-  //   }
-  // }
-  // const clearHandler = () =>{
-  //     if(fabricCanvas){
-  //         fabricCanvas.clear();
-  //         fabricCanvas.backgroundColor=defaultBackgroundColor;
-  //         // setFabricCanvas()
-  //     }
-  // }
-
-  /* -------------------------------------------------------------------- */
-
-  // const [showTextEdit, setShowTextEdit] = useState(false);
-  // const [text, setText] = useState("");
-
-  // const handleTextToolClick = () => {
-  //   setShowTextEdit(true);
-  // };
-
-  // const handleTextChange = (event) => {
-  //   setText(event.target.value);
-  // };
-
-  // const handleTextSubmit = (event) => {
-  //   event.preventDefault();
-  //   // Do something with the entered text
-  //   setShowTextEdit(false);
-  // };
-
-  /* ------------------------------------------------------------------ */
-
-  /* ---------------------------------------------- */
 
   const dispatch = useDispatch();
 
@@ -325,7 +367,7 @@ const addACircle = () => {
       // Use the getCroppedImg function to get the cropped image
       getCroppedImg(selectedImage, croppedAreaPixels).then((croppedImage) => {
         // Dispatch setCropping(false) to exit cropping mode
-        dispatch(setCropping(false));
+      dispatch(setCropping(false));
 
         // You can now update the Redux state with the cropped image
         // For example, you can dispatch an action like setCropImage(croppedImage)
@@ -334,25 +376,21 @@ const addACircle = () => {
     }
   };
 
+
   /* ---------------------------------------------- */
+
+  
 
   
   return (
     <div className="container  mx-auto bg-purple-400 h-[100%] text-purple-700">
       <div>
-        <div className="flex justify-end text-center align-middle">
+        <div className="flex justify-center text-center align-middle">
           <h1></h1>
-          <canvas className=" " ref={canvasRef}></canvas>
+          <canvas className="mt-10 mb-10 rounded " ref={canvasRef}></canvas>
           {/* ------------------------------------- */}
-          <TextTool fabricCanvas={fabricCanvas} />{" "}
-          {/* Render the TextTool component */}
-          {/* Display the selected image */}
-          {/* <img
-            ref={imageRef}
-            src={selectedImage}
-            alt="Selected Image"
-            style={{ maxWidth: "100%", maxHeight: "400px" }}
-          /> */}
+          {/* <TextTool fabricCanvas={fabricCanvas} />{" "} */}
+          
           {/* ------------------------------------- */}
         </div>
         {/* ----------------------------- */}
@@ -376,7 +414,7 @@ const addACircle = () => {
         </div> */}
 
         {/* ----------------------------- */}
-        <div className="pt-2">
+        <div className="mt-10 pt-2">
           <label className="mx-2 py-1" htmlFor="">
             Pen WIdth - {penWidth}
           </label>
@@ -400,6 +438,13 @@ const addACircle = () => {
 
           <button className="btn" onClick={addACircle}>
             Add Circle
+          </button>
+
+          <button className="btn" onClick={()=>setPenTool(!penTool)}>
+            {penTool?'Disable':'Enable'} PenTool
+          </button>
+          <button className="btn" onClick={deleteSelectedObject}>
+             Delete
           </button>
 
             {/* <button className="btn" onClick={handleDrawing}>
