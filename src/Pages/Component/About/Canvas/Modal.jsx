@@ -20,7 +20,7 @@ const Modal = ({ showModal, setShowModal }) => {
   } = useForm();
 
   const onSubmit = (data) => {
-    // console.log(data);
+    console.log(data);
 
     setCanvasInfo(data);
 
@@ -129,30 +129,14 @@ const Modal = ({ showModal, setShowModal }) => {
                       <div className="p-2 md:px-4">
                         <div className="form-control">
                           <label className="label">
-                            <span className="label-text text-white">
-                              Preset Details
-                            </span>
-                          </label>
-                          <div className="flex justify-center items-center">
-                            <input
-                              type="text"
-                              placeholder="Untitled-1"
-                              className=" border-solid border-b bg-gray-900 border-purple-600 w-full max-w-xs"
-                            />
-                            <div className="">
-                              <h2>|_</h2>
-                              {/* <GrDownload className="text-white"></GrDownload> */}
-                            </div>
-                          </div>
-                          <label className="label">
                             <span className="label-text text-white">Name</span>
                           </label>
                           <input
-                            className=" text-input input-bordered w-full max-w-xs bg-white  rounded"
-                            defaultValue=""
-                            placeholder=" name here"
                             {...register("name")}
                             type="text"
+                            defaultValue="Untitled-1"
+                            placeholder="name here"
+                            className=" text-input input-bordered w-full max-w-xs bg-white text-black rounded"
                           />
                           {errors.exampleRequired && (
                             <span>This field is required</span>
@@ -169,13 +153,14 @@ const Modal = ({ showModal, setShowModal }) => {
                                 <input
                                   {...register("width")}
                                   type="number"
+                                  defaultValue="200"
                                   placeholder="width"
-                                  className="px-2 w-full md:w-[40%] rounded-sm"
+                                  className="px-2 w-full rounded-sm"
                                 />
                                 <select {...register("selector")}>
-                                  <option value="female">Pixels</option>
-                                  <option value="male">Inches</option>
-                                  <option value="other">Millimeters</option>
+                                  <option value="pixels">Pixels</option>
+                                  <option value="inches">Inches</option>
+                                  <option value="millimeters">Millimeters</option>
                                 </select>
                               </div>
                               {errors.exampleRequired && (
@@ -195,13 +180,14 @@ const Modal = ({ showModal, setShowModal }) => {
                                 <input
                                   {...register("height")}
                                   type="number"
+                                  defaultValue="300"
                                   placeholder="height"
-                                  className="px-2 w-full md:w-[40%] rounded-sm"
+                                  className="px-2 w-full rounded-sm"
                                 />
                                 <select {...register("selector")}>
-                                  <option value="female">Pixels</option>
-                                  <option value="male">Inches</option>
-                                  <option value="other">Millimeters</option>
+                                  <option value="pixels">Pixels</option>
+                                  <option value="inches">Inches</option>
+                                  <option value="millimeters">Millimeters</option>
                                 </select>
                               </div>
                               {errors.exampleRequired && (
@@ -211,7 +197,7 @@ const Modal = ({ showModal, setShowModal }) => {
                           </div>
 
                           {/* Resolution */}
-                          <div className="form-control">
+                          {/* <div className="form-control">
                             <label className="label">
                               <span className="label-text text-white">
                                 Resolution
@@ -234,9 +220,9 @@ const Modal = ({ showModal, setShowModal }) => {
                             {errors.exampleRequired && (
                               <span>This field is required</span>
                             )}
-                          </div>
+                          </div> */}
                           {/* Color Mode */}
-                          <div className="form-control">
+                          {/* <div className="form-control">
                             <label className="label">
                               <span className="label-text text-white">
                                 Color Mode
@@ -257,7 +243,7 @@ const Modal = ({ showModal, setShowModal }) => {
                             {errors.exampleRequired && (
                               <span>This field is required</span>
                             )}
-                          </div>
+                          </div> */}
 
                           {/* Color Mode */}
                           <div className="form-control">
@@ -266,22 +252,13 @@ const Modal = ({ showModal, setShowModal }) => {
                                 Color Mode
                               </span>
                             </label>
-                            <div className="flex md:flex-row flex-col gap-2 text-black">
-                              <select {...register("backgroundColor")}>
-                                <option value="color">White</option>
-                                <option value="color">Black</option>
-                                <option value="color">Background Color</option>
-                                <option value="color">Transparent</option>
-                                <option value="color">Custom</option>
-                              </select>
                               <div className="">
                                 <input
                                   {...register("color")}
                                   type="color"
                                   placeholder="Resolution"
-                                  className="px-2 w-full md:w-[30px] rounded-sm"
+                                  className="px-2 w-full rounded-sm"
                                 />
-                              </div>
                             </div>
                             {errors.exampleRequired && (
                               <span>This field is required</span>

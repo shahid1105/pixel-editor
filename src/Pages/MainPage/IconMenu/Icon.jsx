@@ -27,6 +27,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCropping } from "../../../Redux/Crop";
 import { setRectangleMarqueTool } from "../../../Redux/RectangleMarqueToolReducer";
 import { addTextBox, removeTextBox } from "../../../Redux/TextBox";
+import { setLasso } from "../../../Redux/Lasso";
 
 /* ------------------------------ */
 
@@ -47,6 +48,7 @@ const Icon = ({ textColor }) => {
     // Dispatch the setCropping action to enable cropping mode
     dispatch(setCropping(!isCropping));
   };
+
 
   /* --------------------textbox-------------------- */
   const handleTextToolClick = () => {
@@ -77,6 +79,11 @@ const Icon = ({ textColor }) => {
     dispatch(setRectangleMarqueTool(true));
   };
 
+// Lasso 
+const handleMagneticLassoToolClick = () =>{
+  dispatch(setLasso(!isLasso));
+}
+
   /* -------------------------------------------- */
   return (
     <>
@@ -97,8 +104,8 @@ const Icon = ({ textColor }) => {
           </li>
         </ul>
       </div>
-      <LuLasso title="Magnetic Lasso Tool"></LuLasso>
-      <PiSelectionAllFill title="Object Selection Tools"></PiSelectionAllFill>
+      <LuLasso  onClick={handleMagneticLassoToolClick} title={isLasso? "Lasso is Working" : "Lasso not Working"}></LuLasso>
+      <PiSelectionAllFill title="Object Selection Tool"></PiSelectionAllFill>
       <BsCrop
         onClick={handleCropToolClick}
         title={isCropping ? "Disable Crop Tool" : "Enable Crop Tool"}></BsCrop>

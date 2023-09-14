@@ -499,7 +499,7 @@ const Canvas = ({ selectedCanvasColor }) => {
             value={penColor}
           />
 
-          <button className="btn" onClick={addACircle}>
+          <button className="btn btn-sm" onClick={addACircle}>
             Add Circle
           </button>
 
@@ -523,8 +523,9 @@ const Canvas = ({ selectedCanvasColor }) => {
           </button>
 
           <button
-            className="btn btn-success mb-2 md:mb-0"
-            onClick={() => downloadHandler()}>
+            className="btn btn-sm btn-success mb-2 md:mb-0"
+            onClick={() => downloadHandler()}
+          >
             {" "}
             Download
           </button>

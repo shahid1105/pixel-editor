@@ -26,8 +26,8 @@ function TextTool({ fabricCanvas }) {
   };
 
   return (
-    <div>
-      <input type="text" ref={textInputRef} placeholder="Enter text" />
+    <div className="pl-20">
+      <input className="pl-2" type="text" ref={textInputRef} placeholder="Enter text" />
       <button onClick={handleAddText}>Add Text</button>
     </div>
   );

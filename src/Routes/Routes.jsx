@@ -18,6 +18,9 @@ import ManageUsers from "../Pages/Dashboard/ManageUsers";
 import Feedback from "../Pages/SideMenu/Feedback/Feedback";
 import Report from "../Pages/Dashboard/report";
 import DemoCanvas from "../Pages/Component/About/Canvas/DemoCanvas";
+import Learn from "../Pages/NavRight/Learn";
+import Blog from "../Pages/NavRight/Blog";
+import Api from "../Pages/NavRight/Api";
 import CanvasWithDeleteFunctionality from "../Pages/Component/About/Canvas/DemoCanvas";
 
 
@@ -84,7 +87,18 @@ const router = createBrowserRouter([
         path: "chat",
         element: <App></App>,
       },
-
+      {
+        path: "/learn",
+        element: <Learn></Learn>
+      },
+      {
+        path: "/blog",
+        element: <Blog></Blog>
+      },
+      {
+        path: "/api",
+        element: <Api></Api>
+      },
       {
         path: "feedback",
         element: <Feedback></Feedback>,
