@@ -7,20 +7,19 @@ import storeData from "../../../LinkList";
 import { useLocation } from "react-router-dom";
 import Icon from "../../../MainPage/IconMenu/Icon";
 import TextTool from "./textTool";
-// import Modal from "./Modal";
 
-/* ------------------------------- */
-
-// import { useDispatch } from "react-redux";
-import { setSelectedImage } from "../../../../Redux/SelectedImage";
-import getCroppedImg from "./getCroppedImg";
 
 import { setRectangleMarqueTool } from "../../../../Redux/RectangleMarqueToolReducer";
 
 /* -----------for commit-------------------- */
 
+
 const Canvas = ({ selectedCanvasColor }) => {
+
+  const dispatch = useDispatch();
+
   const selectedImage = useSelector(
+
     (state) => state.selectedImage.selectedImage
   );
 
