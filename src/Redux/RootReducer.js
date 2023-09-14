@@ -6,6 +6,7 @@ import rectangleMarqueToolReducer from "./RectangleMarqueToolReducer";
 import { textBoxReducer } from "./TextBox";
 import lassoReducer from "./Lasso";
 
+import canvasReducer from "./CanvasReducer";
 
 
 

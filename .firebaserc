@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "pixel-editor-d99b7"
-  }
+    "default": "pixel-editor-app",
+    "production.": "pixel-editor-app"
+  },
+  "targets": {},
+  "etags": {}
 }

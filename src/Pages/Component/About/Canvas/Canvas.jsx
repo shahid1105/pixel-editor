@@ -13,9 +13,10 @@ import TextTool from "./textTool";
 
 // import { useDispatch } from "react-redux";
 import { setSelectedImage } from "../../../../Redux/SelectedImage";
-import getCroppedImg from "./getCroppedImg";
-// import React from "react";
-import { setCropping } from "../../../../Redux/Crop";
+
+// import getCroppedImg from "./getCroppedImg";
+// // import React from "react";
+// import { setCropping } from "../../../../Redux/Crop";
 
 /* -----------for commit-------------------- */
 
@@ -45,15 +46,6 @@ const Canvas = ({ selectedCanvasColor }) => {
   const width = queryParams.get("width");
   // console.log(name, height, width);
 
-  // const canvasAllInfo = useContext(CanvasContext);
-
-  // console.log(canvasAllInfo.canvasInfo?.height);
-  // const height = parseInt(canvasAllInfo.canvasInfo?.height);
-  // const width = parseInt(canvasAllInfo.canvasInfo?.width);
-
-  // console.log(typeof height, typeof width);
-  // console.log(height, width);
-
   const height1 = 500;
   const width2 = 800;
 
@@ -64,21 +56,6 @@ const Canvas = ({ selectedCanvasColor }) => {
   const [fabricCanvas, setFabricCanvas] = useState();
 
   const canvasRef = useRef(null);
-  // var canvas;
-
-  // const addText = () => {
-  //   if (canvas) {
-  //     const text = new fabric.IText('Edit me!', {
-  //       left: 100,
-  //       top: 100,
-  //       fontSize: 20,
-  //     });
-
-  //     canvas.add(text);
-  //     canvas.setActiveObject(text);
-  //     canvas.requestRenderAll();
-  //   }
-  // };
 
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
@@ -331,11 +308,10 @@ const Canvas = ({ selectedCanvasColor }) => {
   return (
     <div className="container  mx-auto bg-purple-400">
       <div>
-        <div className="flex justify-end text-center align-middle">
+        <div className="flex justify-center text-center align-middle">
           <h1></h1>
           <canvas className=" " ref={canvasRef}></canvas>
-          {/* ------------------------------------- */}
-          <TextTool fabricCanvas={fabricCanvas} />{" "}
+
           {/* Render the TextTool component */}
           {/* Display the selected image */}
           {/* <img
