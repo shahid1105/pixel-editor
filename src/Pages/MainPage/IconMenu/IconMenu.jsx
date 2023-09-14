@@ -14,6 +14,8 @@ import { setColor } from "../../../Redux/Color";
 // import LightRuler from "light-ruler";
 
 const IconMenu = () => {
+  const [showDiv, setShowDiv] = useState(false);
+
   const [selectedCanvasColor, setSelectedCanvasColor] = useState("white");
   const handleOnchange = (color) => {
     setSelectedCanvasColor(color.hex);
@@ -81,33 +83,41 @@ const IconMenu = () => {
               <FaHome></FaHome>
             </Link>
           </div>
-          <div className="divider divider-horizontal "></div>
-          <div>
-            <FaPaintBrush></FaPaintBrush>
-          </div>
-          <div className="divider divider-horizontal"></div>
-          <div>
-            <MdLensBlur></MdLensBlur>
-          </div>
-          <div className="divider divider-horizontal "></div>
-          <div className="flex">
-            <h3>Mode:</h3>
-            <input
-              type="text"
-              placeholder="Normal"
-              className="border-solid px-2 rounded-md ml-1 w-full max-w-xs"
-            />
-          </div>
-          <div className="flex items-center">
-            <h3>Color:</h3>
-            <input
-              type="color"
-              id="colorPicker"
-              className="ml-1"
-              value={textColor}
-              onChange={(e) => handleTextColorChange(e.target.value)}
-            />
-          </div>
+          {showDiv ? (
+            <>
+              <h1>Bangladesh</h1>
+            </>
+          ) : (
+            <>
+              <div className="divider divider-horizontal "></div>
+              <div>
+                <FaPaintBrush></FaPaintBrush>
+              </div>
+              <div className="divider divider-horizontal"></div>
+              <div>
+                <MdLensBlur></MdLensBlur>
+              </div>
+              <div className="divider divider-horizontal "></div>
+              <div className="flex">
+                <h3>Mode:</h3>
+                <input
+                  type="text"
+                  placeholder="Normal"
+                  className="border-solid px-2 rounded-md ml-1 w-full max-w-xs"
+                />
+              </div>
+              <div className="flex items-center">
+                <h3>Color:</h3>
+                <input
+                  type="color"
+                  id="colorPicker"
+                  className="ml-1"
+                  value={textColor}
+                  onChange={(e) => handleTextColorChange(e.target.value)}
+                />
+              </div>
+            </>
+          )}
         </div>
 
         <div className="navbar-center hidden lg:flex">
@@ -137,6 +147,7 @@ const IconMenu = () => {
         <div className="md:col-span-9 h-screen bg-gray-300 ">
           {/* <ImageEditor></ImageEditor> */}
           <Canvas
+            setShowDiv={setShowDiv}
             textColor={textColor}
             selectedCanvasColor={selectedCanvasColor}></Canvas>
         </div>

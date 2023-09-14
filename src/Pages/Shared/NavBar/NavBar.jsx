@@ -35,9 +35,7 @@ const NavBar = () => {
     <>
       <ul className="lg:flex  justify-center items-center gap-2 md:gap-4 px-2 font-semibold">
         <li>
-          <Link
-            className="hover:text-purple-500 font-bold bg-gradient-to-l from-white to-white text-transparent bg-clip-text"
-            to="/">
+          <Link className="hover:text-purple-500 " to="/">
             Home
           </Link>
         </li>
@@ -82,9 +80,7 @@ const NavBar = () => {
         <li>
           <Link className="hover:text-purple-500">Layer</Link>
         </li>
-        <li>
-          <Link to='/iconMenu' className="hover:text-purple-500">Filter</Link>
-        </li>
+
         <li>
           <Link className="hover:text-purple-500">View</Link>
         </li>
@@ -105,13 +101,19 @@ const NavBar = () => {
           </Link>
         </li>
         <li>
-          <Link to='/learn' className="hover:text-purple-500">Learn</Link>
+          <Link to="/learn" className="hover:text-purple-500">
+            Learn
+          </Link>
         </li>
         <li>
-          <Link to='/blog' className="hover:text-purple-500">Blog</Link>
+          <Link to="/blog" className="hover:text-purple-500">
+            Blog
+          </Link>
         </li>
         <li>
-          <Link to='/api' className="hover:text-purple-500">Api</Link>
+          <Link to="/api" className="hover:text-purple-500">
+            Api
+          </Link>
         </li>
         <li>
           <Link className="hover:text-purple-500">
@@ -132,7 +134,7 @@ const NavBar = () => {
   );
   return (
     <>
-      <div className="navbar bg-gray-800 md:px-4 h-[50px] text-black md:text-white">
+      <div className="navbar bg-gray-400 md:px-4  h-[50px] text-black md:text-black">
         <div className="dropdown navbar-start lg:hidden">
           <label tabIndex={0} className="btn btn-ghost text-white lg:hidden">
             <svg
