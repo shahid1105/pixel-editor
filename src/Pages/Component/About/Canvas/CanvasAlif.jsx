@@ -25,17 +25,18 @@ const Canvas = ({ selectedCanvasColor }) => {
   );
 
   //RectangleMarqueToolClick Selector
-  const isRectangleMarqueToolClick = useSelector(
-    (state) => state.rectangleMarqueToolReducer.isRectangleMarqueToolClick
-  );
+  const isRectangleMarqueToolClick = useSelector((state) =>state.rectangleMarqueToolReducer.isRectangleMarqueToolClick);
   //console.log(isRectangleMarqueToolClick);
-  //textbox reducer
+//textbox reducer
   const textbox = useSelector((state) => state.textBoxReducer.textBox);
   console.log("hello textbox");
+
+
 
   //console.log(selectedImage);
   const imgCropping = useSelector((state) => state.cropReducer.isCropping);
   //console.log(imgCropping);
+
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -57,10 +58,13 @@ const Canvas = ({ selectedCanvasColor }) => {
   const height1 = 500;
   const width2 = 800;
 
+  
+
   // const defaultBackgroundColor = "white";
   const [penWidth, setPenWidth] = useState(3);
   const [penColor, setPenColor] = useState(3);
 
+  
   const [fabricCanvas, setFabricCanvas] = useState();
 
   const canvasRef = useRef(null);
@@ -79,7 +83,7 @@ const Canvas = ({ selectedCanvasColor }) => {
   //     canvas.requestRenderAll();
   //   }
   // };
-
+  
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
       backgroundColor: selectedCanvasColor,
@@ -87,6 +91,7 @@ const Canvas = ({ selectedCanvasColor }) => {
       width: `${width || width2}`,
       height: `${height || height1}`,
       // selection:true,
+      
 
       // isDrawingMode: true,
       selection: true,
@@ -94,12 +99,17 @@ const Canvas = ({ selectedCanvasColor }) => {
       // selectionLineWidth: 3,
       preserveObjectStacking: true,
     });
+    
 
     setFabricCanvas(canvas);
-
+    
+    
+    
+    
     // console.log(isRectangleMarqueToolClick)
 
     // -----------------Image Start---------------
+
 
     // const ImgSrc={state.image || selectedImage};
     fabric.Image.fromURL(selectedImage, function (oImg) {
@@ -112,27 +122,32 @@ const Canvas = ({ selectedCanvasColor }) => {
       // canvas.renderAll.bind(canvas);
       canvas.requestRenderAll();
 
+
+
       fabric.CircleBrush;
     });
 
     // -----------------Circle Start---------------
 
-    if (canvas) {
+
+    if(canvas){
       const circle = new fabric.Circle({
         radius: 50,
         fill: "yellow",
         top: 50,
         left: 50,
-        selectable: true,
+        selectable:true,
       });
-      circle.set({ radius: 50, fill: "#f00", opacity: 0.7 });
-      canvas.add(circle);
+      circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
+      canvas.add(circle); 
       // canvas.renderAll();
       canvas.requestRenderAll();
+
     }
 
     /* --------------------text box---------------------------- */
     if (textbox) {
+
       console.log("hello textbox");
       const textBox = new fabric.Textbox(textbox?.text, {
         left: textbox?.left,
@@ -147,45 +162,53 @@ const Canvas = ({ selectedCanvasColor }) => {
       canvas.add(textBox);
       canvas.requestRenderAll();
     }
+    
+
 
     // -----------------Rectangle Start---------------
 
-    if (isRectangleMarqueToolClick) {
-      console.log("hello rect----");
+    if(isRectangleMarqueToolClick){
+      console.log('hello rect----')
       const rect = new fabric.Rect({
-        height: 200,
+        height:200,
         width: 100,
-        fill: "#f0f",
+        fill: '#f0f',
         top: 50,
         left: 50,
       });
       // canvas.renderAll.bind(canvas);
-
+  
       canvas.add(rect);
       canvas.setActiveObject(rect);
       canvas.requestRenderAll();
+      
     }
+
 
     // --------------Rectangle End---------------
 
-    return () => {
-      canvas.dispose();
-    };
-  }, []);
+    
+  return () =>{
+    canvas.dispose();
+  }
 
-  const addACircle = () => {
-    const circle = new fabric.Circle({
-      radius: 50,
-      fill: "yellow",
-      top: 50,
-      left: 50,
-      selectable: true,
-    });
-    circle.set({ radius: 50, fill: "#f00", opacity: 0.7 });
-    fabricCanvas.add(circle);
-    fabricCanvas.setActiveObject(circle);
-    fabricCanvas.requestRenderAll();
-  };
+}, []);
+
+const addACircle = () => {
+  const circle = new fabric.Circle({
+    radius: 50,
+    fill: "yellow",
+    top: 50,
+    left: 50,
+    selectable:true,
+  });
+  circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
+  fabricCanvas.add(circle); 
+  fabricCanvas.setActiveObject(circle);
+  fabricCanvas.requestRenderAll();
+  
+};
+
 
   /* ----------------------------------------------- */
   useEffect(() => {
@@ -194,14 +217,18 @@ const Canvas = ({ selectedCanvasColor }) => {
       fabricCanvas.setBackgroundColor(selectedCanvasColor);
       // fabricCanvas.renderAll();
       fabricCanvas.requestRenderAll();
+
     }
   }, [selectedCanvasColor, fabricCanvas]);
   /* ----------------------------------------------- */
+
+  
 
   // const text = new fabric.Text("I'm text ", {
   //   fontSize: 40,
   // });
   // fabricCanvas.add(text);
+
 
   const changePenWidth = (width) => {
     if (fabricCanvas) {
@@ -225,7 +252,9 @@ const Canvas = ({ selectedCanvasColor }) => {
 
     const pngData = fabricCanvas.toDataURL("png");
     const downloadLink = document.createElement("a");
-    const fileName = `${name}-${Math.random().toString().replace("", "")}.png`;
+    const fileName = `${name}-${Math.random()
+      .toString()
+      .replace("", "")}.png`;
 
     downloadLink.href = pngData;
     downloadLink.download = fileName;
@@ -233,6 +262,8 @@ const Canvas = ({ selectedCanvasColor }) => {
     // console.log("Download Button");
   };
 
+
+  
   // const handleDrawing = () =>{
   //   if (fabricCanvas) {
   //     fabricCanvas.selection= false;
@@ -328,6 +359,7 @@ const Canvas = ({ selectedCanvasColor }) => {
 
   /* ---------------------------------------------- */
 
+  
   return (
     <div className="container  mx-auto bg-purple-400">
       <div>
@@ -348,7 +380,7 @@ const Canvas = ({ selectedCanvasColor }) => {
         </div>
         {/* ----------------------------- */}
 
-        <div className="pt-2 mb-2 grid grid-cols-2 md:grid-cols-8 gap-2 mx-2 my-2 items-center justify-center">
+        <div className="pt-2 mb-2 grid-cols-2 items-center justify-center">
           <label className="mx-2 py-1" htmlFor="">
             Pen WIdth - {penWidth}
           </label>
@@ -370,18 +402,15 @@ const Canvas = ({ selectedCanvasColor }) => {
             value={penColor}
           />
 
-          <button className="btn btn-sm" onClick={addACircle}>
+          <button className="btn" onClick={addACircle}>
             Add Circle
           </button>
 
-          {/* <button className="btn" onClick={handleDrawing}>
+            {/* <button className="btn" onClick={handleDrawing}>
                 Drawing
             </button> */}
 
-          <button
-            className="btn btn-sm btn-success mb-2 md:mb-0"
-            onClick={() => downloadHandler()}
-          >
+          <button className="btn btn-success mb-2 md:mb-0" onClick={() => downloadHandler()}>
             {" "}
             Download
           </button>
@@ -395,26 +424,25 @@ const Canvas = ({ selectedCanvasColor }) => {
           {imgCropping ? (
             <>
               <button
-                className="btn btn-sm btn-danger"
-                onClick={() => dispatch(setCropping(false))}
-              >
+                className="btn btn-danger"
+                onClick={() => dispatch(setCropping(false))}>
                 Cancel Crop
               </button>
-              <button className="btn btn-sm btn-success" onClick={cropImage}>
+              <button className="btn btn-success" onClick={cropImage}>
                 Apply Crop
               </button>
             </>
           ) : (
             <button
-              className="btn btn-sm btn-primary"
-              onClick={() => dispatch(setCropping(true))}
-            >
+              className="btn btn-primary"
+              onClick={() => dispatch(setCropping(true))}>
               Start Crop
             </button>
           )}
-          <button className="btn btn-sm btn-success" onClick={cropImage}>
+          <button className="btn btn-success" onClick={cropImage}>
             Crop Image
           </button>
+          
         </div>
       </div>
     </div>

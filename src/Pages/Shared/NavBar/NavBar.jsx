@@ -81,19 +81,10 @@ const NavBar = () => {
           <Link className="hover:text-purple-500">Layer</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500">Filter</Link>
+          <Link to='/iconMenu' className="hover:text-purple-500">Filter</Link>
         </li>
         <li>
           <Link className="hover:text-purple-500">View</Link>
-        </li>
-        <li>
-          <Link className="hover:text-purple-500">More</Link>
-        </li>
-        <li>
-          <Link className="hover:text-purple-500">Image</Link>
-        </li>
-        <li>
-          <Link className="hover:text-purple-500">Select</Link>
         </li>
         <li>
           <Link className="hover:text-purple-500">
@@ -112,13 +103,13 @@ const NavBar = () => {
           </Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500">Learn</Link>
+          <Link to='/learn' className="hover:text-purple-500">Learn</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500">Blog</Link>
+          <Link to='/blog' className="hover:text-purple-500">Blog</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500">Api</Link>
+          <Link to='/api' className="hover:text-purple-500">Api</Link>
         </li>
         <li>
           <Link className="hover:text-purple-500">

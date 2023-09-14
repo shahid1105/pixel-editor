@@ -10,6 +10,9 @@ import { Link } from "react-router-dom";
 import ImageEditor from "../../ImageEditor/ImageEditor";
 import Canvas from "../../Component/About/Canvas/Canvas";
 import { useRef } from "react";
+import { useSelector } from "react-redux";
+// import LightRuler from "light-ruler";
+
 
 const IconMenu = () => {
   const [selectedCanvasColor, setSelectedCanvasColor] = useState("white");
@@ -97,9 +100,26 @@ const IconMenu = () => {
     setIsDragging(false);
   };
 
+
+
+//   const ruler = new LightRuler({
+//     mode: "infinite",
+//     mountRef: rulerRef.current,
+//     scrollElement: document.getElementById("wrap"),
+//     rulerId: "ruler",
+//     width: 30000,
+//     height: 30000,
+//     onScroll: (x, y) => {
+//         console.log(x, y);
+//     },
+// });
+
   return (
     <div className="">
       <div className="navbar bg-gray-600 text-white border-b-2">
+
+
+
         <div className="navbar-start">
           <div className="ml-5">
             <Link to="/home">
@@ -123,6 +143,7 @@ const IconMenu = () => {
               className="border-solid px-2 rounded-md ml-1 w-full max-w-xs"
             />
           </div>
+          {/* to do  */}
         </div>
 
         <div className="navbar-center hidden lg:flex">

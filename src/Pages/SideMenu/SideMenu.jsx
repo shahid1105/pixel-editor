@@ -16,6 +16,9 @@ const SideMenu = () => {
   const { logOut, user } = useContext(AuthContext);
   const [isOpen, setOpen] = useState(false);
 
+
+
+  
   //logout
 
   const handleLogout = () => {
@@ -66,25 +69,15 @@ const SideMenu = () => {
           </Link>
         </li>
         <li className="text-center">
-          <Link to="/dropbox" className="sidebar-link">
-            <FaDropbox className="sidebar-icon" /> Dropbox
-          </Link>
-        </li>
-        <li className="text-center">
-          <Link to="/oneDrive" className="sidebar-link">
-            <GrOnedrive className="sidebar-icon" /> OneDrive
-          </Link>
-        </li>
-        <li className="text-center">
           <Link to="/googleDrive" className="sidebar-link">
             <FaGoogleDrive className="sidebar-icon" /> Google Drive
           </Link>
         </li>
-        <li className="text-center">
+        {/* <li className="text-center">
           <Link to="/chat" className="sidebar-link">
             <BiMessage className="sidebar-icon" /> Chat
           </Link>
-        </li>
+        </li> */}
         <li className="text-center">
           <Link to="/feedback" className="sidebar-link">
             <MdOutlineFeedback className="sidebar-icon" /> Report & Feedback
