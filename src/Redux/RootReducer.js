@@ -7,6 +7,7 @@ import { textBoxReducer } from "./TextBox";
 import lassoReducer from "./Lasso";
 
 import canvasReducer from "./CanvasReducer";
+import colorReducer from "./Color";
 
 
 
@@ -16,6 +17,8 @@ const rootReducer = combineReducers({
     rectangleMarqueToolReducer: rectangleMarqueToolReducer,
     textBoxReducer: textBoxReducer,
     magneticLasso : lassoReducer,
+    canvasReducer: canvasReducer,
+    colorReducer: colorReducer,
 });
 
 export default rootReducer;

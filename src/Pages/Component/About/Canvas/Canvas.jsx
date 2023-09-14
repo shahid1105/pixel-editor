@@ -1,29 +1,24 @@
-import React, { Component } from "react";
+import React from "react";
 import { fabric } from "fabric";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import storeData from "../../../LinkList";
-
 import { useLocation } from "react-router-dom";
 import Icon from "../../../MainPage/IconMenu/Icon";
 import TextTool from "./textTool";
-// import Modal from "./Modal";
 
-/* ------------------------------- */
-
-// import { useDispatch } from "react-redux";
-import { setSelectedImage } from "../../../../Redux/SelectedImage";
-
-// import getCroppedImg from "./getCroppedImg";
-// // import React from "react";
-// import { setCropping } from "../../../../Redux/Crop";
+import { setRectangleMarqueTool } from "../../../../Redux/RectangleMarqueToolReducer";
 
 /* -----------for commit-------------------- */
 
 const Canvas = ({ selectedCanvasColor }) => {
+  const dispatch = useDispatch();
+
   const selectedImage = useSelector(
     (state) => state.selectedImage.selectedImage
   );
+  //console.log(selectedImage);
+  const color = useSelector((state) => state.colorReducer.color);
+  console.log(color);
 
   //RectangleMarqueToolClick Selector
   const isRectangleMarqueToolClick = useSelector(
@@ -32,11 +27,10 @@ const Canvas = ({ selectedCanvasColor }) => {
   //console.log(isRectangleMarqueToolClick);
   //textbox reducer
   const textbox = useSelector((state) => state.textBoxReducer.textBox);
-  console.log("hello textbox");
+  // console.log("hello textbox");
 
-  //console.log(selectedImage);
   const imgCropping = useSelector((state) => state.cropReducer.isCropping);
-  //console.log(imgCropping);
+  console.log(imgCropping);
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -53,80 +47,208 @@ const Canvas = ({ selectedCanvasColor }) => {
   const [penWidth, setPenWidth] = useState(3);
   const [penColor, setPenColor] = useState(3);
 
+  const canvasRef = useRef(null);
+
   const [fabricCanvas, setFabricCanvas] = useState();
 
-  const canvasRef = useRef(null);
+  /* ---------for filter state start---------------- */
+
+  const [brightness, setBrightness] = useState(0); // Initial brightness
+  const [showRangeInput, setShowRangeInput] = useState(false);
+
+  const handleToggleRangeInput = () => {
+    setShowRangeInput(!showRangeInput);
+  };
+
+  const handleBrightnessChange = (event) => {
+    const newBrightness = parseFloat(event.target.value);
+    setBrightness(newBrightness);
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        const brightnessFilter = new fabric.Image.filters.Brightness({
+          brightness: newBrightness,
+        });
+        activeObject.filters = [brightnessFilter];
+        activeObject.applyFilters();
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  };
+
+  const [contrast, setContrast] = useState(0); // Initial contrast
+  const [showContrastInput, setShowContrastInput] = useState(false);
+
+  const handleToggleContrastRangeInput = () => {
+    setShowContrastInput(!showContrastInput);
+  };
+
+  const handleContrastChange = (event) => {
+    const newContrast = parseFloat(event.target.value);
+    setContrast(newContrast);
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        const contrastFilter = new fabric.Image.filters.Contrast({
+          contrast: newContrast,
+        });
+        activeObject.filters = [contrastFilter];
+        activeObject.applyFilters();
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  };
+
+  const [colorMatrix, setColorMatrix] = useState([
+    1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0,
+  ]);
+  const [isColorMatrixControlVisible, setColorMatrixControlVisible] =
+    useState(false);
+
+  const handleToggleColorMatrixControl = () => {
+    setColorMatrixControlVisible(!isColorMatrixControlVisible);
+  };
+
+  const handleColorMatrixChange = (event) => {
+    const newMatrixValue = parseFloat(event.target.value);
+    // Update the specific matrix value in the state
+    const updatedMatrix = [...colorMatrix];
+    const matrixIndex = parseInt(event.target.name);
+    updatedMatrix[matrixIndex] = newMatrixValue;
+    setColorMatrix(updatedMatrix);
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        const colorMatrixFilter = new fabric.Image.filters.ColorMatrix({
+          matrix: updatedMatrix,
+        });
+        activeObject.filters = [colorMatrixFilter];
+        activeObject.applyFilters();
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  };
+
+  const [hueRotation, setHueRotation] = useState(-0.5);
+  const [showHueRotationInput, setShowHueRotationInput] = useState(false);
+
+  const handleToggleHueRotationInput = () => {
+    setShowHueRotationInput(!showHueRotationInput);
+  };
+
+  const handleHueRotationChange = (event) => {
+    const newRotation = parseFloat(event.target.value);
+    setHueRotation(newRotation);
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        const hueRotationFilter = new fabric.Image.filters.HueRotation({
+          rotation: newRotation,
+        });
+        activeObject.filters = [hueRotationFilter];
+        activeObject.applyFilters();
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  };
+
+  const [saturation, setSaturation] = useState(1);
+  const [showSaturationInput, setShowSaturationInput] = useState(false);
+
+  const handleToggleSaturationInput = () => {
+    setShowSaturationInput(!showSaturationInput);
+  };
+
+  const handleSaturationChange = (event) => {
+    const newSaturation = parseFloat(event.target.value);
+    setSaturation(newSaturation);
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        const saturationFilter = new fabric.Image.filters.Saturation({
+          saturation: newSaturation,
+        });
+        activeObject.filters = [saturationFilter];
+        activeObject.applyFilters();
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  };
+
+  /* ---------for filter state end---------------- */
+
+  /* -----------------rotate------------------------ */
+  const rightRotateImage = () => {
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+
+      if (activeObject) {
+        activeObject.set({
+          originX: "center",
+          originY: "center",
+          angle: activeObject.angle + 90,
+        });
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  };
+
+  const leftRotateImage = () => {
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+
+      if (activeObject) {
+        activeObject.set({
+          originX: "center",
+          originY: "center",
+          angle: activeObject.angle - 90,
+        });
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  };
+  /* ----------------------------------------- */
+  const [penTool, setPenTool] = useState(false);
 
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
       backgroundColor: selectedCanvasColor,
 
-      width: `${width || width2}`,
-      height: `${height || height1}`,
+      width: width || width2,
+      height: height || height1,
       // selection:true,
 
       // isDrawingMode: true,
       selection: true,
       // selectionColor: "yellow",
       // selectionLineWidth: 3,
-      preserveObjectStacking: true,
+      // preserveObjectStacking: true,
     });
 
     setFabricCanvas(canvas);
 
-    // console.log(isRectangleMarqueToolClick)
-
     // -----------------Image Start---------------
 
-    // const ImgSrc={state.image || selectedImage};
     fabric.Image.fromURL(selectedImage, function (oImg) {
       canvas.renderAll.bind(canvas);
+
+      oImg.applyFilters();
 
       canvas.add(oImg);
       oImg.scaleToHeight(300);
       oImg.scaleToWidth(300);
 
-      // canvas.renderAll.bind(canvas);
       canvas.requestRenderAll();
-
-      fabric.CircleBrush;
     });
 
-    // -----------------Circle Start---------------
+    return () => {
+      canvas.dispose();
+    };
+  }, [canvasRef]);
 
-    if (canvas) {
-      const circle = new fabric.Circle({
-        radius: 50,
-        fill: "yellow",
-        top: 50,
-        left: 50,
-        selectable: true,
-      });
-      circle.set({ radius: 50, fill: "#f00", opacity: 0.7 });
-      canvas.add(circle);
-      // canvas.renderAll();
-      canvas.requestRenderAll();
-    }
+  // -----------------Rectangle Start---------------
 
-    /* --------------------text box---------------------------- */
-    if (textbox) {
-      console.log("hello textbox");
-      const textBox = new fabric.Textbox(textbox?.text, {
-        left: textbox?.left,
-        top: textbox?.top,
-        width: textbox?.width,
-        fontSize: textbox?.fontSize,
-        fill: textbox?.fill,
-        editable: true,
-        selectable: true,
-      });
-
-      canvas.add(textBox);
-      canvas.requestRenderAll();
-    }
-
-    // -----------------Rectangle Start---------------
-
+  useEffect(() => {
     if (isRectangleMarqueToolClick) {
       console.log("hello rect----");
       const rect = new fabric.Rect({
@@ -136,19 +258,50 @@ const Canvas = ({ selectedCanvasColor }) => {
         top: 50,
         left: 50,
       });
-      // canvas.renderAll.bind(canvas);
 
-      canvas.add(rect);
-      canvas.setActiveObject(rect);
-      canvas.requestRenderAll();
+      fabricCanvas?.add(rect);
+      fabricCanvas?.setActiveObject(rect);
+      fabricCanvas?.requestRenderAll();
+      dispatch(setRectangleMarqueTool(false));
     }
+  }, [isRectangleMarqueToolClick]);
 
-    // --------------Rectangle End---------------
+  // --------------Rectangle End---------------
 
-    return () => {
-      canvas.dispose();
-    };
-  }, []);
+  /* --------------------text box ---------------------------- */
+
+  useEffect(() => {
+    if (textbox) {
+      const textBox = new fabric.Textbox(textbox?.text, {
+        left: textbox?.left,
+        top: textbox?.top,
+        width: textbox?.width,
+        fontSize: textbox?.fontSize,
+        fill: textbox?.fill,
+        editable: true,
+        selectable: true,
+      });
+      fabricCanvas?.add(textBox);
+      fabricCanvas?.requestRenderAll();
+    }
+  }, [textbox]);
+
+  /* --------------------PenTool ---------------------------- */
+
+  useEffect(() => {
+    if (penTool) {
+      console.log("hello PenTool");
+      if (fabricCanvas) {
+        fabricCanvas.isDrawingMode = true;
+      }
+    } else {
+      if (fabricCanvas) {
+        fabricCanvas.isDrawingMode = false;
+      }
+    }
+  }, [penTool]);
+
+  // -----------------Circle Start---------------
 
   const addACircle = () => {
     const circle = new fabric.Circle({
@@ -164,7 +317,103 @@ const Canvas = ({ selectedCanvasColor }) => {
     fabricCanvas.requestRenderAll();
   };
 
-  /* ----------------------------------------------- */
+  // ------------DDelete Option --------------
+
+  const deleteSelectedObject = () => {
+    const activeObject = fabricCanvas.getActiveObject();
+    if (activeObject) {
+      // fabricCanvas.bringToFront(layer1Object);
+
+      fabricCanvas.remove(activeObject);
+      fabricCanvas.discardActiveObject();
+      fabricCanvas.requestRenderAll();
+    }
+  };
+
+  //--------------Layer Options --------------
+
+  const bringToFront = () => {
+    if (fabricCanvas && fabricCanvas.getActiveObject()) {
+      fabricCanvas.bringToFront(fabricCanvas.getActiveObject());
+      fabricCanvas.requestRenderAll();
+    }
+  };
+
+  const sendToBack = () => {
+    if (fabricCanvas && fabricCanvas.getActiveObject()) {
+      fabricCanvas.sendToBack(fabricCanvas.getActiveObject());
+      fabricCanvas.requestRenderAll();
+    }
+  };
+
+  //---------copy Paste with Ctrl + C / Ctrl+V----------
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Check if Ctrl (or Cmd on Mac) and 'C' are pressed
+      if ((e.ctrlKey || e.metaKey) && e.key === "c") {
+        alert("Ctrl+C (or Cmd+C on Mac) pressed!");
+        // handleCopy();
+
+        // if (fabricCanvas) {
+        //   fabricCanvas.getActiveObject().clone((cloned) => {
+        //     fabricCanvas.clipboard = cloned;
+        //   });
+        // }
+      } else if ((e.ctrlKey || e.metaKey) && e.key === "v") {
+        // alert('Ctrl+V (or Cmd+V on Mac) pressed!');
+        handlePaste();
+
+        // if (fabricCanvas && fabricCanvas.clipboard) {
+        //   fabricCanvas.clipboard.clone((cloned) => {
+        //     fabricCanvas.discardActiveObject();
+        //     cloned.set({
+        //       left: 100, // Adjust the paste position as needed
+        //       top: 100,
+        //     });
+        //     fabricCanvas.add(cloned);
+        //     fabricCanvas.setActiveObject(cloned);
+        //     fabricCanvas.requestRenderAll();
+        //   });
+        // }
+      }
+    };
+
+    // Add event listener for keydown
+    window.addEventListener("keydown", handleKeyDown);
+
+    // // Cleanup: remove the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
+  //------------Copy/Paste Using button---------
+
+  const handleCopy = () => {
+    if (fabricCanvas) {
+      fabricCanvas.getActiveObject().clone((cloned) => {
+        fabricCanvas.clipboard = cloned;
+      });
+    }
+  };
+
+  const handlePaste = () => {
+    if (fabricCanvas && fabricCanvas.clipboard) {
+      fabricCanvas.clipboard.clone((cloned) => {
+        fabricCanvas.discardActiveObject();
+        cloned.set({
+          left: 100, // Adjust the paste position as needed
+          top: 100,
+        });
+        fabricCanvas.add(cloned);
+        fabricCanvas.setActiveObject(cloned);
+        fabricCanvas.requestRenderAll();
+      });
+    }
+  };
+
+  /* ------------------Canvas bg color----------------------------- */
   useEffect(() => {
     if (fabricCanvas) {
       // Set the background color again when selectedCanvasColor changes
@@ -173,12 +422,7 @@ const Canvas = ({ selectedCanvasColor }) => {
       fabricCanvas.requestRenderAll();
     }
   }, [selectedCanvasColor, fabricCanvas]);
-  /* ----------------------------------------------- */
-
-  // const text = new fabric.Text("I'm text ", {
-  //   fontSize: 40,
-  // });
-  // fabricCanvas.add(text);
+  /* ------------------------------------------------------------------- */
 
   const changePenWidth = (width) => {
     if (fabricCanvas) {
@@ -188,6 +432,7 @@ const Canvas = ({ selectedCanvasColor }) => {
       // console.log("Change Pen WIdth");
     }
   };
+
   const changePenColor = (color) => {
     if (fabricCanvas) {
       fabricCanvas.freeDrawingBrush.color = color;
@@ -210,121 +455,29 @@ const Canvas = ({ selectedCanvasColor }) => {
     // console.log("Download Button");
   };
 
-  // const handleDrawing = () =>{
-  //   if (fabricCanvas) {
-  //     fabricCanvas.selection= false;
-  //     fabricCanvas.freeDrawingBrush = true;
-  //     // fabricCanvas.freeDrawingBrush = new fabric.PencilBrush('canvas');
-
-  //     // fabricCanvas.freeDrawingBrush.width = 5;
-  //     // fabricCanvas.freeDrawingBrush.color = color;
-  //     // setPenColor(color);
-  //     // fabricCanvas.renderAll.bind(fabricCanvas);
-  //     console.log("Change Pen Color");
-
-  //   }
-  // }
-  // const clearHandler = () =>{
-  //     if(fabricCanvas){
-  //         fabricCanvas.clear();
-  //         fabricCanvas.backgroundColor=defaultBackgroundColor;
-  //         // setFabricCanvas()
-  //     }
-  // }
-
-  /* -------------------------------------------------------------------- */
-
-  // const [showTextEdit, setShowTextEdit] = useState(false);
-  // const [text, setText] = useState("");
-
-  // const handleTextToolClick = () => {
-  //   setShowTextEdit(true);
-  // };
-
-  // const handleTextChange = (event) => {
-  //   setText(event.target.value);
-  // };
-
-  // const handleTextSubmit = (event) => {
-  //   event.preventDefault();
-  //   // Do something with the entered text
-  //   setShowTextEdit(false);
-  // };
-
-  /* ------------------------------------------------------------------ */
-
   /* ---------------------------------------------- */
 
-  const dispatch = useDispatch();
-
-  dispatch(setSelectedImage(selectedImage));
-
-  const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
-
-  // Reference to the image element for cropping
-  const imageRef = React.createRef();
-
-  const onCropChange = (newCrop) => {
-    setCrop(newCrop);
-  };
-
-  const onZoomChange = (newZoom) => {
-    setZoom(newZoom);
-  };
-
-  //console.log(fabricCanvas);
-
-  const cropImage = (imgCropping) => {
-    if (imgCropping) {
-      // Get the image element
-      const imageElement = imageRef.current;
-
-      // Calculate cropping dimensions based on the original image size
-      const scaleX = imageElement.naturalWidth / imageElement.width;
-      const scaleY = imageElement.naturalHeight / imageElement.height;
-
-      const croppedAreaPixels = {
-        x: crop.x * scaleX,
-        y: crop.y * scaleY,
-        width: crop.width * scaleX,
-        height: crop.height * scaleY,
-      };
-
-      // Use the getCroppedImg function to get the cropped image
-      getCroppedImg(selectedImage, croppedAreaPixels).then((croppedImage) => {
-        // Dispatch setCropping(false) to exit cropping mode
-        dispatch(setCropping(false));
-
-        // You can now update the Redux state with the cropped image
-        // For example, you can dispatch an action like setCropImage(croppedImage)
-        // to store the cropped image in your Redux store.
-      });
+  const resizeObject = () => {
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        // Adjust the size here, for example, doubling the width and height
+        activeObject.scaleX *= 2;
+        activeObject.scaleY *= 2;
+        fabricCanvas.renderAll();
+      }
     }
   };
 
-  /* ---------------------------------------------- */
-
   return (
-    <div className="container  mx-auto bg-purple-400">
+    <div className="container mx-auto bg-gray-200 h-[100%] text-purple-700">
       <div>
         <div className="flex justify-center text-center align-middle">
           <h1></h1>
-          <canvas className=" " ref={canvasRef}></canvas>
-
-          {/* Render the TextTool component */}
-          {/* Display the selected image */}
-          {/* <img
-            ref={imageRef}
-            src={selectedImage}
-            alt="Selected Image"
-            style={{ maxWidth: "100%", maxHeight: "400px" }}
-          /> */}
-          {/* ------------------------------------- */}
+          <canvas className="mt-10 mb-10 rounded " ref={canvasRef}></canvas>
         </div>
-        {/* ----------------------------- */}
 
-        <div className="pt-2 mb-2 grid grid-cols-2 md:grid-cols-8 gap-2 mx-2 my-2 items-center justify-center">
+        <div className="mt-10 pt-2">
           <label className="mx-2 py-1" htmlFor="">
             Pen WIdth - {penWidth}
           </label>
@@ -350,9 +503,24 @@ const Canvas = ({ selectedCanvasColor }) => {
             Add Circle
           </button>
 
-          {/* <button className="btn" onClick={handleDrawing}>
-                Drawing
-            </button> */}
+          <button className="btn" onClick={() => setPenTool(!penTool)}>
+            {penTool ? "Disable" : "Enable"} PenTool
+          </button>
+          <button className="btn" onClick={deleteSelectedObject}>
+            Delete
+          </button>
+          <button className="btn" onClick={bringToFront}>
+            Being Front
+          </button>
+          <button className="btn" onClick={sendToBack}>
+            Beint Back
+          </button>
+          <button className="btn" onClick={handleCopy}>
+            Copy
+          </button>
+          <button className="btn" onClick={handlePaste}>
+            Paste
+          </button>
 
           <button
             className="btn btn-sm btn-success mb-2 md:mb-0"
@@ -361,36 +529,103 @@ const Canvas = ({ selectedCanvasColor }) => {
             {" "}
             Download
           </button>
+          {/* --------------------------------------------------- */}
 
-          {/* <button className="btn" onClick={rulerHandeler}>ruler btn</button> */}
-
-          {/* <img src={state.image || selectedImage} alt="" /> */}
-          {/* <button onClick={()=>clearHandler()}> Clear</button> */}
-          {/* <Modal></Modal> */}
-          {/* ------------------------------------------------- */}
-          {imgCropping ? (
-            <>
-              <button
-                className="btn btn-sm btn-danger"
-                onClick={() => dispatch(setCropping(false))}
-              >
-                Cancel Crop
-              </button>
-              <button className="btn btn-sm btn-success" onClick={cropImage}>
-                Apply Crop
-              </button>
-            </>
-          ) : (
-            <button
-              className="btn btn-sm btn-primary"
-              onClick={() => dispatch(setCropping(true))}
-            >
-              Start Crop
-            </button>
-          )}
-          <button className="btn btn-sm btn-success" onClick={cropImage}>
-            Crop Image
+          <button className="btn btn-secondary" onClick={resizeObject}>
+            Resize Object
           </button>
+
+          <button className="btn btn-primary" onClick={handleToggleRangeInput}>
+            Brightness Control
+          </button>
+          {showRangeInput && (
+            <input
+              type="range"
+              min={-1}
+              max={1}
+              step={0.05}
+              value={brightness}
+              onChange={handleBrightnessChange}
+            />
+          )}
+
+          <button
+            className="btn btn-outline"
+            onClick={handleToggleContrastRangeInput}>
+            Contrast Control
+          </button>
+          {showContrastInput && (
+            <input
+              type="range"
+              min={-1}
+              max={1}
+              step={0.1}
+              value={contrast}
+              onChange={handleContrastChange}
+            />
+          )}
+
+          <button
+            className="btn btn-warning"
+            onClick={handleToggleColorMatrixControl}>
+            ColorMatrix Control
+          </button>
+          {isColorMatrixControlVisible && (
+            <div>
+              {colorMatrix.map((value, index) => (
+                <div key={index}>
+                  <label>Matrix Value {index}:</label>
+                  <input
+                    type="range"
+                    min={-1}
+                    max={1}
+                    step={0.01}
+                    value={value}
+                    name={index.toString()} // Use the index as the name to identify the matrix value
+                    onChange={handleColorMatrixChange}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+
+          <button
+            className="btn btn-success"
+            onClick={handleToggleHueRotationInput}>
+            Hue Rotation Control
+          </button>
+          {showHueRotationInput && (
+            <>
+              <input
+                type="range"
+                min={-1}
+                max={1}
+                step={0.05}
+                value={hueRotation}
+                onChange={handleHueRotationChange}
+              />
+              <label htmlFor="hue-rotation">Hue Rotation: {hueRotation}</label>
+            </>
+          )}
+
+          <button
+            className="btn btn-secondary"
+            onClick={handleToggleSaturationInput}>
+            Saturation Control
+          </button>
+          {showSaturationInput && (
+            <>
+              <input
+                type="range"
+                min={0}
+                max={2}
+                step={0.05}
+                value={saturation}
+                onChange={handleSaturationChange}
+              />
+              <label htmlFor="saturation">Saturation: {saturation}</label>
+            </>
+          )}
         </div>
       </div>
     </div>

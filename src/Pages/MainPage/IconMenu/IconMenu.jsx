@@ -7,12 +7,11 @@ import { BsChevronDoubleLeft, BsChevronDoubleRight } from "react-icons/bs";
 import { MdLensBlur } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-import ImageEditor from "../../ImageEditor/ImageEditor";
 import Canvas from "../../Component/About/Canvas/Canvas";
 import { useRef } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setColor } from "../../../Redux/Color";
 // import LightRuler from "light-ruler";
-
 
 const IconMenu = () => {
   const [selectedCanvasColor, setSelectedCanvasColor] = useState("white");
@@ -20,52 +19,13 @@ const IconMenu = () => {
     setSelectedCanvasColor(color.hex);
   };
 
-  // const [isDragging, setIsDragging] = useState(false);
-  // const [offset, setOffset] = useState({ x: 0, y: 0 });
-
-  const [details, setDetails] = useState("");
-  const [crop, setCrop] = useState("");
-  const [state, setState] = useState({
-    image: "",
-    brightness: 100,
-    grayscale: 0,
-    sepia: 0,
-    saturate: 100,
-    contrast: 100,
-    hueRotate: 0,
-    rotate: 0,
-    vertical: 1,
-    horizontal: 1,
-  });
-
-  const handleImage = (e) => {
-    if (e.target.files.length !== 0) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setState({
-          ...state,
-          image: reader.result,
-        });
-        const stateData = {
-          image: reader.result,
-          brightness: 100,
-          grayscale: 0,
-          sepia: 0,
-          saturate: 100,
-          contrast: 100,
-          hueRotate: 0,
-          rotate: 0,
-          vertical: 1,
-          horizontal: 1,
-        };
-        storeData.insert(stateData);
-      };
-      reader.readAsDataURL(e.target.files[0]);
-    }
+  const dispatch = useDispatch();
+  const [textColor, setTextColor] = useState("black");
+  // console.log(textColor);
+  const handleTextColorChange = (color) => {
+    setTextColor(color);
+    dispatch(setColor(textColor));
   };
-
-  // const [currentColor, setCurrentColor] = useState();
-  // const [columns, setColumns] = useState(1);
 
   const toggleColumns = () => {
     setColumns(columns === 1 ? 2 : 1);
@@ -100,26 +60,21 @@ const IconMenu = () => {
     setIsDragging(false);
   };
 
-
-
-//   const ruler = new LightRuler({
-//     mode: "infinite",
-//     mountRef: rulerRef.current,
-//     scrollElement: document.getElementById("wrap"),
-//     rulerId: "ruler",
-//     width: 30000,
-//     height: 30000,
-//     onScroll: (x, y) => {
-//         console.log(x, y);
-//     },
-// });
+  //   const ruler = new LightRuler({
+  //     mode: "infinite",
+  //     mountRef: rulerRef.current,
+  //     scrollElement: document.getElementById("wrap"),
+  //     rulerId: "ruler",
+  //     width: 30000,
+  //     height: 30000,
+  //     onScroll: (x, y) => {
+  //         console.log(x, y);
+  //     },
+  // });
 
   return (
     <div className="">
-      <div className="navbar bg-gray-600 text-white border-b-2">
-
-
-
+      <div className="navbar bg-white text-black border-b-2">
         <div className="navbar-start">
           <div className="ml-5">
             <Link to="/home">
@@ -143,7 +98,16 @@ const IconMenu = () => {
               className="border-solid px-2 rounded-md ml-1 w-full max-w-xs"
             />
           </div>
-          {/* to do  */}
+          <div className="flex items-center">
+            <h3>Color:</h3>
+            <input
+              type="color"
+              id="colorPicker"
+              className="ml-1"
+              value={textColor}
+              onChange={(e) => handleTextColorChange(e.target.value)}
+            />
+          </div>
         </div>
 
         <div className="navbar-center hidden lg:flex">
@@ -167,12 +131,14 @@ const IconMenu = () => {
             {columns === 1 ? <BsChevronDoubleLeft /> : <BsChevronDoubleRight />}
           </button>
           <br />
-          <Icon></Icon>
+          <Icon textColor={textColor}></Icon>
         </div>
 
-        <div className="md:col-span-9 bg-purple-400 border-4 border-black ">
+        <div className="md:col-span-9 h-screen bg-gray-300 ">
           {/* <ImageEditor></ImageEditor> */}
-          <Canvas selectedCanvasColor={selectedCanvasColor}></Canvas>
+          <Canvas
+            textColor={textColor}
+            selectedCanvasColor={selectedCanvasColor}></Canvas>
         </div>
         <div className="p-5 col-span-3 ">
           <SketchPicker
