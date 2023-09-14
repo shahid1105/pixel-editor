@@ -1,27 +1,24 @@
-import React, { Component } from "react";
+import React from "react";
 import { fabric } from "fabric";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import storeData from "../../../LinkList";
-
 import { useLocation } from "react-router-dom";
 import Icon from "../../../MainPage/IconMenu/Icon";
 import TextTool from "./textTool";
-
 
 import { setRectangleMarqueTool } from "../../../../Redux/RectangleMarqueToolReducer";
 
 /* -----------for commit-------------------- */
 
-
 const Canvas = ({ selectedCanvasColor }) => {
-
   const dispatch = useDispatch();
 
   const selectedImage = useSelector(
-
     (state) => state.selectedImage.selectedImage
   );
+  //console.log(selectedImage);
+  const color = useSelector((state) => state.colorReducer.color);
+  console.log(color);
 
   //RectangleMarqueToolClick Selector
   const isRectangleMarqueToolClick = useSelector(
@@ -32,9 +29,8 @@ const Canvas = ({ selectedCanvasColor }) => {
   const textbox = useSelector((state) => state.textBoxReducer.textBox);
   // console.log("hello textbox");
 
-  //console.log(selectedImage);
   const imgCropping = useSelector((state) => state.cropReducer.isCropping);
-  //console.log(imgCropping);
+  console.log(imgCropping);
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -50,28 +46,176 @@ const Canvas = ({ selectedCanvasColor }) => {
   // const defaultBackgroundColor = "white";
   const [penWidth, setPenWidth] = useState(3);
   const [penColor, setPenColor] = useState(3);
-  const [penTool,setPenTool] = useState(false);
-  
-  const [fabricCanvas, setFabricCanvas] = useState();
-
 
   const canvasRef = useRef(null);
-  // var canvas;
-  
 
-  
-  
+  const [fabricCanvas, setFabricCanvas] = useState();
+
+  /* ---------for filter state start---------------- */
+
+  const [brightness, setBrightness] = useState(0); // Initial brightness
+  const [showRangeInput, setShowRangeInput] = useState(false);
+
+  const handleToggleRangeInput = () => {
+    setShowRangeInput(!showRangeInput);
+  };
+
+  const handleBrightnessChange = (event) => {
+    const newBrightness = parseFloat(event.target.value);
+    setBrightness(newBrightness);
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        const brightnessFilter = new fabric.Image.filters.Brightness({
+          brightness: newBrightness,
+        });
+        activeObject.filters = [brightnessFilter];
+        activeObject.applyFilters();
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  };
+
+  const [contrast, setContrast] = useState(0); // Initial contrast
+  const [showContrastInput, setShowContrastInput] = useState(false);
+
+  const handleToggleContrastRangeInput = () => {
+    setShowContrastInput(!showContrastInput);
+  };
+
+  const handleContrastChange = (event) => {
+    const newContrast = parseFloat(event.target.value);
+    setContrast(newContrast);
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        const contrastFilter = new fabric.Image.filters.Contrast({
+          contrast: newContrast,
+        });
+        activeObject.filters = [contrastFilter];
+        activeObject.applyFilters();
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  };
+
+  const [colorMatrix, setColorMatrix] = useState([
+    1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0,
+  ]);
+  const [isColorMatrixControlVisible, setColorMatrixControlVisible] =
+    useState(false);
+
+  const handleToggleColorMatrixControl = () => {
+    setColorMatrixControlVisible(!isColorMatrixControlVisible);
+  };
+
+  const handleColorMatrixChange = (event) => {
+    const newMatrixValue = parseFloat(event.target.value);
+    // Update the specific matrix value in the state
+    const updatedMatrix = [...colorMatrix];
+    const matrixIndex = parseInt(event.target.name);
+    updatedMatrix[matrixIndex] = newMatrixValue;
+    setColorMatrix(updatedMatrix);
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        const colorMatrixFilter = new fabric.Image.filters.ColorMatrix({
+          matrix: updatedMatrix,
+        });
+        activeObject.filters = [colorMatrixFilter];
+        activeObject.applyFilters();
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  };
+
+  const [hueRotation, setHueRotation] = useState(-0.5);
+  const [showHueRotationInput, setShowHueRotationInput] = useState(false);
+
+  const handleToggleHueRotationInput = () => {
+    setShowHueRotationInput(!showHueRotationInput);
+  };
+
+  const handleHueRotationChange = (event) => {
+    const newRotation = parseFloat(event.target.value);
+    setHueRotation(newRotation);
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        const hueRotationFilter = new fabric.Image.filters.HueRotation({
+          rotation: newRotation,
+        });
+        activeObject.filters = [hueRotationFilter];
+        activeObject.applyFilters();
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  };
+
+  const [saturation, setSaturation] = useState(1);
+  const [showSaturationInput, setShowSaturationInput] = useState(false);
+
+  const handleToggleSaturationInput = () => {
+    setShowSaturationInput(!showSaturationInput);
+  };
+
+  const handleSaturationChange = (event) => {
+    const newSaturation = parseFloat(event.target.value);
+    setSaturation(newSaturation);
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        const saturationFilter = new fabric.Image.filters.Saturation({
+          saturation: newSaturation,
+        });
+        activeObject.filters = [saturationFilter];
+        activeObject.applyFilters();
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  };
+
+  /* ---------for filter state end---------------- */
+
+  /* -----------------rotate------------------------ */
+  const rightRotateImage = () => {
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+
+      if (activeObject) {
+        activeObject.set({
+          originX: "center",
+          originY: "center",
+          angle: activeObject.angle + 90,
+        });
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  };
+
+  const leftRotateImage = () => {
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+
+      if (activeObject) {
+        activeObject.set({
+          originX: "center",
+          originY: "center",
+          angle: activeObject.angle - 90,
+        });
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  };
+  /* ----------------------------------------- */
+  const [penTool, setPenTool] = useState(false);
+
   useEffect(() => {
-
-
     const canvas = new fabric.Canvas(canvasRef.current, {
-      
-      
-
       backgroundColor: selectedCanvasColor,
 
-      width: `${width || width2}`,
-      height: `${height || height1}`,
+      width: width || width2,
+      height: height || height1,
       // selection:true,
 
       // isDrawingMode: true,
@@ -82,209 +226,194 @@ const Canvas = ({ selectedCanvasColor }) => {
     });
 
     setFabricCanvas(canvas);
-    
 
     // -----------------Image Start---------------
 
-
-
     fabric.Image.fromURL(selectedImage, function (oImg) {
       canvas.renderAll.bind(canvas);
+
+      oImg.applyFilters();
+
       canvas.add(oImg);
       oImg.scaleToHeight(300);
       oImg.scaleToWidth(300);
-      canvas.requestRenderAll();
 
-      
+      canvas.requestRenderAll();
     });
 
-  return () =>{
-    canvas.dispose();
-  }
+    return () => {
+      canvas.dispose();
+    };
+  }, [canvasRef]);
 
-}, [canvasRef]);
+  // -----------------Rectangle Start---------------
 
-// -----------------Rectangle Start---------------
+  useEffect(() => {
+    if (isRectangleMarqueToolClick) {
+      console.log("hello rect----");
+      const rect = new fabric.Rect({
+        height: 200,
+        width: 100,
+        fill: "#f0f",
+        top: 50,
+        left: 50,
+      });
 
-useEffect(()=>{
-  if(isRectangleMarqueToolClick){
-    console.log('hello rect----')
-    const rect = new fabric.Rect({
-      height:200,
-      width: 100,
-      fill: '#f0f',
+      fabricCanvas?.add(rect);
+      fabricCanvas?.setActiveObject(rect);
+      fabricCanvas?.requestRenderAll();
+      dispatch(setRectangleMarqueTool(false));
+    }
+  }, [isRectangleMarqueToolClick]);
+
+  // --------------Rectangle End---------------
+
+  /* --------------------text box ---------------------------- */
+
+  useEffect(() => {
+    if (textbox) {
+      const textBox = new fabric.Textbox(textbox?.text, {
+        left: textbox?.left,
+        top: textbox?.top,
+        width: textbox?.width,
+        fontSize: textbox?.fontSize,
+        fill: textbox?.fill,
+        editable: true,
+        selectable: true,
+      });
+      fabricCanvas?.add(textBox);
+      fabricCanvas?.requestRenderAll();
+    }
+  }, [textbox]);
+
+  /* --------------------PenTool ---------------------------- */
+
+  useEffect(() => {
+    if (penTool) {
+      console.log("hello PenTool");
+      if (fabricCanvas) {
+        fabricCanvas.isDrawingMode = true;
+      }
+    } else {
+      if (fabricCanvas) {
+        fabricCanvas.isDrawingMode = false;
+      }
+    }
+  }, [penTool]);
+
+  // -----------------Circle Start---------------
+
+  const addACircle = () => {
+    const circle = new fabric.Circle({
+      radius: 50,
+      fill: "yellow",
       top: 50,
       left: 50,
-    });
-
-    fabricCanvas?.add(rect);
-    fabricCanvas?.setActiveObject(rect);
-    fabricCanvas?.requestRenderAll();
-    dispatch(setRectangleMarqueTool(false));
-    
-  }
-
-},[isRectangleMarqueToolClick]);
-
-
-    // --------------Rectangle End---------------
-
-
-    /* --------------------text box ---------------------------- */
-
-useEffect(()=>{
-  if (textbox) {
-      
-    const textBox = new fabric.Textbox(textbox?.text, {
-      left: textbox?.left,
-      top: textbox?.top,
-      width: textbox?.width,
-      fontSize: textbox?.fontSize,
-      fill: textbox?.fill,
-      editable: true,
       selectable: true,
     });
-    fabricCanvas?.add(textBox);
-    fabricCanvas?.requestRenderAll();
-  }
-},[textbox])
-
-    /* --------------------PenTool ---------------------------- */
-
-    useEffect(() => {
-      if (penTool) {
-        console.log('hello PenTool');
-        if (fabricCanvas) {
-          fabricCanvas.isDrawingMode = true;
-        }
-      } else {
-        if (fabricCanvas) {
-          fabricCanvas.isDrawingMode = false;
-        }
-      }
-    }, [penTool]);
-
-
-    // -----------------Circle Start---------------
-
-
-const addACircle = () => {
-  const circle = new fabric.Circle({
-    radius: 50,
-    fill: "yellow",
-    top: 50,
-    left: 50,
-    selectable:true,
-  });
-  circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
-  fabricCanvas.add(circle); 
-  fabricCanvas.setActiveObject(circle);
-  fabricCanvas.requestRenderAll();
-  
-};
-
-// ------------DDelete Option --------------
-
-const deleteSelectedObject = () => {
-  const activeObject = fabricCanvas.getActiveObject();
-  if (activeObject) {
-    // fabricCanvas.bringToFront(layer1Object);
-
-    fabricCanvas.remove(activeObject);
-    fabricCanvas.discardActiveObject();
+    circle.set({ radius: 50, fill: "#f00", opacity: 0.7 });
+    fabricCanvas.add(circle);
+    fabricCanvas.setActiveObject(circle);
     fabricCanvas.requestRenderAll();
-  }
-};
-
-//--------------Layer Options --------------
-
-const bringToFront = () => {
-  if (fabricCanvas && fabricCanvas.getActiveObject()) {
-    fabricCanvas.bringToFront(fabricCanvas.getActiveObject());
-    fabricCanvas.requestRenderAll();
-  }
-};
-
-const sendToBack = () => {
-  if (fabricCanvas && fabricCanvas.getActiveObject()) {
-    fabricCanvas.sendToBack(fabricCanvas.getActiveObject());
-    fabricCanvas.requestRenderAll();
-  }
-};
-
-
-//---------copy Paste with Ctrl + C / Ctrl+V----------
-
-useEffect(() => {
-  const handleKeyDown = (e) => {
-    // Check if Ctrl (or Cmd on Mac) and 'C' are pressed
-    if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
-      alert('Ctrl+C (or Cmd+C on Mac) pressed!');
-      // handleCopy();
-      
-
-      // if (fabricCanvas) {
-      //   fabricCanvas.getActiveObject().clone((cloned) => {
-      //     fabricCanvas.clipboard = cloned;
-      //   });
-      // }
-    }
-    else  if ((e.ctrlKey || e.metaKey) && e.key === 'v') {
-      // alert('Ctrl+V (or Cmd+V on Mac) pressed!');
-      handlePaste();
-
-      // if (fabricCanvas && fabricCanvas.clipboard) {
-      //   fabricCanvas.clipboard.clone((cloned) => {
-      //     fabricCanvas.discardActiveObject();
-      //     cloned.set({
-      //       left: 100, // Adjust the paste position as needed
-      //       top: 100,
-      //     });
-      //     fabricCanvas.add(cloned);
-      //     fabricCanvas.setActiveObject(cloned);
-      //     fabricCanvas.requestRenderAll();
-      //   });
-      // }
-    }
   };
 
-  // Add event listener for keydown
-  window.addEventListener('keydown', handleKeyDown);
+  // ------------DDelete Option --------------
 
-  // // Cleanup: remove the event listener when the component unmounts
-  return () => {
-    window.removeEventListener('keydown', handleKeyDown);
-  };
-},[]);
+  const deleteSelectedObject = () => {
+    const activeObject = fabricCanvas.getActiveObject();
+    if (activeObject) {
+      // fabricCanvas.bringToFront(layer1Object);
 
-
-
-//------------Copy/Paste Using button---------
-
-const handleCopy = () => {
-  if (fabricCanvas) {
-    fabricCanvas.getActiveObject().clone((cloned) => {
-      fabricCanvas.clipboard = cloned;
-    });
-  }
-};
-
-const handlePaste = () => {
-  if (fabricCanvas && fabricCanvas.clipboard) {
-    fabricCanvas.clipboard.clone((cloned) => {
+      fabricCanvas.remove(activeObject);
       fabricCanvas.discardActiveObject();
-      cloned.set({
-        left: 100, // Adjust the paste position as needed
-        top: 100,
-      });
-      fabricCanvas.add(cloned);
-      fabricCanvas.setActiveObject(cloned);
       fabricCanvas.requestRenderAll();
-    });
-  }
-};
+    }
+  };
 
-  /* ----------------------------------------------- */
+  //--------------Layer Options --------------
+
+  const bringToFront = () => {
+    if (fabricCanvas && fabricCanvas.getActiveObject()) {
+      fabricCanvas.bringToFront(fabricCanvas.getActiveObject());
+      fabricCanvas.requestRenderAll();
+    }
+  };
+
+  const sendToBack = () => {
+    if (fabricCanvas && fabricCanvas.getActiveObject()) {
+      fabricCanvas.sendToBack(fabricCanvas.getActiveObject());
+      fabricCanvas.requestRenderAll();
+    }
+  };
+
+  //---------copy Paste with Ctrl + C / Ctrl+V----------
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Check if Ctrl (or Cmd on Mac) and 'C' are pressed
+      if ((e.ctrlKey || e.metaKey) && e.key === "c") {
+        alert("Ctrl+C (or Cmd+C on Mac) pressed!");
+        // handleCopy();
+
+        // if (fabricCanvas) {
+        //   fabricCanvas.getActiveObject().clone((cloned) => {
+        //     fabricCanvas.clipboard = cloned;
+        //   });
+        // }
+      } else if ((e.ctrlKey || e.metaKey) && e.key === "v") {
+        // alert('Ctrl+V (or Cmd+V on Mac) pressed!');
+        handlePaste();
+
+        // if (fabricCanvas && fabricCanvas.clipboard) {
+        //   fabricCanvas.clipboard.clone((cloned) => {
+        //     fabricCanvas.discardActiveObject();
+        //     cloned.set({
+        //       left: 100, // Adjust the paste position as needed
+        //       top: 100,
+        //     });
+        //     fabricCanvas.add(cloned);
+        //     fabricCanvas.setActiveObject(cloned);
+        //     fabricCanvas.requestRenderAll();
+        //   });
+        // }
+      }
+    };
+
+    // Add event listener for keydown
+    window.addEventListener("keydown", handleKeyDown);
+
+    // // Cleanup: remove the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
+  //------------Copy/Paste Using button---------
+
+  const handleCopy = () => {
+    if (fabricCanvas) {
+      fabricCanvas.getActiveObject().clone((cloned) => {
+        fabricCanvas.clipboard = cloned;
+      });
+    }
+  };
+
+  const handlePaste = () => {
+    if (fabricCanvas && fabricCanvas.clipboard) {
+      fabricCanvas.clipboard.clone((cloned) => {
+        fabricCanvas.discardActiveObject();
+        cloned.set({
+          left: 100, // Adjust the paste position as needed
+          top: 100,
+        });
+        fabricCanvas.add(cloned);
+        fabricCanvas.setActiveObject(cloned);
+        fabricCanvas.requestRenderAll();
+      });
+    }
+  };
+
+  /* ------------------Canvas bg color----------------------------- */
   useEffect(() => {
     if (fabricCanvas) {
       // Set the background color again when selectedCanvasColor changes
@@ -293,8 +422,7 @@ const handlePaste = () => {
       fabricCanvas.requestRenderAll();
     }
   }, [selectedCanvasColor, fabricCanvas]);
-  /* ----------------------------------------------- */
-
+  /* ------------------------------------------------------------------- */
 
   const changePenWidth = (width) => {
     if (fabricCanvas) {
@@ -329,7 +457,17 @@ const handlePaste = () => {
 
   /* ---------------------------------------------- */
 
-  
+  const resizeObject = () => {
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        // Adjust the size here, for example, doubling the width and height
+        activeObject.scaleX *= 2;
+        activeObject.scaleY *= 2;
+        fabricCanvas.renderAll();
+      }
+    }
+  };
 
   return (
     <div className="container mx-auto bg-gray-200 h-[100%] text-purple-700">
@@ -337,9 +475,8 @@ const handlePaste = () => {
         <div className="flex justify-center text-center align-middle">
           <h1></h1>
           <canvas className="mt-10 mb-10 rounded " ref={canvasRef}></canvas>
-          
         </div>
-        
+
         <div className="mt-10 pt-2">
           <label className="mx-2 py-1" htmlFor="">
             Pen WIdth - {penWidth}
@@ -366,26 +503,24 @@ const handlePaste = () => {
             Add Circle
           </button>
 
-          <button className="btn" onClick={()=>setPenTool(!penTool)}>
-            {penTool?'Disable':'Enable'} PenTool
+          <button className="btn" onClick={() => setPenTool(!penTool)}>
+            {penTool ? "Disable" : "Enable"} PenTool
           </button>
           <button className="btn" onClick={deleteSelectedObject}>
-             Delete
+            Delete
           </button>
           <button className="btn" onClick={bringToFront}>
-             Being Front
+            Being Front
           </button>
           <button className="btn" onClick={sendToBack}>
-             Beint Back
+            Beint Back
           </button>
           <button className="btn" onClick={handleCopy}>
-             Copy
+            Copy
           </button>
           <button className="btn" onClick={handlePaste}>
-             Paste
+            Paste
           </button>
-
-        
 
           <button
             className="btn btn-success mb-2 md:mb-0"
@@ -393,7 +528,103 @@ const handlePaste = () => {
             {" "}
             Download
           </button>
-          
+          {/* --------------------------------------------------- */}
+
+          <button className="btn btn-secondary" onClick={resizeObject}>
+            Resize Object
+          </button>
+
+          <button className="btn btn-primary" onClick={handleToggleRangeInput}>
+            Brightness Control
+          </button>
+          {showRangeInput && (
+            <input
+              type="range"
+              min={-1}
+              max={1}
+              step={0.05}
+              value={brightness}
+              onChange={handleBrightnessChange}
+            />
+          )}
+
+          <button
+            className="btn btn-outline"
+            onClick={handleToggleContrastRangeInput}>
+            Contrast Control
+          </button>
+          {showContrastInput && (
+            <input
+              type="range"
+              min={-1}
+              max={1}
+              step={0.1}
+              value={contrast}
+              onChange={handleContrastChange}
+            />
+          )}
+
+          <button
+            className="btn btn-warning"
+            onClick={handleToggleColorMatrixControl}>
+            ColorMatrix Control
+          </button>
+          {isColorMatrixControlVisible && (
+            <div>
+              {colorMatrix.map((value, index) => (
+                <div key={index}>
+                  <label>Matrix Value {index}:</label>
+                  <input
+                    type="range"
+                    min={-1}
+                    max={1}
+                    step={0.01}
+                    value={value}
+                    name={index.toString()} // Use the index as the name to identify the matrix value
+                    onChange={handleColorMatrixChange}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+
+          <button
+            className="btn btn-success"
+            onClick={handleToggleHueRotationInput}>
+            Hue Rotation Control
+          </button>
+          {showHueRotationInput && (
+            <>
+              <input
+                type="range"
+                min={-1}
+                max={1}
+                step={0.05}
+                value={hueRotation}
+                onChange={handleHueRotationChange}
+              />
+              <label htmlFor="hue-rotation">Hue Rotation: {hueRotation}</label>
+            </>
+          )}
+
+          <button
+            className="btn btn-secondary"
+            onClick={handleToggleSaturationInput}>
+            Saturation Control
+          </button>
+          {showSaturationInput && (
+            <>
+              <input
+                type="range"
+                min={0}
+                max={2}
+                step={0.05}
+                value={saturation}
+                onChange={handleSaturationChange}
+              />
+              <label htmlFor="saturation">Saturation: {saturation}</label>
+            </>
+          )}
         </div>
       </div>
     </div>
