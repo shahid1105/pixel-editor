@@ -10,7 +10,7 @@ import { setRectangleMarqueTool } from "../../../../Redux/RectangleMarqueToolRed
 
 /* -----------for commit-------------------- */
 
-const Canvas = ({ selectedCanvasColor }) => {
+const Canvas = ({ selectedCanvasColor, setShowDiv }) => {
   const dispatch = useDispatch();
 
   const selectedImage = useSelector(
@@ -238,6 +238,10 @@ const Canvas = ({ selectedCanvasColor }) => {
       oImg.scaleToHeight(300);
       oImg.scaleToWidth(300);
 
+      oImg.on("mousedown", function () {
+        setShowDiv(true);
+      });
+
       canvas.requestRenderAll();
     });
 
@@ -280,6 +284,9 @@ const Canvas = ({ selectedCanvasColor }) => {
         fill: textbox?.fill,
         editable: true,
         selectable: true,
+      });
+      textBox.on("mousedown", function () {
+        setShowDiv(false);
       });
       fabricCanvas?.add(textBox);
       fabricCanvas?.requestRenderAll();
@@ -524,8 +531,7 @@ const Canvas = ({ selectedCanvasColor }) => {
 
           <button
             className="btn btn-sm btn-success mb-2 md:mb-0"
-            onClick={() => downloadHandler()}
-          >
+            onClick={() => downloadHandler()}>
             {" "}
             Download
           </button>

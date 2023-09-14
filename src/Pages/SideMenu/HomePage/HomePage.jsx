@@ -51,72 +51,74 @@ const HomePage = () => {
   };
 
   return (
-<div className="hero min-h-screen" style={{backgroundImage: 'url(https://i.ibb.co/fk1X46W/1645.jpg)'}}>
-  <div className="hero-overlay bg-opacity-60"></div>
-  <div className="hero-content text-center text-neutral-content">
-  <div className="md:mx-auto md:max-w-screen-md lg:max-w-screen-lg fixe ">
-      <h3 className="text-4xl text-gray-200 md:text-5xl font-bold text-center uppercase">
-        <span className="text-purple-600 text-6xl md:text-8xl">P</span>!xel
-        Editor
-      </h3>
-      {/* <p>to do</p> */}
-      <div className="flex flex-col px-4 md:p-0 md:flex-row justify-center gap-2 md:gap-4 my-4">
-        <button className="btn btn-outline btn-info flex items-center">
-          <SiGooglesheets className="mr-2" />{" "}
-          <Link to="/imageEditor">New Project</Link>
-        </button>
+    <div
+      className="hero min-h-screen"
+      style={{ backgroundImage: "url(https://i.ibb.co/fk1X46W/1645.jpg)" }}>
+      <div className="hero-overlay bg-opacity-50"></div>
+      <div className="hero-content text-center text-neutral-content">
+        <div className="md:mx-auto md:max-w-screen-md lg:max-w-screen-lg fixe ">
+          <h3 className="text-4xl text-gray-200 md:text-5xl font-bold text-center uppercase">
+            <span className="text-purple-600 text-6xl md:text-8xl">P</span>!xel
+            Editor
+          </h3>
+          {/* <p>to do</p> */}
+          <div className="flex flex-col px-4 md:p-0 md:flex-row justify-center gap-2 md:gap-4 my-4">
+            <button className="btn btn-outline btn-info flex items-center">
+              <SiGooglesheets className="mr-2" />{" "}
+              <Link to="/imageEditor">New Project</Link>
+            </button>
 
-        <label
-          htmlFor="fileInput"
-          className="btn btn-outline btn-info flex items-center">
-          <FaDesktop className="mr-2" /> Open From Computer
-        </label>
-        <input
-          type="file"
-          id="fileInput"
-          accept="image/*"
-          style={{ display: "none" }}
-          onChange={handleImageUpload}
-        />
-      </div>
+            <label
+              htmlFor="fileInput"
+              className="btn btn-outline btn-info flex items-center">
+              <FaDesktop className="mr-2" /> Open From Computer
+            </label>
+            <input
+              type="file"
+              id="fileInput"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={handleImageUpload}
+            />
+          </div>
 
-      <div className="text-center">
-        <button className="btn btn-outline btn-info">
-          <FaImages className="mr-2" />
-          <Link to="/iconMenu"> Templates</Link>
-        </button>
-      </div>
-      <div
-        className="text-center"
-        onDrop={handleDrop}
-        onDragOver={handleDragOver}>
-        <input
-          type="text"
-          placeholder="Drop any file here"
-          className="input input-bordered bg-gray-200 my-7 text-center md:w-[400px] w-[300px] md:h-[150px] h-[100px] border-cyan-500"
-        />
-      </div>
-      <div className="flex justify-center gap-2 mb-5 ">
-        <div className="">
-          <img className="w-12 mr-2" src={img1} alt="" />
-          <h3 className="text-center text-gray-400">.PSD</h3>
-        </div>
-        <div className="">
-          <img className="w-12 mr-2" src={img2} alt="" />
-          <h3 className="text-center text-gray-400">.AI</h3>
-        </div>
-        <div className="">
-          <img className="w-12 mr-2" src={img3} alt="" />
-          <h3 className="text-center text-gray-400">.PDF</h3>
-        </div>
-        <div className="">
-          <img className="w-12 mr-2" src={img4} alt="" />
-          <h3 className="text-center text-gray-400">RAW</h3>
+          <div className="text-center">
+            <button className="btn btn-outline btn-info">
+              <FaImages className="mr-2" />
+              <Link to="/iconMenu"> Templates</Link>
+            </button>
+          </div>
+          <div
+            className="text-center"
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}>
+            <input
+              type="text"
+              placeholder="Drop any file here"
+              className="input input-bordered bg-gray-200 my-7 text-center md:w-[400px] w-[300px] md:h-[150px] h-[100px] border-cyan-500"
+            />
+          </div>
+          <div className="flex justify-center gap-2 mb-5 ">
+            <div className="">
+              <img className="w-12 mr-2" src={img1} alt="" />
+              <h3 className="text-center text-gray-400">.PSD</h3>
+            </div>
+            <div className="">
+              <img className="w-12 mr-2" src={img2} alt="" />
+              <h3 className="text-center text-gray-400">.AI</h3>
+            </div>
+            <div className="">
+              <img className="w-12 mr-2" src={img3} alt="" />
+              <h3 className="text-center text-gray-400">.PDF</h3>
+            </div>
+            <div className="">
+              <img className="w-12 mr-2" src={img4} alt="" />
+              <h3 className="text-center text-gray-400">RAW</h3>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
     // <div className="md:mx-auto md:max-w-screen-md lg:max-w-screen-lg fixe ">
     //   <h3 className="text-4xl text-gray-400 md:text-5xl font-bold text-center uppercase">
