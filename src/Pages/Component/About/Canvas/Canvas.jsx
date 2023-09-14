@@ -25,16 +25,17 @@ const Canvas = ({ selectedCanvasColor }) => {
   );
 
   //RectangleMarqueToolClick Selector
-  const isRectangleMarqueToolClick = useSelector((state) =>state.rectangleMarqueToolReducer.isRectangleMarqueToolClick);
+  const isRectangleMarqueToolClick = useSelector(
+    (state) => state.rectangleMarqueToolReducer.isRectangleMarqueToolClick
+  );
   //console.log(isRectangleMarqueToolClick);
-//textbox reducer
+  //textbox reducer
   const textbox = useSelector((state) => state.textBoxReducer.textBox);
   // console.log("hello textbox");
 
   //console.log(selectedImage);
   const imgCropping = useSelector((state) => state.cropReducer.isCropping);
   //console.log(imgCropping);
-
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -44,11 +45,8 @@ const Canvas = ({ selectedCanvasColor }) => {
   const width = queryParams.get("width");
   // console.log(name, height, width);
 
-
   const height1 = 500;
   const width2 = 800;
-
-  
 
   // const defaultBackgroundColor = "white";
   const [penWidth, setPenWidth] = useState(3);
@@ -76,7 +74,6 @@ const Canvas = ({ selectedCanvasColor }) => {
       width: `${width || width2}`,
       height: `${height || height1}`,
       // selection:true,
-      
 
       // isDrawingMode: true,
       selection: true,
@@ -84,7 +81,6 @@ const Canvas = ({ selectedCanvasColor }) => {
       // selectionLineWidth: 3,
       // preserveObjectStacking: true,
     });
-    
 
     setFabricCanvas(canvas);
     
@@ -296,11 +292,9 @@ const handlePaste = () => {
       fabricCanvas.setBackgroundColor(selectedCanvasColor);
       // fabricCanvas.renderAll();
       fabricCanvas.requestRenderAll();
-
     }
   }, [selectedCanvasColor, fabricCanvas]);
   /* ----------------------------------------------- */
-
 
 
   const changePenWidth = (width) => {
@@ -326,9 +320,7 @@ const handlePaste = () => {
 
     const pngData = fabricCanvas.toDataURL("png");
     const downloadLink = document.createElement("a");
-    const fileName = `${name}-${Math.random()
-      .toString()
-      .replace("", "")}.png`;
+    const fileName = `${name}-${Math.random().toString().replace("", "")}.png`;
 
     downloadLink.href = pngData;
     downloadLink.download = fileName;
@@ -340,7 +332,6 @@ const handlePaste = () => {
 
   
 
-  
   return (
     <div className="container mx-auto bg-gray-200 h-[100%] text-purple-700">
       <div>
@@ -397,7 +388,9 @@ const handlePaste = () => {
 
         
 
-          <button className="btn btn-success" onClick={() => downloadHandler()}>
+          <button
+            className="btn btn-success mb-2 md:mb-0"
+            onClick={() => downloadHandler()}>
             {" "}
             Download
           </button>
