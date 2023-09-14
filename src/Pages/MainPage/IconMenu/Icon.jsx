@@ -28,6 +28,8 @@ import { setCropping } from "../../../Redux/Crop";
 import { setRectangleMarqueTool } from "../../../Redux/RectangleMarqueToolReducer";
 import { addTextBox, removeTextBox } from "../../../Redux/TextBox";
 import { setLasso } from "../../../Redux/Lasso";
+import { setCircleTool } from "../../../Redux/CircleToolReducer";
+import { setPenTool } from "../../../Redux/PenToolReducer";
 
 /* ------------------------------ */
 
@@ -42,6 +44,9 @@ const Icon = ({ textColor }) => {
   const isRectangleMarqueToolClick = useSelector(
     (state) => state.rectangleMarqueToolReducer.isRectangleMarqueToolClick
   );
+
+  const isPenToolClick = useSelector((state) => state.penToolReducer.isPenToolClick);
+
 
   /* ----------------------------------------------------- */
   const dispatch = useDispatch();
@@ -79,6 +84,12 @@ const Icon = ({ textColor }) => {
   const handleRectangleToolClick = () => {
     dispatch(setRectangleMarqueTool(true));
   };
+  const handleCilcleToolClick = () => {
+    dispatch(setCircleTool(true));
+  };
+  const handlePenToolClick = () => {
+    dispatch(setPenTool(!isPenToolClick));
+  };
 
   // Lasso
   const handleMagneticLassoToolClick = () => {
@@ -92,16 +103,16 @@ const Icon = ({ textColor }) => {
 
       <div className="dropdown dropdown-right">
         <label tabIndex={0} className="">
-          <TbMarquee2 title="Rectangular Marquee Tool"></TbMarquee2>
+          <TbMarquee2 title="Shape Tool"></TbMarquee2>
         </label>
         <ul
           tabIndex={0}
           className="dropdown-content z-[1] menu p-2 shadow bg-gray-900 text-white  rounded-box w-52 text-xs">
           <li onClick={handleRectangleToolClick}>
-            <a> Rectangular Marque Tools</a>
+            <a> Rectangular Tools</a>
           </li>
-          <li>
-            <a> Elliptical Marque Tools</a>
+          <li onClick={handleCilcleToolClick}>
+            <a> Elliptical Tools</a>
           </li>
         </ul>
       </div>
@@ -114,21 +125,15 @@ const Icon = ({ textColor }) => {
         title={isCropping ? "Disable Crop Tool" : "Enable Crop Tool"}></BsCrop>
       <LuFrame title="Frame Tool"></LuFrame>
       <BsEyedropper title="Eyedropper Tool"></BsEyedropper>
-      <GiHealthCapsule title="Healing Brush Tool"></GiHealthCapsule>
       <IoMdColorWand title="Color Replacement Tool"></IoMdColorWand>
-      <LuStamp title="Clone Stamp Tool"></LuStamp>
-      <MdHistoryEdu title="History Brush Tool"></MdHistoryEdu>
+      {/* <LuStamp title="Clone Stamp Tool"></LuStamp> */}
       <BsEraserFill title="Magic Eraser Tool"></BsEraserFill>
       <MdGradient title="Gradient Tool"></MdGradient>
       <RiBlurOffLine title="Blur Tool"></RiBlurOffLine>
-      <SlMagnifier title="Dodge Tool"></SlMagnifier>
-      <PiPenNibBold title="Curvature Pen Tool"></PiPenNibBold>
+      <PiPenNibBold title="Pen Tool" onClick={handlePenToolClick}></PiPenNibBold>
       <BiText
         title={isTextboxActive ? "Disable Text Tool" : "Enable Text Tool"}
         onClick={handleTextToolClick}></BiText>
-      <BiSolidPointer title="Path Selection Tool"></BiSolidPointer>
-      <FaRegCircle title="Ellipse Tool"></FaRegCircle>
-      <FaRegHandPaper title="Hand Tool"></FaRegHandPaper>
       <TbZoomReplace title="Zoom Tool"></TbZoomReplace>
       <BiDotsHorizontalRounded title="Edit Toolbar"></BiDotsHorizontalRounded>
     </>

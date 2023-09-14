@@ -11,10 +11,18 @@ import Canvas from "../../Component/About/Canvas/Canvas";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setColor } from "../../../Redux/Color";
+import { setPenTool } from "../../../Redux/PenToolReducer";
 // import LightRuler from "light-ruler";
 
 const IconMenu = () => {
+
+  const isPenToolClick = useSelector((state) => state.penToolReducer.isPenToolClick);
+
   const [showDiv, setShowDiv] = useState(false);
+  const [deleteElement, setDeleteElement] = useState(false);
+
+  const [penWidth, setPenWidth] = useState(3);
+  const [penColor, setPenColor] = useState(3);
 
   const [selectedCanvasColor, setSelectedCanvasColor] = useState("white");
   const handleOnchange = (color) => {
@@ -28,6 +36,7 @@ const IconMenu = () => {
     setTextColor(color);
     dispatch(setColor(textColor));
   };
+
 
   const toggleColumns = () => {
     setColumns(columns === 1 ? 2 : 1);
@@ -74,6 +83,46 @@ const IconMenu = () => {
   //     },
   // });
 
+  var content;
+  
+  switch (true) {
+    case isPenToolClick:
+      content = <div className="flex">
+          <label className="mx-2 py-1" htmlFor="">
+            Pen WIdth - {penWidth}
+          </label>
+          <input
+            className="mx-2 py-1 "
+            type="range"
+            onChange={(e) => setPenWidth(e.target.value)}
+            value={penWidth}
+            min={1}
+            max={30}
+          />
+          <label className="mx-2 py-1" htmlFor="">
+            Pen Color - {penColor}
+          </label>
+          <input
+            className="mr-5"
+            type="color"
+            onChange={(e) => setPenColor(e.target.value)}
+            value={penColor}
+          />
+          <button className="btn bg-red-400" onClick={() => dispatch(setPenTool(false))}>
+            Disable PenTool
+          </button>
+      </div>;
+      break;
+    case showDiv:
+      content = <div>Option 2 content goes here</div>;
+      break;
+    case 'option3':
+      content = <div>Option 3 content goes here</div>;
+      break;
+    default:
+      content = <div>Default content goes here</div>;
+  }
+
   return (
     <div className="">
       <div className="navbar bg-white text-black border-b-2">
@@ -83,29 +132,19 @@ const IconMenu = () => {
               <FaHome></FaHome>
             </Link>
           </div>
+
+          {content}
+          
           {showDiv ? (
             <>
               <h1>Bangladesh</h1>
+              <button className="btn" onClick={()=>{setDeleteElement(true)}}>
+                Delete
+              </button>
             </>
           ) : (
             <>
-              <div className="divider divider-horizontal "></div>
-              <div>
-                <FaPaintBrush></FaPaintBrush>
-              </div>
-              <div className="divider divider-horizontal"></div>
-              <div>
-                <MdLensBlur></MdLensBlur>
-              </div>
-              <div className="divider divider-horizontal "></div>
-              <div className="flex">
-                <h3>Mode:</h3>
-                <input
-                  type="text"
-                  placeholder="Normal"
-                  className="border-solid px-2 rounded-md ml-1 w-full max-w-xs"
-                />
-              </div>
+              
               <div className="flex items-center">
                 <h3>Color:</h3>
                 <input
@@ -116,6 +155,11 @@ const IconMenu = () => {
                   onChange={(e) => handleTextColorChange(e.target.value)}
                 />
               </div>
+
+              <button className="btn" onClick={()=>{setDeleteElement(true)}}>
+                Delete
+              </button>
+              
             </>
           )}
         </div>
@@ -149,7 +193,17 @@ const IconMenu = () => {
           <Canvas
             setShowDiv={setShowDiv}
             textColor={textColor}
-            selectedCanvasColor={selectedCanvasColor}></Canvas>
+            selectedCanvasColor={selectedCanvasColor}
+            deleteElement = {deleteElement}
+            setDeleteElement = {setDeleteElement}
+            penWidth = {penWidth}
+            setPenWidth = {setPenWidth}
+            penColor = {penColor}
+            setPenColor = {setPenColor}
+            
+
+
+            ></Canvas>
         </div>
         <div className="p-5 col-span-3 ">
           <SketchPicker
