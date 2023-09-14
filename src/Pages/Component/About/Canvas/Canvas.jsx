@@ -14,10 +14,7 @@ import TextTool from "./textTool";
 // import { useDispatch } from "react-redux";
 import { setSelectedImage } from "../../../../Redux/SelectedImage";
 import getCroppedImg from "./getCroppedImg";
-// import React from "react";
-import { setCropping } from "../../../../Redux/Crop";
-import { addTextBox } from "../../../../Redux/TextBox";
-import { TbRuler } from "react-icons/tb";
+
 import { setRectangleMarqueTool } from "../../../../Redux/RectangleMarqueToolReducer";
 
 /* -----------for commit-------------------- */
@@ -47,14 +44,6 @@ const Canvas = ({ selectedCanvasColor }) => {
   const width = queryParams.get("width");
   // console.log(name, height, width);
 
-  // const canvasAllInfo = useContext(CanvasContext);
-
-  // console.log(canvasAllInfo.canvasInfo?.height);
-  // const height = parseInt(canvasAllInfo.canvasInfo?.height);
-  // const width = parseInt(canvasAllInfo.canvasInfo?.width);
-
-  // console.log(typeof height, typeof width);
-  // console.log(height, width);
 
   const height1 = 500;
   const width2 = 800;
@@ -68,13 +57,6 @@ const Canvas = ({ selectedCanvasColor }) => {
   
   const [fabricCanvas, setFabricCanvas] = useState();
 
-  //
-
-  // const [isDrawing, setIsDrawing] = useState(false);
-  // const [selectedShape, setSelectedShape] = useState('path'); // 'path' or 'rectangle'
-  // const [drawingMode, setDrawingMode] = useState(false);
-
-  //
 
   const canvasRef = useRef(null);
   // var canvas;
@@ -106,15 +88,9 @@ const Canvas = ({ selectedCanvasColor }) => {
 
     setFabricCanvas(canvas);
     
-    
-    
-    
-    // console.log(isRectangleMarqueToolClick)
 
     // -----------------Image Start---------------
 
-
-    // const ImgSrc={state.image || selectedImage};
 
 
     fabric.Image.fromURL(selectedImage, function (oImg) {
@@ -122,53 +98,10 @@ const Canvas = ({ selectedCanvasColor }) => {
       canvas.add(oImg);
       oImg.scaleToHeight(300);
       oImg.scaleToWidth(300);
-
-      // canvas.renderAll.bind(canvas);
       canvas.requestRenderAll();
 
       
-
-
-      // fabric.CircleBrush;
     });
-
-//     let isDrawing = false;
-// let ellipse;
-
-// canvas.on('mouse:down', (event) => {
-//   if (!isDrawing) {
-//     const pointer = canvas.getPointer(event.e);
-//     const { x, y } = pointer;
-//     ellipse = new fabric.Ellipse({
-//       left: x,
-//       top: y,
-//       originX: 'center',
-//       originY: 'center',
-//       width: 1,
-//       height: 1,
-//       fill: 'transparent',
-//       stroke: 'black',
-//       strokeWidth: 2,
-//     });
-//     canvas.add(ellipse);
-//     isDrawing = true;
-//   }
-// });
-
-// canvas.on('mouse:move', (event) => {
-//   if (isDrawing) {
-//     const pointer = canvas.getPointer(event.e);
-//     const { x, y } = pointer;
-//     const rx = Math.abs(x - ellipse.left) / 2;
-//     const ry = Math.abs(y - ellipse.top) / 2;
-//     ellipse.set({ rx, ry });
-//     canvas.renderAll();
-//   }
-// });
-
-// canvas.on('mouse:up', () => {
-//   isDrawing = false;
-// });
 
   return () =>{
     canvas.dispose();
@@ -188,7 +121,6 @@ useEffect(()=>{
       top: 50,
       left: 50,
     });
-    // canvas.renderAll.bind(canvas);
 
     fabricCanvas?.add(rect);
     fabricCanvas?.setActiveObject(rect);
@@ -227,17 +159,10 @@ useEffect(()=>{
     useEffect(() => {
       if (penTool) {
         console.log('hello PenTool');
-        // const pencilBrush = new fabric.PencilBrush(canvas);
-        // pencilBrush.color = 'blue'; // Set brush color
-        // pencilBrush.width = 5;      // Set brush width
-    
-        // Update the isDrawingMode property correctly
         if (fabricCanvas) {
           fabricCanvas.isDrawingMode = true;
         }
-        // setPenTool(false);
       } else {
-        // Update the isDrawingMode property correctly
         if (fabricCanvas) {
           fabricCanvas.isDrawingMode = false;
         }
@@ -376,12 +301,6 @@ const handlePaste = () => {
   }, [selectedCanvasColor, fabricCanvas]);
   /* ----------------------------------------------- */
 
-  
-
-  // const text = new fabric.Text("I'm text ", {
-  //   fontSize: 40,
-  // });
-  // fabricCanvas.add(text);
 
 
   const changePenWidth = (width) => {
@@ -417,58 +336,6 @@ const handlePaste = () => {
     // console.log("Download Button");
   };
 
-
-  
-
-  const dispatch = useDispatch();
-
-  dispatch(setSelectedImage(selectedImage));
-
-  const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
-
-  // Reference to the image element for cropping
-  const imageRef = React.createRef();
-
-  const onCropChange = (newCrop) => {
-    setCrop(newCrop);
-  };
-
-  const onZoomChange = (newZoom) => {
-    setZoom(newZoom);
-  };
-
-  //console.log(fabricCanvas);
-
-  const cropImage = (imgCropping) => {
-    if (imgCropping) {
-      // Get the image element
-      const imageElement = imageRef.current;
-
-      // Calculate cropping dimensions based on the original image size
-      const scaleX = imageElement.naturalWidth / imageElement.width;
-      const scaleY = imageElement.naturalHeight / imageElement.height;
-
-      const croppedAreaPixels = {
-        x: crop.x * scaleX,
-        y: crop.y * scaleY,
-        width: crop.width * scaleX,
-        height: crop.height * scaleY,
-      };
-
-      // Use the getCroppedImg function to get the cropped image
-      getCroppedImg(selectedImage, croppedAreaPixels).then((croppedImage) => {
-        // Dispatch setCropping(false) to exit cropping mode
-      dispatch(setCropping(false));
-
-        // You can now update the Redux state with the cropped image
-        // For example, you can dispatch an action like setCropImage(croppedImage)
-        // to store the cropped image in your Redux store.
-      });
-    }
-  };
-
-
   /* ---------------------------------------------- */
 
   
@@ -480,32 +347,9 @@ const handlePaste = () => {
         <div className="flex justify-center text-center align-middle">
           <h1></h1>
           <canvas className="mt-10 mb-10 rounded " ref={canvasRef}></canvas>
-          {/* ------------------------------------- */}
-          {/* <TextTool fabricCanvas={fabricCanvas} />{" "} */}
           
-          {/* ------------------------------------- */}
         </div>
-        {/* ----------------------------- */}
-
-        {/* <div>
-          <div className={`bg-slate-600 text-white`}>
-            <Icon onTextToolClick={handleTextToolClick} />
-          </div>
-          {showTextEdit && (
-            <div className="text-tool-edit">
-              <form onSubmit={handleTextSubmit}>
-                <textarea
-                  value={text}
-                  onChange={handleTextChange}
-                  placeholder="Enter your text..."
-                />
-                <button type="submit">Apply</button>
-              </form>
-            </div>
-          )}
-        </div> */}
-
-        {/* ----------------------------- */}
+        
         <div className="mt-10 pt-2">
           <label className="mx-2 py-1" htmlFor="">
             Pen WIdth - {penWidth}
@@ -551,41 +395,11 @@ const handlePaste = () => {
              Paste
           </button>
 
-            {/* <button className="btn" onClick={handleDrawing}>
-                Drawing
-            </button> */}
+        
 
           <button className="btn btn-success" onClick={() => downloadHandler()}>
             {" "}
             Download
-          </button>
-
-          {/* <button className="btn" onClick={rulerHandeler}>ruler btn</button> */}
-
-          {/* <img src={state.image || selectedImage} alt="" /> */}
-          {/* <button onClick={()=>clearHandler()}> Clear</button> */}
-          {/* <Modal></Modal> */}
-          {/* ------------------------------------------------- */}
-          {imgCropping ? (
-            <>
-              <button
-                className="btn btn-danger"
-                onClick={() => dispatch(setCropping(false))}>
-                Cancel Crop
-              </button>
-              <button className="btn btn-success" onClick={cropImage}>
-                Apply Crop
-              </button>
-            </>
-          ) : (
-            <button
-              className="btn btn-primary"
-              onClick={() => dispatch(setCropping(true))}>
-              Start Crop
-            </button>
-          )}
-          <button className="btn btn-success" onClick={cropImage}>
-            Crop Image
           </button>
           
         </div>
