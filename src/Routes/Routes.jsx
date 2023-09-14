@@ -20,6 +20,7 @@ import Report from "../Pages/Dashboard/report";
 import DemoCanvas from "../Pages/Component/About/Canvas/DemoCanvas";
 import CanvasWithDeleteFunctionality from "../Pages/Component/About/Canvas/DemoCanvas";
 
+
 // import { Canvas } from "fabric/fabric-impl";
 
 const router = createBrowserRouter([
@@ -41,7 +42,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/canvas",
-        element: <CanvasWithDeleteFunctionality></CanvasWithDeleteFunctionality>
+        element: <DemoCanvas></DemoCanvas>
       },
       {
         path: "/dropbox",

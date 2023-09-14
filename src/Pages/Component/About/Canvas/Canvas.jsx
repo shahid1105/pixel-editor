@@ -18,6 +18,7 @@ import getCroppedImg from "./getCroppedImg";
 import { setCropping } from "../../../../Redux/Crop";
 import { addTextBox } from "../../../../Redux/TextBox";
 import { TbRuler } from "react-icons/tb";
+import { setRectangleMarqueTool } from "../../../../Redux/RectangleMarqueToolReducer";
 
 /* -----------for commit-------------------- */
 
@@ -76,7 +77,7 @@ const Canvas = ({ selectedCanvasColor }) => {
   //
 
   const canvasRef = useRef(null);
-  var canvas;
+  // var canvas;
   
 
   
@@ -84,7 +85,7 @@ const Canvas = ({ selectedCanvasColor }) => {
   useEffect(() => {
 
 
-    canvas = new fabric.Canvas(canvasRef.current, {
+    const canvas = new fabric.Canvas(canvasRef.current, {
       
       
 
@@ -117,7 +118,7 @@ const Canvas = ({ selectedCanvasColor }) => {
 
 
     fabric.Image.fromURL(selectedImage, function (oImg) {
-      // canvas.renderAll.bind(canvas);
+      canvas.renderAll.bind(canvas);
       canvas.add(oImg);
       oImg.scaleToHeight(300);
       oImg.scaleToWidth(300);
@@ -125,6 +126,7 @@ const Canvas = ({ selectedCanvasColor }) => {
       // canvas.renderAll.bind(canvas);
       canvas.requestRenderAll();
 
+      
 
 
       // fabric.CircleBrush;
@@ -191,6 +193,7 @@ useEffect(()=>{
     fabricCanvas?.add(rect);
     fabricCanvas?.setActiveObject(rect);
     fabricCanvas?.requestRenderAll();
+    dispatch(setRectangleMarqueTool(false));
     
   }
 
@@ -265,13 +268,101 @@ const addACircle = () => {
 const deleteSelectedObject = () => {
   const activeObject = fabricCanvas.getActiveObject();
   if (activeObject) {
+    // fabricCanvas.bringToFront(layer1Object);
+
     fabricCanvas.remove(activeObject);
     fabricCanvas.discardActiveObject();
     fabricCanvas.requestRenderAll();
   }
 };
 
+//--------------Layer Options --------------
 
+const bringToFront = () => {
+  if (fabricCanvas && fabricCanvas.getActiveObject()) {
+    fabricCanvas.bringToFront(fabricCanvas.getActiveObject());
+    fabricCanvas.requestRenderAll();
+  }
+};
+
+const sendToBack = () => {
+  if (fabricCanvas && fabricCanvas.getActiveObject()) {
+    fabricCanvas.sendToBack(fabricCanvas.getActiveObject());
+    fabricCanvas.requestRenderAll();
+  }
+};
+
+
+//---------copy Paste with Ctrl + C / Ctrl+V----------
+
+useEffect(() => {
+  const handleKeyDown = (e) => {
+    // Check if Ctrl (or Cmd on Mac) and 'C' are pressed
+    if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
+      alert('Ctrl+C (or Cmd+C on Mac) pressed!');
+      // handleCopy();
+      
+
+      // if (fabricCanvas) {
+      //   fabricCanvas.getActiveObject().clone((cloned) => {
+      //     fabricCanvas.clipboard = cloned;
+      //   });
+      // }
+    }
+    else  if ((e.ctrlKey || e.metaKey) && e.key === 'v') {
+      // alert('Ctrl+V (or Cmd+V on Mac) pressed!');
+      handlePaste();
+
+      // if (fabricCanvas && fabricCanvas.clipboard) {
+      //   fabricCanvas.clipboard.clone((cloned) => {
+      //     fabricCanvas.discardActiveObject();
+      //     cloned.set({
+      //       left: 100, // Adjust the paste position as needed
+      //       top: 100,
+      //     });
+      //     fabricCanvas.add(cloned);
+      //     fabricCanvas.setActiveObject(cloned);
+      //     fabricCanvas.requestRenderAll();
+      //   });
+      // }
+    }
+  };
+
+  // Add event listener for keydown
+  window.addEventListener('keydown', handleKeyDown);
+
+  // // Cleanup: remove the event listener when the component unmounts
+  return () => {
+    window.removeEventListener('keydown', handleKeyDown);
+  };
+},[]);
+
+
+
+//------------Copy/Paste Using button---------
+
+const handleCopy = () => {
+  if (fabricCanvas) {
+    fabricCanvas.getActiveObject().clone((cloned) => {
+      fabricCanvas.clipboard = cloned;
+    });
+  }
+};
+
+const handlePaste = () => {
+  if (fabricCanvas && fabricCanvas.clipboard) {
+    fabricCanvas.clipboard.clone((cloned) => {
+      fabricCanvas.discardActiveObject();
+      cloned.set({
+        left: 100, // Adjust the paste position as needed
+        top: 100,
+      });
+      fabricCanvas.add(cloned);
+      fabricCanvas.setActiveObject(cloned);
+      fabricCanvas.requestRenderAll();
+    });
+  }
+};
 
   /* ----------------------------------------------- */
   useEffect(() => {
@@ -301,6 +392,7 @@ const deleteSelectedObject = () => {
       // console.log("Change Pen WIdth");
     }
   };
+
   const changePenColor = (color) => {
     if (fabricCanvas) {
       fabricCanvas.freeDrawingBrush.color = color;
@@ -383,7 +475,7 @@ const deleteSelectedObject = () => {
 
   
   return (
-    <div className="container  mx-auto bg-purple-400 h-[100%] text-purple-700">
+    <div className="container mx-auto bg-gray-200 h-[100%] text-purple-700">
       <div>
         <div className="flex justify-center text-center align-middle">
           <h1></h1>
@@ -445,6 +537,18 @@ const deleteSelectedObject = () => {
           </button>
           <button className="btn" onClick={deleteSelectedObject}>
              Delete
+          </button>
+          <button className="btn" onClick={bringToFront}>
+             Being Front
+          </button>
+          <button className="btn" onClick={sendToBack}>
+             Beint Back
+          </button>
+          <button className="btn" onClick={handleCopy}>
+             Copy
+          </button>
+          <button className="btn" onClick={handlePaste}>
+             Paste
           </button>
 
             {/* <button className="btn" onClick={handleDrawing}>

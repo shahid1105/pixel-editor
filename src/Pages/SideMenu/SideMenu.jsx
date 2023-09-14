@@ -31,7 +31,7 @@ const SideMenu = () => {
 
   const sideMenuOption = (
     <>
-      <div className="bg-purple-400 w-fit text-black rounded-full mx-2 md:mx-4  my-1">
+      <div className="bg-gray-200 w-fit text-black rounded-full mx-2 md:mx-4  my-1">
         {user ? (
           <div className="flex items-center">
             <div className="avatar">
@@ -52,7 +52,7 @@ const SideMenu = () => {
           </div>
         )}
       </div>
-      <ul className="menu p-4 w-60 text-md h-full text-black md:text-white ">
+      <ul className="menu p-4 w-60 text-md h-full text-black">
         <li className="text-center ">
           <Link to="/home" className="sidebar-link">
             <FaHome className="sidebar-icon" /> Home
@@ -117,7 +117,7 @@ const SideMenu = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-12 h-[590px]">
-      <div className="col-span-2 bg-gray-600">
+      <div className="col-span-2 bg-gray-200 text-black">
         {/* <div className="bg-white text-black rounded-full mx-2 my-5">
           {user ? (
             <div className="flex items-center">
