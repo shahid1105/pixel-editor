@@ -5,9 +5,10 @@ import cropReducer from "./Crop";
 import rectangleMarqueToolReducer from "./RectangleMarqueToolReducer";
 import { textBoxReducer } from "./TextBox";
 import lassoReducer from "./Lasso";
-
 import canvasReducer from "./CanvasReducer";
 import colorReducer from "./Color";
+
+
 
 
 
@@ -16,9 +17,10 @@ const rootReducer = combineReducers({
     cropReducer: cropReducer,
     rectangleMarqueToolReducer: rectangleMarqueToolReducer,
     textBoxReducer: textBoxReducer,
-    magneticLasso : lassoReducer,
+    magneticLasso: lassoReducer,
     canvasReducer: canvasReducer,
     colorReducer: colorReducer,
+
 });
 
 export default rootReducer;
