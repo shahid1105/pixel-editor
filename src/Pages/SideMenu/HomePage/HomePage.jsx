@@ -55,7 +55,7 @@ const HomePage = () => {
   <div className="hero-overlay bg-opacity-60"></div>
   <div className="hero-content text-center text-neutral-content">
   <div className="md:mx-auto md:max-w-screen-md lg:max-w-screen-lg fixe ">
-      <h3 className="text-4xl text-gray-400 md:text-5xl font-bold text-center uppercase">
+      <h3 className="text-4xl text-gray-200 md:text-5xl font-bold text-center uppercase">
         <span className="text-purple-600 text-6xl md:text-8xl">P</span>!xel
         Editor
       </h3>

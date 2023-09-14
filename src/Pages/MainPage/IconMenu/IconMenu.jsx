@@ -116,7 +116,7 @@ const IconMenu = () => {
 
   return (
     <div className="">
-      <div className="navbar bg-gray-600 text-white border-b-2">
+      <div className="navbar bg-white text-black border-b-2">
 
 
 
@@ -169,7 +169,7 @@ const IconMenu = () => {
           <Icon></Icon>
         </div>
 
-        <div className="md:col-span-9 bg-purple-400 border-4 border-black ">
+        <div className="md:col-span-9 h-screen bg-gray-300 ">
           {/* <ImageEditor></ImageEditor> */}
           <Canvas selectedCanvasColor={selectedCanvasColor}></Canvas>
         </div>

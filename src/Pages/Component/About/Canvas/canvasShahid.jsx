@@ -14,7 +14,7 @@ import { addTextBox, removeTextBox } from "../../../../Redux/TextBox";
 
 /* ------------------------------- */
 
-const Canvas = ({ selectedCanvasColor }) => {
+const Canvas2 = ({ selectedCanvasColor }) => {
   const selectedImage = useSelector(
     (state) => state.selectedImage.selectedImage
   );
@@ -129,23 +129,23 @@ const Canvas = ({ selectedCanvasColor }) => {
           canvas.add(oImg);
 
           canvas.renderAll();
-          if (textbox) {
-            const textBox = new fabric.Textbox(textbox?.text, {
-              left: textbox?.left,
-              top: textbox?.top,
-              width: textbox?.width,
-              fontSize: textbox?.fontSize,
-              fill: textbox?.fill,
-            });
-            textBox.set({
-              editable: true,
-              selectable: true,
-              placeholder: true,
-            });
+          // if (textbox) {
+          //   const textBox = new fabric.Textbox(textbox?.text, {
+          //     left: textbox?.left,
+          //     top: textbox?.top,
+          //     width: textbox?.width,
+          //     fontSize: textbox?.fontSize,
+          //     fill: textbox?.fill,
+          //   });
+          //   textBox.set({
+          //     editable: true,
+          //     selectable: true,
+          //     placeholder: true,
+          //   });
 
-            canvas.add(textBox);
-            canvas.renderAll();
-          }
+          //   canvas.add(textBox);
+          //   canvas.renderAll();
+          // }
         },
         (error) => {
           // Handle the error here
@@ -310,4 +310,4 @@ const Canvas = ({ selectedCanvasColor }) => {
   );
 };
 
-export default Canvas;
+export default Canvas2;

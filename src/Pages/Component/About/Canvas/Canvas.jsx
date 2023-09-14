@@ -7,21 +7,19 @@ import storeData from "../../../LinkList";
 import { useLocation } from "react-router-dom";
 import Icon from "../../../MainPage/IconMenu/Icon";
 import TextTool from "./textTool";
-// import Modal from "./Modal";
 
-/* ------------------------------- */
 
-// import { useDispatch } from "react-redux";
-import { setSelectedImage } from "../../../../Redux/SelectedImage";
-
-// import getCroppedImg from "./getCroppedImg";
-// // import React from "react";
-// import { setCropping } from "../../../../Redux/Crop";
+import { setRectangleMarqueTool } from "../../../../Redux/RectangleMarqueToolReducer";
 
 /* -----------for commit-------------------- */
 
+
 const Canvas = ({ selectedCanvasColor }) => {
+
+  const dispatch = useDispatch();
+
   const selectedImage = useSelector(
+
     (state) => state.selectedImage.selectedImage
   );
 
@@ -32,7 +30,7 @@ const Canvas = ({ selectedCanvasColor }) => {
   //console.log(isRectangleMarqueToolClick);
   //textbox reducer
   const textbox = useSelector((state) => state.textBoxReducer.textBox);
-  console.log("hello textbox");
+  // console.log("hello textbox");
 
   //console.log(selectedImage);
   const imgCropping = useSelector((state) => state.cropReducer.isCropping);
@@ -52,13 +50,24 @@ const Canvas = ({ selectedCanvasColor }) => {
   // const defaultBackgroundColor = "white";
   const [penWidth, setPenWidth] = useState(3);
   const [penColor, setPenColor] = useState(3);
-
+  const [penTool,setPenTool] = useState(false);
+  
   const [fabricCanvas, setFabricCanvas] = useState();
 
-  const canvasRef = useRef(null);
 
+  const canvasRef = useRef(null);
+  // var canvas;
+  
+
+  
+  
   useEffect(() => {
+
+
     const canvas = new fabric.Canvas(canvasRef.current, {
+      
+      
+
       backgroundColor: selectedCanvasColor,
 
       width: `${width || width2}`,
@@ -69,100 +78,211 @@ const Canvas = ({ selectedCanvasColor }) => {
       selection: true,
       // selectionColor: "yellow",
       // selectionLineWidth: 3,
-      preserveObjectStacking: true,
+      // preserveObjectStacking: true,
     });
 
     setFabricCanvas(canvas);
-
-    // console.log(isRectangleMarqueToolClick)
+    
 
     // -----------------Image Start---------------
 
-    // const ImgSrc={state.image || selectedImage};
+
+
     fabric.Image.fromURL(selectedImage, function (oImg) {
       canvas.renderAll.bind(canvas);
-
       canvas.add(oImg);
       oImg.scaleToHeight(300);
       oImg.scaleToWidth(300);
-
-      // canvas.renderAll.bind(canvas);
       canvas.requestRenderAll();
 
-      fabric.CircleBrush;
+      
     });
 
-    // -----------------Circle Start---------------
+  return () =>{
+    canvas.dispose();
+  }
 
-    if (canvas) {
-      const circle = new fabric.Circle({
-        radius: 50,
-        fill: "yellow",
-        top: 50,
-        left: 50,
-        selectable: true,
-      });
-      circle.set({ radius: 50, fill: "#f00", opacity: 0.7 });
-      canvas.add(circle);
-      // canvas.renderAll();
-      canvas.requestRenderAll();
-    }
+}, [canvasRef]);
 
-    /* --------------------text box---------------------------- */
-    if (textbox) {
-      console.log("hello textbox");
-      const textBox = new fabric.Textbox(textbox?.text, {
-        left: textbox?.left,
-        top: textbox?.top,
-        width: textbox?.width,
-        fontSize: textbox?.fontSize,
-        fill: textbox?.fill,
-        editable: true,
-        selectable: true,
-      });
+// -----------------Rectangle Start---------------
 
-      canvas.add(textBox);
-      canvas.requestRenderAll();
-    }
+useEffect(()=>{
+  if(isRectangleMarqueToolClick){
+    console.log('hello rect----')
+    const rect = new fabric.Rect({
+      height:200,
+      width: 100,
+      fill: '#f0f',
+      top: 50,
+      left: 50,
+    });
 
-    // -----------------Rectangle Start---------------
+    fabricCanvas?.add(rect);
+    fabricCanvas?.setActiveObject(rect);
+    fabricCanvas?.requestRenderAll();
+    dispatch(setRectangleMarqueTool(false));
+    
+  }
 
-    if (isRectangleMarqueToolClick) {
-      console.log("hello rect----");
-      const rect = new fabric.Rect({
-        height: 200,
-        width: 100,
-        fill: "#f0f",
-        top: 50,
-        left: 50,
-      });
-      // canvas.renderAll.bind(canvas);
+},[isRectangleMarqueToolClick]);
 
-      canvas.add(rect);
-      canvas.setActiveObject(rect);
-      canvas.requestRenderAll();
-    }
 
     // --------------Rectangle End---------------
 
-    return () => {
-      canvas.dispose();
-    };
-  }, []);
 
-  const addACircle = () => {
-    const circle = new fabric.Circle({
-      radius: 50,
-      fill: "yellow",
-      top: 50,
-      left: 50,
+    /* --------------------text box ---------------------------- */
+
+useEffect(()=>{
+  if (textbox) {
+      
+    const textBox = new fabric.Textbox(textbox?.text, {
+      left: textbox?.left,
+      top: textbox?.top,
+      width: textbox?.width,
+      fontSize: textbox?.fontSize,
+      fill: textbox?.fill,
+      editable: true,
       selectable: true,
     });
-    circle.set({ radius: 50, fill: "#f00", opacity: 0.7 });
-    fabricCanvas.add(circle);
-    fabricCanvas.setActiveObject(circle);
+    fabricCanvas?.add(textBox);
+    fabricCanvas?.requestRenderAll();
+  }
+},[textbox])
+
+    /* --------------------PenTool ---------------------------- */
+
+    useEffect(() => {
+      if (penTool) {
+        console.log('hello PenTool');
+        if (fabricCanvas) {
+          fabricCanvas.isDrawingMode = true;
+        }
+      } else {
+        if (fabricCanvas) {
+          fabricCanvas.isDrawingMode = false;
+        }
+      }
+    }, [penTool]);
+
+
+    // -----------------Circle Start---------------
+
+
+const addACircle = () => {
+  const circle = new fabric.Circle({
+    radius: 50,
+    fill: "yellow",
+    top: 50,
+    left: 50,
+    selectable:true,
+  });
+  circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
+  fabricCanvas.add(circle); 
+  fabricCanvas.setActiveObject(circle);
+  fabricCanvas.requestRenderAll();
+  
+};
+
+// ------------DDelete Option --------------
+
+const deleteSelectedObject = () => {
+  const activeObject = fabricCanvas.getActiveObject();
+  if (activeObject) {
+    // fabricCanvas.bringToFront(layer1Object);
+
+    fabricCanvas.remove(activeObject);
+    fabricCanvas.discardActiveObject();
     fabricCanvas.requestRenderAll();
+  }
+};
+
+//--------------Layer Options --------------
+
+const bringToFront = () => {
+  if (fabricCanvas && fabricCanvas.getActiveObject()) {
+    fabricCanvas.bringToFront(fabricCanvas.getActiveObject());
+    fabricCanvas.requestRenderAll();
+  }
+};
+
+const sendToBack = () => {
+  if (fabricCanvas && fabricCanvas.getActiveObject()) {
+    fabricCanvas.sendToBack(fabricCanvas.getActiveObject());
+    fabricCanvas.requestRenderAll();
+  }
+};
+
+
+//---------copy Paste with Ctrl + C / Ctrl+V----------
+
+useEffect(() => {
+  const handleKeyDown = (e) => {
+    // Check if Ctrl (or Cmd on Mac) and 'C' are pressed
+    if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
+      alert('Ctrl+C (or Cmd+C on Mac) pressed!');
+      // handleCopy();
+      
+
+      // if (fabricCanvas) {
+      //   fabricCanvas.getActiveObject().clone((cloned) => {
+      //     fabricCanvas.clipboard = cloned;
+      //   });
+      // }
+    }
+    else  if ((e.ctrlKey || e.metaKey) && e.key === 'v') {
+      // alert('Ctrl+V (or Cmd+V on Mac) pressed!');
+      handlePaste();
+
+      // if (fabricCanvas && fabricCanvas.clipboard) {
+      //   fabricCanvas.clipboard.clone((cloned) => {
+      //     fabricCanvas.discardActiveObject();
+      //     cloned.set({
+      //       left: 100, // Adjust the paste position as needed
+      //       top: 100,
+      //     });
+      //     fabricCanvas.add(cloned);
+      //     fabricCanvas.setActiveObject(cloned);
+      //     fabricCanvas.requestRenderAll();
+      //   });
+      // }
+    }
   };
+
+  // Add event listener for keydown
+  window.addEventListener('keydown', handleKeyDown);
+
+  // // Cleanup: remove the event listener when the component unmounts
+  return () => {
+    window.removeEventListener('keydown', handleKeyDown);
+  };
+},[]);
+
+
+
+//------------Copy/Paste Using button---------
+
+const handleCopy = () => {
+  if (fabricCanvas) {
+    fabricCanvas.getActiveObject().clone((cloned) => {
+      fabricCanvas.clipboard = cloned;
+    });
+  }
+};
+
+const handlePaste = () => {
+  if (fabricCanvas && fabricCanvas.clipboard) {
+    fabricCanvas.clipboard.clone((cloned) => {
+      fabricCanvas.discardActiveObject();
+      cloned.set({
+        left: 100, // Adjust the paste position as needed
+        top: 100,
+      });
+      fabricCanvas.add(cloned);
+      fabricCanvas.setActiveObject(cloned);
+      fabricCanvas.requestRenderAll();
+    });
+  }
+};
 
   /* ----------------------------------------------- */
   useEffect(() => {
@@ -175,10 +295,6 @@ const Canvas = ({ selectedCanvasColor }) => {
   }, [selectedCanvasColor, fabricCanvas]);
   /* ----------------------------------------------- */
 
-  // const text = new fabric.Text("I'm text ", {
-  //   fontSize: 40,
-  // });
-  // fabricCanvas.add(text);
 
   const changePenWidth = (width) => {
     if (fabricCanvas) {
@@ -188,6 +304,7 @@ const Canvas = ({ selectedCanvasColor }) => {
       // console.log("Change Pen WIdth");
     }
   };
+
   const changePenColor = (color) => {
     if (fabricCanvas) {
       fabricCanvas.freeDrawingBrush.color = color;
@@ -210,121 +327,20 @@ const Canvas = ({ selectedCanvasColor }) => {
     // console.log("Download Button");
   };
 
-  // const handleDrawing = () =>{
-  //   if (fabricCanvas) {
-  //     fabricCanvas.selection= false;
-  //     fabricCanvas.freeDrawingBrush = true;
-  //     // fabricCanvas.freeDrawingBrush = new fabric.PencilBrush('canvas');
-
-  //     // fabricCanvas.freeDrawingBrush.width = 5;
-  //     // fabricCanvas.freeDrawingBrush.color = color;
-  //     // setPenColor(color);
-  //     // fabricCanvas.renderAll.bind(fabricCanvas);
-  //     console.log("Change Pen Color");
-
-  //   }
-  // }
-  // const clearHandler = () =>{
-  //     if(fabricCanvas){
-  //         fabricCanvas.clear();
-  //         fabricCanvas.backgroundColor=defaultBackgroundColor;
-  //         // setFabricCanvas()
-  //     }
-  // }
-
-  /* -------------------------------------------------------------------- */
-
-  // const [showTextEdit, setShowTextEdit] = useState(false);
-  // const [text, setText] = useState("");
-
-  // const handleTextToolClick = () => {
-  //   setShowTextEdit(true);
-  // };
-
-  // const handleTextChange = (event) => {
-  //   setText(event.target.value);
-  // };
-
-  // const handleTextSubmit = (event) => {
-  //   event.preventDefault();
-  //   // Do something with the entered text
-  //   setShowTextEdit(false);
-  // };
-
-  /* ------------------------------------------------------------------ */
-
   /* ---------------------------------------------- */
 
-  const dispatch = useDispatch();
-
-  dispatch(setSelectedImage(selectedImage));
-
-  const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
-
-  // Reference to the image element for cropping
-  const imageRef = React.createRef();
-
-  const onCropChange = (newCrop) => {
-    setCrop(newCrop);
-  };
-
-  const onZoomChange = (newZoom) => {
-    setZoom(newZoom);
-  };
-
-  //console.log(fabricCanvas);
-
-  const cropImage = (imgCropping) => {
-    if (imgCropping) {
-      // Get the image element
-      const imageElement = imageRef.current;
-
-      // Calculate cropping dimensions based on the original image size
-      const scaleX = imageElement.naturalWidth / imageElement.width;
-      const scaleY = imageElement.naturalHeight / imageElement.height;
-
-      const croppedAreaPixels = {
-        x: crop.x * scaleX,
-        y: crop.y * scaleY,
-        width: crop.width * scaleX,
-        height: crop.height * scaleY,
-      };
-
-      // Use the getCroppedImg function to get the cropped image
-      getCroppedImg(selectedImage, croppedAreaPixels).then((croppedImage) => {
-        // Dispatch setCropping(false) to exit cropping mode
-        dispatch(setCropping(false));
-
-        // You can now update the Redux state with the cropped image
-        // For example, you can dispatch an action like setCropImage(croppedImage)
-        // to store the cropped image in your Redux store.
-      });
-    }
-  };
-
-  /* ---------------------------------------------- */
+  
 
   return (
-    <div className="container  mx-auto bg-purple-400">
+    <div className="container mx-auto bg-gray-200 h-[100%] text-purple-700">
       <div>
         <div className="flex justify-center text-center align-middle">
           <h1></h1>
-          <canvas className=" " ref={canvasRef}></canvas>
-
-          {/* Render the TextTool component */}
-          {/* Display the selected image */}
-          {/* <img
-            ref={imageRef}
-            src={selectedImage}
-            alt="Selected Image"
-            style={{ maxWidth: "100%", maxHeight: "400px" }}
-          /> */}
-          {/* ------------------------------------- */}
+          <canvas className="mt-10 mb-10 rounded " ref={canvasRef}></canvas>
+          
         </div>
-        {/* ----------------------------- */}
-
-        <div className="pt-2 mb-2 grid-cols-2 items-center justify-center">
+        
+        <div className="mt-10 pt-2">
           <label className="mx-2 py-1" htmlFor="">
             Pen WIdth - {penWidth}
           </label>
@@ -350,9 +366,26 @@ const Canvas = ({ selectedCanvasColor }) => {
             Add Circle
           </button>
 
-          {/* <button className="btn" onClick={handleDrawing}>
-                Drawing
-            </button> */}
+          <button className="btn" onClick={()=>setPenTool(!penTool)}>
+            {penTool?'Disable':'Enable'} PenTool
+          </button>
+          <button className="btn" onClick={deleteSelectedObject}>
+             Delete
+          </button>
+          <button className="btn" onClick={bringToFront}>
+             Being Front
+          </button>
+          <button className="btn" onClick={sendToBack}>
+             Beint Back
+          </button>
+          <button className="btn" onClick={handleCopy}>
+             Copy
+          </button>
+          <button className="btn" onClick={handlePaste}>
+             Paste
+          </button>
+
+        
 
           <button
             className="btn btn-success mb-2 md:mb-0"
@@ -360,34 +393,7 @@ const Canvas = ({ selectedCanvasColor }) => {
             {" "}
             Download
           </button>
-
-          {/* <button className="btn" onClick={rulerHandeler}>ruler btn</button> */}
-
-          {/* <img src={state.image || selectedImage} alt="" /> */}
-          {/* <button onClick={()=>clearHandler()}> Clear</button> */}
-          {/* <Modal></Modal> */}
-          {/* ------------------------------------------------- */}
-          {imgCropping ? (
-            <>
-              <button
-                className="btn btn-danger"
-                onClick={() => dispatch(setCropping(false))}>
-                Cancel Crop
-              </button>
-              <button className="btn btn-success" onClick={cropImage}>
-                Apply Crop
-              </button>
-            </>
-          ) : (
-            <button
-              className="btn btn-primary"
-              onClick={() => dispatch(setCropping(true))}>
-              Start Crop
-            </button>
-          )}
-          <button className="btn btn-success" onClick={cropImage}>
-            Crop Image
-          </button>
+          
         </div>
       </div>
     </div>
