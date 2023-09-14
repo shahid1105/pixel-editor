@@ -30,14 +30,17 @@ import { addTextBox, removeTextBox } from "../../../Redux/TextBox";
 
 /* ------------------------------ */
 
-const Icon = () => {
+const Icon = ({ textColor }) => {
+  // console.log(textColor);
   /* -------------------------------------------- */
   const isCropping = useSelector((state) => state.cropReducer.isCropping);
   const [isTextboxActive, setIsTextboxActive] = useState(false);
 
-  const isRectangleMarqueToolClick = useSelector((state) =>state.rectangleMarqueToolReducer.isRectangleMarqueToolClick);
+  const isRectangleMarqueToolClick = useSelector(
+    (state) => state.rectangleMarqueToolReducer.isRectangleMarqueToolClick
+  );
 
-
+  /* ----------------------------------------------------- */
   const dispatch = useDispatch();
 
   const handleCropToolClick = () => {
@@ -58,7 +61,7 @@ const Icon = () => {
         top: 50,
         width: 200,
         fontSize: 20,
-        fill: "black",
+        fill: textColor,
         editable: true,
         selectable: true,
         placeholder: true,
@@ -70,24 +73,31 @@ const Icon = () => {
     setIsTextboxActive(!isTextboxActive);
   };
 
-
-  const handleRectangleToolClick = () =>{
+  const handleRectangleToolClick = () => {
     dispatch(setRectangleMarqueTool(!isRectangleMarqueToolClick));
-  }
+  };
 
   /* -------------------------------------------- */
   return (
     <>
       <BsArrowsMove title="Move Tool"></BsArrowsMove>
-      
+
       <div className="dropdown dropdown-right">
         <label tabIndex={0} className="">
           <TbMarquee2 title="Rectangular Marquee Tool"></TbMarquee2>
         </label>
-        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-gray-900 text-white  rounded-box w-52 text-xs">
-          
-          <li onClick={handleRectangleToolClick}><a> Rectangular Marque Tools{isRectangleMarqueToolClick?'ok':'no'}</a></li>
-          <li ><a> Elliptical Marque Tools</a></li>
+        <ul
+          tabIndex={0}
+          className="dropdown-content z-[1] menu p-2 shadow bg-gray-900 text-white  rounded-box w-52 text-xs">
+          <li onClick={handleRectangleToolClick}>
+            <a>
+              {" "}
+              Rectangular Marque Tools{isRectangleMarqueToolClick ? "ok" : "no"}
+            </a>
+          </li>
+          <li>
+            <a> Elliptical Marque Tools</a>
+          </li>
         </ul>
       </div>
       <LuLasso title="Magnetic Lasso Tool"></LuLasso>

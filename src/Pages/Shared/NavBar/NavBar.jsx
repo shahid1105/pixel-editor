@@ -35,7 +35,9 @@ const NavBar = () => {
     <>
       <ul className="lg:flex  justify-center items-center gap-2 md:gap-4 px-2 font-semibold">
         <li>
-          <Link className="hover:text-purple-500" to="/">
+          <Link
+            className="hover:text-purple-500 font-bold bg-gradient-to-l from-white to-white text-transparent bg-clip-text"
+            to="/">
             Home
           </Link>
         </li>
@@ -81,7 +83,7 @@ const NavBar = () => {
           <Link className="hover:text-purple-500">Layer</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500">Filter</Link>
+          <Link className="hover:text-purple-500 font-bold">Filter</Link>
         </li>
         <li>
           <Link className="hover:text-purple-500">View</Link>

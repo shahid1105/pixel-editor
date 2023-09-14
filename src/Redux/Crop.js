@@ -1,4 +1,3 @@
-
 // Reducer
 const initialState = {
     isCropping: false,
