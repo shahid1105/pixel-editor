@@ -77,7 +77,7 @@ const NavBar = () => {
         </div>
 
         <li>
-          <Link className="hover:text-purple-500">Edit</Link>
+          <Link className="hover:text-purple-500 active:text-white">Edit</Link>
         </li>
         <li>
           <Link className="hover:text-purple-500">Layer</Link>

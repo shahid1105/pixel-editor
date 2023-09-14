@@ -3,9 +3,16 @@ import { fabric } from "fabric";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import Icon from "../../../MainPage/IconMenu/Icon";
+import TextTool from "./textTool";
+
+import { setRectangleMarqueTool } from "../../../../Redux/RectangleMarqueToolReducer";
+
+/* -----------for commit-------------------- */
 
 const Canvas = ({ selectedCanvasColor }) => {
   const dispatch = useDispatch();
+
   const selectedImage = useSelector(
     (state) => state.selectedImage.selectedImage
   );
@@ -201,6 +208,7 @@ const Canvas = ({ selectedCanvasColor }) => {
     }
   };
   /* ----------------------------------------- */
+  const [penTool, setPenTool] = useState(false);
 
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
@@ -214,7 +222,7 @@ const Canvas = ({ selectedCanvasColor }) => {
       selection: true,
       // selectionColor: "yellow",
       // selectionLineWidth: 3,
-      preserveObjectStacking: true,
+      // preserveObjectStacking: true,
     });
 
     setFabricCanvas(canvas);
@@ -233,24 +241,14 @@ const Canvas = ({ selectedCanvasColor }) => {
       canvas.requestRenderAll();
     });
 
-    // -----------------Circle Start---------------
+    return () => {
+      canvas.dispose();
+    };
+  }, [canvasRef]);
 
-    if (canvas) {
-      const circle = new fabric.Circle({
-        radius: 50,
-        fill: "yellow",
-        top: 50,
-        left: 50,
-        selectable: true,
-      });
-      circle.set({ radius: 50, fill: "#f00", opacity: 0.7 });
-      canvas.add(circle);
-      // canvas.renderAll();
-      canvas.requestRenderAll();
-    }
+  // -----------------Rectangle Start---------------
 
-    // -----------------Rectangle Start---------------
-
+  useEffect(() => {
     if (isRectangleMarqueToolClick) {
       console.log("hello rect----");
       const rect = new fabric.Rect({
@@ -260,19 +258,50 @@ const Canvas = ({ selectedCanvasColor }) => {
         top: 50,
         left: 50,
       });
-      // canvas.renderAll.bind(canvas);
 
-      canvas.add(rect);
-      canvas.setActiveObject(rect);
-      canvas.requestRenderAll();
+      fabricCanvas?.add(rect);
+      fabricCanvas?.setActiveObject(rect);
+      fabricCanvas?.requestRenderAll();
+      dispatch(setRectangleMarqueTool(false));
     }
+  }, [isRectangleMarqueToolClick]);
 
-    // --------------Rectangle End---------------
+  // --------------Rectangle End---------------
 
-    return () => {
-      canvas.dispose();
-    };
-  }, []);
+  /* --------------------text box ---------------------------- */
+
+  useEffect(() => {
+    if (textbox) {
+      const textBox = new fabric.Textbox(textbox?.text, {
+        left: textbox?.left,
+        top: textbox?.top,
+        width: textbox?.width,
+        fontSize: textbox?.fontSize,
+        fill: textbox?.fill,
+        editable: true,
+        selectable: true,
+      });
+      fabricCanvas?.add(textBox);
+      fabricCanvas?.requestRenderAll();
+    }
+  }, [textbox]);
+
+  /* --------------------PenTool ---------------------------- */
+
+  useEffect(() => {
+    if (penTool) {
+      console.log("hello PenTool");
+      if (fabricCanvas) {
+        fabricCanvas.isDrawingMode = true;
+      }
+    } else {
+      if (fabricCanvas) {
+        fabricCanvas.isDrawingMode = false;
+      }
+    }
+  }, [penTool]);
+
+  // -----------------Circle Start---------------
 
   const addACircle = () => {
     const circle = new fabric.Circle({
@@ -288,7 +317,103 @@ const Canvas = ({ selectedCanvasColor }) => {
     fabricCanvas.requestRenderAll();
   };
 
-  /* ----------------canvas background color change-------------------- */
+  // ------------DDelete Option --------------
+
+  const deleteSelectedObject = () => {
+    const activeObject = fabricCanvas.getActiveObject();
+    if (activeObject) {
+      // fabricCanvas.bringToFront(layer1Object);
+
+      fabricCanvas.remove(activeObject);
+      fabricCanvas.discardActiveObject();
+      fabricCanvas.requestRenderAll();
+    }
+  };
+
+  //--------------Layer Options --------------
+
+  const bringToFront = () => {
+    if (fabricCanvas && fabricCanvas.getActiveObject()) {
+      fabricCanvas.bringToFront(fabricCanvas.getActiveObject());
+      fabricCanvas.requestRenderAll();
+    }
+  };
+
+  const sendToBack = () => {
+    if (fabricCanvas && fabricCanvas.getActiveObject()) {
+      fabricCanvas.sendToBack(fabricCanvas.getActiveObject());
+      fabricCanvas.requestRenderAll();
+    }
+  };
+
+  //---------copy Paste with Ctrl + C / Ctrl+V----------
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Check if Ctrl (or Cmd on Mac) and 'C' are pressed
+      if ((e.ctrlKey || e.metaKey) && e.key === "c") {
+        alert("Ctrl+C (or Cmd+C on Mac) pressed!");
+        // handleCopy();
+
+        // if (fabricCanvas) {
+        //   fabricCanvas.getActiveObject().clone((cloned) => {
+        //     fabricCanvas.clipboard = cloned;
+        //   });
+        // }
+      } else if ((e.ctrlKey || e.metaKey) && e.key === "v") {
+        // alert('Ctrl+V (or Cmd+V on Mac) pressed!');
+        handlePaste();
+
+        // if (fabricCanvas && fabricCanvas.clipboard) {
+        //   fabricCanvas.clipboard.clone((cloned) => {
+        //     fabricCanvas.discardActiveObject();
+        //     cloned.set({
+        //       left: 100, // Adjust the paste position as needed
+        //       top: 100,
+        //     });
+        //     fabricCanvas.add(cloned);
+        //     fabricCanvas.setActiveObject(cloned);
+        //     fabricCanvas.requestRenderAll();
+        //   });
+        // }
+      }
+    };
+
+    // Add event listener for keydown
+    window.addEventListener("keydown", handleKeyDown);
+
+    // // Cleanup: remove the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
+  //------------Copy/Paste Using button---------
+
+  const handleCopy = () => {
+    if (fabricCanvas) {
+      fabricCanvas.getActiveObject().clone((cloned) => {
+        fabricCanvas.clipboard = cloned;
+      });
+    }
+  };
+
+  const handlePaste = () => {
+    if (fabricCanvas && fabricCanvas.clipboard) {
+      fabricCanvas.clipboard.clone((cloned) => {
+        fabricCanvas.discardActiveObject();
+        cloned.set({
+          left: 100, // Adjust the paste position as needed
+          top: 100,
+        });
+        fabricCanvas.add(cloned);
+        fabricCanvas.setActiveObject(cloned);
+        fabricCanvas.requestRenderAll();
+      });
+    }
+  };
+
+  /* ------------------Canvas bg color----------------------------- */
   useEffect(() => {
     if (fabricCanvas) {
       // Set the background color again when selectedCanvasColor changes
@@ -299,27 +424,6 @@ const Canvas = ({ selectedCanvasColor }) => {
   }, [selectedCanvasColor, fabricCanvas]);
   /* ------------------------------------------------------------------- */
 
-  /* --------------------text box---------------------------- */
-  useEffect(() => {
-    if (textbox) {
-      console.log("hello textbox");
-      const textBox = new fabric.Textbox(textbox?.text, {
-        left: textbox?.left,
-        top: textbox?.top,
-        width: textbox?.width,
-        fontSize: textbox?.fontSize,
-        fill: color,
-        editable: true,
-        selectable: true,
-      });
-
-      fabricCanvas.add(textBox);
-      fabricCanvas.requestRenderAll();
-    }
-  }, [textbox]);
-
-  /* --------------------text box end---------------------------- */
-
   const changePenWidth = (width) => {
     if (fabricCanvas) {
       fabricCanvas.freeDrawingBrush.width = width;
@@ -328,6 +432,7 @@ const Canvas = ({ selectedCanvasColor }) => {
       // console.log("Change Pen WIdth");
     }
   };
+
   const changePenColor = (color) => {
     if (fabricCanvas) {
       fabricCanvas.freeDrawingBrush.color = color;
@@ -350,6 +455,8 @@ const Canvas = ({ selectedCanvasColor }) => {
     // console.log("Download Button");
   };
 
+  /* ---------------------------------------------- */
+
   const resizeObject = () => {
     if (fabricCanvas) {
       const activeObject = fabricCanvas.getActiveObject();
@@ -363,14 +470,14 @@ const Canvas = ({ selectedCanvasColor }) => {
   };
 
   return (
-    <div className="container  mx-auto bg-gray-200">
+    <div className="container mx-auto bg-gray-200 h-[100%] text-purple-700">
       <div>
         <div className="flex justify-center text-center align-middle">
           <h1></h1>
-          <canvas className=" " ref={canvasRef}></canvas>
+          <canvas className="mt-10 mb-10 rounded " ref={canvasRef}></canvas>
         </div>
 
-        <div className="pt-2 mb-2 grid-cols-2 items-center justify-center">
+        <div className="mt-10 pt-2">
           <label className="mx-2 py-1" htmlFor="">
             Pen WIdth - {penWidth}
           </label>
@@ -396,9 +503,24 @@ const Canvas = ({ selectedCanvasColor }) => {
             Add Circle
           </button>
 
-          {/* <button className="btn" onClick={handleDrawing}>
-                Drawing
-            </button> */}
+          <button className="btn" onClick={() => setPenTool(!penTool)}>
+            {penTool ? "Disable" : "Enable"} PenTool
+          </button>
+          <button className="btn" onClick={deleteSelectedObject}>
+            Delete
+          </button>
+          <button className="btn" onClick={bringToFront}>
+            Being Front
+          </button>
+          <button className="btn" onClick={sendToBack}>
+            Beint Back
+          </button>
+          <button className="btn" onClick={handleCopy}>
+            Copy
+          </button>
+          <button className="btn" onClick={handlePaste}>
+            Paste
+          </button>
 
           <button
             className="btn btn-success mb-2 md:mb-0"

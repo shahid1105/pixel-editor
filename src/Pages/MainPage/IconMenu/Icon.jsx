@@ -70,11 +70,11 @@ const Icon = ({ textColor }) => {
     }
 
     // Toggle the Textbox state
-    setIsTextboxActive(!isTextboxActive);
+    setIsTextboxActive(false);
   };
 
   const handleRectangleToolClick = () => {
-    dispatch(setRectangleMarqueTool(!isRectangleMarqueToolClick));
+    dispatch(setRectangleMarqueTool(true));
   };
 
   /* -------------------------------------------- */
@@ -90,10 +90,7 @@ const Icon = ({ textColor }) => {
           tabIndex={0}
           className="dropdown-content z-[1] menu p-2 shadow bg-gray-900 text-white  rounded-box w-52 text-xs">
           <li onClick={handleRectangleToolClick}>
-            <a>
-              {" "}
-              Rectangular Marque Tools{isRectangleMarqueToolClick ? "ok" : "no"}
-            </a>
+            <a> Rectangular Marque Tools</a>
           </li>
           <li>
             <a> Elliptical Marque Tools</a>
