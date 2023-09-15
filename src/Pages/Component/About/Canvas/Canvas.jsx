@@ -13,7 +13,11 @@ import { setCircleTool } from "../../../../Redux/CircleToolReducer";
 
 const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix,hueRotation,saturation,deleteElement , setDeleteElement, penColor,textColor, setPenColor , penWidth, isBringFront , setBringFront ,isSentToBack, setSentToBack, isCopy, setCopy , isPaste, setPaste, isDownload, setDownload}) => {
   const dispatch = useDispatch();
+  /* ----------------for blur------------- */
+  const isBlur = useSelector((state) => state.blurReducer.blur);
+  // console.log(isBlur);
 
+  /* ----------selected Image ------------ */
   const selectedImage = useSelector(
     (state) => state.selectedImage.selectedImage
   );
@@ -117,7 +121,7 @@ const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix
         });
         activeObject.filters = [contrastFilter];
         activeObject.applyFilters();
-        fabricCanvas.requestRenderAll();
+        fabricCanvas.renderAll();
       }
     }
   }, [contras]);
@@ -156,6 +160,8 @@ const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix
     }
   }, [hueRotation]);
 
+  /* ---------------saturation------------ */
+
   useEffect(() => {
     const newSaturation = parseFloat(saturation);
     if (fabricCanvas) {
@@ -172,6 +178,25 @@ const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix
   }, [saturation]);
 
   /* ---------for filter state end---------------- */
+
+  /* ---------------------blur code start---------------- */
+
+  useEffect(() => {
+    if (fabricCanvas) {
+      const newIsBlur = parseFloat(isBlur);
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        const blurFilter = new fabric.Image.filters.Blur({
+          blur: newIsBlur,
+        });
+        activeObject.filters = [blurFilter];
+        activeObject.applyFilters();
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  }, [isBlur]);
+
+  /* ---------------------blur code end---------------- */
 
   /* -----------------rotate------------------------ */
   const rightRotateImage = () => {

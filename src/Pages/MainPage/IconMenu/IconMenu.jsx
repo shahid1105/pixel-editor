@@ -205,7 +205,8 @@ const IconMenu = () => {
                 <>
                   <button
                     className="btn btn-sm btn-outline"
-                    onClick={handleToggleColorMatrixControl}>
+                    onClick={handleToggleColorMatrixControl}
+                  >
                     ColorMatrix
                   </button>
                   {isColorMatrixControlVisible && (
@@ -230,10 +231,12 @@ const IconMenu = () => {
                 </>
               ) : (
                 <>
-                  <div className="flex gap-4">
+                  {/* <div className="flex gap-4"> */}
+                  <div className="grid grid-cols-2 md:grid-cols-7 gap-2 px-2">
                     <button
                       className="btn btn-sm btn-outline"
-                      onClick={handleToggleRangeInput}>
+                      onClick={handleToggleRangeInput}
+                    >
                       Brightness
                     </button>
                     {showRangeInput && (
@@ -254,7 +257,8 @@ const IconMenu = () => {
 
                     <button
                       className="btn btn-sm btn-outline"
-                      onClick={handleToggleContrastRangeInput}>
+                      onClick={handleToggleContrastRangeInput}
+                    >
                       Contrast
                     </button>
                     {showContrastInput && (
@@ -275,7 +279,8 @@ const IconMenu = () => {
 
                     <button
                       className="btn btn-sm btn-outline"
-                      onClick={handleToggleHueRotationInput}>
+                      onClick={handleToggleHueRotationInput}
+                    >
                       Hue Rotation
                     </button>
                     {showHueRotationInput && (
@@ -296,7 +301,8 @@ const IconMenu = () => {
 
                     <button
                       className="btn btn-sm btn-outline"
-                      onClick={handleToggleSaturationInput}>
+                      onClick={handleToggleSaturationInput}
+                    >
                       Saturation
                     </button>
                     {showSaturationInput && (
@@ -316,7 +322,8 @@ const IconMenu = () => {
                     )}
                     <button
                       className="btn btn-sm btn-outline"
-                      onClick={handleToggleColorMatrixControl}>
+                      onClick={handleToggleColorMatrixControl}
+                    >
                       ColorMatrix
                     </button>
                     {isColorMatrixControlVisible && (
@@ -448,17 +455,19 @@ const IconMenu = () => {
       {/* Icon  */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-0 md:gap-1">
         <div
-          className={`p-4 grid grid-cols-10 md:grid-cols-${columns} gap-2  md:col-span-1 bg-slate-700 text-white z-50`}
+          className={`px-5 py-3 grid grid-cols-12 md:grid-cols-${columns} gap-2  md:col-span-1 bg-slate-700 text-white z-50`}
           style={{
             position: "absolute",
             cursor: isDragging ? "grabbing" : "grab",
           }}
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}>
+          onMouseUp={handleMouseUp}
+        >
           <button
             onClick={toggleColumns}
-            className="text-sm ml-1 border-2 hidden md:block border-gray-300 px-1">
+            className="text-sm ml-1 border-2 hidden md:block border-gray-300 px-1"
+          >
             {columns === 1 ? <BsChevronDoubleLeft /> : <BsChevronDoubleRight />}
           </button>
           <br />

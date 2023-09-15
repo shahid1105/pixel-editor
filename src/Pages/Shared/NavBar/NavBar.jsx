@@ -1,4 +1,4 @@
-import { FaFacebookF, FaSearch, FaTwitter } from "react-icons/fa";
+import { FaFacebookF, FaHome, FaSearch, FaTwitter } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import NewProjectForm from "../../Component/About/NewProject/NewProjectForm";
 // import Modal from "../../Component/About/Canvas/Modal";
@@ -36,10 +36,10 @@ const NavBar = () => {
 
   const navMenuLeft = (
     <>
-      <ul className="lg:flex text-white justify-center items-center gap-2 md:gap-4 px-2 font-semibold">
+      <ul className="lg:flex text-black md:text-white justify-center items-center gap-2 md:gap-4 px-2 font-semibold">
         <li>
           <Link
-            className="font-bold"
+            className=""
             to="/"
           >
             Home
@@ -99,6 +99,9 @@ const NavBar = () => {
   const navMenuRight = (
     <>
       <ul className="flex justify-center items-center gap-2 md:gap-4 font-semibold">
+            <Link className="mr-5 md:hidden" to="/home">
+              <FaHome></FaHome>
+            </Link>
         <li>
           <Link className="hover:text-purple-500" to="/about">
             About

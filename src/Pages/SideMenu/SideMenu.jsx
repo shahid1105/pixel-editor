@@ -8,7 +8,7 @@ import HomePage from "./HomePage/HomePage";
 import { MdOutlineFeedback } from "react-icons/md";
 import Hamburger from "hamburger-react";
 import { useState } from "react";
-import { setSelectedImage } from "../../Redux/SelectedImage";
+// import { setSelectedImage } from "../../Redux/SelectedImage";
 // import Chat from "../chat";
 // import {MdOutlineFeedback} from "react-icons/md"
 
@@ -17,16 +17,16 @@ const SideMenu = () => {
   const [isOpen, setOpen] = useState(false);
 
   // Open file
-  const handleImageUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      dispatch(setSelectedImage(imageUrl));
-      // ... Redirect or navigate to the editor page
-      // ... Redirect or navigate to the editor page
-      navigate("/iconMenu");
-    }
-  };
+  // const handleImageUpload = (event) => {
+  //   const file = event.target.files[0];
+  //   if (file) {
+  //     const imageUrl = URL.createObjectURL(file);
+  //     dispatch(setSelectedImage(imageUrl));
+  //     // ... Redirect or navigate to the editor page
+  //     // ... Redirect or navigate to the editor page
+  //     navigate("/iconMenu");
+  //   }
+  // };
 
   //logout
 
@@ -76,13 +76,13 @@ const SideMenu = () => {
           <label htmlFor="fileInput" className="sidebar-link">
             <FaDesktop className="sidebar-icon" /> This Device
           </label>
-          <input
+          {/* <input
             type="file"
             id="fileInput"
             accept="image/*"
             style={{ display: "none" }}
             onChange={handleImageUpload}
-          />
+          /> */}
         </li>
         <li className="text-center">
           <a
@@ -127,7 +127,7 @@ const SideMenu = () => {
   );
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-12 h-[590px]">
+    <div className="grid grid-cols-1 md:grid-cols-12 h-screen">
       <div className="col-span-2 bg-gray-200 text-black">
         {/* <div className="bg-white text-black rounded-full mx-2 my-5">
           {user ? (

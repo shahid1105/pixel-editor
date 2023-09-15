@@ -30,6 +30,7 @@ import { addTextBox, removeTextBox } from "../../../Redux/TextBox";
 import { setLasso } from "../../../Redux/Lasso";
 import { setCircleTool } from "../../../Redux/CircleToolReducer";
 import { setPenTool } from "../../../Redux/PenToolReducer";
+import { setNewBlur } from "../../../Redux/Blur";
 
 /* ------------------------------ */
 
@@ -49,6 +50,25 @@ const Icon = ({ textColor }) => {
 
 
   /* ----------------------------------------------------- */
+  /* ---------------blur tool-------------------- */
+  const [showBlurInput, setShowBlurInput] = useState(false);
+  const [blur, setBlur] = useState(0);
+
+  const handleBlurButtonClick = () => {
+    setShowBlurInput(!showBlurInput);
+  };
+
+  const handleBlurChange = (event) => {
+    const newBlur = parseFloat(event.target.value);
+    setBlur(newBlur);
+    dispatch(setNewBlur(newBlur));
+  };
+
+  // dispatch(setNewBlur(newBlur));
+
+  /* ---------------blur tool-------------------- */
+
+  /* --------------------image crop--------------------------------- */
   const dispatch = useDispatch();
 
   const handleCropToolClick = () => {
@@ -131,6 +151,30 @@ const Icon = ({ textColor }) => {
       <MdGradient title="Gradient Tool"></MdGradient>
       <RiBlurOffLine title="Blur Tool"></RiBlurOffLine>
       <PiPenNibBold title="Pen Tool" onClick={handlePenToolClick}></PiPenNibBold>
+      <div className="dropdown dropdown-right">
+        <label tabIndex={0} className="">
+          <RiBlurOffLine title="Blur Tool" onClick={handleBlurButtonClick} />
+        </label>
+        {showBlurInput && (
+          <div
+            tabIndex={0}
+            className="dropdown-content z-[1] menu shadow bg-white rounded-box w-52 text-xs">
+            <>
+              <input
+                id="blurTool"
+                type="range"
+                min={0}
+                max={2}
+                step={0.01}
+                value={blur}
+                onChange={handleBlurChange}
+              />
+              <label htmlFor="blurTool">{blur}</label>
+            </>
+          </div>
+        )}
+      </div>
+      <SlMagnifier title="Dodge Tool"></SlMagnifier>
       <BiText
         title={isTextboxActive ? "Disable Text Tool" : "Enable Text Tool"}
         onClick={handleTextToolClick}></BiText>
