@@ -7,6 +7,7 @@ import { textBoxReducer } from "./TextBox";
 import lassoReducer from "./Lasso";
 import canvasReducer from "./CanvasReducer";
 import colorReducer from "./Color";
+import blurReducer from "./Blur";
 
 
 
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
     magneticLasso: lassoReducer,
     canvasReducer: canvasReducer,
     colorReducer: colorReducer,
+    blurReducer: blurReducer,
 
 });
 

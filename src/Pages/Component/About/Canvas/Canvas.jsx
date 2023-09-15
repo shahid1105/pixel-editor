@@ -20,7 +20,11 @@ const Canvas = ({
   saturation,
 }) => {
   const dispatch = useDispatch();
+  /* ----------------for blur------------- */
+  const isBlur = useSelector((state) => state.blurReducer.blur);
+  // console.log(isBlur);
 
+  /* ----------selected Image ------------ */
   const selectedImage = useSelector(
     (state) => state.selectedImage.selectedImage
   );
@@ -113,7 +117,7 @@ const Canvas = ({
         });
         activeObject.filters = [contrastFilter];
         activeObject.applyFilters();
-        fabricCanvas.requestRenderAll();
+        fabricCanvas.renderAll();
       }
     }
   }, [contras]);
@@ -152,6 +156,8 @@ const Canvas = ({
     }
   }, [hueRotation]);
 
+  /* ---------------saturation------------ */
+
   useEffect(() => {
     const newSaturation = parseFloat(saturation);
     if (fabricCanvas) {
@@ -168,6 +174,25 @@ const Canvas = ({
   }, [saturation]);
 
   /* ---------for filter state end---------------- */
+
+  /* ---------------------blur code start---------------- */
+
+  useEffect(() => {
+    if (fabricCanvas) {
+      const newIsBlur = parseFloat(isBlur);
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        const blurFilter = new fabric.Image.filters.Blur({
+          blur: newIsBlur,
+        });
+        activeObject.filters = [blurFilter];
+        activeObject.applyFilters();
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  }, [isBlur]);
+
+  /* ---------------------blur code end---------------- */
 
   /* -----------------rotate------------------------ */
   const rightRotateImage = () => {
