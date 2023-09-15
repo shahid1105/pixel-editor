@@ -454,13 +454,6 @@ const Canvas = ({ selectedCanvasColor, setShowDiv ,deleteElement , setDeleteElem
 
   //------------Copy/Paste Using button---------
 
-  const handleCopy = () => {
-    if (fabricCanvas) {
-      fabricCanvas.getActiveObject().clone((cloned) => {
-        fabricCanvas.clipboard = cloned;
-      });
-    }
-  };
 
   useEffect(()=>{
     if(isCopy){
@@ -493,21 +486,6 @@ const Canvas = ({ selectedCanvasColor, setShowDiv ,deleteElement , setDeleteElem
 
   },[isPaste])
 
-  const handlePaste = () => {
-    if (fabricCanvas && fabricCanvas.clipboard) {
-      fabricCanvas.clipboard.clone((cloned) => {
-        fabricCanvas.discardActiveObject();
-        cloned.set({
-          left: 100, // Adjust the paste position as needed
-          top: 100,
-        });
-        fabricCanvas.add(cloned);
-        fabricCanvas.setActiveObject(cloned);
-        fabricCanvas.requestRenderAll();
-      });
-    }
-  };
-
   /* ------------------Canvas bg color----------------------------- */
   useEffect(() => {
     if (fabricCanvas) {
@@ -519,14 +497,6 @@ const Canvas = ({ selectedCanvasColor, setShowDiv ,deleteElement , setDeleteElem
   }, [selectedCanvasColor, fabricCanvas]);
   /* -------------------Pen WIdth ---------------------- */
 
-  const changePenWidth = (width) => {
-    if (fabricCanvas) {
-      fabricCanvas.freeDrawingBrush.width = width;
-      // setPenWidth(width);
-      fabricCanvas.renderAll.bind(fabricCanvas);
-      // console.log("Change Pen WIdth");
-    }
-  };
   useEffect(()=>{
     if (fabricCanvas) {
       fabricCanvas.freeDrawingBrush.width = penWidth;
@@ -539,14 +509,6 @@ const Canvas = ({ selectedCanvasColor, setShowDiv ,deleteElement , setDeleteElem
 
   /* -------------------Pen Color ---------------------- */
 
-  const changePenColor = (color) => {
-    if (fabricCanvas) {
-      fabricCanvas.freeDrawingBrush.color = color;
-      setPenColor(color);
-      fabricCanvas.renderAll.bind(fabricCanvas);
-      // console.log("Change Pen Color");
-    }
-  };
   useEffect(()=>{
     if (fabricCanvas) {
       fabricCanvas.freeDrawingBrush.color = penColor;
@@ -557,18 +519,6 @@ const Canvas = ({ selectedCanvasColor, setShowDiv ,deleteElement , setDeleteElem
 
   },[penColor])
 
-  const downloadHandler = () => {
-    //console.log("Download Button");
-
-    const pngData = fabricCanvas.toDataURL("png");
-    const downloadLink = document.createElement("a");
-    const fileName = `${name}-${Math.random().toString().replace("", "")}.png`;
-
-    downloadLink.href = pngData;
-    downloadLink.download = fileName;
-    downloadLink.click();
-    // console.log("Download Button");
-  };
 
   useEffect(()=>{
     if(isDownload){
@@ -605,20 +555,7 @@ const Canvas = ({ selectedCanvasColor, setShowDiv ,deleteElement , setDeleteElem
         </div>
 
         <div className="mt-10 pt-2">
-         
-          <button className="btn" onClick={handleCopy}>
-            Copy
-          </button>
-          <button className="btn" onClick={handlePaste}>
-            Paste
-          </button>
-
-          <button
-            className="btn btn-sm btn-success mb-2 md:mb-0"
-            onClick={() => downloadHandler()}>
-            {" "}
-            Download
-          </button>
+        
           {/* --------------------------------------------------- */}
 
           <button className="btn btn-secondary" onClick={resizeObject}>
