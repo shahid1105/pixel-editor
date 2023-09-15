@@ -32,8 +32,6 @@ const HomePage = () => {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       dispatch(setSelectedImage(imageUrl));
-      // ... Redirect or navigate to the editor page
-      // ... Redirect or navigate to the editor page
       navigate("/iconMenu");
     }
   };
@@ -71,19 +69,19 @@ const HomePage = () => {
           <Link>New Project</Link>
         </button>
 
-        <label
-          htmlFor="fileInput"
-          className="btn btn-outline btn-info flex items-center">
-          <FaDesktop className="mr-2" /> Open From Computer
-        </label>
-        <input
-          type="file"
-          id="fileInput"
-          accept="image/*"
-          style={{ display: "none" }}
-          onChange={handleImageUpload}
-        />
-      </div>
+            <label
+              htmlFor="fileInput"
+              className="btn btn-outline btn-info flex items-center">
+              <FaDesktop className="mr-2" /> Open From Computer
+            </label>
+            <input
+              type="file"
+              id="fileInput"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={handleImageUpload}
+            />
+          </div>
 
       {/* <div className="text-center">
         <button className="btn btn-outline btn-info">

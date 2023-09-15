@@ -1,10 +1,13 @@
 import { FaFacebookF, FaSearch, FaTwitter } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import NewProjectForm from "../../Component/About/NewProject/NewProjectForm";
 // import Modal from "../../Component/About/Canvas/Modal";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Modal from "../../Component/About/Canvas/Modal";
+import { useDispatch } from "react-redux";
+// import { setOpenImage } from "../../../Redux/OpenImage";
+import { setSelectedImage } from "../../../Redux/SelectedImage";
 
 const NavBar = () => {
   const [showModal, setShowModal] = useState(false);
@@ -65,10 +68,13 @@ const NavBar = () => {
               </>
             </li>
             <li>
-              <a>Open File</a>
+              <a>Open from File</a>
             </li>
             <li>
               <a>Save</a>
+            </li>
+            <li>
+              <a>Share</a>
             </li>
           </ul>
         </div>
@@ -78,11 +84,6 @@ const NavBar = () => {
         </li>
         <li>
           <Link className="">Layer</Link>
-        </li>
-        <li>
-          <Link to="/iconMenu" className="">
-            Filter
-          </Link>
         </li>
         <li>
           <Link className="">View</Link>
@@ -138,7 +139,7 @@ const NavBar = () => {
   );
   return (
     <>
-      <div className="navbar bg-gray-400 md:px-4 h-[50px] text-black md:text-white">
+      <div className="navbar bg-gray-400 md:px-4  h-[50px] text-black md:text-black">
         <div className="dropdown navbar-start lg:hidden">
           <label tabIndex={0} className="btn btn-ghost text-white lg:hidden">
             <svg

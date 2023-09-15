@@ -10,15 +10,24 @@ import { setRectangleMarqueTool } from "../../../../Redux/RectangleMarqueToolRed
 
 /* -----------for commit-------------------- */
 
-const Canvas = ({ selectedCanvasColor }) => {
+const Canvas = ({
+  selectedCanvasColor,
+  setShowDiv,
+  contras,
+  brightness,
+  colorMatrix,
+  hueRotation,
+  saturation,
+}) => {
   const dispatch = useDispatch();
 
   const selectedImage = useSelector(
     (state) => state.selectedImage.selectedImage
   );
-  //console.log(selectedImage);
+  // console.log(selectedImage);
+
   const color = useSelector((state) => state.colorReducer.color);
-  console.log(color);
+  // console.log(color);
 
   //RectangleMarqueToolClick Selector
   const isRectangleMarqueToolClick = useSelector(
@@ -30,7 +39,7 @@ const Canvas = ({ selectedCanvasColor }) => {
   // console.log("hello textbox");
 
   const imgCropping = useSelector((state) => state.cropReducer.isCropping);
-  console.log(imgCropping);
+  // console.log(imgCropping);
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -53,16 +62,32 @@ const Canvas = ({ selectedCanvasColor }) => {
 
   /* ---------for filter state start---------------- */
 
-  const [brightness, setBrightness] = useState(0); // Initial brightness
-  const [showRangeInput, setShowRangeInput] = useState(false);
+  // const [brightness, setBrightness] = useState(0); // Initial brightness
+  // const [showRangeInput, setShowRangeInput] = useState(false);
 
-  const handleToggleRangeInput = () => {
-    setShowRangeInput(!showRangeInput);
-  };
+  // const handleToggleRangeInput = () => {
+  //   setShowRangeInput(!showRangeInput);
+  // };
 
-  const handleBrightnessChange = (event) => {
-    const newBrightness = parseFloat(event.target.value);
-    setBrightness(newBrightness);
+  // const handleBrightnessChange = (event) => {
+  //   const newBrightness = parseFloat(event.target.value);
+  //   setBrightness(newBrightness);
+  //   if (fabricCanvas) {
+  //     const activeObject = fabricCanvas.getActiveObject();
+  //     if (activeObject) {
+  //       const brightnessFilter = new fabric.Image.filters.Brightness({
+  //         brightness: newBrightness,
+  //       });
+  //       activeObject.filters = [brightnessFilter];
+  //       activeObject.applyFilters();
+  //       fabricCanvas.requestRenderAll();
+  //     }
+  //   }
+  // };
+
+  /* ----------------brightness------------------ */
+  useEffect(() => {
+    const newBrightness = parseFloat(brightness);
     if (fabricCanvas) {
       const activeObject = fabricCanvas.getActiveObject();
       if (activeObject) {
@@ -74,18 +99,12 @@ const Canvas = ({ selectedCanvasColor }) => {
         fabricCanvas.requestRenderAll();
       }
     }
-  };
+  }, [brightness]);
 
-  const [contrast, setContrast] = useState(0); // Initial contrast
-  const [showContrastInput, setShowContrastInput] = useState(false);
+  /* --------------contrast-------------------- */
 
-  const handleToggleContrastRangeInput = () => {
-    setShowContrastInput(!showContrastInput);
-  };
-
-  const handleContrastChange = (event) => {
-    const newContrast = parseFloat(event.target.value);
-    setContrast(newContrast);
+  useEffect(() => {
+    const newContrast = parseFloat(contras);
     if (fabricCanvas) {
       const activeObject = fabricCanvas.getActiveObject();
       if (activeObject) {
@@ -97,25 +116,12 @@ const Canvas = ({ selectedCanvasColor }) => {
         fabricCanvas.requestRenderAll();
       }
     }
-  };
+  }, [contras]);
+  /* ------------------color matrix--------------- */
 
-  const [colorMatrix, setColorMatrix] = useState([
-    1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0,
-  ]);
-  const [isColorMatrixControlVisible, setColorMatrixControlVisible] =
-    useState(false);
-
-  const handleToggleColorMatrixControl = () => {
-    setColorMatrixControlVisible(!isColorMatrixControlVisible);
-  };
-
-  const handleColorMatrixChange = (event) => {
-    const newMatrixValue = parseFloat(event.target.value);
+  useEffect(() => {
     // Update the specific matrix value in the state
     const updatedMatrix = [...colorMatrix];
-    const matrixIndex = parseInt(event.target.name);
-    updatedMatrix[matrixIndex] = newMatrixValue;
-    setColorMatrix(updatedMatrix);
     if (fabricCanvas) {
       const activeObject = fabricCanvas.getActiveObject();
       if (activeObject) {
@@ -127,18 +133,12 @@ const Canvas = ({ selectedCanvasColor }) => {
         fabricCanvas.requestRenderAll();
       }
     }
-  };
+  }, [colorMatrix]);
 
-  const [hueRotation, setHueRotation] = useState(-0.5);
-  const [showHueRotationInput, setShowHueRotationInput] = useState(false);
+  /* -------------hue rotation--------- */
 
-  const handleToggleHueRotationInput = () => {
-    setShowHueRotationInput(!showHueRotationInput);
-  };
-
-  const handleHueRotationChange = (event) => {
-    const newRotation = parseFloat(event.target.value);
-    setHueRotation(newRotation);
+  useEffect(() => {
+    const newRotation = parseFloat(hueRotation);
     if (fabricCanvas) {
       const activeObject = fabricCanvas.getActiveObject();
       if (activeObject) {
@@ -150,18 +150,10 @@ const Canvas = ({ selectedCanvasColor }) => {
         fabricCanvas.requestRenderAll();
       }
     }
-  };
+  }, [hueRotation]);
 
-  const [saturation, setSaturation] = useState(1);
-  const [showSaturationInput, setShowSaturationInput] = useState(false);
-
-  const handleToggleSaturationInput = () => {
-    setShowSaturationInput(!showSaturationInput);
-  };
-
-  const handleSaturationChange = (event) => {
-    const newSaturation = parseFloat(event.target.value);
-    setSaturation(newSaturation);
+  useEffect(() => {
+    const newSaturation = parseFloat(saturation);
     if (fabricCanvas) {
       const activeObject = fabricCanvas.getActiveObject();
       if (activeObject) {
@@ -173,7 +165,7 @@ const Canvas = ({ selectedCanvasColor }) => {
         fabricCanvas.requestRenderAll();
       }
     }
-  };
+  }, [saturation]);
 
   /* ---------for filter state end---------------- */
 
@@ -238,6 +230,10 @@ const Canvas = ({ selectedCanvasColor }) => {
       oImg.scaleToHeight(300);
       oImg.scaleToWidth(300);
 
+      oImg.on("mousedown", function () {
+        setShowDiv(true);
+      });
+
       canvas.requestRenderAll();
     });
 
@@ -280,6 +276,9 @@ const Canvas = ({ selectedCanvasColor }) => {
         fill: textbox?.fill,
         editable: true,
         selectable: true,
+      });
+      textBox.on("mousedown", function () {
+        setShowDiv(false);
       });
       fabricCanvas?.add(textBox);
       fabricCanvas?.requestRenderAll();
@@ -524,8 +523,7 @@ const Canvas = ({ selectedCanvasColor }) => {
 
           <button
             className="btn btn-sm btn-success mb-2 md:mb-0"
-            onClick={() => downloadHandler()}
-          >
+            onClick={() => downloadHandler()}>
             {" "}
             Download
           </button>
@@ -534,98 +532,6 @@ const Canvas = ({ selectedCanvasColor }) => {
           <button className="btn btn-secondary" onClick={resizeObject}>
             Resize Object
           </button>
-
-          <button className="btn btn-primary" onClick={handleToggleRangeInput}>
-            Brightness Control
-          </button>
-          {showRangeInput && (
-            <input
-              type="range"
-              min={-1}
-              max={1}
-              step={0.05}
-              value={brightness}
-              onChange={handleBrightnessChange}
-            />
-          )}
-
-          <button
-            className="btn btn-outline"
-            onClick={handleToggleContrastRangeInput}>
-            Contrast Control
-          </button>
-          {showContrastInput && (
-            <input
-              type="range"
-              min={-1}
-              max={1}
-              step={0.1}
-              value={contrast}
-              onChange={handleContrastChange}
-            />
-          )}
-
-          <button
-            className="btn btn-warning"
-            onClick={handleToggleColorMatrixControl}>
-            ColorMatrix Control
-          </button>
-          {isColorMatrixControlVisible && (
-            <div>
-              {colorMatrix.map((value, index) => (
-                <div key={index}>
-                  <label>Matrix Value {index}:</label>
-                  <input
-                    type="range"
-                    min={-1}
-                    max={1}
-                    step={0.01}
-                    value={value}
-                    name={index.toString()} // Use the index as the name to identify the matrix value
-                    onChange={handleColorMatrixChange}
-                  />
-                </div>
-              ))}
-            </div>
-          )}
-
-          <button
-            className="btn btn-success"
-            onClick={handleToggleHueRotationInput}>
-            Hue Rotation Control
-          </button>
-          {showHueRotationInput && (
-            <>
-              <input
-                type="range"
-                min={-1}
-                max={1}
-                step={0.05}
-                value={hueRotation}
-                onChange={handleHueRotationChange}
-              />
-              <label htmlFor="hue-rotation">Hue Rotation: {hueRotation}</label>
-            </>
-          )}
-
-          <button
-            className="btn btn-secondary"
-            onClick={handleToggleSaturationInput}>
-            Saturation Control
-          </button>
-          {showSaturationInput && (
-            <>
-              <input
-                type="range"
-                min={0}
-                max={2}
-                step={0.05}
-                value={saturation}
-                onChange={handleSaturationChange}
-              />
-              <label htmlFor="saturation">Saturation: {saturation}</label>
-            </>
-          )}
         </div>
       </div>
     </div>
