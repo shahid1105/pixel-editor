@@ -4,7 +4,7 @@ const Blog = () => {
   return (
     <div className="mx-2 md:mx-52 my-5">
         <p className="text-xs text-gray-400 mt-8">August 14, 2023</p>
-      <h1 className="text-3xl font-bold mb-1">
+      <h1 className="text-2xl font-bold mb-1">
         Pixel Editor Tutorials for Beginners and Advanced Users
       </h1>
       <p>
@@ -14,7 +14,7 @@ const Blog = () => {
         <a className="text-blue-500 ml-1" href="http://localhost:5173/">Read the blog</a>
       </p>
       <p className="text-xs text-gray-400 mt-4">August 8, 2023</p>
-      <h1 className="text-3xl font-bold mb-1">
+      <h1 className="text-2xl font-bold mb-1">
         10 Essential Pixel Editor Techniques Every Pixel Artist Should Know
       </h1>
       <p>
@@ -24,7 +24,7 @@ const Blog = () => {
         <a className="text-blue-500 ml-1" href="http://localhost:5173/">Read the blog</a>
       </p>
       <p className="text-xs text-gray-400 mt-4">September 28, 2023</p>
-      <h1 className="text-3xl font-bold mb-1">
+      <h1 className="text-2xl font-bold mb-1">
         Pixel Editor vs. Other Pixel Art Tools: When to Use Each Program
       </h1>
       <p>
@@ -34,7 +34,7 @@ const Blog = () => {
         <a className="text-blue-500 ml-1" href="http://localhost:5173/">Read the blog</a>
       </p>
       <p className="text-xs text-gray-400 mt-4">September 20, 2023</p>
-      <h1 className="text-3xl font-bold mb-1">
+      <h1 className="text-2xl font-bold mb-1">
         Mastering Pixel Editor Keyboard Shortcuts
       </h1>
       <p>
@@ -44,7 +44,7 @@ const Blog = () => {
         <a className="text-blue-500 ml-1" href="http://localhost:5173/">Read the blog</a>
       </p>
       <p className="text-xs text-gray-400 mt-4">September 16, 2023</p>
-      <h1 className="text-3xl font-bold mb-1">
+      <h1 className="text-2xl font-bold mb-1">
         Pixel Editor Plugins and Add-ons: Top Picks for Enhancing Your
         Workflow
       </h1>
