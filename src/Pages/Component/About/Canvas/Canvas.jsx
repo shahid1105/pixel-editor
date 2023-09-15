@@ -1,73 +1,53 @@
+import React from "react";
 import { fabric } from "fabric";
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
-// import storeData from "../../../LinkList";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-/* ------------------------------- */
+import Icon from "../../../MainPage/IconMenu/Icon";
+import TextTool from "./textTool";
 
-import { useDispatch } from "react-redux";
-import { setSelectedImage } from "../../../../Redux/SelectedImage";
-import getCroppedImg from "./getCroppedImg";
-import React from "react";
-import { setCropping } from "../../../../Redux/Crop";
-import { addTextBox, removeTextBox } from "../../../../Redux/TextBox";
+import { setRectangleMarqueTool } from "../../../../Redux/RectangleMarqueToolReducer";
+import { setCircleTool } from "../../../../Redux/CircleToolReducer";
 
 /* -----------for commit-------------------- */
 
-const Canvas = ({ selectedCanvasColor }) => {
+const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix,hueRotation,saturation,deleteElement , setDeleteElement, penColor,textColor, setPenColor , penWidth, isBringFront , setBringFront ,isSentToBack, setSentToBack, isCopy, setCopy , isPaste, setPaste, isDownload, setDownload}) => {
+  const dispatch = useDispatch();
+  /* ----------------for blur------------- */
+  const isBlur = useSelector((state) => state.blurReducer.blur);
+  // console.log(isBlur);
+
+  /* ----------selected Image ------------ */
   const selectedImage = useSelector(
     (state) => state.selectedImage.selectedImage
   );
   // console.log(selectedImage);
-  const dispatch = useDispatch();
-  const isCropping = useSelector((state) => state.cropReducer.isCropping);
-  // console.log(isCropping);
 
-  const [cropRect, setCropRect] = useState(null);
+  const color = useSelector((state) => state.colorReducer.color);
+  // console.log(color);
 
-  const startCrop = () => {
-    dispatch(setCropping(true));
-  };
+  //RectangleMarqueToolClick Selector
+  const isRectangleMarqueToolClick = useSelector(
+    (state) => state.rectangleMarqueToolReducer.isRectangleMarqueToolClick
+  );
+  //RectangleMarqueToolClick Selector
+  const isCircleToolClick = useSelector(
+    (state) => state.circleToolReducer.isCircleToolClick
+  );
+  // console.log(isCircleToolClick);
 
-  const cancelCrop = () => {
-    if (cropRect) {
-      fabricCanvas.remove(cropRect);
-      setCropRect(null);
-    }
-    dispatch(setCropping(false));
-  };
+  //penToolReducer
+  const isPenToolClick = useSelector((state) => state.penToolReducer.isPenToolClick);
+  console.log("hello"+isPenToolClick);
 
-  const cropImage = () => {
-    if (cropRect) {
-      const objectsToCrop = fabricCanvas.getObjects().filter((obj) => {
-        return (
-          obj.left >= cropRect.left &&
-          obj.top >= cropRect.top &&
-          obj.left + obj.width <= cropRect.left + cropRect.width &&
-          obj.top + obj.height <= cropRect.top + cropRect.height
-        );
-      });
-
-      const group = new fabric.Group(objectsToCrop);
-
-      fabricCanvas.discardActiveObject();
-      fabricCanvas.setActiveObject(group);
-      fabricCanvas.requestRenderAll();
-
-      const croppedImage = group.toDataURL();
-
-      dispatch(setSelectedImage(croppedImage));
-
-      dispatch(setCropping(false));
-
-      // You can now handle the cropped image as needed.
-    }
-  };
-
+  //textbox reducer
   const textbox = useSelector((state) => state.textBoxReducer.textBox);
-  // console.log(textbox);
-  // const text = textbox?.text;
-  // console.log(typeof text);
+  // console.log("hello textbox");
+
+  
+
+  const imgCropping = useSelector((state) => state.cropReducer.isCropping);
+  // console.log(imgCropping);
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -75,22 +55,181 @@ const Canvas = ({ selectedCanvasColor }) => {
   const name = queryParams.get("name");
   const height = queryParams.get("height");
   const width = queryParams.get("width");
+  // console.log(name, height, width);
 
   const height1 = 500;
   const width2 = 800;
 
+  // const defaultBackgroundColor = "white";
+  // const [penWidth, setPenWidth] = useState(3);
+  // const [penColor, setPenColor] = useState(3);
+
   const canvasRef = useRef(null);
 
-  // const defaultBackgroundColor = "white";
-  const [penWidth, setPenWidth] = useState(3);
-  const [penColor, setPenColor] = useState(3);
   const [fabricCanvas, setFabricCanvas] = useState();
 
-  // const freeDrawing = () => {
-  //   if(fabricCanvas){
+  /* ---------for filter state start---------------- */
 
+  // const [brightness, setBrightness] = useState(0); // Initial brightness
+  // const [showRangeInput, setShowRangeInput] = useState(false);
+
+  // const handleToggleRangeInput = () => {
+  //   setShowRangeInput(!showRangeInput);
+  // };
+
+  // const handleBrightnessChange = (event) => {
+  //   const newBrightness = parseFloat(event.target.value);
+  //   setBrightness(newBrightness);
+  //   if (fabricCanvas) {
+  //     const activeObject = fabricCanvas.getActiveObject();
+  //     if (activeObject) {
+  //       const brightnessFilter = new fabric.Image.filters.Brightness({
+  //         brightness: newBrightness,
+  //       });
+  //       activeObject.filters = [brightnessFilter];
+  //       activeObject.applyFilters();
+  //       fabricCanvas.requestRenderAll();
+  //     }
   //   }
   // };
+
+  /* ----------------brightness------------------ */
+  useEffect(() => {
+    const newBrightness = parseFloat(brightness);
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        const brightnessFilter = new fabric.Image.filters.Brightness({
+          brightness: newBrightness,
+        });
+        activeObject.filters = [brightnessFilter];
+        activeObject.applyFilters();
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  }, [brightness]);
+
+  /* --------------contrast-------------------- */
+
+  useEffect(() => {
+    const newContrast = parseFloat(contras);
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        const contrastFilter = new fabric.Image.filters.Contrast({
+          contrast: newContrast,
+        });
+        activeObject.filters = [contrastFilter];
+        activeObject.applyFilters();
+        fabricCanvas.renderAll();
+      }
+    }
+  }, [contras]);
+  /* ------------------color matrix--------------- */
+
+  useEffect(() => {
+    // Update the specific matrix value in the state
+    const updatedMatrix = [...colorMatrix];
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        const colorMatrixFilter = new fabric.Image.filters.ColorMatrix({
+          matrix: updatedMatrix,
+        });
+        activeObject.filters = [colorMatrixFilter];
+        activeObject.applyFilters();
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  }, [colorMatrix]);
+
+  /* -------------hue rotation--------- */
+
+  useEffect(() => {
+    const newRotation = parseFloat(hueRotation);
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        const hueRotationFilter = new fabric.Image.filters.HueRotation({
+          rotation: newRotation,
+        });
+        activeObject.filters = [hueRotationFilter];
+        activeObject.applyFilters();
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  }, [hueRotation]);
+
+  /* ---------------saturation------------ */
+
+  useEffect(() => {
+    const newSaturation = parseFloat(saturation);
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        const saturationFilter = new fabric.Image.filters.Saturation({
+          saturation: newSaturation,
+        });
+        activeObject.filters = [saturationFilter];
+        activeObject.applyFilters();
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  }, [saturation]);
+
+  /* ---------for filter state end---------------- */
+
+  /* ---------------------blur code start---------------- */
+
+  useEffect(() => {
+    if (fabricCanvas) {
+      const newIsBlur = parseFloat(isBlur);
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        const blurFilter = new fabric.Image.filters.Blur({
+          blur: newIsBlur,
+        });
+        activeObject.filters = [blurFilter];
+        activeObject?.applyFilters();
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  }, [isBlur]);
+
+  /* ---------------------blur code end---------------- */
+
+  /* -----------------rotate------------------------ */
+  const rightRotateImage = () => {
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+
+      if (activeObject) {
+        activeObject.set({
+          originX: "center",
+          originY: "center",
+          angle: activeObject.angle + 90,
+        });
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  };
+
+  const leftRotateImage = () => {
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+
+      if (activeObject) {
+        activeObject.set({
+          originX: "center",
+          originY: "center",
+          angle: activeObject.angle - 90,
+        });
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  };
+  /* ----------------------------------------- */
+  const [penTool, setPenTool] = useState(false);
 
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
@@ -98,214 +237,341 @@ const Canvas = ({ selectedCanvasColor }) => {
 
       width: width || width2,
       height: height || height1,
+      // selection:true,
 
       // isDrawingMode: true,
       selection: true,
+      allowTouchScrolling: true,
       // selectionColor: "yellow",
       // selectionLineWidth: 3,
-      preserveObjectStacking: true,
+      // preserveObjectStacking: true,
     });
 
-    /* 
-    // const circle = new fabric.Circle({
-    //   radius: 50,
-    //   fill: "yellow",
-    //   top: 50,
-    //   left: 50,
-    // });
-    // circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
-    // canvas.add(circle); */
+    setFabricCanvas(canvas);
+    
 
-    // fabric.Image.fromURL(selectedImage, function (oImg) {
-    //   canvas.add(oImg);
+    // -----------------Image Start---------------
 
-    //   fabric.CircleBrush;
-    // });
-    if (typeof selectedImage === "string" && selectedImage.trim() !== "") {
-      fabric.Image.fromURL(
-        selectedImage,
-        (oImg) => {
-          // Image loaded successfully
-          canvas.add(oImg);
+    fabric.Image.fromURL(selectedImage, function (oImg) {
+      canvas.renderAll.bind(canvas);
 
-          canvas.renderAll();
-          if (textbox) {
-            const textBox = new fabric.Textbox(textbox?.text, {
-              left: textbox?.left,
-              top: textbox?.top,
-              width: textbox?.width,
-              fontSize: textbox?.fontSize,
-              fill: textbox?.fill,
-            });
-            textBox.set({
-              editable: true,
-              selectable: true,
-              placeholder: true,
-            });
+      oImg.applyFilters();
 
-            canvas.add(textBox);
-            canvas.renderAll();
-          }
-        },
-        (error) => {
-          // Handle the error here
-          console.error("Error loading image:", error);
-        }
-      );
+      canvas.add(oImg);
+      oImg.scaleToHeight(300);
+      oImg.scaleToWidth(300);
+
+      oImg.on("mousedown", function () {
+        setShowDiv(true);
+      });
+
+      canvas.requestRenderAll();
+    });
+
+    return () => {
+      canvas.dispose();
+    };
+  }, [canvasRef]);
+
+  // -----------------Rectangle Start---------------
+
+  useEffect(() => {
+    if (isRectangleMarqueToolClick) {
+      console.log("hello rect----");
+      const rect = new fabric.Rect({
+        height: 200,
+        width: 100,
+        fill: "#f0f",
+        top: 50,
+        left: 50,
+      });
+
+      fabricCanvas?.add(rect);
+      fabricCanvas?.setActiveObject(rect);
+      fabricCanvas?.requestRenderAll();
+      dispatch(setRectangleMarqueTool(false));
     }
-    /* --------------------text box---------------------------- */
-    if (!selectedImage) {
-      if (textbox) {
-        const textBox = new fabric.Textbox(textbox?.text, {
-          left: textbox?.left,
-          top: textbox?.top,
-          width: textbox?.width,
-          fontSize: textbox?.fontSize,
-          fill: textbox?.fill,
-          editable: true,
-          selectable: true,
-        });
+  }, [isRectangleMarqueToolClick]);
 
-        canvas.add(textBox);
-        canvas.renderAll();
+  // --------------Rectangle End---------------
+
+  // -----------------Circle Start---------------
+
+  useEffect(()=>{
+    if(isCircleToolClick){
+      const circle = new fabric.Circle({
+        radius: 50,
+        fill: "yellow",
+        top: 50,
+        left: 50,
+        selectable: true,
+      });
+      // circle.set({ radius: 50, fill: "#f00", opacity: 0.7 });
+      fabricCanvas?.add(circle);
+      fabricCanvas?.setActiveObject(circle);
+      fabricCanvas?.requestRenderAll();
+      dispatch(setCircleTool(false));
+    }
+  },[isCircleToolClick]);
+
+
+  /* --------------------text box ---------------------------- */
+
+  useEffect(() => {
+    if (textbox) {
+      const textBox = new fabric.Textbox(textbox?.text, {
+        left: textbox?.left,
+        top: textbox?.top,
+        width: textbox?.width,
+        fontSize: textbox?.fontSize,
+        fill: textColor,
+        editable: true,
+        selectable: true,
+      });
+      textBox.on("mousedown", function () {
+        setShowDiv(false);
+      });
+      fabricCanvas?.add(textBox);
+      if(textColor){
+        textBox.set('fill', {textColor})
+
+      }
+      fabricCanvas?.requestRenderAll();
+    }
+  }, [textbox]);
+
+  useEffect(()=>{
+  },[textbox,textColor])
+
+  /* --------------------PenTool ---------------------------- */
+
+  useEffect(() => {
+    if (isPenToolClick) {
+      console.log("hello PenTool "+isPenToolClick);
+      if (fabricCanvas) {
+        fabricCanvas.isDrawingMode = true;
+        
+      }
+    } else {
+      if (fabricCanvas) {
+        fabricCanvas.isDrawingMode = false;
       }
     }
+    // dispatch(setPenTool(false));
+  }, [isPenToolClick]);
 
-    // Set the Fabric.js canvas state
+  
 
-    // const textbox = new fabric.Textbox("Enter your text here", {
-    //   left: 100,
-    //   top: 50,
-    //   right: 50,
-    //   width: 200, // Set the width of the textbox
-    //   fontSize: 20,
-    //   fill: "black",
-    //   editable: true,
-    //   selectable: true,
-    // });
+  // ------------DDelete Option --------------
 
-    // // Add the textbox to the canvas
-    // canvas.add(textbox);
+  useEffect(()=>{
+    if(deleteElement){
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        // fabricCanvas.bringToFront(layer1Object);
 
-    // // Render the canvas
-    // canvas.renderAll();
-    /* ------------------------------------------------ */
-    setFabricCanvas(canvas);
-  }, [textbox, selectedCanvasColor, selectedImage]);
+        fabricCanvas.remove(activeObject);
+        fabricCanvas.discardActiveObject();
+        fabricCanvas.requestRenderAll();
+      }
+    }
+    setDeleteElement(false);
+  },[deleteElement])
 
-  /* ----------------------------------------------- */
+  //--------------Layer Options --------------
+
+  const bringToFront = () => {
+    if (fabricCanvas && fabricCanvas.getActiveObject()) {
+      fabricCanvas.bringToFront(fabricCanvas.getActiveObject());
+      fabricCanvas.requestRenderAll();
+    }
+  };
+  useEffect(()=>{
+    if(isBringFront){
+      if (fabricCanvas && fabricCanvas.getActiveObject()) {
+        fabricCanvas.bringToFront(fabricCanvas.getActiveObject());
+        fabricCanvas.requestRenderAll();
+        setBringFront(false);
+  
+      }
+      
+    }
+    
+  },[isBringFront])
+
+
+  console.log("isSentToBack = "+isSentToBack);
+  useEffect(()=>{
+    if(isSentToBack){
+      if (fabricCanvas && fabricCanvas.getActiveObject()) {
+        fabricCanvas.sendToBack(fabricCanvas.getActiveObject());
+        fabricCanvas.requestRenderAll();
+      }
+      setSentToBack(false);
+    }
+    
+  },[isSentToBack])
+
+  const sendToBack = () => {
+    if (fabricCanvas && fabricCanvas.getActiveObject()) {
+      fabricCanvas.sendToBack(fabricCanvas.getActiveObject());
+      fabricCanvas.requestRenderAll();
+    }
+  };
+
+  //---------copy Paste with Ctrl + C / Ctrl+V----------
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Check if Ctrl (or Cmd on Mac) and 'C' are pressed
+      if ((e.ctrlKey || e.metaKey) && e.key === "c") {
+        alert("Ctrl+C (or Cmd+C on Mac) pressed!");
+        // handleCopy();
+
+        // if (fabricCanvas) {
+        //   fabricCanvas.getActiveObject().clone((cloned) => {
+        //     fabricCanvas.clipboard = cloned;
+        //   });
+        // }
+      } else if ((e.ctrlKey || e.metaKey) && e.key === "v") {
+        // alert('Ctrl+V (or Cmd+V on Mac) pressed!');
+        handlePaste();
+
+        // if (fabricCanvas && fabricCanvas.clipboard) {
+        //   fabricCanvas.clipboard.clone((cloned) => {
+        //     fabricCanvas.discardActiveObject();
+        //     cloned.set({
+        //       left: 100, // Adjust the paste position as needed
+        //       top: 100,
+        //     });
+        //     fabricCanvas.add(cloned);
+        //     fabricCanvas.setActiveObject(cloned);
+        //     fabricCanvas.requestRenderAll();
+        //   });
+        // }
+      }
+    };
+
+    // Add event listener for keydown
+    window.addEventListener("keydown", handleKeyDown);
+
+    // // Cleanup: remove the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
+  //------------Copy/Paste Using button---------
+
+
+  useEffect(()=>{
+    if(isCopy){
+      if (fabricCanvas) {
+        fabricCanvas.getActiveObject().clone((cloned) => {
+          fabricCanvas.clipboard = cloned;
+        });
+      }
+      setCopy(false);
+    }
+
+  },[isCopy])
+
+  useEffect(()=>{
+    if(isPaste){
+      if (fabricCanvas && fabricCanvas.clipboard) {
+      fabricCanvas.clipboard.clone((cloned) => {
+        fabricCanvas.discardActiveObject();
+        cloned.set({
+          left: 100, // Adjust the paste position as needed
+          top: 100,
+        });
+        fabricCanvas.add(cloned);
+        fabricCanvas.setActiveObject(cloned);
+        fabricCanvas.requestRenderAll();
+      });
+    }
+    setPaste(false);
+    }
+
+  },[isPaste])
+
+  /* ------------------Canvas bg color----------------------------- */
   useEffect(() => {
     if (fabricCanvas) {
       // Set the background color again when selectedCanvasColor changes
       fabricCanvas.setBackgroundColor(selectedCanvasColor);
-      fabricCanvas.renderAll();
+      // fabricCanvas.renderAll();
+      fabricCanvas.requestRenderAll();
     }
   }, [selectedCanvasColor, fabricCanvas]);
-  /* ----------------------------------------------- */
+  /* -------------------Pen WIdth ---------------------- */
 
-  // const addACircle = () => {
-  //   const circle = new fabric.Circle({
-  //     radius: 50,
-  //     fill: "yellow",
-  //     top: 50,
-  //     left: 50,
-  //   });
-  //   // circle.set({ radius: 50, fill: '#f00', opacity: 0.7 });
-  //   fabricCanvas.add(circle);
-  // };
-
-  const changePenWidth = (width) => {
+  useEffect(()=>{
     if (fabricCanvas) {
-      fabricCanvas.freeDrawingBrush.width = width;
-      setPenWidth(width);
+      fabricCanvas.freeDrawingBrush.width = penWidth;
+      // setPenWidth(width);
       fabricCanvas.renderAll.bind(fabricCanvas);
       // console.log("Change Pen WIdth");
     }
-  };
-  const changePenColor = (color) => {
+
+  },[penWidth])
+
+  /* -------------------Pen Color ---------------------- */
+
+  useEffect(()=>{
     if (fabricCanvas) {
-      fabricCanvas.freeDrawingBrush.color = color;
-      setPenColor(color);
+      fabricCanvas.freeDrawingBrush.color = penColor;
+      // setPenColor(color);
       fabricCanvas.renderAll.bind(fabricCanvas);
       // console.log("Change Pen Color");
     }
-  };
 
-  const downloadHandler = () => {
+  },[penColor])
+
+
+  useEffect(()=>{
+    if(isDownload){
     const pngData = fabricCanvas.toDataURL("png");
     const downloadLink = document.createElement("a");
-    const fileName = `${dataFromModal.name}-${Math.random()
-      .toString()
-      .replace("", "")}.png`;
+    const fileName = `${name}-${Math.random().toString().replace("", "")}.png`;
 
     downloadLink.href = pngData;
     downloadLink.download = fileName;
     downloadLink.click();
-    // console.log("Download Button");
+    }
+  },[isDownload])
+
+  /* ---------------------------------------------- */
+
+  const resizeObject = () => {
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        // Adjust the size here, for example, doubling the width and height
+        activeObject.scaleX *= 2;
+        activeObject.scaleY *= 2;
+        fabricCanvas.renderAll();
+      }
+    }
   };
 
-  // const clearHandler = () =>{
-  //     if(fabricCanvas){
-  //         fabricCanvas.clear();
-  //         fabricCanvas.backgroundColor=defaultBackgroundColor;
-  //         // setFabricCanvas()
-  //     }
-  // }
-
-  /* ---------------------------------------------- */
-
-  /* ---------------------------------------------- */
-
   return (
-    <div className="container  mx-auto bg-purple-400">
+    <div className="container mx-auto bg-gray-200 h-[100%] text-purple-700">
       <div>
-        <div className="flex justify-center text-center align-middle">
+        <div className=" canvas-container flex justify-center text-center align-middle">
           <h1></h1>
-          <canvas className=" " ref={canvasRef}></canvas>
-          {/* ------------------------------------- */}
+          <canvas className="mt-10 mb-10 rounded " ref={canvasRef}></canvas>
         </div>
 
-        <div className="pt-2 mb-2 grid-cols-2 items-center justify-center">
-          <label className="mx-2 py-1" htmlFor="">
-            Pen WIdth - {penWidth}
-          </label>
-          <input
-            className="mx-2 py-1 "
-            type="range"
-            onChange={(e) => changePenWidth(e.target.value)}
-            value={penWidth}
-            min={1}
-            max={30}
-          />
-          <label className="mx-2 py-1" htmlFor="">
-            Pen Color - {penColor}
-          </label>
-          <input
-            className="mr-5"
-            type="color"
-            onChange={(e) => changePenColor(e.target.value)}
-            value={penColor}
-          />
+        <div className="mt-10 pt-2">
+        
+          {/* --------------------------------------------------- */}
 
-          {/* <button className="btn" onClick={addACircle}>
-            Add Circle
+          {/* <button className="btn btn-secondary" onClick={resizeObject}>
+            Resize Object
           </button> */}
 
-          <button className="btn btn-success mb-2 md:mb-0" onClick={() => downloadHandler()}>
-            {" "}
-            Download
-          </button>
-          {/* -------------------- */}
-          <button
-            className={`mx-2 btn btn-${isCropping ? "danger" : "primary"}`}
-            onClick={isCropping ? cancelCrop : startCrop}>
-            {isCropping ? "Cancel Crop" : "Start Crop"}
-          </button>
-          <button className="btn btn-success" onClick={cropImage}>
-            Apply Crop
-          </button>
-
-          <button>to do for conflict </button>
+          
         </div>
       </div>
     </div>

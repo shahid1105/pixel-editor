@@ -1,7 +1,6 @@
-import { Link, Outlet } from "react-router-dom";
-import { FaDesktop, FaDropbox, FaGoogleDrive, FaHome } from "react-icons/fa";
-import { GrOnedrive } from "react-icons/Gr";
-import { BiLogIn, BiMessage, BiSolidDashboard } from "react-icons/bi";
+import { Link } from "react-router-dom";
+import { FaDesktop, FaGoogleDrive, FaHome } from "react-icons/fa";
+import { BiLogIn, BiSolidDashboard } from "react-icons/bi";
 import { PiSignOutBold } from "react-icons/pi";
 import { AuthContext } from "../Providers/AuthProvider";
 import { useContext } from "react";
@@ -9,12 +8,25 @@ import HomePage from "./HomePage/HomePage";
 import { MdOutlineFeedback } from "react-icons/md";
 import Hamburger from "hamburger-react";
 import { useState } from "react";
+// import { setSelectedImage } from "../../Redux/SelectedImage";
 // import Chat from "../chat";
 // import {MdOutlineFeedback} from "react-icons/md"
 
 const SideMenu = () => {
   const { logOut, user } = useContext(AuthContext);
   const [isOpen, setOpen] = useState(false);
+
+  // Open file
+  // const handleImageUpload = (event) => {
+  //   const file = event.target.files[0];
+  //   if (file) {
+  //     const imageUrl = URL.createObjectURL(file);
+  //     dispatch(setSelectedImage(imageUrl));
+  //     // ... Redirect or navigate to the editor page
+  //     // ... Redirect or navigate to the editor page
+  //     navigate("/iconMenu");
+  //   }
+  // };
 
   //logout
 
@@ -28,7 +40,7 @@ const SideMenu = () => {
 
   const sideMenuOption = (
     <>
-      <div className="bg-purple-400 w-fit text-black rounded-full mx-2 md:mx-4  my-1">
+      <div className="bg-gray-200 w-fit text-black rounded-full mx-2 md:mx-4  my-1">
         {user ? (
           <div className="flex items-center">
             <div className="avatar">
@@ -49,7 +61,7 @@ const SideMenu = () => {
           </div>
         )}
       </div>
-      <ul className="menu p-4 w-60 text-md h-full text-black md:text-white ">
+      <ul className="menu p-4 w-60 text-md h-full text-black">
         <li className="text-center ">
           <Link to="/home" className="sidebar-link">
             <FaHome className="sidebar-icon" /> Home
@@ -60,36 +72,32 @@ const SideMenu = () => {
             <BiSolidDashboard className="sidebar-icon" /> Dashboard
           </Link>
         </li>
-        <li className="text-center">
-          <Link to="/device" className="sidebar-link">
+        {/* <li className="text-center">
+          <label htmlFor="fileInput" className="sidebar-link">
             <FaDesktop className="sidebar-icon" /> This Device
-          </Link>
-        </li>
-        <li className="text-center">
-          <Link to="/dropbox" className="sidebar-link">
-            <FaDropbox className="sidebar-icon" /> Dropbox
-          </Link>
-        </li>
-        <li className="text-center">
-          <Link to="/oneDrive" className="sidebar-link">
-            <GrOnedrive className="sidebar-icon" /> OneDrive
-          </Link>
-        </li>
-        <li className="text-center">
-          <Link to="/googleDrive" className="sidebar-link">
+          </label>
+          
+        </li> */}
+        {/* <li className="text-center">
+          <a
+            href="https://drive.google.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="sidebar-link"
+          >
             <FaGoogleDrive className="sidebar-icon" /> Google Drive
-          </Link>
-        </li>
-        <li className="text-center">
+          </a>
+        </li> */}
+        {/* <li className="text-center">
           <Link to="/chat" className="sidebar-link">
             <BiMessage className="sidebar-icon" /> Chat
           </Link>
-        </li>
-        <li className="text-center">
+        </li> */}
+        {/* <li className="text-center">
           <Link to="/feedback" className="sidebar-link">
             <MdOutlineFeedback className="sidebar-icon" /> Report & Feedback
           </Link>
-        </li>
+        </li> */}
         <li className="text-center">
           {/* <Link to="/registration" className="sidebar-link">
       {" "}
@@ -113,8 +121,8 @@ const SideMenu = () => {
   );
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-12 h-[590px]">
-      <div className="col-span-2 bg-gray-600">
+    <div className="grid grid-cols-1 md:grid-cols-12 h-screen">
+      <div className="col-span-2 bg-gray-200 text-black">
         {/* <div className="bg-white text-black rounded-full mx-2 my-5">
           {user ? (
             <div className="flex items-center">
@@ -142,7 +150,8 @@ const SideMenu = () => {
             <Hamburger size={20} toggled={isOpen} toggle={setOpen} />
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            >
               {sideMenuOption}
             </ul>
           </div>
