@@ -2,27 +2,44 @@ import React, { useEffect, useRef, useState } from 'react';
 import { fabric } from 'fabric';
 
 const DemoCanvas = () => {
-  const canvasRef = useRef(null);
   const [canvas, setCanvas] = useState(null);
+  const canvasContainerRef = useRef(null);
 
   useEffect(() => {
-
-    const newCanvas = new fabric.Canvas(canvasRef.current, {
-      width: 800,
-      height: 600,
-      backgroundColor: 'white',
+    // Initialize the Fabric.js canvas
+    const newCanvas = new fabric.Canvas('canvas', {
+      backgroundColor: 'red',
     });
 
-    // Enable clipboard for the canvas
-    newCanvas.clipboard = true;
+    // Attach the canvas to the container
+    canvasContainerRef.current.appendChild(newCanvas.wrapperEl);
 
+    // Set the canvas dimensions based on the container size
+    const updateCanvasSize = () => {
+      const container = canvasContainerRef.current;
+      newCanvas.setDimensions({
+        width: container.clientWidth,
+        height: container.clientHeight,
+      });
+    };
+
+    // Update the canvas size initially and when the window is resized
+    updateCanvasSize();
+    window.addEventListener('resize', updateCanvasSize);
+
+    // Enable touch scroll on mobile and tablet devices
+    newCanvas.allowTouchScrolling = true;
+
+    // Store the canvas in state
     setCanvas(newCanvas);
 
+    // Cleanup: remove the event listener when the component unmounts
     return () => {
-      newCanvas.dispose();
+      window.removeEventListener('resize', updateCanvasSize);
     };
   }, []);
 
+  // Function to add objects to the canvas
   const addRect = () => {
     if (canvas) {
       const rect = new fabric.Rect({
@@ -33,88 +50,17 @@ const DemoCanvas = () => {
         fill: 'blue',
       });
       canvas.add(rect);
-      canvas.renderAll();
     }
   };
-
-  const handleCopy = () => {
-    if (canvas) {
-      canvas.getActiveObject().clone((cloned) => {
-        canvas.clipboard = cloned;
-      });
-    }
-  };
-
-  const handlePaste = () => {
-    if (canvas && canvas.clipboard) {
-      canvas.clipboard.clone((cloned) => {
-        canvas.discardActiveObject();
-        cloned.set({
-          left: 100, // Adjust the paste position as needed
-          top: 100,
-        });
-        canvas.add(cloned);
-        canvas.setActiveObject(cloned);
-        canvas.requestRenderAll();
-      });
-    }
-  };
-
-
-  const handleCopy2 = () => {
-    if (canvas) {
-      canvas.getActiveObject().clone((cloned) => {
-        canvas.clipboard = cloned;
-      });
-      alert('Object copied (Ctrl+C)');
-    }
-  };
-
-  const handlePaste2 = () => {
-    if (canvas && canvas.clipboard) {
-      canvas.clipboard.clone((cloned) => {
-        canvas.discardActiveObject();
-        cloned.set({
-          left: 100, // Adjust the paste position as needed
-          top: 100,
-        });
-        canvas.add(cloned);
-        canvas.setActiveObject(cloned);
-        canvas.requestRenderAll();
-      });
-    }
-  };
-
-
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      // Check if Ctrl (or Cmd on Mac) and 'C' are pressed
-      if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
-        alert('Ctrl+C (or Cmd+C on Mac) pressed!');
-        // handleCopy();
-      }
-    };
-
-    // Add event listener for keydown
-    window.addEventListener('keydown', handleKeyDown);
-
-    // Cleanup: remove the event listener when the component unmounts
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, []);
 
   return (
     <div>
       <div>
         <button onClick={addRect}>Add Rectangle</button>
-        <button onClick={handleCopy}>Copy (Ctrl+C)</button>
-        <button onClick={handlePaste}>Paste (Ctrl+V)</button>
-        <button onClick={handleCopy2}>Copy (Ctrl+C)</button>
-        <button onClick={handlePaste2}>Paste (Ctrl+V)</button>
-      
       </div>
-      <canvas ref={canvasRef} />
+      <div ref={canvasContainerRef} className="canvas-container">
+        <canvas id="canvas"></canvas>
+      </div>
     </div>
   );
 };

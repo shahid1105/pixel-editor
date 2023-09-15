@@ -11,7 +11,7 @@ import { setCircleTool } from "../../../../Redux/CircleToolReducer";
 
 /* -----------for commit-------------------- */
 
-const Canvas = ({ selectedCanvasColor, setShowDiv ,deleteElement , setDeleteElement, penColor,textColor, setPenColor , penWidth}) => {
+const Canvas = ({ selectedCanvasColor, setShowDiv ,deleteElement , setDeleteElement, penColor,textColor, setPenColor , penWidth, isBringFront , setBringFront ,isSentToBack, setSentToBack, isCopy, setCopy , isPaste, setPaste, isDownload, setDownload}) => {
   const dispatch = useDispatch();
 
   const selectedImage = useSelector(
@@ -232,12 +232,14 @@ const Canvas = ({ selectedCanvasColor, setShowDiv ,deleteElement , setDeleteElem
 
       // isDrawingMode: true,
       selection: true,
+      allowTouchScrolling: true,
       // selectionColor: "yellow",
       // selectionLineWidth: 3,
       // preserveObjectStacking: true,
     });
 
     setFabricCanvas(canvas);
+    
 
     // -----------------Image Start---------------
 
@@ -375,6 +377,31 @@ const Canvas = ({ selectedCanvasColor, setShowDiv ,deleteElement , setDeleteElem
       fabricCanvas.requestRenderAll();
     }
   };
+  useEffect(()=>{
+    if(isBringFront){
+      if (fabricCanvas && fabricCanvas.getActiveObject()) {
+        fabricCanvas.bringToFront(fabricCanvas.getActiveObject());
+        fabricCanvas.requestRenderAll();
+        setBringFront(false);
+  
+      }
+      
+    }
+    
+  },[isBringFront])
+
+
+  console.log("isSentToBack = "+isSentToBack);
+  useEffect(()=>{
+    if(isSentToBack){
+      if (fabricCanvas && fabricCanvas.getActiveObject()) {
+        fabricCanvas.sendToBack(fabricCanvas.getActiveObject());
+        fabricCanvas.requestRenderAll();
+      }
+      setSentToBack(false);
+    }
+    
+  },[isSentToBack])
 
   const sendToBack = () => {
     if (fabricCanvas && fabricCanvas.getActiveObject()) {
@@ -434,6 +461,37 @@ const Canvas = ({ selectedCanvasColor, setShowDiv ,deleteElement , setDeleteElem
       });
     }
   };
+
+  useEffect(()=>{
+    if(isCopy){
+      if (fabricCanvas) {
+        fabricCanvas.getActiveObject().clone((cloned) => {
+          fabricCanvas.clipboard = cloned;
+        });
+      }
+      setCopy(false);
+    }
+
+  },[isCopy])
+
+  useEffect(()=>{
+    if(isPaste){
+      if (fabricCanvas && fabricCanvas.clipboard) {
+      fabricCanvas.clipboard.clone((cloned) => {
+        fabricCanvas.discardActiveObject();
+        cloned.set({
+          left: 100, // Adjust the paste position as needed
+          top: 100,
+        });
+        fabricCanvas.add(cloned);
+        fabricCanvas.setActiveObject(cloned);
+        fabricCanvas.requestRenderAll();
+      });
+    }
+    setPaste(false);
+    }
+
+  },[isPaste])
 
   const handlePaste = () => {
     if (fabricCanvas && fabricCanvas.clipboard) {
@@ -512,6 +570,18 @@ const Canvas = ({ selectedCanvasColor, setShowDiv ,deleteElement , setDeleteElem
     // console.log("Download Button");
   };
 
+  useEffect(()=>{
+    if(isDownload){
+    const pngData = fabricCanvas.toDataURL("png");
+    const downloadLink = document.createElement("a");
+    const fileName = `${name}-${Math.random().toString().replace("", "")}.png`;
+
+    downloadLink.href = pngData;
+    downloadLink.download = fileName;
+    downloadLink.click();
+    }
+  },[isDownload])
+
   /* ---------------------------------------------- */
 
   const resizeObject = () => {
@@ -529,19 +599,13 @@ const Canvas = ({ selectedCanvasColor, setShowDiv ,deleteElement , setDeleteElem
   return (
     <div className="container mx-auto bg-gray-200 h-[100%] text-purple-700">
       <div>
-        <div className="flex justify-center text-center align-middle">
+        <div className=" canvas-container flex justify-center text-center align-middle">
           <h1></h1>
           <canvas className="mt-10 mb-10 rounded " ref={canvasRef}></canvas>
         </div>
 
         <div className="mt-10 pt-2">
          
-          <button className="btn" onClick={bringToFront}>
-            Being Front
-          </button>
-          <button className="btn" onClick={sendToBack}>
-            Beint Back
-          </button>
           <button className="btn" onClick={handleCopy}>
             Copy
           </button>
@@ -561,97 +625,7 @@ const Canvas = ({ selectedCanvasColor, setShowDiv ,deleteElement , setDeleteElem
             Resize Object
           </button>
 
-          <button className="btn btn-primary" onClick={handleToggleRangeInput}>
-            Brightness Control
-          </button>
-          {showRangeInput && (
-            <input
-              type="range"
-              min={-1}
-              max={1}
-              step={0.05}
-              value={brightness}
-              onChange={handleBrightnessChange}
-            />
-          )}
-
-          <button
-            className="btn btn-outline"
-            onClick={handleToggleContrastRangeInput}>
-            Contrast Control
-          </button>
-          {showContrastInput && (
-            <input
-              type="range"
-              min={-1}
-              max={1}
-              step={0.1}
-              value={contrast}
-              onChange={handleContrastChange}
-            />
-          )}
-
-          <button
-            className="btn btn-warning"
-            onClick={handleToggleColorMatrixControl}>
-            ColorMatrix Control
-          </button>
-          {isColorMatrixControlVisible && (
-            <div>
-              {colorMatrix.map((value, index) => (
-                <div key={index}>
-                  <label>Matrix Value {index}:</label>
-                  <input
-                    type="range"
-                    min={-1}
-                    max={1}
-                    step={0.01}
-                    value={value}
-                    name={index.toString()} // Use the index as the name to identify the matrix value
-                    onChange={handleColorMatrixChange}
-                  />
-                </div>
-              ))}
-            </div>
-          )}
-
-          <button
-            className="btn btn-success"
-            onClick={handleToggleHueRotationInput}>
-            Hue Rotation Control
-          </button>
-          {showHueRotationInput && (
-            <>
-              <input
-                type="range"
-                min={-1}
-                max={1}
-                step={0.05}
-                value={hueRotation}
-                onChange={handleHueRotationChange}
-              />
-              <label htmlFor="hue-rotation">Hue Rotation: {hueRotation}</label>
-            </>
-          )}
-
-          <button
-            className="btn btn-secondary"
-            onClick={handleToggleSaturationInput}>
-            Saturation Control
-          </button>
-          {showSaturationInput && (
-            <>
-              <input
-                type="range"
-                min={0}
-                max={2}
-                step={0.05}
-                value={saturation}
-                onChange={handleSaturationChange}
-              />
-              <label htmlFor="saturation">Saturation: {saturation}</label>
-            </>
-          )}
+          
         </div>
       </div>
     </div>

@@ -1,10 +1,10 @@
 import { SketchPicker } from "react-color";
 import { useState } from "react";
 import Icon from "./Icon";
-import { FaHome } from "react-icons/fa";
+import { FaCopy, FaDownload, FaHome, FaPaste } from "react-icons/fa";
 import { FaPaintBrush } from "react-icons/fa";
-import { BsChevronDoubleLeft, BsChevronDoubleRight } from "react-icons/bs";
-import { MdLensBlur } from "react-icons/md";
+import { BsChevronDoubleLeft, BsChevronDoubleRight, BsLayers } from "react-icons/bs";
+import { MdDelete, MdLensBlur } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 import Canvas from "../../Component/About/Canvas/Canvas";
@@ -23,7 +23,16 @@ const IconMenu = () => {
 
   const [penWidth, setPenWidth] = useState(3);
   const [penColor, setPenColor] = useState(3);
+  const [isBringFront, setBringFront] = useState(false);
+  const [isSentToBack, setSentToBack] = useState(false);
+  const [isCopy, setCopy] = useState(false);
+  const [isPaste, setPaste] = useState(false);
+  const [isDownload, setDownload] = useState(false);
 
+  const [isDisabled, setIsDisabled] = useState(false);
+
+
+  
   const [selectedCanvasColor, setSelectedCanvasColor] = useState("white");
   const handleOnchange = (color) => {
     setSelectedCanvasColor(color.hex);
@@ -87,9 +96,9 @@ const IconMenu = () => {
   
   switch (true) {
     case isPenToolClick:
-      content = <div className="flex">
+      content = <div className="flex items-center">
           <label className="mx-2 py-1" htmlFor="">
-            Pen WIdth - {penWidth}
+            Pen Width {penWidth}
           </label>
           <input
             className="mx-2 py-1 "
@@ -100,7 +109,7 @@ const IconMenu = () => {
             max={30}
           />
           <label className="mx-2 py-1" htmlFor="">
-            Pen Color - {penColor}
+            Color 
           </label>
           <input
             className="mr-5"
@@ -108,64 +117,84 @@ const IconMenu = () => {
             onChange={(e) => setPenColor(e.target.value)}
             value={penColor}
           />
-          <button className="btn bg-red-400" onClick={() => dispatch(setPenTool(false))}>
+          <button className="btn btn-sm btn-outline btn-warning" onClick={() => dispatch(setPenTool(false))}>
             Disable PenTool
           </button>
       </div>;
       break;
     case showDiv:
-      content = <div>Option 2 content goes here</div>;
+      content = <div>showDiv</div>;
       break;
     case 'option3':
-      content = <div>Option 3 content goes here</div>;
+      content = <div>Option 3 </div>;
       break;
     default:
-      content = <div>Default content goes here</div>;
+      content = <div>Default</div>;
   }
 
   return (
     <div className="">
       <div className="navbar bg-white text-black border-b-2">
-        <div className="navbar-start">
-          <div className="ml-5">
+        <div className="navbar-start flex justify-between">
+          <div className="ml-5 flex items-center gap-2">
             <Link to="/home">
               <FaHome></FaHome>
             </Link>
+
+            {content}
           </div>
-
-          {content}
+                    
           
-          {showDiv ? (
-            <>
-              <h1>Bangladesh</h1>
-              <button className="btn" onClick={()=>{setDeleteElement(true)}}>
-                Delete
-              </button>
-            </>
-          ) : (
-            <>
-              
-              <div className="flex items-center">
-                <h3>Color:</h3>
-                <input
-                  type="color"
-                  id="colorPicker"
-                  className="ml-1"
-                  value={textColor}
-                  onChange={(e) => handleTextColorChange(e.target.value)}
-                />
-              </div>
-
-              <button className="btn" onClick={()=>{setDeleteElement(true)}}>
-                Delete
-              </button>
-              
-            </>
-          )}
         </div>
 
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1"></ul>
+        <div className="navbar-end lg:flex">
+          <ul className="menu menu-horizontal px-1">
+          <div className="flex items-center">
+            <div className="dropdown dropdown-hover">
+                <label tabIndex={0} className="btn btn-sm m-1">
+                  <FaCopy></FaCopy>
+                  </label>
+                <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-48">
+                  <li>
+                    <p onClick={()=>{setCopy(true)}}>
+                      <FaCopy></FaCopy> Copy
+                    </p>
+                  </li>
+                  <li>
+                    <p onClick={()=>{setPaste(true)}}>
+                      <FaPaste></FaPaste> Paste
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            <div className="dropdown dropdown-hover dropdown-end">
+              <label tabIndex={0} className="btn btn-sm m-1">
+                <BsLayers></BsLayers>
+                </label>
+              <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-48">
+                <li>
+                  <p onClick={()=>{setBringFront(true)}}>
+                    Being Front
+                  </p>
+                </li>
+                <li>
+                  <p onClick={()=>{setSentToBack(true)}}>
+                    Sent To Back
+                  </p>
+                </li>
+              </ul>
+            </div>
+            <div className="flex gap-2">
+              <button className="btn btn-sm" onClick={()=>{setDeleteElement(true)}}>
+                <MdDelete></MdDelete>
+              </button>
+              <button className="btn btn-sm btn-success" onClick={()=>{setDownload(true)}}>
+                <FaDownload></FaDownload>
+              </button>
+              
+            </div>
+          </div>
+          </ul>
         </div>
       </div>
       {/* Icon  */}
@@ -200,6 +229,16 @@ const IconMenu = () => {
             setPenWidth = {setPenWidth}
             penColor = {penColor}
             setPenColor = {setPenColor}
+            isBringFront = {isBringFront}
+            setBringFront = {setBringFront}
+            isSentToBack = {isSentToBack}
+            setSentToBack = {setSentToBack}
+            isCopy = {isCopy}
+            setCopy =  {setCopy}
+            isPaste = {isPaste}
+            setPaste = {setPaste}
+            isDownload = {isDownload}
+            setDownload = {setDownload}
             
 
 
