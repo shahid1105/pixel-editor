@@ -36,10 +36,10 @@ const NavBar = () => {
 
   const navMenuLeft = (
     <>
-      <ul className="lg:flex  justify-center items-center gap-2 md:gap-4 px-2 font-semibold">
+      <ul className="lg:flex text-white justify-center items-center gap-2 md:gap-4 px-2 font-semibold">
         <li>
           <Link
-            className="font-bold bg-gradient-to-l from-white to-white text-transparent bg-clip-text"
+            className="font-bold"
             to="/"
           >
             Home
