@@ -3,18 +3,18 @@ import React from "react";
 const Learn = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
-        <div className="col-span-2 mx-2 md:mx-5">
+        <div className="col-span-2 mt-0.5 h-screen px-2 md:px-5 bg-gray-400">
             <h3 className="text-4xl my-4 font-bold">Topics</h3>
-            <h3 className="font-bold">Introduction</h3>
-            <h3 className="font-bold my-2">Workspace</h3>
+            <h3 className="font-semibold">Introduction</h3>
+            <h3 className="font-semibold my-2">Workspace</h3>
             <div className="ml-3">
-            <h3 className="font-bold my-2">Open and Save</h3> 
-            <h3 className="font-bold my-2">Navigation</h3> 
-            <h3 className="font-bold my-2">Image size</h3> 
+            <h3 className="font-semibold my-2">Open and Save</h3> 
+            <h3 className="font-semibold my-2">Navigation</h3> 
+            <h3 className="font-semibold my-2">Image size</h3> 
             </div>
         </div>
       <div className="col-span-10 mx-2 md:mx-5">
-      <h3 className="text-3xl font-bold my-3">Introduction</h3>
+      <h3 className="text-3xl font-semibold my-3">Introduction</h3>
       <p className="mb-2">
         PixelEditor is an advanced image editor, which can work with both raster
         and vector graphics. You can use it for simple tasks, such as resizing
@@ -30,7 +30,7 @@ const Learn = () => {
         effectively and efficiently.
       </p>
 
-      <h3 className="text-3xl mt-4 font-bold my-3">Starting and using PixelEditor</h3>
+      <h3 className="text-3xl mt-4 font-semibold my-3">Starting and using PixelEditor</h3>
       <p className="mb-2">
       PixelEditor editor works in a web browser. It can be started by going to www.PixelEditor.com. PixelEditor can run on any device (desktop, laptop, tablet, phone or any other computer), but for the best comfort, we recommend having a big screen, a precise pointing device (a mouse or a stylus) and a keyboard.
       </p>

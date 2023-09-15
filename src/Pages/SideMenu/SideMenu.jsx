@@ -1,7 +1,6 @@
-import { Link, Outlet } from "react-router-dom";
-import { FaDesktop, FaDropbox, FaGoogleDrive, FaHome } from "react-icons/fa";
-import { GrOnedrive } from "react-icons/Gr";
-import { BiLogIn, BiMessage, BiSolidDashboard } from "react-icons/bi";
+import { Link } from "react-router-dom";
+import { FaDesktop, FaGoogleDrive, FaHome } from "react-icons/fa";
+import { BiLogIn, BiSolidDashboard } from "react-icons/bi";
 import { PiSignOutBold } from "react-icons/pi";
 import { AuthContext } from "../Providers/AuthProvider";
 import { useContext } from "react";
@@ -9,6 +8,7 @@ import HomePage from "./HomePage/HomePage";
 import { MdOutlineFeedback } from "react-icons/md";
 import Hamburger from "hamburger-react";
 import { useState } from "react";
+import { setSelectedImage } from "../../Redux/SelectedImage";
 // import Chat from "../chat";
 // import {MdOutlineFeedback} from "react-icons/md"
 
@@ -16,9 +16,18 @@ const SideMenu = () => {
   const { logOut, user } = useContext(AuthContext);
   const [isOpen, setOpen] = useState(false);
 
+  // Open file
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      dispatch(setSelectedImage(imageUrl));
+      // ... Redirect or navigate to the editor page
+      // ... Redirect or navigate to the editor page
+      navigate("/iconMenu");
+    }
+  };
 
-
-  
   //logout
 
   const handleLogout = () => {
@@ -64,14 +73,26 @@ const SideMenu = () => {
           </Link>
         </li>
         <li className="text-center">
-          <Link to="/device" className="sidebar-link">
+          <label htmlFor="fileInput" className="sidebar-link">
             <FaDesktop className="sidebar-icon" /> This Device
-          </Link>
+          </label>
+          <input
+            type="file"
+            id="fileInput"
+            accept="image/*"
+            style={{ display: "none" }}
+            onChange={handleImageUpload}
+          />
         </li>
         <li className="text-center">
-          <Link to="/googleDrive" className="sidebar-link">
+          <a
+            href="https://drive.google.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="sidebar-link"
+          >
             <FaGoogleDrive className="sidebar-icon" /> Google Drive
-          </Link>
+          </a>
         </li>
         {/* <li className="text-center">
           <Link to="/chat" className="sidebar-link">
@@ -135,7 +156,8 @@ const SideMenu = () => {
             <Hamburger size={20} toggled={isOpen} toggle={setOpen} />
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            >
               {sideMenuOption}
             </ul>
           </div>

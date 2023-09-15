@@ -16,9 +16,14 @@ import img4 from "../../../../public/raw.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setSelectedImage } from "../../../Redux/SelectedImage";
+import Modal from "../../Component/About/Canvas/Modal";
+import { useState } from "react";
 // import { setSelectedImage } from "../../../Redux/Store";
 
 const HomePage = () => {
+  const [showModal, setShowModal] = useState(false);
+
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -61,9 +66,9 @@ const HomePage = () => {
       </h3>
       {/* <p>to do</p> */}
       <div className="flex flex-col px-4 md:p-0 md:flex-row justify-center gap-2 md:gap-4 my-4">
-        <button className="btn btn-outline btn-info flex items-center">
+        <button onClick={() => setShowModal(true)} className="btn btn-outline btn-info flex items-center">
           <SiGooglesheets className="mr-2" />{" "}
-          <Link to="/imageEditor">New Project</Link>
+          <Link>New Project</Link>
         </button>
 
         <label
@@ -80,12 +85,12 @@ const HomePage = () => {
         />
       </div>
 
-      <div className="text-center">
+      {/* <div className="text-center">
         <button className="btn btn-outline btn-info">
           <FaImages className="mr-2" />
           <Link to="/iconMenu"> Templates</Link>
         </button>
-      </div>
+      </div> */}
       <div
         className="text-center"
         onDrop={handleDrop}
@@ -116,6 +121,9 @@ const HomePage = () => {
       </div>
     </div>
   </div>
+  <Modal showModal={showModal} setShowModal={setShowModal}>
+          {" "}
+        </Modal>
 </div>
 
     // <div className="md:mx-auto md:max-w-screen-md lg:max-w-screen-lg fixe ">
