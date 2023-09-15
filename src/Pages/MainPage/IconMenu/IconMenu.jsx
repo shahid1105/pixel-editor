@@ -232,7 +232,7 @@ const IconMenu = () => {
               ) : (
                 <>
                   {/* <div className="flex gap-4"> */}
-                  <div className="grid grid-cols-2 md:grid-cols-7 gap-2 px-2">
+                  <div className="grid grid-cols-2 md:grid-cols-5 gap-2 px-2">
                     <button
                       className="btn btn-sm btn-outline"
                       onClick={handleToggleRangeInput}
@@ -281,7 +281,7 @@ const IconMenu = () => {
                       className="btn btn-sm btn-outline"
                       onClick={handleToggleHueRotationInput}
                     >
-                      Hue Rotation
+                      Hue_Rotation
                     </button>
                     {showHueRotationInput && (
                       <>
@@ -390,7 +390,7 @@ const IconMenu = () => {
 
   return (
     <div className="">
-      <div className="navbar bg-white text-black border-b-2">
+      <div className="navbar h-12 bg-white text-black border-b-2">
         <div className="navbar-start flex justify-between">
           <div className="ml-5 flex items-center gap-2">
             <Link to="/home">
@@ -507,6 +507,7 @@ const IconMenu = () => {
 
 
             ></Canvas>
+
         </div>
         <div className="p-5 col-span-3 ">
           <SketchPicker

@@ -149,7 +149,6 @@ const Icon = ({ textColor }) => {
       {/* <LuStamp title="Clone Stamp Tool"></LuStamp> */}
       <BsEraserFill title="Magic Eraser Tool"></BsEraserFill>
       <MdGradient title="Gradient Tool"></MdGradient>
-      <RiBlurOffLine title="Blur Tool"></RiBlurOffLine>
       <PiPenNibBold title="Pen Tool" onClick={handlePenToolClick}></PiPenNibBold>
       <div className="dropdown dropdown-right">
         <label tabIndex={0} className="">

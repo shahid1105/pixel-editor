@@ -3,7 +3,7 @@ import React from "react";
 const Learn = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
-        <div className="col-span-2 mt-0.5 h-screen px-2 md:px-5 bg-gray-400">
+        <div className="col-span-2 mt-0.5 h-screen px-2 md:px-5 bg-gray-200">
             <h3 className="text-4xl my-4 font-bold">Topics</h3>
             <h3 className="font-semibold">Introduction</h3>
             <h3 className="font-semibold my-2">Workspace</h3>

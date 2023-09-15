@@ -190,7 +190,7 @@ const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix
           blur: newIsBlur,
         });
         activeObject.filters = [blurFilter];
-        activeObject.applyFilters();
+        activeObject?.applyFilters();
         fabricCanvas.requestRenderAll();
       }
     }
@@ -567,9 +567,9 @@ const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix
         
           {/* --------------------------------------------------- */}
 
-          <button className="btn btn-secondary" onClick={resizeObject}>
+          {/* <button className="btn btn-secondary" onClick={resizeObject}>
             Resize Object
-          </button>
+          </button> */}
 
           
         </div>
