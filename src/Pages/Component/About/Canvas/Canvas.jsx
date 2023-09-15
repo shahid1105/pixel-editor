@@ -11,15 +11,16 @@ import { setCircleTool } from "../../../../Redux/CircleToolReducer";
 
 /* -----------for commit-------------------- */
 
-const Canvas = ({ selectedCanvasColor, setShowDiv ,deleteElement , setDeleteElement, penColor,textColor, setPenColor , penWidth, isBringFront , setBringFront ,isSentToBack, setSentToBack, isCopy, setCopy , isPaste, setPaste, isDownload, setDownload}) => {
+const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix,ueRotation,saturation,deleteElement , setDeleteElement, penColor,textColor, setPenColor , penWidth, isBringFront , setBringFront ,isSentToBack, setSentToBack, isCopy, setCopy , isPaste, setPaste, isDownload, setDownload}) => {
   const dispatch = useDispatch();
 
   const selectedImage = useSelector(
     (state) => state.selectedImage.selectedImage
   );
-  //console.log(selectedImage);
+  // console.log(selectedImage);
+
   const color = useSelector((state) => state.colorReducer.color);
-  console.log(color);
+  // console.log(color);
 
   //RectangleMarqueToolClick Selector
   const isRectangleMarqueToolClick = useSelector(
@@ -42,7 +43,7 @@ const Canvas = ({ selectedCanvasColor, setShowDiv ,deleteElement , setDeleteElem
   
 
   const imgCropping = useSelector((state) => state.cropReducer.isCropping);
-  console.log(imgCropping);
+  // console.log(imgCropping);
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -65,16 +66,32 @@ const Canvas = ({ selectedCanvasColor, setShowDiv ,deleteElement , setDeleteElem
 
   /* ---------for filter state start---------------- */
 
-  const [brightness, setBrightness] = useState(0); // Initial brightness
-  const [showRangeInput, setShowRangeInput] = useState(false);
+  // const [brightness, setBrightness] = useState(0); // Initial brightness
+  // const [showRangeInput, setShowRangeInput] = useState(false);
 
-  const handleToggleRangeInput = () => {
-    setShowRangeInput(!showRangeInput);
-  };
+  // const handleToggleRangeInput = () => {
+  //   setShowRangeInput(!showRangeInput);
+  // };
 
-  const handleBrightnessChange = (event) => {
-    const newBrightness = parseFloat(event.target.value);
-    setBrightness(newBrightness);
+  // const handleBrightnessChange = (event) => {
+  //   const newBrightness = parseFloat(event.target.value);
+  //   setBrightness(newBrightness);
+  //   if (fabricCanvas) {
+  //     const activeObject = fabricCanvas.getActiveObject();
+  //     if (activeObject) {
+  //       const brightnessFilter = new fabric.Image.filters.Brightness({
+  //         brightness: newBrightness,
+  //       });
+  //       activeObject.filters = [brightnessFilter];
+  //       activeObject.applyFilters();
+  //       fabricCanvas.requestRenderAll();
+  //     }
+  //   }
+  // };
+
+  /* ----------------brightness------------------ */
+  useEffect(() => {
+    const newBrightness = parseFloat(brightness);
     if (fabricCanvas) {
       const activeObject = fabricCanvas.getActiveObject();
       if (activeObject) {
@@ -86,18 +103,12 @@ const Canvas = ({ selectedCanvasColor, setShowDiv ,deleteElement , setDeleteElem
         fabricCanvas.requestRenderAll();
       }
     }
-  };
+  }, [brightness]);
 
-  const [contrast, setContrast] = useState(0); // Initial contrast
-  const [showContrastInput, setShowContrastInput] = useState(false);
+  /* --------------contrast-------------------- */
 
-  const handleToggleContrastRangeInput = () => {
-    setShowContrastInput(!showContrastInput);
-  };
-
-  const handleContrastChange = (event) => {
-    const newContrast = parseFloat(event.target.value);
-    setContrast(newContrast);
+  useEffect(() => {
+    const newContrast = parseFloat(contras);
     if (fabricCanvas) {
       const activeObject = fabricCanvas.getActiveObject();
       if (activeObject) {
@@ -109,25 +120,12 @@ const Canvas = ({ selectedCanvasColor, setShowDiv ,deleteElement , setDeleteElem
         fabricCanvas.requestRenderAll();
       }
     }
-  };
+  }, [contras]);
+  /* ------------------color matrix--------------- */
 
-  const [colorMatrix, setColorMatrix] = useState([
-    1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0,
-  ]);
-  const [isColorMatrixControlVisible, setColorMatrixControlVisible] =
-    useState(false);
-
-  const handleToggleColorMatrixControl = () => {
-    setColorMatrixControlVisible(!isColorMatrixControlVisible);
-  };
-
-  const handleColorMatrixChange = (event) => {
-    const newMatrixValue = parseFloat(event.target.value);
+  useEffect(() => {
     // Update the specific matrix value in the state
     const updatedMatrix = [...colorMatrix];
-    const matrixIndex = parseInt(event.target.name);
-    updatedMatrix[matrixIndex] = newMatrixValue;
-    setColorMatrix(updatedMatrix);
     if (fabricCanvas) {
       const activeObject = fabricCanvas.getActiveObject();
       if (activeObject) {
@@ -139,18 +137,12 @@ const Canvas = ({ selectedCanvasColor, setShowDiv ,deleteElement , setDeleteElem
         fabricCanvas.requestRenderAll();
       }
     }
-  };
+  }, [colorMatrix]);
 
-  const [hueRotation, setHueRotation] = useState(-0.5);
-  const [showHueRotationInput, setShowHueRotationInput] = useState(false);
+  /* -------------hue rotation--------- */
 
-  const handleToggleHueRotationInput = () => {
-    setShowHueRotationInput(!showHueRotationInput);
-  };
-
-  const handleHueRotationChange = (event) => {
-    const newRotation = parseFloat(event.target.value);
-    setHueRotation(newRotation);
+  useEffect(() => {
+    const newRotation = parseFloat(hueRotation);
     if (fabricCanvas) {
       const activeObject = fabricCanvas.getActiveObject();
       if (activeObject) {
@@ -162,18 +154,10 @@ const Canvas = ({ selectedCanvasColor, setShowDiv ,deleteElement , setDeleteElem
         fabricCanvas.requestRenderAll();
       }
     }
-  };
+  }, [hueRotation]);
 
-  const [saturation, setSaturation] = useState(1);
-  const [showSaturationInput, setShowSaturationInput] = useState(false);
-
-  const handleToggleSaturationInput = () => {
-    setShowSaturationInput(!showSaturationInput);
-  };
-
-  const handleSaturationChange = (event) => {
-    const newSaturation = parseFloat(event.target.value);
-    setSaturation(newSaturation);
+  useEffect(() => {
+    const newSaturation = parseFloat(saturation);
     if (fabricCanvas) {
       const activeObject = fabricCanvas.getActiveObject();
       if (activeObject) {
@@ -185,7 +169,7 @@ const Canvas = ({ selectedCanvasColor, setShowDiv ,deleteElement , setDeleteElem
         fabricCanvas.requestRenderAll();
       }
     }
-  };
+  }, [saturation]);
 
   /* ---------for filter state end---------------- */
 

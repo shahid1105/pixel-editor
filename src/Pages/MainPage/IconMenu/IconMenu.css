@@ -1,4 +1,9 @@
-icone{
-    display: flex;
-    align-items: start;
+/* icone {
+  display: flex;
+  align-items: start;
+} */
+
+.small-size {
+  width: 100px;
+  height: 7px;
 }

@@ -1,10 +1,13 @@
 import { FaFacebookF, FaSearch, FaTwitter } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import NewProjectForm from "../../Component/About/NewProject/NewProjectForm";
 // import Modal from "../../Component/About/Canvas/Modal";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Modal from "../../Component/About/Canvas/Modal";
+import { useDispatch } from "react-redux";
+// import { setOpenImage } from "../../../Redux/OpenImage";
+import { setSelectedImage } from "../../../Redux/SelectedImage";
 
 const NavBar = () => {
   const [showModal, setShowModal] = useState(false);
@@ -33,24 +36,29 @@ const NavBar = () => {
 
   const navMenuLeft = (
     <>
-      <ul className="lg:flex  justify-center items-center gap-2 md:gap-4 px-2 font-semibold">
+      <ul className="lg:flex text-white justify-center items-center gap-2 md:gap-4 px-2 font-semibold">
         <li>
-          <Link className="hover:text-purple-500 " to="/">
+          <Link
+            className="font-bold"
+            to="/"
+          >
             Home
           </Link>
         </li>
         <div className="dropdown">
           <label
             tabIndex={0}
-            className="hover:text-purple-500 m-1 cursor-pointer"
+            className="m-1 cursor-pointer"
             onClick={(e) =>
               e.currentTarget.nextSibling.classList.toggle("hidden", false)
-            }>
+            }
+          >
             File
           </label>
           <ul
             tabIndex={0}
-            className="dropdown-content z-[1] menu p-2 text-black shadow bg-base-100 rounded-box w-40 hidden">
+            className="dropdown-content z-[1] menu p-2 text-black shadow bg-base-100 rounded-box w-40 hidden"
+          >
             <li>
               <>
                 <button className="" onClick={() => setShowModal(true)}>
@@ -60,7 +68,7 @@ const NavBar = () => {
               </>
             </li>
             <li>
-              <a>Open File</a>
+              <a>Open from File</a>
             </li>
             <li>
               <a>Save</a>
@@ -68,24 +76,20 @@ const NavBar = () => {
             <li>
               <a>Share</a>
             </li>
-            <li>
-              <a>Open File</a>
-            </li>
           </ul>
         </div>
 
         <li>
-          <Link className="hover:text-purple-500 active:text-white">Edit</Link>
+          <Link className=" active:text-white">Edit</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500">Layer</Link>
-        </li>
-
-        <li>
-          <Link className="hover:text-purple-500">View</Link>
+          <Link className="">Layer</Link>
         </li>
         <li>
-          <Link className="hover:text-purple-500">
+          <Link className="">View</Link>
+        </li>
+        <li>
+          <Link className="">
             <FaSearch></FaSearch>
           </Link>
         </li>
@@ -111,23 +115,24 @@ const NavBar = () => {
           </Link>
         </li>
         <li>
-          <Link to="/api" className="hover:text-purple-500">
-            Api
-          </Link>
+          <a
+            className="hover:text-purple-500"
+            href="https://twitter.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaTwitter></FaTwitter>
+          </a>
         </li>
         <li>
-          <Link className="hover:text-purple-500">
-            <a href="https://twitter.com">
-              <FaTwitter></FaTwitter>
-            </a>
-          </Link>
-        </li>
-        <li>
-          <Link className="hover:text-purple-500">
-            <a href="https://www.facebook.com">
-              <FaFacebookF></FaFacebookF>
-            </a>
-          </Link>
+          <a
+            className="hover:text-purple-500"
+            href="https://www.facebook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaFacebookF></FaFacebookF>
+          </a>
         </li>
       </ul>
     </>
@@ -142,7 +147,8 @@ const NavBar = () => {
               className="h-5 w-5"
               fill="none"
               viewBox="0 0 24 24"
-              stroke="currentColor">
+              stroke="currentColor"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -153,7 +159,8 @@ const NavBar = () => {
           </label>
           <ul
             tabIndex={0}
-            className="dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-fit">
+            className="dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-fit"
+          >
             {navMenuLeft}
           </ul>
         </div>
