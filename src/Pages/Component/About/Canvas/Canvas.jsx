@@ -11,7 +11,7 @@ import { setCircleTool } from "../../../../Redux/CircleToolReducer";
 
 /* -----------for commit-------------------- */
 
-const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix,ueRotation,saturation,deleteElement , setDeleteElement, penColor,textColor, setPenColor , penWidth, isBringFront , setBringFront ,isSentToBack, setSentToBack, isCopy, setCopy , isPaste, setPaste, isDownload, setDownload}) => {
+const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix,hueRotation,saturation,deleteElement , setDeleteElement, penColor,textColor, setPenColor , penWidth, isBringFront , setBringFront ,isSentToBack, setSentToBack, isCopy, setCopy , isPaste, setPaste, isDownload, setDownload}) => {
   const dispatch = useDispatch();
 
   const selectedImage = useSelector(

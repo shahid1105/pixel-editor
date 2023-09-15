@@ -8,7 +8,7 @@ import { MdDelete, MdLensBlur } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 import Canvas from "../../Component/About/Canvas/Canvas";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setColor } from "../../../Redux/Color";
 import { setPenTool } from "../../../Redux/PenToolReducer";
 import "./IconMenu.css";
@@ -198,27 +198,8 @@ const IconMenu = () => {
       </div>;
       break;
     case showDiv:
-      content = <div>showDiv</div>;
-      break;
-    case 'option3':
-      content = <div>Option 3 </div>;
-      break;
-    default:
-      content = <div>Default</div>;
-  }
-
-  return (
-    <div className="">
-      <div className="navbar bg-white text-black border-b-2">
-        <div className="navbar-start flex justify-between">
-          <div className="ml-5 flex items-center gap-2">
-            <Link to="/home">
-              <FaHome></FaHome>
-            </Link>
-
-            {content}
-          </div>
-          {showDiv ? (
+      content = <div>
+        {showDiv ? (
             <>
               {isColorMatrixControlVisible ? (
                 <>
@@ -228,7 +209,7 @@ const IconMenu = () => {
                     ColorMatrix
                   </button>
                   {isColorMatrixControlVisible && (
-                    <div className="grid md:grid-cols-8 md:gap-x-32">
+                    <div className="grid md:grid-cols-8 md:gap-x-28">
                       {colorMatrix.slice(0, 16).map((value, index) => (
                         <div key={index}>
                           <label>Value{index}</label>
@@ -249,7 +230,7 @@ const IconMenu = () => {
                 </>
               ) : (
                 <>
-                  <div className="flex gap-5">
+                  <div className="flex gap-4">
                     <button
                       className="btn btn-sm btn-outline"
                       onClick={handleToggleRangeInput}>
@@ -391,6 +372,27 @@ const IconMenu = () => {
               </div>
             </>
           )}
+      </div>;
+      break;
+    case 'option3':
+      content = <div>Option 3 </div>;
+      break;
+    default:
+      content = <div>Default</div>;
+  }
+
+  return (
+    <div className="">
+      <div className="navbar bg-white text-black border-b-2">
+        <div className="navbar-start flex justify-between">
+          <div className="ml-5 flex items-center gap-2">
+            <Link to="/home">
+              <FaHome></FaHome>
+            </Link>
+
+            {content}
+          </div>
+          
         </div>
 
         <div className="navbar-end lg:flex">
