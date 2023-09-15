@@ -72,19 +72,13 @@ const SideMenu = () => {
             <BiSolidDashboard className="sidebar-icon" /> Dashboard
           </Link>
         </li>
-        <li className="text-center">
+        {/* <li className="text-center">
           <label htmlFor="fileInput" className="sidebar-link">
             <FaDesktop className="sidebar-icon" /> This Device
           </label>
-          {/* <input
-            type="file"
-            id="fileInput"
-            accept="image/*"
-            style={{ display: "none" }}
-            onChange={handleImageUpload}
-          /> */}
-        </li>
-        <li className="text-center">
+          
+        </li> */}
+        {/* <li className="text-center">
           <a
             href="https://drive.google.com/"
             target="_blank"
@@ -93,17 +87,17 @@ const SideMenu = () => {
           >
             <FaGoogleDrive className="sidebar-icon" /> Google Drive
           </a>
-        </li>
+        </li> */}
         {/* <li className="text-center">
           <Link to="/chat" className="sidebar-link">
             <BiMessage className="sidebar-icon" /> Chat
           </Link>
         </li> */}
-        <li className="text-center">
+        {/* <li className="text-center">
           <Link to="/feedback" className="sidebar-link">
             <MdOutlineFeedback className="sidebar-icon" /> Report & Feedback
           </Link>
-        </li>
+        </li> */}
         <li className="text-center">
           {/* <Link to="/registration" className="sidebar-link">
       {" "}

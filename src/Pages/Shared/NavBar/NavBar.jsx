@@ -67,7 +67,7 @@ const NavBar = () => {
                 </button>
               </>
             </li>
-            <li>
+            {/* <li>
               <a>Open from File</a>
             </li>
             <li>
@@ -75,11 +75,11 @@ const NavBar = () => {
             </li>
             <li>
               <a>Share</a>
-            </li>
+            </li> */}
           </ul>
         </div>
 
-        <li>
+        {/* <li>
           <Link className=" active:text-white">Edit</Link>
         </li>
         <li>
@@ -92,7 +92,7 @@ const NavBar = () => {
           <Link className="">
             <FaSearch></FaSearch>
           </Link>
-        </li>
+        </li> */}
       </ul>
     </>
   );

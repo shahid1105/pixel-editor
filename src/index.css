@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.canvas-container{
+    width: 100%;
+}
+
+.canvass-container {
+    width: 100%;
+    max-width: 800px; /* Adjust to your desired maximum width */
+    aspect-ratio: 16 / 9; /* Set your desired aspect ratio (e.g., 16:9) */
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    overflow: auto; /* Enable scrolling for mobile and tablet */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS devices */
+  }
+  

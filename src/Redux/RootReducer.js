@@ -7,6 +7,8 @@ import { textBoxReducer } from "./TextBox";
 import lassoReducer from "./Lasso";
 import canvasReducer from "./CanvasReducer";
 import colorReducer from "./Color";
+import circleToolReducer from "./CircleToolReducer";
+import penToolReducer from "./PenToolReducer";
 import blurReducer from "./Blur";
 
 
@@ -17,8 +19,10 @@ const rootReducer = combineReducers({
     selectedImage: imageReducer,
     cropReducer: cropReducer,
     rectangleMarqueToolReducer: rectangleMarqueToolReducer,
+    circleToolReducer: circleToolReducer,
     textBoxReducer: textBoxReducer,
-    magneticLasso: lassoReducer,
+    penToolReducer: penToolReducer,
+    magneticLasso : lassoReducer,
     canvasReducer: canvasReducer,
     colorReducer: colorReducer,
     blurReducer: blurReducer,
