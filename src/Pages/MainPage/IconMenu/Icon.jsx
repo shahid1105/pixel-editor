@@ -34,9 +34,9 @@ import { setLasso } from "../../../Redux/Lasso";
 const Icon = ({ textColor }) => {
   // console.log(textColor);
   /* -------------------------------------------- */
-  const isLasso = useSelector((state) => state.magneticLasso.isLasso);
 
   const isCropping = useSelector((state) => state.cropReducer.isCropping);
+  const isLasso = useSelector((state) => state.magneticLasso.isLasso);
   const [isTextboxActive, setIsTextboxActive] = useState(false);
 
   const isRectangleMarqueToolClick = useSelector(

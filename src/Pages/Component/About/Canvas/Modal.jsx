@@ -153,7 +153,7 @@ const Modal = ({ showModal, setShowModal }) => {
                                 <input
                                   {...register("width")}
                                   type="number"
-                                  defaultValue="200"
+                                  defaultValue="500"
                                   placeholder="width"
                                   className="px-2 w-full rounded-sm"
                                 />
@@ -180,7 +180,7 @@ const Modal = ({ showModal, setShowModal }) => {
                                 <input
                                   {...register("height")}
                                   type="number"
-                                  defaultValue="300"
+                                  defaultValue="800"
                                   placeholder="height"
                                   className="px-2 w-full rounded-sm"
                                 />
