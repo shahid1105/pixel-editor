@@ -95,7 +95,7 @@ const Modal = ({ showModal, setShowModal }) => {
                   </button>
                 </div>
                 {/* header 2  */}
-                <div className="flex items-start justify-between px-5 py-1 text-white bg-gray-900 border-b border-solid border-gray-500">
+                {/* <div className="flex items-start justify-between px-5 py-1 text-white bg-gray-900 border-b border-solid border-gray-500">
                   <ul className="flex gap-4">
                     <li>
                       <Link>Recent</Link>
@@ -116,7 +116,7 @@ const Modal = ({ showModal, setShowModal }) => {
                       <Link>Mobile</Link>
                     </li>
                   </ul>
-                </div>
+                </div> */}
                 {/*body*/}
                 <div className="grid grid-cols-1 md:grid-cols-12 bg-black text-white overflow-y-scroll">
                   {/* part1 */}
