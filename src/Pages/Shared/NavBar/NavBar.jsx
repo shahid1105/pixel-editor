@@ -1,10 +1,13 @@
 import { FaFacebookF, FaSearch, FaTwitter } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import NewProjectForm from "../../Component/About/NewProject/NewProjectForm";
 // import Modal from "../../Component/About/Canvas/Modal";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Modal from "../../Component/About/Canvas/Modal";
+import { useDispatch } from "react-redux";
+// import { setOpenImage } from "../../../Redux/OpenImage";
+import { setSelectedImage } from "../../../Redux/SelectedImage";
 
 const NavBar = () => {
   const [showModal, setShowModal] = useState(false);
@@ -60,16 +63,13 @@ const NavBar = () => {
               </>
             </li>
             <li>
-              <a>Open File</a>
+              <a>Open from File</a>
             </li>
             <li>
               <a>Save</a>
             </li>
             <li>
               <a>Share</a>
-            </li>
-            <li>
-              <a>Open File</a>
             </li>
           </ul>
         </div>
