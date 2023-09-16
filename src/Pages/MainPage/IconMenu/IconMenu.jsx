@@ -1,42 +1,21 @@
 import { SketchPicker } from "react-color";
 import { useState } from "react";
 import Icon from "./Icon";
-import { FaCopy, FaDownload, FaHome, FaPaste } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
 import { FaPaintBrush } from "react-icons/fa";
-import {
-  BsChevronDoubleLeft,
-  BsChevronDoubleRight,
-  BsLayers,
-} from "react-icons/bs";
-import { MdDelete, MdLensBlur } from "react-icons/md";
+import { BsChevronDoubleLeft, BsChevronDoubleRight } from "react-icons/bs";
+import { MdLensBlur } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 import Canvas from "../../Component/About/Canvas/Canvas";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setColor } from "../../../Redux/Color";
-import { setPenTool } from "../../../Redux/PenToolReducer";
 import "./IconMenu.css";
 
 // import LightRuler from "light-ruler";
 
 const IconMenu = () => {
-  const isPenToolClick = useSelector(
-    (state) => state.penToolReducer.isPenToolClick
-  );
-
   const [showDiv, setShowDiv] = useState(false);
-  const [deleteElement, setDeleteElement] = useState(false);
-
-  const [penWidth, setPenWidth] = useState(3);
-  const [penColor, setPenColor] = useState(3);
-  const [isBringFront, setBringFront] = useState(false);
-  const [isSentToBack, setSentToBack] = useState(false);
-  const [isCopy, setCopy] = useState(false);
-  const [isPaste, setPaste] = useState(false);
-  const [isDownload, setDownload] = useState(false);
-
-  const [isDisabled, setIsDisabled] = useState(false);
-
   /* ----------------all filter items -------------------- */
   /* ------------------brightness------------------- */
   const [brightness, setBrightness] = useState(0); // Initial brightness
@@ -171,43 +150,15 @@ const IconMenu = () => {
   //     },
   // });
 
-  var content;
-
-  switch (true) {
-    case isPenToolClick:
-      content = (
-        <div className="flex items-center">
-          <label className="mx-2 py-1" htmlFor="">
-            Pen Width {penWidth}
-          </label>
-          <input
-            className="mx-2 py-1 "
-            type="range"
-            onChange={(e) => setPenWidth(e.target.value)}
-            value={penWidth}
-            min={1}
-            max={30}
-          />
-          <label className="mx-2 py-1" htmlFor="">
-            Color
-          </label>
-          <input
-            className="mr-5"
-            type="color"
-            onChange={(e) => setPenColor(e.target.value)}
-            value={penColor}
-          />
-          <button
-            className="btn btn-sm btn-outline btn-warning"
-            onClick={() => dispatch(setPenTool(false))}>
-            Disable PenTool
-          </button>
-        </div>
-      );
-      break;
-    case showDiv:
-      content = (
-        <div>
+  return (
+    <div className="">
+      <div className="navbar bg-white text-black border-b-2">
+        <div className="navbar-start">
+          <div className="ml-5 md:mr-12">
+            <Link to="/home">
+              <FaHome></FaHome>
+            </Link>
+          </div>
           {showDiv ? (
             <>
               {isColorMatrixControlVisible ? (
@@ -218,7 +169,7 @@ const IconMenu = () => {
                     ColorMatrix
                   </button>
                   {isColorMatrixControlVisible && (
-                    <div className="grid md:grid-cols-8 md:gap-x-28">
+                    <div className="grid md:grid-cols-8 md:gap-x-32">
                       {colorMatrix.slice(0, 16).map((value, index) => (
                         <div key={index}>
                           <label>Value{index}</label>
@@ -239,8 +190,7 @@ const IconMenu = () => {
                 </>
               ) : (
                 <>
-                  {/* <div className="flex gap-4"> */}
-                  <div className="grid grid-cols-2 md:grid-cols-5 gap-2 px-2">
+                  <div className="flex gap-5">
                     <button
                       className="btn btn-sm btn-outline"
                       onClick={handleToggleRangeInput}>
@@ -286,7 +236,7 @@ const IconMenu = () => {
                     <button
                       className="btn btn-sm btn-outline"
                       onClick={handleToggleHueRotationInput}>
-                      Hue_Rotation
+                      Hue Rotation
                     </button>
                     {showHueRotationInput && (
                       <>
@@ -383,105 +333,15 @@ const IconMenu = () => {
             </>
           )}
         </div>
-      );
-      break;
-    case "option3":
-      content = <div>Option 3 </div>;
-      break;
-    default:
-      content = <div>Default</div>;
-  }
 
-  return (
-    <div className="">
-      <div className="navbar  bg-white text-black border-b-2">
-        <div className="navbar-start flex justify-between">
-          <div className="ml-5 flex items-center gap-2">
-            <Link to="/home">
-              <FaHome></FaHome>
-            </Link>
-
-            {content}
-          </div>
-        </div>
-
-        <div className="navbar-end lg:flex">
-          <ul className="menu menu-horizontal px-1">
-            <div className="flex items-center">
-              <div className="dropdown dropdown-hover">
-                <label tabIndex={0} className="btn btn-sm m-1">
-                  <FaCopy></FaCopy>
-                </label>
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-48">
-                  <li>
-                    <p
-                      onClick={() => {
-                        setCopy(true);
-                      }}>
-                      <FaCopy></FaCopy> Copy
-                    </p>
-                  </li>
-                  <li>
-                    <p
-                      onClick={() => {
-                        setPaste(true);
-                      }}>
-                      <FaPaste></FaPaste> Paste
-                    </p>
-                  </li>
-                </ul>
-              </div>
-              <div className="dropdown dropdown-hover dropdown-end">
-                <label tabIndex={0} className="btn btn-sm m-1">
-                  <BsLayers></BsLayers>
-                </label>
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-48">
-                  <li>
-                    <p
-                      onClick={() => {
-                        setBringFront(true);
-                      }}>
-                      Being Front
-                    </p>
-                  </li>
-                  <li>
-                    <p
-                      onClick={() => {
-                        setSentToBack(true);
-                      }}>
-                      Sent To Back
-                    </p>
-                  </li>
-                </ul>
-              </div>
-              <div className="flex gap-2">
-                <button
-                  className="btn btn-sm"
-                  onClick={() => {
-                    setDeleteElement(true);
-                  }}>
-                  <MdDelete></MdDelete>
-                </button>
-                <button
-                  className="btn btn-sm btn-success"
-                  onClick={() => {
-                    setDownload(true);
-                  }}>
-                  <FaDownload></FaDownload>
-                </button>
-              </div>
-            </div>
-          </ul>
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal px-1"></ul>
         </div>
       </div>
       {/* Icon  */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-0 md:gap-1">
         <div
-          className={`px-5 py-3 grid grid-cols-12 md:grid-cols-${columns} gap-2  md:col-span-1 bg-slate-700 text-white z-50`}
+          className={`p-4 grid grid-cols-10 md:grid-cols-${columns} gap-2  md:col-span-1 bg-slate-700 text-white z-50`}
           style={{
             position: "absolute",
             cursor: isDragging ? "grabbing" : "grab",
@@ -510,23 +370,7 @@ const IconMenu = () => {
             contras={contrast}
             setShowDiv={setShowDiv}
             textColor={textColor}
-            selectedCanvasColor={selectedCanvasColor}
-            deleteElement={deleteElement}
-            setDeleteElement={setDeleteElement}
-            penWidth={penWidth}
-            setPenWidth={setPenWidth}
-            penColor={penColor}
-            setPenColor={setPenColor}
-            isBringFront={isBringFront}
-            setBringFront={setBringFront}
-            isSentToBack={isSentToBack}
-            setSentToBack={setSentToBack}
-            isCopy={isCopy}
-            setCopy={setCopy}
-            isPaste={isPaste}
-            setPaste={setPaste}
-            isDownload={isDownload}
-            setDownload={setDownload}></Canvas>
+            selectedCanvasColor={selectedCanvasColor}></Canvas>
         </div>
         <div className="p-5 col-span-3 ">
           <SketchPicker

@@ -11,7 +11,30 @@ import { setCircleTool } from "../../../../Redux/CircleToolReducer";
 
 /* -----------for commit-------------------- */
 
-const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix,hueRotation,saturation,deleteElement , setDeleteElement, penColor,textColor, setPenColor , penWidth, isBringFront , setBringFront ,isSentToBack, setSentToBack, isCopy, setCopy , isPaste, setPaste, isDownload, setDownload}) => {
+const Canvas = ({
+  selectedCanvasColor,
+  setShowDiv,
+  contras,
+  brightness,
+  colorMatrix,
+  hueRotation,
+  saturation,
+  deleteElement,
+  setDeleteElement,
+  penColor,
+  setPenColor,
+  penWidth,
+  isBringFront,
+  setBringFront,
+  isSentToBack,
+  setSentToBack,
+  isCopy,
+  setCopy,
+  isPaste,
+  setPaste,
+  isDownload,
+  setDownload,
+}) => {
   const dispatch = useDispatch();
   /* ----------------for blur------------- */
   const isBlur = useSelector((state) => state.blurReducer.blur);
@@ -37,14 +60,14 @@ const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix
   // console.log(isCircleToolClick);
 
   //penToolReducer
-  const isPenToolClick = useSelector((state) => state.penToolReducer.isPenToolClick);
-  console.log("hello"+isPenToolClick);
+  const isPenToolClick = useSelector(
+    (state) => state.penToolReducer.isPenToolClick
+  );
+  console.log("hello" + isPenToolClick);
 
   //textbox reducer
   const textbox = useSelector((state) => state.textBoxReducer.textBox);
   // console.log("hello textbox");
-
-  
 
   const imgCropping = useSelector((state) => state.cropReducer.isCropping);
   // console.log(imgCropping);
@@ -248,7 +271,6 @@ const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix
     });
 
     setFabricCanvas(canvas);
-    
 
     // -----------------Image Start---------------
 
@@ -297,8 +319,8 @@ const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix
 
   // -----------------Circle Start---------------
 
-  useEffect(()=>{
-    if(isCircleToolClick){
+  useEffect(() => {
+    if (isCircleToolClick) {
       const circle = new fabric.Circle({
         radius: 50,
         fill: "yellow",
@@ -312,8 +334,7 @@ const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix
       fabricCanvas?.requestRenderAll();
       dispatch(setCircleTool(false));
     }
-  },[isCircleToolClick]);
-
+  }, [isCircleToolClick]);
 
   /* --------------------text box ---------------------------- */
 
@@ -324,7 +345,7 @@ const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix
         top: textbox?.top,
         width: textbox?.width,
         fontSize: textbox?.fontSize,
-        fill: textColor,
+        fill: textbox?.fill,
         editable: true,
         selectable: true,
       });
@@ -332,25 +353,17 @@ const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix
         setShowDiv(false);
       });
       fabricCanvas?.add(textBox);
-      if(textColor){
-        textBox.set('fill', {textColor})
-
-      }
       fabricCanvas?.requestRenderAll();
     }
   }, [textbox]);
-
-  useEffect(()=>{
-  },[textbox,textColor])
 
   /* --------------------PenTool ---------------------------- */
 
   useEffect(() => {
     if (isPenToolClick) {
-      console.log("hello PenTool "+isPenToolClick);
+      console.log("hello PenTool " + isPenToolClick);
       if (fabricCanvas) {
         fabricCanvas.isDrawingMode = true;
-        
       }
     } else {
       if (fabricCanvas) {
@@ -360,12 +373,10 @@ const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix
     // dispatch(setPenTool(false));
   }, [isPenToolClick]);
 
-  
-
   // ------------DDelete Option --------------
 
-  useEffect(()=>{
-    if(deleteElement){
+  useEffect(() => {
+    if (deleteElement) {
       const activeObject = fabricCanvas.getActiveObject();
       if (activeObject) {
         // fabricCanvas.bringToFront(layer1Object);
@@ -376,7 +387,7 @@ const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix
       }
     }
     setDeleteElement(false);
-  },[deleteElement])
+  }, [deleteElement]);
 
   //--------------Layer Options --------------
 
@@ -386,31 +397,26 @@ const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix
       fabricCanvas.requestRenderAll();
     }
   };
-  useEffect(()=>{
-    if(isBringFront){
+  useEffect(() => {
+    if (isBringFront) {
       if (fabricCanvas && fabricCanvas.getActiveObject()) {
         fabricCanvas.bringToFront(fabricCanvas.getActiveObject());
         fabricCanvas.requestRenderAll();
         setBringFront(false);
-  
       }
-      
     }
-    
-  },[isBringFront])
+  }, [isBringFront]);
 
-
-  console.log("isSentToBack = "+isSentToBack);
-  useEffect(()=>{
-    if(isSentToBack){
+  console.log("isSentToBack = " + isSentToBack);
+  useEffect(() => {
+    if (isSentToBack) {
       if (fabricCanvas && fabricCanvas.getActiveObject()) {
         fabricCanvas.sendToBack(fabricCanvas.getActiveObject());
         fabricCanvas.requestRenderAll();
       }
       setSentToBack(false);
     }
-    
-  },[isSentToBack])
+  }, [isSentToBack]);
 
   const sendToBack = () => {
     if (fabricCanvas && fabricCanvas.getActiveObject()) {
@@ -463,9 +469,8 @@ const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix
 
   //------------Copy/Paste Using button---------
 
-
-  useEffect(()=>{
-    if(isCopy){
+  useEffect(() => {
+    if (isCopy) {
       if (fabricCanvas) {
         fabricCanvas.getActiveObject().clone((cloned) => {
           fabricCanvas.clipboard = cloned;
@@ -473,27 +478,25 @@ const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix
       }
       setCopy(false);
     }
+  }, [isCopy]);
 
-  },[isCopy])
-
-  useEffect(()=>{
-    if(isPaste){
+  useEffect(() => {
+    if (isPaste) {
       if (fabricCanvas && fabricCanvas.clipboard) {
-      fabricCanvas.clipboard.clone((cloned) => {
-        fabricCanvas.discardActiveObject();
-        cloned.set({
-          left: 100, // Adjust the paste position as needed
-          top: 100,
+        fabricCanvas.clipboard.clone((cloned) => {
+          fabricCanvas.discardActiveObject();
+          cloned.set({
+            left: 100, // Adjust the paste position as needed
+            top: 100,
+          });
+          fabricCanvas.add(cloned);
+          fabricCanvas.setActiveObject(cloned);
+          fabricCanvas.requestRenderAll();
         });
-        fabricCanvas.add(cloned);
-        fabricCanvas.setActiveObject(cloned);
-        fabricCanvas.requestRenderAll();
-      });
+      }
+      setPaste(false);
     }
-    setPaste(false);
-    }
-
-  },[isPaste])
+  }, [isPaste]);
 
   /* ------------------Canvas bg color----------------------------- */
   useEffect(() => {
@@ -506,40 +509,39 @@ const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix
   }, [selectedCanvasColor, fabricCanvas]);
   /* -------------------Pen WIdth ---------------------- */
 
-  useEffect(()=>{
+  useEffect(() => {
     if (fabricCanvas) {
       fabricCanvas.freeDrawingBrush.width = penWidth;
       // setPenWidth(width);
       fabricCanvas.renderAll.bind(fabricCanvas);
       // console.log("Change Pen WIdth");
     }
-
-  },[penWidth])
+  }, [penWidth]);
 
   /* -------------------Pen Color ---------------------- */
 
-  useEffect(()=>{
+  useEffect(() => {
     if (fabricCanvas) {
       fabricCanvas.freeDrawingBrush.color = penColor;
       // setPenColor(color);
       fabricCanvas.renderAll.bind(fabricCanvas);
       // console.log("Change Pen Color");
     }
+  }, [penColor]);
 
-  },[penColor])
+  useEffect(() => {
+    if (isDownload) {
+      const pngData = fabricCanvas.toDataURL("png");
+      const downloadLink = document.createElement("a");
+      const fileName = `${name}-${Math.random()
+        .toString()
+        .replace("", "")}.png`;
 
-
-  useEffect(()=>{
-    if(isDownload){
-    const pngData = fabricCanvas.toDataURL("png");
-    const downloadLink = document.createElement("a");
-    const fileName = `${name}-${Math.random().toString().replace("", "")}.png`;
-
-    downloadLink.href = pngData;
-    downloadLink.download = fileName;
-    downloadLink.click();
+      downloadLink.href = pngData;
+      downloadLink.download = fileName;
+      downloadLink.click();
     }
-  },[isDownload])
+  }, [isDownload]);
 
   /* ---------------------------------------------- */
 
@@ -564,14 +566,11 @@ const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix
         </div>
 
         <div className="mt-10 pt-2">
-        
           {/* --------------------------------------------------- */}
 
           {/* <button className="btn btn-secondary" onClick={resizeObject}>
             Resize Object
           </button> */}
-
-          
         </div>
       </div>
     </div>
