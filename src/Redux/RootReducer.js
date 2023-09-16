@@ -9,6 +9,7 @@ import canvasReducer from "./CanvasReducer";
 import circleToolReducer from "./CircleToolReducer";
 import penToolReducer from "./PenToolReducer";
 import blurReducer from "./Blur";
+import colorReducer from "./Color";
 
 
 
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
     textBoxReducer: textBoxReducer,
     penToolReducer: penToolReducer,
     magneticLasso: lassoReducer,
+    colorReducer: colorReducer,
     canvasReducer: canvasReducer,
     blurReducer: blurReducer,
 

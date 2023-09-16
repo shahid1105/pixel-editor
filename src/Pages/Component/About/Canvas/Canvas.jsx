@@ -12,6 +12,8 @@ import { setCircleTool } from "../../../../Redux/CircleToolReducer";
 /* -----------for commit-------------------- */
 
 const Canvas = ({
+  setTextDecoration,
+  selectedColor,
   selectedCanvasColor,
   setShowDiv,
   contras,
@@ -22,6 +24,7 @@ const Canvas = ({
   deleteElement,
   setDeleteElement,
   penColor,
+  textColor,
   setPenColor,
   penWidth,
   isBringFront,
@@ -63,7 +66,7 @@ const Canvas = ({
   const isPenToolClick = useSelector(
     (state) => state.penToolReducer.isPenToolClick
   );
-  console.log("hello" + isPenToolClick);
+  // console.log("hello" + isPenToolClick);
 
   //textbox reducer
   const textbox = useSelector((state) => state.textBoxReducer.textBox);
@@ -126,7 +129,7 @@ const Canvas = ({
           brightness: newBrightness,
         });
         activeObject.filters = [brightnessFilter];
-        activeObject.applyFilters();
+        activeObject?.applyFilters();
         fabricCanvas.requestRenderAll();
       }
     }
@@ -143,7 +146,7 @@ const Canvas = ({
           contrast: newContrast,
         });
         activeObject.filters = [contrastFilter];
-        activeObject.applyFilters();
+        activeObject?.applyFilters();
         fabricCanvas.renderAll();
       }
     }
@@ -160,7 +163,7 @@ const Canvas = ({
           matrix: updatedMatrix,
         });
         activeObject.filters = [colorMatrixFilter];
-        activeObject.applyFilters();
+        activeObject?.applyFilters();
         fabricCanvas.requestRenderAll();
       }
     }
@@ -177,7 +180,7 @@ const Canvas = ({
           rotation: newRotation,
         });
         activeObject.filters = [hueRotationFilter];
-        activeObject.applyFilters();
+        activeObject?.applyFilters();
         fabricCanvas.requestRenderAll();
       }
     }
@@ -194,7 +197,7 @@ const Canvas = ({
           saturation: newSaturation,
         });
         activeObject.filters = [saturationFilter];
-        activeObject.applyFilters();
+        activeObject?.applyFilters();
         fabricCanvas.requestRenderAll();
       }
     }
@@ -299,7 +302,7 @@ const Canvas = ({
 
   useEffect(() => {
     if (isRectangleMarqueToolClick) {
-      console.log("hello rect----");
+      // console.log("hello rect----");
       const rect = new fabric.Rect({
         height: 200,
         width: 100,
@@ -310,6 +313,14 @@ const Canvas = ({
 
       fabricCanvas?.add(rect);
       fabricCanvas?.setActiveObject(rect);
+
+      rect.on("mousedown", function () {
+        setShowDiv(false);
+      });
+      rect.on("mousedown", function () {
+        setTextDecoration(false);
+      });
+
       fabricCanvas?.requestRenderAll();
       dispatch(setRectangleMarqueTool(false));
     }
@@ -331,6 +342,14 @@ const Canvas = ({
       // circle.set({ radius: 50, fill: "#f00", opacity: 0.7 });
       fabricCanvas?.add(circle);
       fabricCanvas?.setActiveObject(circle);
+
+      circle.on("mousedown", function () {
+        setShowDiv(false);
+      });
+      circle.on("mousedown", function () {
+        setTextDecoration(false);
+      });
+
       fabricCanvas?.requestRenderAll();
       dispatch(setCircleTool(false));
     }
@@ -345,17 +364,25 @@ const Canvas = ({
         top: textbox?.top,
         width: textbox?.width,
         fontSize: textbox?.fontSize,
-        fill: textbox?.fill,
+        fill: textColor,
         editable: true,
         selectable: true,
       });
       textBox.on("mousedown", function () {
         setShowDiv(false);
       });
+      textBox.on("mousedown", function () {
+        setTextDecoration(true);
+      });
       fabricCanvas?.add(textBox);
+      if (textColor) {
+        textBox.set("fill", { textColor });
+      }
       fabricCanvas?.requestRenderAll();
     }
   }, [textbox]);
+
+  useEffect(() => {}, [textbox, textColor]);
 
   /* --------------------PenTool ---------------------------- */
 
@@ -407,7 +434,7 @@ const Canvas = ({
     }
   }, [isBringFront]);
 
-  console.log("isSentToBack = " + isSentToBack);
+  // console.log("isSentToBack = " + isSentToBack);
   useEffect(() => {
     if (isSentToBack) {
       if (fabricCanvas && fabricCanvas.getActiveObject()) {
@@ -556,6 +583,30 @@ const Canvas = ({
       }
     }
   };
+  /* ----------------handle color change start----------- */
+
+  useEffect(() => {
+    if (fabricCanvas) {
+      const selectedObjects = fabricCanvas.getActiveObjects();
+      selectedObjects.forEach((obj) => {
+        obj.set("fill", selectedColor);
+      });
+      fabricCanvas.renderAll();
+    }
+  }, [selectedColor, fabricCanvas]);
+
+  // Handle selection change to update the color picker based on selected objects
+  // const handleSelectionChange = () => {
+  //   if (fabricCanvas) {
+  //     const selectedObjects = fabricCanvas.getActiveObjects();
+  //     if (selectedObjects.length > 0) {
+  //       // Get the fill color of the first selected object
+  //       const firstSelectedObject = selectedObjects[0];
+  //       setSelectedColor(firstSelectedObject.get("fill"));
+  //     }
+  //   }
+  // };
+  /* ----------------handle color change end----------- */
 
   return (
     <div className="container mx-auto bg-gray-200 h-[100%] text-purple-700">
