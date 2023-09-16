@@ -6,10 +6,10 @@ import rectangleMarqueToolReducer from "./RectangleMarqueToolReducer";
 import { textBoxReducer } from "./TextBox";
 import lassoReducer from "./Lasso";
 import canvasReducer from "./CanvasReducer";
-import colorReducer from "./Color";
 import circleToolReducer from "./CircleToolReducer";
 import penToolReducer from "./PenToolReducer";
 import blurReducer from "./Blur";
+import colorReducer from "./Color";
 
 
 
@@ -22,9 +22,9 @@ const rootReducer = combineReducers({
     circleToolReducer: circleToolReducer,
     textBoxReducer: textBoxReducer,
     penToolReducer: penToolReducer,
-    magneticLasso : lassoReducer,
-    canvasReducer: canvasReducer,
+    magneticLasso: lassoReducer,
     colorReducer: colorReducer,
+    canvasReducer: canvasReducer,
     blurReducer: blurReducer,
 
 });

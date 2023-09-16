@@ -25,8 +25,9 @@ const IconMenu = () => {
   );
 
   const [showDiv, setShowDiv] = useState(false);
-  const [deleteElement, setDeleteElement] = useState(false);
+  const [textDecoration, setTextDecoration] = useState(false);
 
+  const [deleteElement, setDeleteElement] = useState(false);
   const [penWidth, setPenWidth] = useState(3);
   const [penColor, setPenColor] = useState(3);
   const [isBringFront, setBringFront] = useState(false);
@@ -111,7 +112,15 @@ const IconMenu = () => {
     const newSaturation = parseFloat(event.target.value);
     setSaturation(newSaturation);
   };
-  /* ------------------------------------ */
+  /* ---------------saturation end--------------------- */
+
+  /* --------all object color handle here start---------- */
+  const [selectedColor, setSelectedColor] = useState("#ff0000");
+  const handleColorChange = (e) => {
+    const newColor = e.target.value;
+    setSelectedColor(newColor);
+  };
+  /* --------all object color handle here end---------- */
 
   const [selectedCanvasColor, setSelectedCanvasColor] = useState("white");
   const handleOnchange = (color) => {
@@ -178,7 +187,7 @@ const IconMenu = () => {
       content = (
         <div className="flex items-center">
           <label className="mx-2 py-1" htmlFor="">
-            Pen Width {penWidth}
+            Pen Width: {penWidth}
           </label>
           <input
             className="mx-2 py-1 "
@@ -385,11 +394,51 @@ const IconMenu = () => {
         </div>
       );
       break;
-    case "option3":
-      content = <div>Option 3 </div>;
+    case textDecoration:
+      content = (
+        <div className="flex justify-between gap-2 ">
+          {textDecoration ? (
+            <>
+              Text Decoration:
+              <div className="grid grid-cols-1 h-4 w-10">
+                <label
+                  htmlFor="colorA"
+                  className="font-bold text-center text-black">
+                  A
+                </label>
+                <input
+                  className="h-4 w-10"
+                  id="colorA"
+                  type="color"
+                  value={selectedColor}
+                  onChange={(e) => {
+                    handleColorChange(e);
+                  }}
+                />
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
+      );
       break;
     default:
-      content = <div>Default</div>;
+      content = (
+        <div className="flex justify-between gap-2 ">
+          Default:{" "}
+          <div>
+            <input
+              id="colorA"
+              type="color"
+              value={selectedColor}
+              onChange={(e) => {
+                handleColorChange(e);
+              }}
+            />
+          </div>
+        </div>
+      );
   }
 
   return (
@@ -501,6 +550,8 @@ const IconMenu = () => {
         <div className="md:col-span-9 h-screen bg-gray-300 ">
           {/* <ImageEditor></ImageEditor> */}
           <Canvas
+            setTextDecoration={setTextDecoration}
+            selectedColor={selectedColor}
             saturation={saturation}
             hueRotation={hueRotation}
             colorMatrix={colorMatrix}
