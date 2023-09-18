@@ -16,6 +16,10 @@ const SideMenu = () => {
   const { logOut, user } = useContext(AuthContext);
   const [isOpen, setOpen] = useState(false);
 
+  const toggleMenu = () => {
+    setOpen(!isOpen);
+  };
+
   // Open file
   // const handleImageUpload = (event) => {
   //   const file = event.target.files[0];
@@ -147,13 +151,14 @@ const SideMenu = () => {
         {/* Hamburger  */}
         <div className="navbar-start">
           <div className="dropdown md:hidden text-white">
-            <Hamburger size={20} toggled={isOpen} toggle={setOpen} />
-            <ul
+            <Hamburger size={20} toggled={isOpen} toggle={toggleMenu} />
+            {isOpen &&
+              <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
               {sideMenuOption}
-            </ul>
+            </ul>}
           </div>
         </div>
         <div className="navbar-center hidden lg:flex">

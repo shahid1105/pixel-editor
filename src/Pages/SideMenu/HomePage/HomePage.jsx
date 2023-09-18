@@ -55,7 +55,7 @@ const HomePage = () => {
   };
 
   return (
-<div className="home-container hero min-h-screen" style={{backgroundImage: 'url(https://i.ibb.co/fk1X46W/1645.jpg)'}}>
+<div className="home-container hero min-h-screen overflow-x-hidden" style={{backgroundImage: 'url(https://i.ibb.co/fk1X46W/1645.jpg)'}}>
   <div className="hero-overlay bg-opacity-60"></div>
   <div className="hero-content text-center text-neutral-content">
   <div className="md:mx-auto md:max-w-screen-md lg:max-w-screen-lg fixe ">
