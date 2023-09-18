@@ -34,8 +34,7 @@ import { setNewBlur } from "../../../Redux/Blur";
 
 /* ------------------------------ */
 
-const Icon = ({ textColor }) => {
-  // console.log(textColor);
+const Icon = () => {
   /* -------------------------------------------- */
 
   const isCropping = useSelector((state) => state.cropReducer.isCropping);
@@ -46,8 +45,9 @@ const Icon = ({ textColor }) => {
     (state) => state.rectangleMarqueToolReducer.isRectangleMarqueToolClick
   );
 
-  const isPenToolClick = useSelector((state) => state.penToolReducer.isPenToolClick);
-
+  const isPenToolClick = useSelector(
+    (state) => state.penToolReducer.isPenToolClick
+  );
 
   /* ----------------------------------------------------- */
   /* ---------------blur tool-------------------- */
@@ -88,8 +88,8 @@ const Icon = ({ textColor }) => {
         left: 100,
         top: 50,
         width: 200,
-        fontSize: 20,
-        fill: textColor,
+        fontSize: 16,
+        fill: "black",
         editable: true,
         selectable: true,
         placeholder: true,
@@ -149,7 +149,9 @@ const Icon = ({ textColor }) => {
       {/* <LuStamp title="Clone Stamp Tool"></LuStamp> */}
       <BsEraserFill title="Magic Eraser Tool"></BsEraserFill>
       <MdGradient title="Gradient Tool"></MdGradient>
-      <PiPenNibBold title="Pen Tool" onClick={handlePenToolClick}></PiPenNibBold>
+      <PiPenNibBold
+        title="Pen Tool"
+        onClick={handlePenToolClick}></PiPenNibBold>
       <div className="dropdown dropdown-right">
         <label tabIndex={0} className="">
           <RiBlurOffLine title="Blur Tool" onClick={handleBlurButtonClick} />
