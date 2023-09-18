@@ -12,6 +12,9 @@ import { setCircleTool } from "../../../../Redux/CircleToolReducer";
 /* -----------for commit-------------------- */
 
 const Canvas = ({
+  leftRotate,
+  rightRotate,
+  textSize,
   setTextDecoration,
   selectedColor,
   selectedCanvasColor,
@@ -94,169 +97,6 @@ const Canvas = ({
 
   const [fabricCanvas, setFabricCanvas] = useState();
 
-  /* ---------for filter state start---------------- */
-
-  // const [brightness, setBrightness] = useState(0); // Initial brightness
-  // const [showRangeInput, setShowRangeInput] = useState(false);
-
-  // const handleToggleRangeInput = () => {
-  //   setShowRangeInput(!showRangeInput);
-  // };
-
-  // const handleBrightnessChange = (event) => {
-  //   const newBrightness = parseFloat(event.target.value);
-  //   setBrightness(newBrightness);
-  //   if (fabricCanvas) {
-  //     const activeObject = fabricCanvas.getActiveObject();
-  //     if (activeObject) {
-  //       const brightnessFilter = new fabric.Image.filters.Brightness({
-  //         brightness: newBrightness,
-  //       });
-  //       activeObject.filters = [brightnessFilter];
-  //       activeObject.applyFilters();
-  //       fabricCanvas.requestRenderAll();
-  //     }
-  //   }
-  // };
-
-  /* ----------------brightness------------------ */
-  useEffect(() => {
-    const newBrightness = parseFloat(brightness);
-    if (fabricCanvas) {
-      const activeObject = fabricCanvas.getActiveObject();
-      if (activeObject) {
-        const brightnessFilter = new fabric.Image.filters.Brightness({
-          brightness: newBrightness,
-        });
-        activeObject.filters = [brightnessFilter];
-        activeObject?.applyFilters();
-        fabricCanvas.requestRenderAll();
-      }
-    }
-  }, [brightness]);
-
-  /* --------------contrast-------------------- */
-
-  useEffect(() => {
-    const newContrast = parseFloat(contras);
-    if (fabricCanvas) {
-      const activeObject = fabricCanvas.getActiveObject();
-      if (activeObject) {
-        const contrastFilter = new fabric.Image.filters.Contrast({
-          contrast: newContrast,
-        });
-        activeObject.filters = [contrastFilter];
-        activeObject?.applyFilters();
-        fabricCanvas.renderAll();
-      }
-    }
-  }, [contras]);
-  /* ------------------color matrix--------------- */
-
-  useEffect(() => {
-    // Update the specific matrix value in the state
-    const updatedMatrix = [...colorMatrix];
-    if (fabricCanvas) {
-      const activeObject = fabricCanvas.getActiveObject();
-      if (activeObject) {
-        const colorMatrixFilter = new fabric.Image.filters.ColorMatrix({
-          matrix: updatedMatrix,
-        });
-        activeObject.filters = [colorMatrixFilter];
-        activeObject?.applyFilters();
-        fabricCanvas.requestRenderAll();
-      }
-    }
-  }, [colorMatrix]);
-
-  /* -------------hue rotation--------- */
-
-  useEffect(() => {
-    const newRotation = parseFloat(hueRotation);
-    if (fabricCanvas) {
-      const activeObject = fabricCanvas.getActiveObject();
-      if (activeObject) {
-        const hueRotationFilter = new fabric.Image.filters.HueRotation({
-          rotation: newRotation,
-        });
-        activeObject.filters = [hueRotationFilter];
-        activeObject?.applyFilters();
-        fabricCanvas.requestRenderAll();
-      }
-    }
-  }, [hueRotation]);
-
-  /* ---------------saturation------------ */
-
-  useEffect(() => {
-    const newSaturation = parseFloat(saturation);
-    if (fabricCanvas) {
-      const activeObject = fabricCanvas.getActiveObject();
-      if (activeObject) {
-        const saturationFilter = new fabric.Image.filters.Saturation({
-          saturation: newSaturation,
-        });
-        activeObject.filters = [saturationFilter];
-        activeObject?.applyFilters();
-        fabricCanvas.requestRenderAll();
-      }
-    }
-  }, [saturation]);
-
-  /* ---------for filter state end---------------- */
-
-  /* ---------------------blur code start---------------- */
-
-  useEffect(() => {
-    if (fabricCanvas) {
-      const newIsBlur = parseFloat(isBlur);
-      const activeObject = fabricCanvas.getActiveObject();
-      if (activeObject) {
-        const blurFilter = new fabric.Image.filters.Blur({
-          blur: newIsBlur,
-        });
-        activeObject.filters = [blurFilter];
-        activeObject?.applyFilters();
-        fabricCanvas.requestRenderAll();
-      }
-    }
-  }, [isBlur]);
-
-  /* ---------------------blur code end---------------- */
-
-  /* -----------------rotate------------------------ */
-  const rightRotateImage = () => {
-    if (fabricCanvas) {
-      const activeObject = fabricCanvas.getActiveObject();
-
-      if (activeObject) {
-        activeObject.set({
-          originX: "center",
-          originY: "center",
-          angle: activeObject.angle + 90,
-        });
-        fabricCanvas.requestRenderAll();
-      }
-    }
-  };
-
-  const leftRotateImage = () => {
-    if (fabricCanvas) {
-      const activeObject = fabricCanvas.getActiveObject();
-
-      if (activeObject) {
-        activeObject.set({
-          originX: "center",
-          originY: "center",
-          angle: activeObject.angle - 90,
-        });
-        fabricCanvas.requestRenderAll();
-      }
-    }
-  };
-  /* ----------------------------------------- */
-  const [penTool, setPenTool] = useState(false);
-
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
       backgroundColor: selectedCanvasColor,
@@ -297,6 +137,203 @@ const Canvas = ({
       canvas.dispose();
     };
   }, [canvasRef]);
+
+  /* ---------for filter state start---------------- */
+
+  // const [brightness, setBrightness] = useState(0); // Initial brightness
+  // const [showRangeInput, setShowRangeInput] = useState(false);
+
+  // const handleToggleRangeInput = () => {
+  //   setShowRangeInput(!showRangeInput);
+  // };
+
+  // const handleBrightnessChange = (event) => {
+  //   const newBrightness = parseFloat(event.target.value);
+  //   setBrightness(newBrightness);
+  //   if (fabricCanvas) {
+  //     const activeObject = fabricCanvas.getActiveObject();
+  //     if (activeObject) {
+  //       const brightnessFilter = new fabric.Image.filters.Brightness({
+  //         brightness: newBrightness,
+  //       });
+  //       activeObject.filters = [brightnessFilter];
+  //       activeObject.applyFilters();
+  //       fabricCanvas.requestRenderAll();
+  //     }
+  //   }
+  // };
+
+  /* ----------------brightness------------------ */
+  useEffect(() => {
+    const newBrightness = parseFloat(brightness);
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        const brightnessFilter = new fabric.Image.filters.Brightness({
+          brightness: newBrightness,
+        });
+        activeObject.filters = [brightnessFilter];
+        activeObject.applyFilters();
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  }, [brightness]);
+
+  /* --------------contrast-------------------- */
+
+  useEffect(() => {
+    const newContrast = parseFloat(contras);
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        const contrastFilter = new fabric.Image.filters.Contrast({
+          contrast: newContrast,
+        });
+        activeObject.filters = [contrastFilter];
+        activeObject.applyFilters();
+        fabricCanvas.renderAll();
+      }
+    }
+  }, [contras]);
+  /* ------------------color matrix--------------- */
+
+  useEffect(() => {
+    // Update the specific matrix value in the state
+    const updatedMatrix = [...colorMatrix];
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        const colorMatrixFilter = new fabric.Image.filters.ColorMatrix({
+          matrix: updatedMatrix,
+        });
+        activeObject.filters = [colorMatrixFilter];
+        activeObject.applyFilters();
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  }, [colorMatrix]);
+
+  /* -------------hue rotation--------- */
+
+  useEffect(() => {
+    const newRotation = parseFloat(hueRotation);
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        const hueRotationFilter = new fabric.Image.filters.HueRotation({
+          rotation: newRotation,
+        });
+        activeObject.filters = [hueRotationFilter];
+        activeObject.applyFilters();
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  }, [hueRotation]);
+
+  /* ---------------saturation------------ */
+
+  useEffect(() => {
+    const newSaturation = parseFloat(saturation);
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        const saturationFilter = new fabric.Image.filters.Saturation({
+          saturation: newSaturation,
+        });
+        activeObject.filters = [saturationFilter];
+        activeObject.applyFilters();
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  }, [saturation]);
+
+  /* ---------for filter state end---------------- */
+
+  /* ---------------------blur code start---------------- */
+
+  useEffect(() => {
+    if (fabricCanvas) {
+      const newIsBlur = parseFloat(isBlur);
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject) {
+        const blurFilter = new fabric.Image.filters.Blur({
+          blur: newIsBlur,
+        });
+        activeObject.filters = [blurFilter];
+        activeObject.applyFilters();
+        fabricCanvas.requestRenderAll();
+      }
+    }
+  }, [isBlur]);
+
+  /* ---------------------blur code end---------------- */
+
+  /* -----------------rotate------------------------ */
+  useEffect(() => {
+    if (leftRotate) {
+      if (fabricCanvas) {
+        const activeObject = fabricCanvas.getActiveObject();
+
+        if (activeObject) {
+          activeObject.set({
+            originX: "center",
+            originY: "center",
+            angle: activeObject.angle - 30,
+          });
+          fabricCanvas.requestRenderAll();
+        }
+      }
+    }
+  }, [leftRotate]);
+
+  useEffect(() => {
+    if (rightRotate) {
+      if (fabricCanvas) {
+        const activeObject = fabricCanvas.getActiveObject();
+
+        if (activeObject) {
+          activeObject.set({
+            originX: "center",
+            originY: "center",
+            angle: activeObject.angle - 30,
+          });
+          fabricCanvas.requestRenderAll();
+        }
+      }
+    }
+  }, [rightRotate]);
+
+  // const rightRotate = () => {
+  //   if (fabricCanvas) {
+  //     const activeObject = fabricCanvas.getActiveObject();
+
+  //     if (activeObject) {
+  //       activeObject.set({
+  //         originX: "center",
+  //         originY: "center",
+  //         angle: activeObject.angle + 30,
+  //       });
+  //       fabricCanvas.requestRenderAll();
+  //     }
+  //   }
+  // };
+
+  // const leftRotate = () => {
+  //   if (fabricCanvas) {
+  //     const activeObject = fabricCanvas.getActiveObject();
+
+  //     if (activeObject) {
+  //       activeObject.set({
+  //         originX: "center",
+  //         originY: "center",
+  //         angle: activeObject.angle - 30,
+  //       });
+  //       fabricCanvas.requestRenderAll();
+  //     }
+  //   }
+  // };
+  /* ---------------Rotate End-------------------------- */
+  const [penTool, setPenTool] = useState(false);
 
   // -----------------Rectangle Start---------------
 
@@ -355,7 +392,7 @@ const Canvas = ({
     }
   }, [isCircleToolClick]);
 
-  /* --------------------text box ---------------------------- */
+  /* --------------------text box start---------------------------- */
 
   useEffect(() => {
     if (textbox) {
@@ -363,7 +400,7 @@ const Canvas = ({
         left: textbox?.left,
         top: textbox?.top,
         width: textbox?.width,
-        fontSize: textbox?.fontSize,
+        fontSize: textSize,
         fill: textColor,
         editable: true,
         selectable: true,
@@ -383,6 +420,22 @@ const Canvas = ({
   }, [textbox]);
 
   useEffect(() => {}, [textbox, textColor]);
+
+  /* --------------------text box end---------------------------- */
+
+  /* --------------handle text size start  -------------- */
+
+  useEffect(() => {
+    if (fabricCanvas) {
+      const activeObject = fabricCanvas.getActiveObject();
+      if (activeObject instanceof fabric.Textbox) {
+        activeObject.set({ fontSize: textSize });
+        fabricCanvas.renderAll();
+      }
+    }
+  }, [textSize, fabricCanvas]);
+
+  /* --------------handle text size end -------------- */
 
   /* --------------------PenTool ---------------------------- */
 
@@ -618,7 +671,8 @@ const Canvas = ({
 
         <div className="mt-10 pt-2">
           {/* --------------------------------------------------- */}
-
+          {/* <button onClick={rightRotate}>Right</button>
+          <button onClick={leftRotate}>Left</button> */}
           {/* <button className="btn btn-secondary" onClick={resizeObject}>
             Resize Object
           </button> */}
