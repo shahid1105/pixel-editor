@@ -88,7 +88,7 @@ const Icon = () => {
         left: 100,
         top: 50,
         width: 200,
-        fontSize: 20,
+        fontSize: 16,
         fill: "black",
         editable: true,
         selectable: true,

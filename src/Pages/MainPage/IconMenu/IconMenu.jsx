@@ -1,7 +1,14 @@
 import { SketchPicker } from "react-color";
 import { useState } from "react";
 import Icon from "./Icon";
-import { FaCopy, FaDownload, FaHome, FaPaste } from "react-icons/fa";
+import {
+  FaArrowCircleLeft,
+  FaArrowCircleRight,
+  FaCopy,
+  FaDownload,
+  FaHome,
+  FaPaste,
+} from "react-icons/fa";
 import { FaPaintBrush } from "react-icons/fa";
 import {
   BsChevronDoubleLeft,
@@ -179,6 +186,36 @@ const IconMenu = () => {
   //         console.log(x, y);
   //     },
   // });
+
+  /* ------------handle text size start---------------- */
+
+  const [textSize, setTextSize] = useState(16);
+  // console.log(textSize);
+  const increaseTextSize = () => {
+    const newSize = textSize + 1;
+    setTextSize(newSize);
+  };
+
+  const decreaseTextSize = () => {
+    const newSize = textSize - 1;
+    setTextSize(newSize);
+  };
+
+  /* ------------handle text size end---------------- */
+
+  /* ----------------handle rotate start------------ */
+  const [rightRotate, setRightRotate] = useState(false);
+  const [leftRotate, setLeftRotate] = useState(false);
+
+  const rightRotateObj = () => {
+    setRightRotate(true);
+  };
+
+  const leftRotateObj = () => {
+    setLeftRotate(true);
+  };
+
+  /* ----------------handle rotate end------------ */
 
   var content;
 
@@ -399,8 +436,9 @@ const IconMenu = () => {
         <div className="flex justify-between gap-2 ">
           {textDecoration ? (
             <>
-              Text Decoration:
-              <div className="grid grid-cols-1 h-4 w-10">
+              <p className="flex items-center mr-5">Text Decoration:</p>
+              <p className="flex items-center font-bold mr-2">Color:</p>
+              <div className="grid grid-cols-1 h-4 w-10 mr-10">
                 <label
                   htmlFor="colorA"
                   className="font-bold text-center text-black">
@@ -416,6 +454,35 @@ const IconMenu = () => {
                   }}
                 />
               </div>
+              <p className="flex items-center font-bold mr-2">Text Size:</p>
+              <div className="text-size-controls flex gap-3 mr-10">
+                <button
+                  className="btn btn-outline btn-error btn-sm"
+                  onClick={decreaseTextSize}>
+                  <span role="img" aria-label="Decrease Text Size">
+                    ➖
+                  </span>
+                </button>
+                <div className="text-size font-bold text-lg text-black">
+                  {textSize}
+                </div>
+                <button
+                  className="btn btn-outline btn-success btn-sm"
+                  onClick={increaseTextSize}>
+                  <span role="img" aria-label="Increase Text Size">
+                    ➕
+                  </span>
+                </button>
+              </div>
+              {/* <p className="flex items-center font-bold mr-2">Rotate:</p>
+              <div className="flex items-center">
+                <button className="font-bold text-2xl mr-2">
+                  <FaArrowCircleRight></FaArrowCircleRight>
+                </button>
+                <button className="font-bold text-2xl">
+                  <FaArrowCircleLeft></FaArrowCircleLeft>
+                </button>
+              </div> */}
             </>
           ) : (
             <></>
@@ -426,8 +493,9 @@ const IconMenu = () => {
     default:
       content = (
         <div className="flex justify-between gap-2 ">
-          Default:{" "}
-          <div>
+          <p className="flex items-center mr-5">Default:</p>
+          <p className="flex items-center font-bold mr-2">Color:</p>
+          <div className="mr-10">
             <input
               id="colorA"
               type="color"
@@ -437,6 +505,23 @@ const IconMenu = () => {
               }}
             />
           </div>
+          {/* <p className="flex items-center font-bold mr-2">Rotate:</p>
+          <div className="flex items-center">
+            <button
+              onClick={() => {
+                rightRotateObj(true);
+              }}
+              className="font-bold text-2xl mr-2">
+              <FaArrowCircleRight></FaArrowCircleRight>
+            </button>
+            <button
+              onClick={() => {
+                leftRotateObj(true);
+              }}
+              className="font-bold text-2xl">
+              <FaArrowCircleLeft></FaArrowCircleLeft>
+            </button>
+          </div> */}
         </div>
       );
   }
@@ -550,6 +635,9 @@ const IconMenu = () => {
         <div className="md:col-span-9 h-screen bg-gray-300 ">
           {/* <ImageEditor></ImageEditor> */}
           <Canvas
+            leftRotate={leftRotate}
+            rightRotate={rightRotate}
+            textSize={textSize}
             setTextDecoration={setTextDecoration}
             selectedColor={selectedColor}
             saturation={saturation}
