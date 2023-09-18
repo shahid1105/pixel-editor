@@ -664,9 +664,9 @@ const Canvas = ({
   return (
     <div className="container mx-auto bg-gray-200 h-[100%] text-purple-700">
       <div>
-        <div className=" canvas-container flex justify-center text-center align-middle">
+        <div className="overflow-x-hidden md:overflow-auto canvas-container flex justify-center text-center align-middle">
           <h1></h1>
-          <canvas className="mt-10 mb-10 rounded " ref={canvasRef}></canvas>
+          <canvas className="mt-10 mb-10 rounded" ref={canvasRef}></canvas>
         </div>
 
         <div className="mt-10 pt-2">

@@ -244,7 +244,7 @@ const IconMenu = () => {
             value={penColor}
           />
           <button
-            className="btn btn-sm btn-outline btn-warning"
+            className="btn btn-xs btn-outline btn-warning"
             onClick={() => dispatch(setPenTool(false))}>
             Disable PenTool
           </button>
@@ -259,7 +259,7 @@ const IconMenu = () => {
               {isColorMatrixControlVisible ? (
                 <>
                   <button
-                    className="btn btn-sm btn-outline"
+                    className="btn btn-xs btn-outline"
                     onClick={handleToggleColorMatrixControl}>
                     ColorMatrix
                   </button>
@@ -288,14 +288,15 @@ const IconMenu = () => {
                   {/* <div className="flex gap-4"> */}
                   <div className="grid grid-cols-2 md:grid-cols-5 gap-2 px-2">
                     <button
-                      className="btn btn-sm btn-outline"
+                      className="btn btn-xs btn-outline"
                       onClick={handleToggleRangeInput}>
                       Brightness
                     </button>
                     {showRangeInput && (
                       <>
-                        <div className="flex gap-2 items-center">
+                        <div className="flex gap-1 items-center">
                           <input
+                          className="w-full md:w-[80%]"
                             type="range"
                             min={-1}
                             max={1}
@@ -309,7 +310,7 @@ const IconMenu = () => {
                     )}
 
                     <button
-                      className="btn btn-sm btn-outline"
+                      className="btn btn-xs btn-outline"
                       onClick={handleToggleContrastRangeInput}>
                       Contrast
                     </button>
@@ -317,6 +318,7 @@ const IconMenu = () => {
                       <>
                         <div className="flex gap-2 items-center">
                           <input
+                          className="w-full md:w-[80%]"
                             type="range"
                             min={-1}
                             max={1}
@@ -330,7 +332,7 @@ const IconMenu = () => {
                     )}
 
                     <button
-                      className="btn btn-sm btn-outline"
+                      className="btn btn-xs btn-outline"
                       onClick={handleToggleHueRotationInput}>
                       Hue_Rotation
                     </button>
@@ -338,6 +340,7 @@ const IconMenu = () => {
                       <>
                         <div className="flex gap-2 items-center">
                           <input
+                          className="w-full md:w-[80%]"
                             type="range"
                             min={-1}
                             max={1}
@@ -351,7 +354,7 @@ const IconMenu = () => {
                     )}
 
                     <button
-                      className="btn btn-sm btn-outline"
+                      className="btn btn-xs btn-outline"
                       onClick={handleToggleSaturationInput}>
                       Saturation
                     </button>
@@ -359,6 +362,7 @@ const IconMenu = () => {
                       <>
                         <div className="flex gap-2 items-center">
                           <input
+                          className="w-full md:w-[80%]"
                             type="range"
                             min={0}
                             max={2}
@@ -371,7 +375,7 @@ const IconMenu = () => {
                       </>
                     )}
                     <button
-                      className="btn btn-sm btn-outline"
+                      className="btn btn-xs btn-outline"
                       onClick={handleToggleColorMatrixControl}>
                       ColorMatrix
                     </button>
@@ -528,8 +532,8 @@ const IconMenu = () => {
 
   return (
     <div className="">
-      <div className="navbar  bg-white text-black border-b-2">
-        <div className="navbar-start flex justify-between">
+      <div className="navbar grid grid-cols-1 md:grid-cols-2 bg-white text-black border-b-2">
+        <div className="flex ">
           <div className="ml-5 flex items-center gap-2">
             <Link to="/home">
               <FaHome></FaHome>
@@ -539,11 +543,11 @@ const IconMenu = () => {
           </div>
         </div>
 
-        <div className="navbar-end lg:flex">
+        <div className="flex justify-center md:justify-end">
           <ul className="menu menu-horizontal px-1">
             <div className="flex items-center">
               <div className="dropdown dropdown-hover">
-                <label tabIndex={0} className="btn btn-sm m-1">
+                <label tabIndex={0} className="btn btn-xs m-1">
                   <FaCopy></FaCopy>
                 </label>
                 <ul
@@ -568,7 +572,7 @@ const IconMenu = () => {
                 </ul>
               </div>
               <div className="dropdown dropdown-hover dropdown-end">
-                <label tabIndex={0} className="btn btn-sm m-1">
+                <label tabIndex={0} className="btn btn-xs m-1">
                   <BsLayers></BsLayers>
                 </label>
                 <ul
@@ -594,14 +598,14 @@ const IconMenu = () => {
               </div>
               <div className="flex gap-2">
                 <button
-                  className="btn btn-sm"
+                  className="btn btn-xs"
                   onClick={() => {
                     setDeleteElement(true);
                   }}>
                   <MdDelete></MdDelete>
                 </button>
                 <button
-                  className="btn btn-sm btn-success"
+                  className="btn btn-xs btn-success"
                   onClick={() => {
                     setDownload(true);
                   }}>
@@ -625,7 +629,7 @@ const IconMenu = () => {
           onMouseUp={handleMouseUp}>
           <button
             onClick={toggleColumns}
-            className="text-sm ml-1 border-2 hidden md:block border-gray-300 px-1">
+            className="text-xs ml-1 border-2 hidden md:block border-gray-300 px-1">
             {columns === 1 ? <BsChevronDoubleLeft /> : <BsChevronDoubleRight />}
           </button>
           <br />
@@ -667,7 +671,7 @@ const IconMenu = () => {
             isDownload={isDownload}
             setDownload={setDownload}></Canvas>
         </div>
-        <div className="p-5 col-span-3 ">
+        <div className="p-5 col-span-3 mt-20">
           <SketchPicker
             className="mx-auto"
             color={selectedCanvasColor}
