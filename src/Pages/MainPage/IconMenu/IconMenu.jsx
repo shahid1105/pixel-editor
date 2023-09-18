@@ -1,7 +1,14 @@
 import { SketchPicker } from "react-color";
 import { useState } from "react";
 import Icon from "./Icon";
-import { FaCopy, FaDownload, FaHome, FaPaste } from "react-icons/fa";
+import {
+  FaArrowCircleLeft,
+  FaArrowCircleRight,
+  FaCopy,
+  FaDownload,
+  FaHome,
+  FaPaste,
+} from "react-icons/fa";
 import { FaPaintBrush } from "react-icons/fa";
 import {
   BsChevronDoubleLeft,
@@ -25,8 +32,9 @@ const IconMenu = () => {
   );
 
   const [showDiv, setShowDiv] = useState(false);
-  const [deleteElement, setDeleteElement] = useState(false);
+  const [textDecoration, setTextDecoration] = useState(false);
 
+  const [deleteElement, setDeleteElement] = useState(false);
   const [penWidth, setPenWidth] = useState(3);
   const [penColor, setPenColor] = useState(3);
   const [isBringFront, setBringFront] = useState(false);
@@ -111,7 +119,15 @@ const IconMenu = () => {
     const newSaturation = parseFloat(event.target.value);
     setSaturation(newSaturation);
   };
-  /* ------------------------------------ */
+  /* ---------------saturation end--------------------- */
+
+  /* --------all object color handle here start---------- */
+  const [selectedColor, setSelectedColor] = useState("#ff0000");
+  const handleColorChange = (e) => {
+    const newColor = e.target.value;
+    setSelectedColor(newColor);
+  };
+  /* --------all object color handle here end---------- */
 
   const [selectedCanvasColor, setSelectedCanvasColor] = useState("white");
   const handleOnchange = (color) => {
@@ -171,6 +187,36 @@ const IconMenu = () => {
   //     },
   // });
 
+  /* ------------handle text size start---------------- */
+
+  const [textSize, setTextSize] = useState(16);
+  // console.log(textSize);
+  const increaseTextSize = () => {
+    const newSize = textSize + 1;
+    setTextSize(newSize);
+  };
+
+  const decreaseTextSize = () => {
+    const newSize = textSize - 1;
+    setTextSize(newSize);
+  };
+
+  /* ------------handle text size end---------------- */
+
+  /* ----------------handle rotate start------------ */
+  const [rightRotate, setRightRotate] = useState(false);
+  const [leftRotate, setLeftRotate] = useState(false);
+
+  const rightRotateObj = () => {
+    setRightRotate(true);
+  };
+
+  const leftRotateObj = () => {
+    setLeftRotate(true);
+  };
+
+  /* ----------------handle rotate end------------ */
+
   var content;
 
   switch (true) {
@@ -178,7 +224,7 @@ const IconMenu = () => {
       content = (
         <div className="flex items-center">
           <label className="mx-2 py-1" htmlFor="">
-            Pen Width {penWidth}
+            Pen Width: {penWidth}
           </label>
           <input
             className="mx-2 py-1 "
@@ -198,7 +244,7 @@ const IconMenu = () => {
             value={penColor}
           />
           <button
-            className="btn btn-sm btn-outline btn-warning"
+            className="btn btn-xs btn-outline btn-warning"
             onClick={() => dispatch(setPenTool(false))}>
             Disable PenTool
           </button>
@@ -213,7 +259,7 @@ const IconMenu = () => {
               {isColorMatrixControlVisible ? (
                 <>
                   <button
-                    className="btn btn-sm btn-outline"
+                    className="btn btn-xs btn-outline"
                     onClick={handleToggleColorMatrixControl}>
                     ColorMatrix
                   </button>
@@ -242,14 +288,15 @@ const IconMenu = () => {
                   {/* <div className="flex gap-4"> */}
                   <div className="grid grid-cols-2 md:grid-cols-5 gap-2 px-2">
                     <button
-                      className="btn btn-sm btn-outline"
+                      className="btn btn-xs btn-outline"
                       onClick={handleToggleRangeInput}>
                       Brightness
                     </button>
                     {showRangeInput && (
                       <>
-                        <div className="flex gap-2 items-center">
+                        <div className="flex gap-1 items-center">
                           <input
+                          className="w-full md:w-[80%]"
                             type="range"
                             min={-1}
                             max={1}
@@ -263,7 +310,7 @@ const IconMenu = () => {
                     )}
 
                     <button
-                      className="btn btn-sm btn-outline"
+                      className="btn btn-xs btn-outline"
                       onClick={handleToggleContrastRangeInput}>
                       Contrast
                     </button>
@@ -271,6 +318,7 @@ const IconMenu = () => {
                       <>
                         <div className="flex gap-2 items-center">
                           <input
+                          className="w-full md:w-[80%]"
                             type="range"
                             min={-1}
                             max={1}
@@ -284,7 +332,7 @@ const IconMenu = () => {
                     )}
 
                     <button
-                      className="btn btn-sm btn-outline"
+                      className="btn btn-xs btn-outline"
                       onClick={handleToggleHueRotationInput}>
                       Hue_Rotation
                     </button>
@@ -292,6 +340,7 @@ const IconMenu = () => {
                       <>
                         <div className="flex gap-2 items-center">
                           <input
+                          className="w-full md:w-[80%]"
                             type="range"
                             min={-1}
                             max={1}
@@ -305,7 +354,7 @@ const IconMenu = () => {
                     )}
 
                     <button
-                      className="btn btn-sm btn-outline"
+                      className="btn btn-xs btn-outline"
                       onClick={handleToggleSaturationInput}>
                       Saturation
                     </button>
@@ -313,6 +362,7 @@ const IconMenu = () => {
                       <>
                         <div className="flex gap-2 items-center">
                           <input
+                          className="w-full md:w-[80%]"
                             type="range"
                             min={0}
                             max={2}
@@ -325,7 +375,7 @@ const IconMenu = () => {
                       </>
                     )}
                     <button
-                      className="btn btn-sm btn-outline"
+                      className="btn btn-xs btn-outline"
                       onClick={handleToggleColorMatrixControl}>
                       ColorMatrix
                     </button>
@@ -385,17 +435,105 @@ const IconMenu = () => {
         </div>
       );
       break;
-    case "option3":
-      content = <div>Option 3 </div>;
+    case textDecoration:
+      content = (
+        <div className="flex justify-between gap-2 ">
+          {textDecoration ? (
+            <>
+              <p className="flex items-center mr-5">Text Decoration:</p>
+              <p className="flex items-center font-bold mr-2">Color:</p>
+              <div className="grid grid-cols-1 h-4 w-10 mr-10">
+                <label
+                  htmlFor="colorA"
+                  className="font-bold text-center text-black">
+                  A
+                </label>
+                <input
+                  className="h-4 w-10"
+                  id="colorA"
+                  type="color"
+                  value={selectedColor}
+                  onChange={(e) => {
+                    handleColorChange(e);
+                  }}
+                />
+              </div>
+              <p className="flex items-center font-bold mr-2">Text Size:</p>
+              <div className="text-size-controls flex gap-3 mr-10">
+                <button
+                  className="btn btn-outline btn-error btn-sm"
+                  onClick={decreaseTextSize}>
+                  <span role="img" aria-label="Decrease Text Size">
+                    ➖
+                  </span>
+                </button>
+                <div className="text-size font-bold text-lg text-black">
+                  {textSize}
+                </div>
+                <button
+                  className="btn btn-outline btn-success btn-sm"
+                  onClick={increaseTextSize}>
+                  <span role="img" aria-label="Increase Text Size">
+                    ➕
+                  </span>
+                </button>
+              </div>
+              {/* <p className="flex items-center font-bold mr-2">Rotate:</p>
+              <div className="flex items-center">
+                <button className="font-bold text-2xl mr-2">
+                  <FaArrowCircleRight></FaArrowCircleRight>
+                </button>
+                <button className="font-bold text-2xl">
+                  <FaArrowCircleLeft></FaArrowCircleLeft>
+                </button>
+              </div> */}
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
+      );
       break;
     default:
-      content = <div>Default</div>;
+      content = (
+        <div className="flex justify-between gap-2 ">
+          <p className="flex items-center mr-5">Default:</p>
+          <p className="flex items-center font-bold mr-2">Color:</p>
+          <div className="mr-10">
+            <input
+              id="colorA"
+              type="color"
+              value={selectedColor}
+              onChange={(e) => {
+                handleColorChange(e);
+              }}
+            />
+          </div>
+          {/* <p className="flex items-center font-bold mr-2">Rotate:</p>
+          <div className="flex items-center">
+            <button
+              onClick={() => {
+                rightRotateObj(true);
+              }}
+              className="font-bold text-2xl mr-2">
+              <FaArrowCircleRight></FaArrowCircleRight>
+            </button>
+            <button
+              onClick={() => {
+                leftRotateObj(true);
+              }}
+              className="font-bold text-2xl">
+              <FaArrowCircleLeft></FaArrowCircleLeft>
+            </button>
+          </div> */}
+        </div>
+      );
   }
 
   return (
     <div className="">
-      <div className="navbar  bg-white text-black border-b-2">
-        <div className="navbar-start flex justify-between">
+      <div className="navbar grid grid-cols-1 md:grid-cols-2 bg-white text-black border-b-2">
+        <div className="flex ">
           <div className="ml-5 flex items-center gap-2">
             <Link to="/home">
               <FaHome></FaHome>
@@ -405,11 +543,11 @@ const IconMenu = () => {
           </div>
         </div>
 
-        <div className="navbar-end lg:flex">
+        <div className="flex justify-center md:justify-end">
           <ul className="menu menu-horizontal px-1">
             <div className="flex items-center">
               <div className="dropdown dropdown-hover">
-                <label tabIndex={0} className="btn btn-sm m-1">
+                <label tabIndex={0} className="btn btn-xs m-1">
                   <FaCopy></FaCopy>
                 </label>
                 <ul
@@ -434,7 +572,7 @@ const IconMenu = () => {
                 </ul>
               </div>
               <div className="dropdown dropdown-hover dropdown-end">
-                <label tabIndex={0} className="btn btn-sm m-1">
+                <label tabIndex={0} className="btn btn-xs m-1">
                   <BsLayers></BsLayers>
                 </label>
                 <ul
@@ -460,14 +598,14 @@ const IconMenu = () => {
               </div>
               <div className="flex gap-2">
                 <button
-                  className="btn btn-sm"
+                  className="btn btn-xs"
                   onClick={() => {
                     setDeleteElement(true);
                   }}>
                   <MdDelete></MdDelete>
                 </button>
                 <button
-                  className="btn btn-sm btn-success"
+                  className="btn btn-xs btn-success"
                   onClick={() => {
                     setDownload(true);
                   }}>
@@ -491,7 +629,7 @@ const IconMenu = () => {
           onMouseUp={handleMouseUp}>
           <button
             onClick={toggleColumns}
-            className="text-sm ml-1 border-2 hidden md:block border-gray-300 px-1">
+            className="text-xs ml-1 border-2 hidden md:block border-gray-300 px-1">
             {columns === 1 ? <BsChevronDoubleLeft /> : <BsChevronDoubleRight />}
           </button>
           <br />
@@ -501,6 +639,11 @@ const IconMenu = () => {
         <div className="md:col-span-9 h-screen bg-gray-300 ">
           {/* <ImageEditor></ImageEditor> */}
           <Canvas
+            leftRotate={leftRotate}
+            rightRotate={rightRotate}
+            textSize={textSize}
+            setTextDecoration={setTextDecoration}
+            selectedColor={selectedColor}
             saturation={saturation}
             hueRotation={hueRotation}
             colorMatrix={colorMatrix}
@@ -528,7 +671,7 @@ const IconMenu = () => {
             isDownload={isDownload}
             setDownload={setDownload}></Canvas>
         </div>
-        <div className="p-5 col-span-3 ">
+        <div className="p-5 col-span-3 mt-20">
           <SketchPicker
             className="mx-auto"
             color={selectedCanvasColor}
