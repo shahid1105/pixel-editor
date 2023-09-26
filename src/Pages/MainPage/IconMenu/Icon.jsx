@@ -5,6 +5,7 @@ import {
   BsCrop,
   BsEraserFill,
   BsEyedropper,
+  BsLine,
 } from "react-icons/bs";
 import { GiHealthCapsule } from "react-icons/gi";
 import { TbMarquee2, TbZoomReplace } from "react-icons/tb";
@@ -31,26 +32,23 @@ import { setLasso } from "../../../Redux/Lasso";
 import { setCircleTool } from "../../../Redux/CircleToolReducer";
 import { setPenTool } from "../../../Redux/PenToolReducer";
 import { setNewBlur } from "../../../Redux/Blur";
+import { addLine } from "../../../Redux/Line";
 
 /* ------------------------------ */
 
-const Icon = ({ textColor }) => {
-  // console.log(textColor);
+const Icon = () => {
+  const dispatch = useDispatch();
   /* -------------------------------------------- */
 
   const isCropping = useSelector((state) => state.cropReducer.isCropping);
   const isLasso = useSelector((state) => state.magneticLasso.isLasso);
   const [isTextboxActive, setIsTextboxActive] = useState(false);
-
-  const isRectangleMarqueToolClick = useSelector(
-    (state) => state.rectangleMarqueToolReducer.isRectangleMarqueToolClick
+  const isPenToolClick = useSelector(
+    (state) => state.penToolReducer.isPenToolClick
   );
 
-  const isPenToolClick = useSelector((state) => state.penToolReducer.isPenToolClick);
-
-
   /* ----------------------------------------------------- */
-  /* ---------------blur tool-------------------- */
+  /* ---------------blur tool start-------------------- */
   const [showBlurInput, setShowBlurInput] = useState(false);
   const [blur, setBlur] = useState(0);
 
@@ -66,17 +64,16 @@ const Icon = ({ textColor }) => {
 
   // dispatch(setNewBlur(newBlur));
 
-  /* ---------------blur tool-------------------- */
+  /* ---------------blur tool end-------------------- */
 
   /* --------------------image crop--------------------------------- */
-  const dispatch = useDispatch();
 
   const handleCropToolClick = () => {
     // Dispatch the setCropping action to enable cropping mode
     dispatch(setCropping(!isCropping));
   };
 
-  /* --------------------textbox-------------------- */
+  /* --------------------textbox start-------------------- */
   const handleTextToolClick = () => {
     // Toggle Textbox activation
     if (isTextboxActive) {
@@ -88,8 +85,8 @@ const Icon = ({ textColor }) => {
         left: 100,
         top: 50,
         width: 200,
-        fontSize: 20,
-        fill: textColor,
+        fontSize: 16,
+        fill: "black",
         editable: true,
         selectable: true,
         placeholder: true,
@@ -100,6 +97,23 @@ const Icon = ({ textColor }) => {
     // Toggle the Textbox state
     setIsTextboxActive(false);
   };
+  /* -------------------text box end---------------- */
+
+  /* -----------------------line start------------- */
+
+  const handleAddLine = () => {
+    // Create a new line here
+    const newLine = new fabric.Line([50, 50, 600, 50], {
+      fill: "black",
+      stroke: "black",
+      strokeWidth: 2,
+    });
+
+    // Dispatch the addLine action with the new line as payload
+    dispatch(addLine(newLine));
+  };
+
+  /* -----------------------line end------------- */
 
   const handleRectangleToolClick = () => {
     dispatch(setRectangleMarqueTool(true));
@@ -119,7 +133,7 @@ const Icon = ({ textColor }) => {
   /* -------------------------------------------- */
   return (
     <>
-      <BsArrowsMove title="Move Tool"></BsArrowsMove>
+      {/* <BsArrowsMove title="Move Tool"></BsArrowsMove> */}
 
       <div className="dropdown dropdown-right">
         <label tabIndex={0} className="">
@@ -136,20 +150,22 @@ const Icon = ({ textColor }) => {
           </li>
         </ul>
       </div>
-      <LuLasso
+      {/* <LuLasso
         onClick={handleMagneticLassoToolClick}
-        title={isLasso ? "Lasso is Working" : "Lasso not Working"}></LuLasso>
-      <PiSelectionAllFill title="Object Selection Tool"></PiSelectionAllFill>
-      <BsCrop
+        title={isLasso ? "Lasso is Working" : "Lasso not Working"}></LuLasso> */}
+      {/* <PiSelectionAllFill title="Object Selection Tool"></PiSelectionAllFill> */}
+      {/* <BsCrop
         onClick={handleCropToolClick}
         title={isCropping ? "Disable Crop Tool" : "Enable Crop Tool"}></BsCrop>
-      <LuFrame title="Frame Tool"></LuFrame>
-      <BsEyedropper title="Eyedropper Tool"></BsEyedropper>
-      <IoMdColorWand title="Color Replacement Tool"></IoMdColorWand>
+      <LuFrame title="Frame Tool"></LuFrame> */}
+      {/* <BsEyedropper title="Eyedropper Tool"></BsEyedropper>
+      <IoMdColorWand title="Color Replacement Tool"></IoMdColorWand> */}
       {/* <LuStamp title="Clone Stamp Tool"></LuStamp> */}
-      <BsEraserFill title="Magic Eraser Tool"></BsEraserFill>
-      <MdGradient title="Gradient Tool"></MdGradient>
-      <PiPenNibBold title="Pen Tool" onClick={handlePenToolClick}></PiPenNibBold>
+      {/* <BsEraserFill title="Magic Eraser Tool"></BsEraserFill>
+      <MdGradient title="Gradient Tool"></MdGradient> */}
+      <PiPenNibBold
+        title="Pen Tool"
+        onClick={handlePenToolClick}></PiPenNibBold>
       <div className="dropdown dropdown-right">
         <label tabIndex={0} className="">
           <RiBlurOffLine title="Blur Tool" onClick={handleBlurButtonClick} />
@@ -173,12 +189,13 @@ const Icon = ({ textColor }) => {
           </div>
         )}
       </div>
-      <SlMagnifier title="Dodge Tool"></SlMagnifier>
+      {/* <SlMagnifier title="Dodge Tool"></SlMagnifier> */}
       <BiText
         title={isTextboxActive ? "Disable Text Tool" : "Enable Text Tool"}
         onClick={handleTextToolClick}></BiText>
-      <TbZoomReplace title="Zoom Tool"></TbZoomReplace>
-      <BiDotsHorizontalRounded title="Edit Toolbar"></BiDotsHorizontalRounded>
+      {/* <TbZoomReplace title="Zoom Tool"></TbZoomReplace> */}
+      {/* <BiDotsHorizontalRounded title="Edit Toolbar"></BiDotsHorizontalRounded> */}
+      <BsLine onClick={handleAddLine} title="Line Tool"></BsLine>
     </>
   );
 };

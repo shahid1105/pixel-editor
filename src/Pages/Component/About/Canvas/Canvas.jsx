@@ -200,35 +200,40 @@ const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix
   /* ---------------------blur code end---------------- */
 
   /* -----------------rotate------------------------ */
-  const rightRotateImage = () => {
-    if (fabricCanvas) {
-      const activeObject = fabricCanvas.getActiveObject();
+  useEffect(() => {
+    if (rightRotate) {
+      if (fabricCanvas) {
+        const activeObject = fabricCanvas.getActiveObject();
 
-      if (activeObject) {
-        activeObject.set({
-          originX: "center",
-          originY: "center",
-          angle: activeObject.angle + 90,
-        });
-        fabricCanvas.requestRenderAll();
+        if (activeObject) {
+          activeObject.set({
+            originX: "center",
+            originY: "center",
+            angle: activeObject.angle + 30,
+          });
+          fabricCanvas.requestRenderAll();
+        }
       }
     }
-  };
+    setRightRotate(false);
+  }, [rightRotate]);
+useEffect(() => {
+    if (leftRotate) {
+      if (fabricCanvas) {
+        const activeObject = fabricCanvas.getActiveObject();
 
-  const leftRotateImage = () => {
-    if (fabricCanvas) {
-      const activeObject = fabricCanvas.getActiveObject();
-
-      if (activeObject) {
-        activeObject.set({
-          originX: "center",
-          originY: "center",
-          angle: activeObject.angle - 90,
-        });
-        fabricCanvas.requestRenderAll();
+        if (activeObject) {
+          activeObject.set({
+            originX: "center",
+            originY: "center",
+            angle: activeObject.angle - 30,
+          });
+          fabricCanvas.requestRenderAll();
+        }
       }
     }
-  };
+    setLeftRotate(false);
+  }, [leftRotate]);
   /* -----------------Code of Canvas------------------------ */
   const [penTool, setPenTool] = useState(false);
 
