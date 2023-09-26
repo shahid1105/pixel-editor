@@ -10,6 +10,7 @@ import circleToolReducer from "./CircleToolReducer";
 import penToolReducer from "./PenToolReducer";
 import blurReducer from "./Blur";
 import colorReducer from "./Color";
+import lineReducer from "./Line";
 
 
 
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
     colorReducer: colorReducer,
     canvasReducer: canvasReducer,
     blurReducer: blurReducer,
+    lineReducer: lineReducer,
 
 });
 
