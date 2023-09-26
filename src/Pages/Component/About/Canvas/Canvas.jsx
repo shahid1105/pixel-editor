@@ -8,11 +8,17 @@ import TextTool from "./textTool";
 
 import { setRectangleMarqueTool } from "../../../../Redux/RectangleMarqueToolReducer";
 import { setCircleTool } from "../../../../Redux/CircleToolReducer";
+import { MdEditNotifications } from "react-icons/md";
 
 /* -----------for commit-------------------- */
 
 const Canvas = ({
+  setResize,
+  resize,
+  newColor,
+  setLeftRotate,
   leftRotate,
+  setRightRotate,
   rightRotate,
   textSize,
   setTextDecoration,
@@ -28,7 +34,6 @@ const Canvas = ({
   setDeleteElement,
   penColor,
   textColor,
-  setPenColor,
   penWidth,
   isBringFront,
   setBringFront,
@@ -42,6 +47,10 @@ const Canvas = ({
   setDownload,
 }) => {
   const dispatch = useDispatch();
+
+  /* -------------line--------------- */
+  const AddLines = useSelector((state) => state.lineReducer.lines);
+
   /* ----------------for blur------------- */
   const isBlur = useSelector((state) => state.blurReducer.blur);
   // console.log(isBlur);
@@ -173,7 +182,7 @@ const Canvas = ({
           brightness: newBrightness,
         });
         activeObject.filters = [brightnessFilter];
-        activeObject.applyFilters();
+        activeObject?.applyFilters();
         fabricCanvas.requestRenderAll();
       }
     }
@@ -190,7 +199,7 @@ const Canvas = ({
           contrast: newContrast,
         });
         activeObject.filters = [contrastFilter];
-        activeObject.applyFilters();
+        activeObject?.applyFilters();
         fabricCanvas.renderAll();
       }
     }
@@ -207,7 +216,7 @@ const Canvas = ({
           matrix: updatedMatrix,
         });
         activeObject.filters = [colorMatrixFilter];
-        activeObject.applyFilters();
+        activeObject?.applyFilters();
         fabricCanvas.requestRenderAll();
       }
     }
@@ -224,7 +233,7 @@ const Canvas = ({
           rotation: newRotation,
         });
         activeObject.filters = [hueRotationFilter];
-        activeObject.applyFilters();
+        activeObject?.applyFilters();
         fabricCanvas.requestRenderAll();
       }
     }
@@ -241,7 +250,7 @@ const Canvas = ({
           saturation: newSaturation,
         });
         activeObject.filters = [saturationFilter];
-        activeObject.applyFilters();
+        activeObject?.applyFilters();
         fabricCanvas.requestRenderAll();
       }
     }
@@ -260,7 +269,7 @@ const Canvas = ({
           blur: newIsBlur,
         });
         activeObject.filters = [blurFilter];
-        activeObject.applyFilters();
+        activeObject?.applyFilters();
         fabricCanvas.requestRenderAll();
       }
     }
@@ -269,6 +278,25 @@ const Canvas = ({
   /* ---------------------blur code end---------------- */
 
   /* -----------------rotate------------------------ */
+
+  useEffect(() => {
+    if (rightRotate) {
+      if (fabricCanvas) {
+        const activeObject = fabricCanvas.getActiveObject();
+
+        if (activeObject) {
+          activeObject.set({
+            originX: "center",
+            originY: "center",
+            angle: activeObject.angle + 30,
+          });
+          fabricCanvas.requestRenderAll();
+        }
+      }
+    }
+    setRightRotate(false);
+  }, [rightRotate]);
+
   useEffect(() => {
     if (leftRotate) {
       if (fabricCanvas) {
@@ -284,24 +312,8 @@ const Canvas = ({
         }
       }
     }
+    setLeftRotate(false);
   }, [leftRotate]);
-
-  useEffect(() => {
-    if (rightRotate) {
-      if (fabricCanvas) {
-        const activeObject = fabricCanvas.getActiveObject();
-
-        if (activeObject) {
-          activeObject.set({
-            originX: "center",
-            originY: "center",
-            angle: activeObject.angle - 30,
-          });
-          fabricCanvas.requestRenderAll();
-        }
-      }
-    }
-  }, [rightRotate]);
 
   // const rightRotate = () => {
   //   if (fabricCanvas) {
@@ -621,21 +633,25 @@ const Canvas = ({
       downloadLink.download = fileName;
       downloadLink.click();
     }
+    setDownload(false);
   }, [isDownload]);
 
-  /* ---------------------------------------------- */
+  /* ----------------------resize start------------------------ */
 
-  const resizeObject = () => {
-    if (fabricCanvas) {
-      const activeObject = fabricCanvas.getActiveObject();
-      if (activeObject) {
-        // Adjust the size here, for example, doubling the width and height
-        activeObject.scaleX *= 2;
-        activeObject.scaleY *= 2;
-        fabricCanvas.renderAll();
+  useEffect(() => {
+    if (resize) {
+      if (fabricCanvas) {
+        const activeObject = fabricCanvas.getActiveObject();
+        if (activeObject) {
+          activeObject.scaleX *= 2;
+          activeObject.scaleY *= 2;
+          fabricCanvas.renderAll();
+        }
       }
     }
-  };
+    setResize(false);
+  }, [resize]);
+
   /* ----------------handle color change start----------- */
 
   useEffect(() => {
@@ -648,18 +664,48 @@ const Canvas = ({
     }
   }, [selectedColor, fabricCanvas]);
 
-  // Handle selection change to update the color picker based on selected objects
-  // const handleSelectionChange = () => {
-  //   if (fabricCanvas) {
-  //     const selectedObjects = fabricCanvas.getActiveObjects();
-  //     if (selectedObjects.length > 0) {
-  //       // Get the fill color of the first selected object
-  //       const firstSelectedObject = selectedObjects[0];
-  //       setSelectedColor(firstSelectedObject.get("fill"));
-  //     }
-  //   }
-  // };
   /* ----------------handle color change end----------- */
+
+  /* ------------------------add line start---------------------- */
+  const [lines, setLines] = useState([]);
+  const [selectedLine, setSelectedLine] = useState(null);
+
+  useEffect(() => {
+    if (selectedLine) {
+      selectedLine.set({
+        fill: newColor,
+        stroke: newColor,
+      });
+      fabricCanvas.renderAll();
+    }
+  }, [newColor]);
+
+  const addLineToCanvas = (line) => {
+    if (!fabricCanvas) return;
+    fabricCanvas.add(line);
+    setLines([...lines, line]);
+
+    line.on("selected", () => {
+      setSelectedLine(line);
+    });
+
+    line.on("mousedown", function () {
+      setShowDiv(false);
+    });
+    line.on("mousedown", function () {
+      setTextDecoration(false);
+    });
+
+    fabricCanvas.renderAll();
+  };
+
+  useEffect(() => {
+    AddLines.forEach((line) => {
+      addLineToCanvas(line);
+    });
+  }, [AddLines]);
+
+  /* ------------------------add line end---------------------- */
 
   return (
     <div className="container mx-auto bg-gray-200 h-[100%] text-purple-700">
@@ -671,11 +717,9 @@ const Canvas = ({
 
         <div className="mt-10 pt-2">
           {/* --------------------------------------------------- */}
+
           {/* <button onClick={rightRotate}>Right</button>
           <button onClick={leftRotate}>Left</button> */}
-          {/* <button className="btn btn-secondary" onClick={resizeObject}>
-            Resize Object
-          </button> */}
         </div>
       </div>
     </div>
