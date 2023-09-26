@@ -45,7 +45,7 @@ const About = () => {
             </div>
             <div className="card-body mt-6">
               <h2 className="">Al Tahmid</h2>
-              <p className="text-xs">Frontend Developer</p>
+              <p className="text-xs">MernStack Developer</p>
             </div>
           </div>
           <div className="card w-auto glass">
@@ -56,7 +56,7 @@ const About = () => {
             </div>
             <div className="card-body mt-6">
               <h2 className="">Shahid Hasan </h2>
-              <p className="text-xs">Frontend Developer</p>
+              <p className="text-xs">Backend Developer</p>
             </div>
           </div>
         </div>
