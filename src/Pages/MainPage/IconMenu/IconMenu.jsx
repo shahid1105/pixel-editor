@@ -1,7 +1,7 @@
 import { SketchPicker } from "react-color";
 import { useRef, useState } from "react";
 import Icon from "./Icon";
-import { FaCopy, FaDownload, FaHome, FaPaste } from "react-icons/fa";
+import { FaArrowCircleLeft, FaArrowCircleRight, FaCopy, FaDownload, FaHome, FaPaste } from "react-icons/fa";
 import { FaPaintBrush } from "react-icons/fa";
 import {
   BsChevronDoubleLeft,
@@ -136,7 +136,7 @@ const IconMenu = () => {
     dispatch(setColor(textColor));
   };
 
-  const [columns, setColumns] = useState(2);
+  const [columns, setColumns] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
@@ -496,11 +496,11 @@ const IconMenu = () => {
       break;
     default:
       content = (
-        <div className="flex justify-between gap-2 ">
-          <p className="flex items-center mr-5">Default:</p>
+        <div className="grid grid-cols-2 md:grid-cols-5 items-center  justify-between gap-2 ">
+          <p className=" mr-1 hidden md:block">Default:</p>
           <p className="flex items-center font-bold mr-2">
             {" "}
-            Others Object Color:
+            Color:
           </p>
           <div className="mr-10">
             <input
@@ -526,9 +526,9 @@ const IconMenu = () => {
     <div className="">
       <div className="navbar grid grid-cols-1 md:grid-cols-2 bg-white text-black border-b-2">
         <div className="flex ">
-          <div className="ml-5 flex items-center gap-2">
+          <div className="ml-5  flex items-center gap-2">
             <Link to="/home">
-              <FaHome></FaHome>
+              <FaHome className="mx-3"></FaHome>
             </Link>
 
             {content}
