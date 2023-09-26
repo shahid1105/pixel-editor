@@ -44,6 +44,7 @@ const Canvas = ({
   isPaste,
   setPaste,
   isDownload,
+  setDownload,
 }) => {
   const dispatch = useDispatch();
 
@@ -632,6 +633,7 @@ const Canvas = ({
       downloadLink.download = fileName;
       downloadLink.click();
     }
+    setDownload(false);
   }, [isDownload]);
 
   /* ----------------------resize start------------------------ */
