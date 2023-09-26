@@ -1,7 +1,7 @@
 import { SketchPicker } from "react-color";
 import { useRef, useState } from "react";
 import Icon from "./Icon";
-import { FaCopy, FaDownload, FaHome, FaPaste } from "react-icons/fa";
+import { FaArrowCircleLeft, FaArrowCircleRight, FaCopy, FaDownload, FaHome, FaPaste } from "react-icons/fa";
 import { FaPaintBrush } from "react-icons/fa";
 import {
   BsChevronDoubleLeft,
