@@ -99,10 +99,10 @@ const router = createBrowserRouter([
         path: "/api",
         element: <Api></Api>,
       },
-      {
-        path: "feedback",
-        element: <Feedback></Feedback>,
-      },
+      // {
+      //   path: "feedback",
+      //   element: <Feedback></Feedback>,
+      // },
     ],
   },
   {
