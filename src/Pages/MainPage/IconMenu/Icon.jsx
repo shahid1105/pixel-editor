@@ -43,6 +43,9 @@ const Icon = () => {
   const isCropping = useSelector((state) => state.cropReducer.isCropping);
   const isLasso = useSelector((state) => state.magneticLasso.isLasso);
   const [isTextboxActive, setIsTextboxActive] = useState(false);
+  const isPenToolClick = useSelector(
+    (state) => state.penToolReducer.isPenToolClick
+  );
 
   /* ----------------------------------------------------- */
   /* ---------------blur tool start-------------------- */
@@ -130,7 +133,7 @@ const Icon = () => {
   /* -------------------------------------------- */
   return (
     <>
-      <BsArrowsMove title="Move Tool"></BsArrowsMove>
+      {/* <BsArrowsMove title="Move Tool"></BsArrowsMove> */}
 
       <div className="dropdown dropdown-right">
         <label tabIndex={0} className="">
@@ -147,19 +150,19 @@ const Icon = () => {
           </li>
         </ul>
       </div>
-      <LuLasso
+      {/* <LuLasso
         onClick={handleMagneticLassoToolClick}
-        title={isLasso ? "Lasso is Working" : "Lasso not Working"}></LuLasso>
-      <PiSelectionAllFill title="Object Selection Tool"></PiSelectionAllFill>
-      <BsCrop
+        title={isLasso ? "Lasso is Working" : "Lasso not Working"}></LuLasso> */}
+      {/* <PiSelectionAllFill title="Object Selection Tool"></PiSelectionAllFill> */}
+      {/* <BsCrop
         onClick={handleCropToolClick}
         title={isCropping ? "Disable Crop Tool" : "Enable Crop Tool"}></BsCrop>
-      <LuFrame title="Frame Tool"></LuFrame>
-      <BsEyedropper title="Eyedropper Tool"></BsEyedropper>
-      <IoMdColorWand title="Color Replacement Tool"></IoMdColorWand>
+      <LuFrame title="Frame Tool"></LuFrame> */}
+      {/* <BsEyedropper title="Eyedropper Tool"></BsEyedropper>
+      <IoMdColorWand title="Color Replacement Tool"></IoMdColorWand> */}
       {/* <LuStamp title="Clone Stamp Tool"></LuStamp> */}
-      <BsEraserFill title="Magic Eraser Tool"></BsEraserFill>
-      <MdGradient title="Gradient Tool"></MdGradient>
+      {/* <BsEraserFill title="Magic Eraser Tool"></BsEraserFill>
+      <MdGradient title="Gradient Tool"></MdGradient> */}
       <PiPenNibBold
         title="Pen Tool"
         onClick={handlePenToolClick}></PiPenNibBold>
@@ -186,12 +189,12 @@ const Icon = () => {
           </div>
         )}
       </div>
-      <SlMagnifier title="Dodge Tool"></SlMagnifier>
+      {/* <SlMagnifier title="Dodge Tool"></SlMagnifier> */}
       <BiText
         title={isTextboxActive ? "Disable Text Tool" : "Enable Text Tool"}
         onClick={handleTextToolClick}></BiText>
-      <TbZoomReplace title="Zoom Tool"></TbZoomReplace>
-      <BiDotsHorizontalRounded title="Edit Toolbar"></BiDotsHorizontalRounded>
+      {/* <TbZoomReplace title="Zoom Tool"></TbZoomReplace> */}
+      {/* <BiDotsHorizontalRounded title="Edit Toolbar"></BiDotsHorizontalRounded> */}
       <BsLine onClick={handleAddLine} title="Line Tool"></BsLine>
     </>
   );
