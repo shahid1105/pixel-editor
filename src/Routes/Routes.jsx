@@ -11,7 +11,6 @@ import Login from "../Login-Registration/Login";
 import IconMenu from "../Pages/MainPage/IconMenu/IconMenu";
 import About from "../Pages/Component/About/About";
 import SideMenu from "../Pages/SideMenu/SideMenu";
-import Canvas from "../Pages/Component/About/Canvas/Canvas";
 import App from "../App";
 import Dashboard from "../Layout/Dashboard";
 import ManageUsers from "../Pages/Dashboard/ManageUsers";
@@ -21,10 +20,7 @@ import DemoCanvas from "../Pages/Component/About/Canvas/DemoCanvas";
 import Learn from "../Pages/NavRight/Learn";
 import Blog from "../Pages/NavRight/Blog";
 import Api from "../Pages/NavRight/Api";
-import CanvasWithDeleteFunctionality from "../Pages/Component/About/Canvas/DemoCanvas";
-
-
-// import { Canvas } from "fabric/fabric-impl";
+import BlogContent from "../Pages/NavRight/BlogContent";
 
 const router = createBrowserRouter([
   {
@@ -45,7 +41,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/canvas",
-        element: <DemoCanvas></DemoCanvas>
+        element: <DemoCanvas></DemoCanvas>,
       },
       {
         path: "/dropbox",
@@ -89,15 +85,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/learn",
-        element: <Learn></Learn>
+        element: <Learn></Learn>,
       },
       {
         path: "/blog",
-        element: <Blog></Blog>
+        element: <Blog></Blog>,
+      },
+      {
+        path: "/blog/:id",
+        element: <BlogContent></BlogContent>,
       },
       {
         path: "/api",
-        element: <Api></Api>
+        element: <Api></Api>,
       },
       {
         path: "feedback",
