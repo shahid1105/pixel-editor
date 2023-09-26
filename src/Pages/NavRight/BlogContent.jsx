@@ -6,9 +6,19 @@ const BlogContent = () => {
   const { id } = useParams();
   // console.log(id)
   const [blogs, setBlogs] = useState({});
-  const { Introduction, tools, date, title, subtitle, image, image1, photopia, pixelEditor} = blogs;
+  const {
+    Introduction,
+    tools,
+    date,
+    title,
+    subtitle,
+    image,
+    image1,
+    photopia,
+    pixelEditor,
+  } = blogs;
   useEffect(() => {
-    fetch(`http://localhost:5000/blog/${id}`)
+    fetch(`https://pixel-editor-server-shahid1105.vercel.app/blog/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setBlogs(data);
@@ -30,11 +40,15 @@ const BlogContent = () => {
         <img className="md:mx-10 md:my-10 my-3" src={image1} alt="" />
         <h3>{Introduction}</h3>
         <div>
-        {tools && 
-        tools.map((t) => <>
-        <h3 className="text-xl font-semibold list-item" key={t.icon}>{t.icon}</h3>
-        <h3 key={t.function}>{t.function}</h3>
-        </>)}
+          {tools &&
+            tools.map((t) => (
+              <>
+                <h3 className="text-xl font-semibold list-item" key={t.icon}>
+                  {t.icon}
+                </h3>
+                <h3 key={t.function}>{t.function}</h3>
+              </>
+            ))}
         </div>
       </div>
     </>

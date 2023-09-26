@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import Swal from "sweetalert2";
 import GoogleLogin from "./GoogleLogin";
@@ -8,6 +8,7 @@ import { AuthContext } from "../Pages/Providers/AuthProvider";
 const Login = () => {
   const { signIn } = useContext(AuthContext);
   const { register, handleSubmit, reset } = useForm();
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
     console.log(data);
@@ -24,7 +25,7 @@ const Login = () => {
             popup: "animate__animated animate__fadeOutUp",
           },
         });
-
+        navigate("/home");
         console.log(user);
       })
       .catch((error) => {

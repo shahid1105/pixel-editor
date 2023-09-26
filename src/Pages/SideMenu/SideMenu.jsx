@@ -30,14 +30,14 @@ const SideMenu = () => {
         {user ? (
           <div className="flex md:flex-col justify-center items-center ">
             <div>
-            <div className="avatar mr-6">
-              <div className="w-10 h-10 rounded-full border-black border-2">
-                <img src={user.photoURL} />
+              <div className="avatar">
+                <div className="w-10 h-10 rounded-full border-black border-2">
+                  <img src={user.photoURL} />
+                </div>
               </div>
             </div>
-            </div>
             <div>
-            <p className="px-2">{user.displayName}</p>
+              <p className="px-2">{user.displayName}</p>
             </div>
           </div>
         ) : (
@@ -89,8 +89,7 @@ const SideMenu = () => {
             {isOpen && (
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-              >
+                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                 {sideMenuOption}
               </ul>
             )}
