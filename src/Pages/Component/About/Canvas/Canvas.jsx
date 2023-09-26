@@ -1,3 +1,4 @@
+import './Canvas.css'
 import React from "react";
 import { fabric } from "fabric";
 import { useEffect, useRef, useState } from "react";
@@ -228,7 +229,7 @@ const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix
       }
     }
   };
-  /* ----------------------------------------- */
+  /* -----------------Code of Canvas------------------------ */
   const [penTool, setPenTool] = useState(false);
 
   useEffect(() => {
@@ -267,6 +268,19 @@ const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix
 
       canvas.requestRenderAll();
     });
+
+    
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      // Additional canvas drawing code here
+  }
+  
+  // Initial resize
+  resizeCanvas();
+  
+  // Listen for window resize events
+  window.addEventListener('resize', resizeCanvas);
 
     return () => {
       canvas.dispose();
@@ -538,6 +552,7 @@ const Canvas = ({ selectedCanvasColor, setShowDiv,contras,brightness,colorMatrix
     downloadLink.href = pngData;
     downloadLink.download = fileName;
     downloadLink.click();
+    setDownload(false);
     }
   },[isDownload])
 

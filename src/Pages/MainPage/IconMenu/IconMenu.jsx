@@ -385,7 +385,7 @@ const IconMenu = () => {
       content = <div>Option 3 </div>;
       break;
     default:
-      content = <div>Default</div>;
+      content = <div></div>;
   }
 
   return (
