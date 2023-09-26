@@ -1,5 +1,5 @@
 import { SketchPicker } from "react-color";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Icon from "./Icon";
 import {
   FaArrowCircleLeft,
@@ -23,6 +23,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { setColor } from "../../../Redux/Color";
 import { setPenTool } from "../../../Redux/PenToolReducer";
 import "./IconMenu.css";
+import { GiResize } from "react-icons/gi";
+import { TbResize } from "react-icons/tb";
+import { IoMdResize } from "react-icons/io";
 
 // import LightRuler from "light-ruler";
 
@@ -42,8 +45,6 @@ const IconMenu = () => {
   const [isCopy, setCopy] = useState(false);
   const [isPaste, setPaste] = useState(false);
   const [isDownload, setDownload] = useState(false);
-
-  const [isDisabled, setIsDisabled] = useState(false);
 
   /* ----------------all filter items -------------------- */
   /* ------------------brightness------------------- */
@@ -207,15 +208,31 @@ const IconMenu = () => {
   const [rightRotate, setRightRotate] = useState(false);
   const [leftRotate, setLeftRotate] = useState(false);
 
-  const rightRotateObj = () => {
-    setRightRotate(true);
-  };
+  // const rightRotateObj = () => {
+  //   setRightRotate(true);
+  // };
 
-  const leftRotateObj = () => {
-    setLeftRotate(true);
-  };
+  // const leftRotateObj = () => {
+  //   setLeftRotate(true);
+  // };
 
   /* ----------------handle rotate end------------ */
+
+  /* -----------------add line color picker start--------------- */
+  const colorPickerRef = useRef(null);
+  const [newColor, setNewColor] = useState("black");
+
+  const changeLineColor = (newColor) => {
+    setNewColor(newColor);
+  };
+  /* -----------------add line color picker end--------------- */
+
+  /* -----------------obj resize start --------------- */
+  const [resize, setResize] = useState(false);
+  // const resizeObject = () => {
+  //   setResize(true);
+  // };
+  /* -----------------obj resize end --------------- */
 
   var content;
 
@@ -474,15 +491,6 @@ const IconMenu = () => {
                   </span>
                 </button>
               </div>
-              {/* <p className="flex items-center font-bold mr-2">Rotate:</p>
-              <div className="flex items-center">
-                <button className="font-bold text-2xl mr-2">
-                  <FaArrowCircleRight></FaArrowCircleRight>
-                </button>
-                <button className="font-bold text-2xl">
-                  <FaArrowCircleLeft></FaArrowCircleLeft>
-                </button>
-              </div> */}
             </>
           ) : (
             <></>
@@ -494,7 +502,10 @@ const IconMenu = () => {
       content = (
         <div className="flex justify-between gap-2 ">
           <p className="flex items-center mr-5">Default:</p>
-          <p className="flex items-center font-bold mr-2">Color:</p>
+          <p className="flex items-center font-bold mr-2">
+            {" "}
+            Others Object Color:
+          </p>
           <div className="mr-10">
             <input
               id="colorA"
@@ -505,23 +516,12 @@ const IconMenu = () => {
               }}
             />
           </div>
-          {/* <p className="flex items-center font-bold mr-2">Rotate:</p>
-          <div className="flex items-center">
-            <button
-              onClick={() => {
-                rightRotateObj(true);
-              }}
-              className="font-bold text-2xl mr-2">
-              <FaArrowCircleRight></FaArrowCircleRight>
-            </button>
-            <button
-              onClick={() => {
-                leftRotateObj(true);
-              }}
-              className="font-bold text-2xl">
-              <FaArrowCircleLeft></FaArrowCircleLeft>
-            </button>
-          </div> */}
+          <p className="flex items-center font-bold mr-2">Line Color:</p>
+          <input
+            type="color"
+            ref={colorPickerRef}
+            onChange={(e) => changeLineColor(e.target.value)}
+          />
         </div>
       );
   }
@@ -541,7 +541,32 @@ const IconMenu = () => {
 
         <div className="navbar-end lg:flex">
           <ul className="menu menu-horizontal px-1">
-            <div className="flex items-center">
+            <div className="flex items-center md:gap-2 lg:gap-3">
+              <div className="flex items-center gap-1">
+                <p className="font-bold">Rotate:</p>
+                <button
+                  onClick={() => {
+                    setRightRotate(true);
+                  }}
+                  className="font-bold text-xl mr-2">
+                  <FaArrowCircleRight></FaArrowCircleRight>
+                </button>
+                <button
+                  onClick={() => {
+                    setLeftRotate(true);
+                  }}
+                  className="font-bold text-xl">
+                  <FaArrowCircleLeft></FaArrowCircleLeft>
+                </button>
+              </div>
+              <div>
+                <p
+                  onClick={() => setResize(true)}
+                  title="Object double size"
+                  className="btn btn-sm m-1">
+                  <IoMdResize></IoMdResize>
+                </p>
+              </div>
               <div className="dropdown dropdown-hover">
                 <label tabIndex={0} className="btn btn-sm m-1">
                   <FaCopy></FaCopy>
@@ -635,7 +660,12 @@ const IconMenu = () => {
         <div className="md:col-span-9 h-screen bg-gray-300 ">
           {/* <ImageEditor></ImageEditor> */}
           <Canvas
+            resize={resize}
+            setResize={setResize}
+            newColor={newColor}
+            setLeftRotate={setLeftRotate}
             leftRotate={leftRotate}
+            setRightRotate={setRightRotate}
             rightRotate={rightRotate}
             textSize={textSize}
             setTextDecoration={setTextDecoration}
