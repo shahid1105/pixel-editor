@@ -1,14 +1,7 @@
 import { SketchPicker } from "react-color";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Icon from "./Icon";
-import {
-  FaArrowCircleLeft,
-  FaArrowCircleRight,
-  FaCopy,
-  FaDownload,
-  FaHome,
-  FaPaste,
-} from "react-icons/fa";
+import { FaArrowCircleLeft, FaArrowCircleRight, FaCopy, FaDownload, FaHome, FaPaste } from "react-icons/fa";
 import { FaPaintBrush } from "react-icons/fa";
 import {
   BsChevronDoubleLeft,
@@ -23,6 +16,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { setColor } from "../../../Redux/Color";
 import { setPenTool } from "../../../Redux/PenToolReducer";
 import "./IconMenu.css";
+import { GiResize } from "react-icons/gi";
+import { TbResize } from "react-icons/tb";
+import { IoMdResize } from "react-icons/io";
 
 // import LightRuler from "light-ruler";
 
@@ -42,8 +38,6 @@ const IconMenu = () => {
   const [isCopy, setCopy] = useState(false);
   const [isPaste, setPaste] = useState(false);
   const [isDownload, setDownload] = useState(false);
-
-  const [isDisabled, setIsDisabled] = useState(false);
 
   /* ----------------all filter items -------------------- */
   /* ------------------brightness------------------- */
@@ -142,7 +136,7 @@ const IconMenu = () => {
     dispatch(setColor(textColor));
   };
 
-  const [columns, setColumns] = useState(2);
+  const [columns, setColumns] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
@@ -175,18 +169,6 @@ const IconMenu = () => {
     setIsDragging(false);
   };
 
-  //   const ruler = new LightRuler({
-  //     mode: "infinite",
-  //     mountRef: rulerRef.current,
-  //     scrollElement: document.getElementById("wrap"),
-  //     rulerId: "ruler",
-  //     width: 30000,
-  //     height: 30000,
-  //     onScroll: (x, y) => {
-  //         console.log(x, y);
-  //     },
-  // });
-
   /* ------------handle text size start---------------- */
 
   const [textSize, setTextSize] = useState(16);
@@ -207,15 +189,31 @@ const IconMenu = () => {
   const [rightRotate, setRightRotate] = useState(false);
   const [leftRotate, setLeftRotate] = useState(false);
 
-  const rightRotateObj = () => {
-    setRightRotate(true);
-  };
+  // const rightRotateObj = () => {
+  //   setRightRotate(true);
+  // };
 
-  const leftRotateObj = () => {
-    setLeftRotate(true);
-  };
+  // const leftRotateObj = () => {
+  //   setLeftRotate(true);
+  // };
 
   /* ----------------handle rotate end------------ */
+
+  /* -----------------add line color picker start--------------- */
+  const colorPickerRef = useRef(null);
+  const [newColor, setNewColor] = useState("black");
+
+  const changeLineColor = (newColor) => {
+    setNewColor(newColor);
+  };
+  /* -----------------add line color picker end--------------- */
+
+  /* -----------------obj resize start --------------- */
+  const [resize, setResize] = useState(false);
+  // const resizeObject = () => {
+  //   setResize(true);
+  // };
+  /* -----------------obj resize end --------------- */
 
   var content;
 
@@ -245,7 +243,8 @@ const IconMenu = () => {
           />
           <button
             className="btn btn-xs btn-outline btn-warning"
-            onClick={() => dispatch(setPenTool(false))}>
+            onClick={() => dispatch(setPenTool(false))}
+          >
             Disable PenTool
           </button>
         </div>
@@ -260,7 +259,8 @@ const IconMenu = () => {
                 <>
                   <button
                     className="btn btn-xs btn-outline"
-                    onClick={handleToggleColorMatrixControl}>
+                    onClick={handleToggleColorMatrixControl}
+                  >
                     ColorMatrix
                   </button>
                   {isColorMatrixControlVisible && (
@@ -285,18 +285,18 @@ const IconMenu = () => {
                 </>
               ) : (
                 <>
-                  {/* <div className="flex gap-4"> */}
                   <div className="grid grid-cols-2 md:grid-cols-5 gap-2 px-2">
                     <button
                       className="btn btn-xs btn-outline"
-                      onClick={handleToggleRangeInput}>
+                      onClick={handleToggleRangeInput}
+                    >
                       Brightness
                     </button>
                     {showRangeInput && (
                       <>
                         <div className="flex gap-1 items-center">
                           <input
-                          className="w-full md:w-[80%]"
+                            className="w-full md:w-[80%]"
                             type="range"
                             min={-1}
                             max={1}
@@ -311,14 +311,15 @@ const IconMenu = () => {
 
                     <button
                       className="btn btn-xs btn-outline"
-                      onClick={handleToggleContrastRangeInput}>
+                      onClick={handleToggleContrastRangeInput}
+                    >
                       Contrast
                     </button>
                     {showContrastInput && (
                       <>
                         <div className="flex gap-2 items-center">
                           <input
-                          className="w-full md:w-[80%]"
+                            className="w-full md:w-[80%]"
                             type="range"
                             min={-1}
                             max={1}
@@ -333,14 +334,15 @@ const IconMenu = () => {
 
                     <button
                       className="btn btn-xs btn-outline"
-                      onClick={handleToggleHueRotationInput}>
+                      onClick={handleToggleHueRotationInput}
+                    >
                       Hue_Rotation
                     </button>
                     {showHueRotationInput && (
                       <>
                         <div className="flex gap-2 items-center">
                           <input
-                          className="w-full md:w-[80%]"
+                            className="w-full md:w-[80%]"
                             type="range"
                             min={-1}
                             max={1}
@@ -355,14 +357,15 @@ const IconMenu = () => {
 
                     <button
                       className="btn btn-xs btn-outline"
-                      onClick={handleToggleSaturationInput}>
+                      onClick={handleToggleSaturationInput}
+                    >
                       Saturation
                     </button>
                     {showSaturationInput && (
                       <>
                         <div className="flex gap-2 items-center">
                           <input
-                          className="w-full md:w-[80%]"
+                            className="w-full md:w-[80%]"
                             type="range"
                             min={0}
                             max={2}
@@ -376,7 +379,8 @@ const IconMenu = () => {
                     )}
                     <button
                       className="btn btn-xs btn-outline"
-                      onClick={handleToggleColorMatrixControl}>
+                      onClick={handleToggleColorMatrixControl}
+                    >
                       ColorMatrix
                     </button>
                     {isColorMatrixControlVisible && (
@@ -437,19 +441,20 @@ const IconMenu = () => {
       break;
     case textDecoration:
       content = (
-        <div className="flex justify-between gap-2 ">
+        <div className="flex justify-between gap-2 ml-6 md:ml-0">
           {textDecoration ? (
             <>
-              <p className="flex items-center mr-5">Text Decoration:</p>
-              <p className="flex items-center font-bold mr-2">Color:</p>
-              <div className="grid grid-cols-1 h-4 w-10 mr-10">
+              <p className="hidden md:block my-auto mr-5">Text Decoration:</p>
+              <p className="my-auto hidden md:block font-bold mr-2">Color:</p>
+              <div className="grid grid-cols-1 h-10 w-10 mr-3 md:mr-10">
                 <label
                   htmlFor="colorA"
-                  className="font-bold text-center text-black">
+                  className="font-bold text-center text-black -mb-1 mt-1"
+                >
                   A
                 </label>
                 <input
-                  className="h-4 w-10"
+                  className="h-3 w-10"
                   id="colorA"
                   type="color"
                   value={selectedColor}
@@ -458,35 +463,30 @@ const IconMenu = () => {
                   }}
                 />
               </div>
-              <p className="flex items-center font-bold mr-2">Text Size:</p>
-              <div className="text-size-controls flex gap-3 mr-10">
+              <p className="hidden md:block my-auto items-center font-bold">
+                Text Size:
+              </p>
+              <div className="text-size-controls flex items-center gap-3 mr-10">
                 <button
-                  className="btn btn-outline btn-error btn-sm"
-                  onClick={decreaseTextSize}>
+                  className="btn btn-outline btn-error btn-xs"
+                  onClick={decreaseTextSize}
+                >
                   <span role="img" aria-label="Decrease Text Size">
                     ➖
                   </span>
                 </button>
-                <div className="text-size font-bold text-lg text-black">
+                <div className="text-size font-bold text-md text-black">
                   {textSize}
                 </div>
                 <button
-                  className="btn btn-outline btn-success btn-sm"
-                  onClick={increaseTextSize}>
+                  className="btn btn-outline btn-success btn-xs"
+                  onClick={increaseTextSize}
+                >
                   <span role="img" aria-label="Increase Text Size">
                     ➕
                   </span>
                 </button>
               </div>
-              {/* <p className="flex items-center font-bold mr-2">Rotate:</p>
-              <div className="flex items-center">
-                <button className="font-bold text-2xl mr-2">
-                  <FaArrowCircleRight></FaArrowCircleRight>
-                </button>
-                <button className="font-bold text-2xl">
-                  <FaArrowCircleLeft></FaArrowCircleLeft>
-                </button>
-              </div> */}
             </>
           ) : (
             <></>
@@ -496,9 +496,12 @@ const IconMenu = () => {
       break;
     default:
       content = (
-        <div className="flex justify-between gap-2 ">
-          <p className="flex items-center mr-5">Default:</p>
-          <p className="flex items-center font-bold mr-2">Color:</p>
+        <div className="grid grid-cols-2 md:grid-cols-5 items-center  justify-between gap-2 ">
+          <p className=" mr-1 hidden md:block">Default:</p>
+          <p className="flex items-center font-bold mr-2">
+            {" "}
+            Color:
+          </p>
           <div className="mr-10">
             <input
               id="colorA"
@@ -509,23 +512,12 @@ const IconMenu = () => {
               }}
             />
           </div>
-          {/* <p className="flex items-center font-bold mr-2">Rotate:</p>
-          <div className="flex items-center">
-            <button
-              onClick={() => {
-                rightRotateObj(true);
-              }}
-              className="font-bold text-2xl mr-2">
-              <FaArrowCircleRight></FaArrowCircleRight>
-            </button>
-            <button
-              onClick={() => {
-                leftRotateObj(true);
-              }}
-              className="font-bold text-2xl">
-              <FaArrowCircleLeft></FaArrowCircleLeft>
-            </button>
-          </div> */}
+          <p className="flex items-center font-bold mr-2">Line Color:</p>
+          <input
+            type="color"
+            ref={colorPickerRef}
+            onChange={(e) => changeLineColor(e.target.value)}
+          />
         </div>
       );
   }
@@ -534,9 +526,9 @@ const IconMenu = () => {
     <div className="">
       <div className="navbar grid grid-cols-1 md:grid-cols-2 bg-white text-black border-b-2">
         <div className="flex ">
-          <div className="ml-5 flex items-center gap-2">
+          <div className="ml-5  flex items-center gap-2">
             <Link to="/home">
-              <FaHome></FaHome>
+              <FaHome className="mx-3"></FaHome>
             </Link>
 
             {content}
@@ -545,19 +537,46 @@ const IconMenu = () => {
 
         <div className="flex justify-center md:justify-end">
           <ul className="menu menu-horizontal px-1">
-            <div className="flex items-center">
+            <div className="flex items-center md:gap-2 lg:gap-3">
+              <div className="flex items-center gap-1">
+                <p className="font-bold">Rotate:</p>
+                <button
+                  onClick={() => {
+                    setRightRotate(true);
+                  }}
+                  className="font-bold text-xl mr-2">
+                  <FaArrowCircleRight></FaArrowCircleRight>
+                </button>
+                <button
+                  onClick={() => {
+                    setLeftRotate(true);
+                  }}
+                  className="font-bold text-xl">
+                  <FaArrowCircleLeft></FaArrowCircleLeft>
+                </button>
+              </div>
+              <div>
+                <p
+                  onClick={() => setResize(true)}
+                  title="Object double size"
+                  className="btn btn-sm m-1">
+                  <IoMdResize></IoMdResize>
+                </p>
+              </div>
               <div className="dropdown dropdown-hover">
                 <label tabIndex={0} className="btn btn-xs m-1">
                   <FaCopy></FaCopy>
                 </label>
                 <ul
                   tabIndex={0}
-                  className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-48">
+                  className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-48"
+                >
                   <li>
                     <p
                       onClick={() => {
                         setCopy(true);
-                      }}>
+                      }}
+                    >
                       <FaCopy></FaCopy> Copy
                     </p>
                   </li>
@@ -565,7 +584,8 @@ const IconMenu = () => {
                     <p
                       onClick={() => {
                         setPaste(true);
-                      }}>
+                      }}
+                    >
                       <FaPaste></FaPaste> Paste
                     </p>
                   </li>
@@ -577,12 +597,14 @@ const IconMenu = () => {
                 </label>
                 <ul
                   tabIndex={0}
-                  className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-48">
+                  className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-48"
+                >
                   <li>
                     <p
                       onClick={() => {
                         setBringFront(true);
-                      }}>
+                      }}
+                    >
                       Being Front
                     </p>
                   </li>
@@ -590,7 +612,8 @@ const IconMenu = () => {
                     <p
                       onClick={() => {
                         setSentToBack(true);
-                      }}>
+                      }}
+                    >
                       Sent To Back
                     </p>
                   </li>
@@ -601,14 +624,16 @@ const IconMenu = () => {
                   className="btn btn-xs"
                   onClick={() => {
                     setDeleteElement(true);
-                  }}>
+                  }}
+                >
                   <MdDelete></MdDelete>
                 </button>
                 <button
                   className="btn btn-xs btn-success"
                   onClick={() => {
                     setDownload(true);
-                  }}>
+                  }}
+                >
                   <FaDownload></FaDownload>
                 </button>
               </div>
@@ -626,10 +651,12 @@ const IconMenu = () => {
           }}
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}>
+          onMouseUp={handleMouseUp}
+        >
           <button
             onClick={toggleColumns}
-            className="text-xs ml-1 border-2 hidden md:block border-gray-300 px-1">
+            className="text-xs ml-1 border-2 hidden md:block border-gray-300 px-1"
+          >
             {columns === 1 ? <BsChevronDoubleLeft /> : <BsChevronDoubleRight />}
           </button>
           <br />
@@ -639,7 +666,12 @@ const IconMenu = () => {
         <div className="md:col-span-9 h-screen bg-gray-300 ">
           {/* <ImageEditor></ImageEditor> */}
           <Canvas
+            resize={resize}
+            setResize={setResize}
+            newColor={newColor}
+            setLeftRotate={setLeftRotate}
             leftRotate={leftRotate}
+            setRightRotate={setRightRotate}
             rightRotate={rightRotate}
             textSize={textSize}
             setTextDecoration={setTextDecoration}
@@ -669,7 +701,8 @@ const IconMenu = () => {
             isPaste={isPaste}
             setPaste={setPaste}
             isDownload={isDownload}
-            setDownload={setDownload}></Canvas>
+            setDownload={setDownload}
+          ></Canvas>
         </div>
         <div className="p-5 col-span-3 mt-20">
           <SketchPicker

@@ -1,7 +1,7 @@
 import React from "react";
 import { FaHome } from "react-icons/fa";
-import {AiOutlineUsergroupAdd} from "react-icons/ai"
-import {MdOutlineFeedback} from "react-icons/md"
+import { AiOutlineUsergroupAdd } from "react-icons/ai";
+import { MdOutlineFeedback } from "react-icons/md";
 import { Link, NavLink, Outlet } from "react-router-dom";
 
 const Dashboard = () => {
@@ -15,8 +15,7 @@ const Dashboard = () => {
 
         <label
           htmlFor="my-drawer-2"
-          className="btn btn-primary drawer-button lg:hidden"
-        >
+          className="btn btn-primary drawer-button lg:hidden">
           Open drawer
         </label>
       </div>
@@ -24,7 +23,6 @@ const Dashboard = () => {
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
 
         <ul className="menu p-4 w-60 text-md h-full  bg-gray-600 text-white">
-
           <li className="text-center ">
             <Link to="/" className="sidebar-link">
               <FaHome className="sidebar-icon" /> Home
@@ -36,17 +34,11 @@ const Dashboard = () => {
               <AiOutlineUsergroupAdd className="sidebar-icon" /> Users
             </Link>
           </li>
-          <li className="text-center ">
+          {/* <li className="text-center ">
             <Link to="/dashboard/report" className="sidebar-link">
               <MdOutlineFeedback className="sidebar-icon" /> Report & Feedback
             </Link>
-          </li>
-
-         
-          
-          
-          
-          
+          </li> */}
         </ul>
         {/* <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
            
