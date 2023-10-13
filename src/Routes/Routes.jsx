@@ -14,7 +14,7 @@ import SideMenu from "../Pages/SideMenu/SideMenu";
 import App from "../App";
 import Dashboard from "../Layout/Dashboard";
 import ManageUsers from "../Pages/Dashboard/ManageUsers";
-import Feedback from "../Pages/SideMenu/Feedback/Feedback";
+// import Feedback from "../Pages/SideMenu/Feedback/Feedback";
 import Report from "../Pages/Dashboard/report";
 import DemoCanvas from "../Pages/Component/About/Canvas/DemoCanvas";
 import Learn from "../Pages/NavRight/Learn";

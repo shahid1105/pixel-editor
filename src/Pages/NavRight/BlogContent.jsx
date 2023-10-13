@@ -18,7 +18,7 @@ const BlogContent = () => {
     pixelEditor,
   } = blogs;
   useEffect(() => {
-    fetch(`https://pixel-editor-server-shahid1105.vercel.app/blog/${id}`)
+    fetch(`https://pixel-editor-server0-shahid1105.vercel.app/blog/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setBlogs(data);

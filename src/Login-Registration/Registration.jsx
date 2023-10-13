@@ -27,7 +27,7 @@ const Registration = () => {
             role: "user",
           };
 
-          fetch(" https://pixel-editor-server-shahid1105.vercel.app/users", {
+          fetch(" https://pixel-editor-server0-shahid1105.vercel.app/users", {
             method: "POST",
             headers: {
               "content-type": "application/json",

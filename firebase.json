@@ -1,6 +1,7 @@
 {
   "hosting": {
     "public": "dist",
+    "site": "pixel-editors",
     "ignore": [
       "firebase.json",
       "**/.*",

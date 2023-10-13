@@ -8,7 +8,7 @@ const ManageUsers = () => {
     queryKey: ["users"],
     queryFn: async () => {
       const res = await axios.get(
-        " https://pixel-editor-server-shahid1105.vercel.app/users"
+        " https://pixel-editor-server0-shahid1105.vercel.app/users"
       );
       return res.data;
     },
@@ -18,7 +18,7 @@ const ManageUsers = () => {
   //make admin
   const handleMakeAdmin = (user) => {
     fetch(
-      ` https://pixel-editor-server-shahid1105.vercel.app/users/${user._id}`,
+      ` https://pixel-editor-server0-shahid1105.vercel.app/users/${user._id}`,
       {
         method: "PATCH",
         headers: {
@@ -56,7 +56,7 @@ const ManageUsers = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         fetch(
-          ` https://pixel-editor-server-shahid1105.vercel.app/users/${user._id}`,
+          ` https://pixel-editor-server0-shahid1105.vercel.app/users/${user._id}`,
           {
             method: "DELETE",
           }
