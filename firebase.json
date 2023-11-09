@@ -1,7 +1,7 @@
 {
   "hosting": {
+    "site": "pixels-editors-app",
     "public": "dist",
-    "site": "pixel-editors",
     "ignore": [
       "firebase.json",
       "**/.*",

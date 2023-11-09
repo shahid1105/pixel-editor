@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
   useEffect(() => {
-    fetch("https://pixel-editor-server0-shahid1105.vercel.app/blog")
+    fetch("/blog")
       .then((res) => res.json())
       .then((data) => setBlogs(data));
   }, []);
