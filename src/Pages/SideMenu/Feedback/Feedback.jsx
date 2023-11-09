@@ -15,7 +15,7 @@
 //       user_name: data.user_name,
 //       user_email: data.user_email,
 //     };
-//     fetch(" https://pixel-editor-d99b7.web.app/feedback", {
+//     fetch(" /feedback", {
 //       method: "POST",
 //       headers: {
 //         "content-type": "application/json",

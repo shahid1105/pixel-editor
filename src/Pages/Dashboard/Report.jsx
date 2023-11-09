@@ -6,9 +6,7 @@ const Report = () => {
   const { data: feedback = [], refetch } = useQuery({
     queryKey: ["feedback"],
     queryFn: async () => {
-      const res = await axios.get(
-        " https://pixel-editor-d99b7.web.app/feedback"
-      );
+      const res = await axios.get(" /feedback");
       return res.data;
     },
   });
