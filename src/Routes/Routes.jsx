@@ -15,12 +15,9 @@ import App from "../App";
 import Dashboard from "../Layout/Dashboard";
 import ManageUsers from "../Pages/Dashboard/ManageUsers";
 // import Feedback from "../Pages/SideMenu/Feedback/Feedback";
-import Report from "../Pages/Dashboard/report";
+// import Report from "../Pages/Dashboard/report";
 import DemoCanvas from "../Pages/Component/About/Canvas/DemoCanvas";
 import Learn from "../Pages/NavRight/Learn";
-import Blog from "../Pages/NavRight/Blog";
-import Api from "../Pages/NavRight/Api";
-import BlogContent from "../Pages/NavRight/BlogContent";
 
 const router = createBrowserRouter([
   {
@@ -79,26 +76,26 @@ const router = createBrowserRouter([
         path: "/login",
         element: <Login></Login>,
       },
-      {
-        path: "chat",
-        element: <App></App>,
-      },
+      // {
+      //   path: "chat",
+      //   element: <App></App>,
+      // },
       {
         path: "/learn",
         element: <Learn></Learn>,
       },
-      {
-        path: "/blog",
-        element: <Blog></Blog>,
-      },
-      {
-        path: "/blog/:id",
-        element: <BlogContent></BlogContent>,
-      },
-      {
-        path: "/api",
-        element: <Api></Api>,
-      },
+      // {
+      //   path: "/blog",
+      //   element: <Blog></Blog>,
+      // },
+      // {
+      //   path: "/blog/:id",
+      //   element: <BlogContent></BlogContent>,
+      // },
+      // {
+      //   path: "/api",
+      //   element: <Api></Api>,
+      // },
       // {
       //   path: "feedback",
       //   element: <Feedback></Feedback>,
@@ -113,10 +110,10 @@ const router = createBrowserRouter([
         path: "manageUsers",
         element: <ManageUsers></ManageUsers>,
       },
-      {
-        path: "report",
-        element: <Report></Report>,
-      },
+      // {
+      //   path: "report",
+      //   element: <Report></Report>,
+      // },
     ],
   },
 ]);
